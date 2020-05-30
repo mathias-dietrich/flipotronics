@@ -15,12 +15,12 @@
 //==============================================================================
 /**
 */
-class NewProjectAudioProcessor  : public AudioProcessor
+class Synth1AudioProcessor  : public AudioProcessor
 {
 public:
     //==============================================================================
-    NewProjectAudioProcessor();
-    ~NewProjectAudioProcessor();
+    Synth1AudioProcessor();
+    ~Synth1AudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -57,5 +57,5 @@ public:
 
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewProjectAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessor)
 };
