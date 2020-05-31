@@ -12,18 +12,40 @@
 #include <stdio.h>
 #include <JuceHeader.h>
 
+#include "Arp.h"
+#include "Voice.h"
+
+// https://docs.juce.com/master/tutorial_synth_using_midi_input.html
+
 class Core {       // The class
   public:             // Access specifier
     Core(){
-        
+        arp = new Arp();
     }
     
     ~Core(){
-        
+        delete arp;
     }
     
-    void handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages);
+    int voiceCount = 1;
+    Voice voices[32] ;
     
+    void handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages,int totalNumInputChannels, int totalNumOutputChannels);
+    
+    void init (double sampleRate, int samplesPerBlock);
+    
+    
+     Arp *arp;
+    
+private:
+
+    double clock = 0;
+    int sampleRate;
+    int samplesPerBlock;
+    double m_frequency = 440;
+
+    
+
 };
 
 #endif /* Core_hpp */
