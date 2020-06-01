@@ -7,6 +7,8 @@
 //
 
 #include "Core.h"
+#include "Func.h"
+
 void Core::init (double sampleRate, int samplesPerBlock){
     this->sampleRate = sampleRate;
     this->samplesPerBlock = samplesPerBlock;
@@ -14,8 +16,25 @@ void Core::init (double sampleRate, int samplesPerBlock){
     
     for (int i=0; i<voiceCount; ++i) {
         voices[i].init( sampleRate,  samplesPerBlock);
-        voices[i].active = true;
+        voices[i].active = false;
     }
+    voices[0].active = true;
+    voices[0].freq = 440;
+    voices[0].volume = 1.0;
+    voices[0].volOscSin = 1.0;
+    
+    voices[1].active = true;
+    voices[1].freq = 440 * 3;
+    voices[1].volume = 1.0;
+    voices[1].volOscSaw = 1.0;
+    
+    std::cout << "==========================" << std::endl;
+    float t = LinearToDecibel(0.0);
+    std::cout << t << std::endl;
+    std::cout << MidiToFreq(69, 440) << std::endl;
+    std::cout << FreqToMidi(MidiToFreq(69, 440),440) << std::endl;
+    
+    std::cout << "==========================" << std::endl;
 }
 
 void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int totalNumInputChannels, int totalNumOutputChannels) {
@@ -34,7 +53,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     
     for( int i =0; i < voiceCount;++i){
            if(voices[i].active){
-               voices[i].render(clock, buffer );
+               voices[i].render(clock, buffer,voiceCount  );
            }
      }
     clock += samplesPerBlock;

@@ -155,6 +155,9 @@
 		4F53E61B248302B60080F061 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Core.h; path = ../../Source/Core.h; sourceTree = "<group>"; };
 		4F53E62024836C1E0080F061 /* WaveTable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = WaveTable.cpp; path = ../../Source/WaveTable.cpp; sourceTree = "<group>"; };
 		4F53E62124836C1E0080F061 /* WaveTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WaveTable.h; path = ../../Source/WaveTable.h; sourceTree = "<group>"; };
+		4F88DBC824859F33006ABA7A /* Func.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Func.h; path = ../../Source/Func.h; sourceTree = "<group>"; };
+		4F88DBC92485A52F006ABA7A /* Enum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Enum.h; path = ../../Source/Enum.h; sourceTree = "<group>"; };
+		4F88DBCA2485A7AD006ABA7A /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Const.h; path = ../../Source/Const.h; sourceTree = "<group>"; };
 		4FC4C0BB248395E700CBE568 /* Arp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Arp.cpp; path = ../../Source/Arp.cpp; sourceTree = "<group>"; };
 		4FC4C0BC248395E700CBE568 /* Arp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Arp.h; path = ../../Source/Arp.h; sourceTree = "<group>"; };
 		4FC4C0C3248396B500CBE568 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = ../../Source/Note.h; sourceTree = "<group>"; };
@@ -328,6 +331,7 @@
 		4F53E619248302A10080F061 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				4F88DBC824859F33006ABA7A /* Func.h */,
 				4FC4C0C3248396B500CBE568 /* Note.h */,
 				4F53E61A248302B60080F061 /* Core.cpp */,
 				4F53E61B248302B60080F061 /* Core.h */,
@@ -336,6 +340,8 @@
 				4FC4C0BB248395E700CBE568 /* Arp.cpp */,
 				4FC4C0BC248395E700CBE568 /* Arp.h */,
 				4FC4C0C424839DE200CBE568 /* Voice.h */,
+				4F88DBC92485A52F006ABA7A /* Enum.h */,
+				4F88DBCA2485A7AD006ABA7A /* Const.h */,
 			);
 			name = core;
 			sourceTree = "<group>";

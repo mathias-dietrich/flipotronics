@@ -40,6 +40,6 @@ private:
     float m_phase;
     float m_time;
     double m_deltaTime;
-    Random *random = new Random();
+   
 };
 #endif /* WaveTable_hpp */

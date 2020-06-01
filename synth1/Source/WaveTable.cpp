@@ -23,25 +23,23 @@ void WaveTable::init (double sampleRate, int samplesPerBlock){
     }
     
     // Square Table
-    m_time = 0.0;
     for (int sample = 0; sample < sampleRate; ++sample) {
         if(sample < sampleRate/2){
             squareBuffer[sample] = 1;
         }else{
             squareBuffer[sample] = -1;
         }
-        m_time += m_deltaTime;
     }
     
     // Saw Table
-    m_time = 0.0;
-    for (int sample = 0; sample < sampleRate; ++sample) {
-        sawBuffer[sample] = 2.0 * sample / sampleRate - 1.0;
-        m_time += m_deltaTime;
+    for (int sample = 0; sample < sampleRate/2; ++sample) {
+        sawBuffer[sample] = 2.0 * sample / sampleRate ;
+    }
+    for (int sample = sampleRate/2; sample < sampleRate; ++sample) {
+        sawBuffer[sample] = 2.0 * sample / sampleRate - 2;
     }
     
     // Triangle Table
-    m_time = 0.0;
     for (int sample = 0; sample < sampleRate; ++sample) {
         if(sample<sampleRate/4){
             triangleBuffer[sample] = 4.0 * sample/sampleRate;
@@ -50,12 +48,13 @@ void WaveTable::init (double sampleRate, int samplesPerBlock){
         }else{
             triangleBuffer[sample] = -1.0 + 4.0 * (sample - 3 * sampleRate / 4) / sampleRate;
         }
-        m_time += m_deltaTime;
     }
     
     // White Table
     for (int sample = 0; sample < sampleRate; ++sample) {
+         Random *random = new Random();
         whiteBuffer[sample] = random->nextFloat() * 2.0 - 1.0;
-        std::cout << whiteBuffer[sample] << std::endl;
+        //std::cout << whiteBuffer[sample] << std::endl;
+        delete random;
     }
 }

@@ -19,7 +19,15 @@ public:
     int vid;
     bool active;
     WaveTable *waveTable;
-    double freq = 880;
+    double freq = 440;
+    int velocity;
+    double volume = 1.0;
+    double volOscSin = 0.0;
+    double volOscSaw = 0.0;
+    double volOscSquare = 0.0;
+    double volOscTriangle = 0.0;
+    double volOscWhite = 0.0;
+    
 
     Voice(){
         waveTable = new WaveTable();
@@ -35,15 +43,18 @@ public:
         waveTable->init(sampleRate, samplesPerBlock);
     }
     
-    void render(int clock, AudioBuffer<float>& buffer){
+    void render(int clock, AudioBuffer<float>& buffer, double voiceCount){
         
-      ScopedNoDenormals noDenormals;
+        ScopedNoDenormals noDenormals;
     
-       auto* channelDataL = buffer.getWritePointer (0);
-       auto* channelDataR = buffer.getWritePointer (1);
+        auto* channelDataL = buffer.getWritePointer (0);
+        auto* channelDataR = buffer.getWritePointer (1);
     
-        float *table = waveTable->sinBuffer;
-        
+        float *tableSin = waveTable->sinBuffer;
+        float *tableSquare = waveTable->squareBuffer;
+        float *tableSaw = waveTable->sawBuffer;
+        float *tableTriangle = waveTable->triangleBuffer;
+        float *tableWhite = waveTable->whiteBuffer;
         
         for (int i=0; i<samplesPerBlock; ++i) {
             double bpm = 120.0;
@@ -53,13 +64,21 @@ public:
             if(lastBeat != sixteens){
                  std::cout << sixteens << std::endl;
                 lastBeat = sixteens;
-                adsr = sampleRate / 16;
+                adsr = sampleRate / 8;
             }
             
             if(adsr > 0){
                 --adsr;
-                channelDataL[i] =  table[sampleId];
-                channelDataR[i] =  table[sampleId];
+                float v = volOscSin * tableSin[sampleId];
+                v += volOscSquare * tableSin[sampleId];
+                v += volOscSaw * tableSaw[sampleId];
+                v += volOscTriangle * tableTriangle[sampleId];
+                v += volOscWhite * tableWhite[sampleId];
+                
+                v = v * volume / 5.0 / voiceCount;
+
+                channelDataL[i] += v;
+                channelDataR[i] += v;
                 sampleId += freq;
                 if(sampleId >= sampleRate){
                     sampleId -= sampleRate;

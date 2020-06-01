@@ -27,13 +27,11 @@ class Core {       // The class
         delete arp;
     }
     
-    int voiceCount = 1;
+    int voiceCount = 16;
     Voice voices[32] ;
     
     void handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages,int totalNumInputChannels, int totalNumOutputChannels);
-    
     void init (double sampleRate, int samplesPerBlock);
-    
     
      Arp *arp;
     
@@ -43,9 +41,6 @@ private:
     int sampleRate;
     int samplesPerBlock;
     double m_frequency = 440;
-
-    
-
 };
 
 #endif /* Core_hpp */
