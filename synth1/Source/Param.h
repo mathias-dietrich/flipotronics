@@ -22,5 +22,6 @@ struct Param{
     float valF;
     double valD;
     string valS;
+    float stepValue;
 };
 #endif /* Param_h */

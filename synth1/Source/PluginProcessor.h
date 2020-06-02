@@ -58,7 +58,6 @@ public:
     
     Core *core;
     
-
     void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override
     {
         std::cout << midiNoteNumber << std::endl;
@@ -69,12 +68,7 @@ public:
          std::cout << midiNoteNumber << std::endl;
     }
 
-    
-
-
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessor)
-    
-    
 };

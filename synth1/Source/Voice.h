@@ -72,6 +72,7 @@ public:
                 float v = volOscSin * tableSin[sampleId];
                 v += volOscSquare * tableSin[sampleId];
                 v += volOscSaw * tableSaw[sampleId];
+                v += volOscSquare * tableSquare[sampleId];
                 v += volOscTriangle * tableTriangle[sampleId];
                 v += volOscWhite * tableWhite[sampleId];
                 

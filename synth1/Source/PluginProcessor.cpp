@@ -11,6 +11,8 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+double par[1024];
+
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -92,6 +94,7 @@ const String Synth1AudioProcessor::getProgramName (int index)
 
 void Synth1AudioProcessor::changeProgramName (int index, const String& newName)
 {
+    
 }
 
 //==============================================================================
@@ -136,9 +139,7 @@ void Synth1AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer&
 {
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
-    
     core->handle(buffer, midiMessages, totalNumInputChannels, totalNumOutputChannels);
-   
 }
 
 //==============================================================================

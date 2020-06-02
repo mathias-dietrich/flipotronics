@@ -10,6 +10,23 @@
 #define Func_h
 
 #include <math.h>
+#include <string>
+
+inline String toString(int i) {
+    return std::to_string(i);
+}
+
+inline String toString(float f) {
+    return std::to_string(f);
+}
+
+inline String toString(double d) {
+    return std::to_string(d);
+}
+
+inline int intFromString(String s) {
+    return s.getIntValue();
+}
 
 // 0.0 - 1.0
 inline float LinearToDecibel(float linear)

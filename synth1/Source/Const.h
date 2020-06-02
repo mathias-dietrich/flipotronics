@@ -10,5 +10,6 @@
 #define Const_h
 
 #define VERSION "1.0.0"
+#define PRODUCTNAME "Flipotronics 1 - 1.0.0"
 
 #endif /* Const_h */

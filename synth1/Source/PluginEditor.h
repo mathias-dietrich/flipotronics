@@ -13,10 +13,14 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "SynthAudioSource.h"
+#include "Func.h"
+#include "Model.h"
+#include "FileManager.h"
 //==============================================================================
 /**
 */
-class Synth1AudioProcessorEditor  : public AudioProcessorEditor,MidiKeyboardStateListener
+class Synth1AudioProcessorEditor  : public AudioProcessorEditor,MidiKeyboardStateListener,
+    public Button::Listener,  public Slider::Listener
 {
 public:
     Synth1AudioProcessorEditor (Synth1AudioProcessor&);
@@ -28,6 +32,18 @@ public:
     
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
+    
+    TextButton btnParam[16];
+    TextButton btnSave;
+    TextButton btnLoad;
+    Label timeLabel;
+    
+    TextEditor boxes[16];
+    Slider dials[16] ;
+    
+    FileManager *fileManager;
+    
+    int btnRange = 0;
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -53,13 +69,52 @@ private:
         //stopTimer();
     }
     
-    void handleNoteOn (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity)
+    void handleNoteOn (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override
     {
         processor.handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
     }
      
-    void handleNoteOff (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity)
+    void handleNoteOff (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override
     {
         processor.handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
+    }
+    
+    void buttonClicked (Button* button)  override // [2]
+    {
+        btnRange = button->getRadioGroupId();
+        
+        // Save
+        if(btnRange==16) {
+             fileManager->save();
+           return;
+        }
+        
+        // Load
+        if(btnRange==17) {
+            fileManager->load();
+            btnRange = 0;
+            setDials();
+            return;
+        }
+    
+        // Param Select
+        for(int i=0; i < 16; ++i){
+            btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
+        }
+        btnParam[btnRange].setToggleState(true, NotificationType::dontSendNotification);
+        setDials();
+    }
+    
+    void setDials(){
+        for(int i=0; i < 16; ++i){
+            boxes[i].setText("Param " + toString( btnRange * 16 + i));
+            dials[i].setValue(par[btnRange * 16 + i]);
+        }
+    }
+    
+    void sliderValueChanged(Slider *  slider) override
+    {
+        int sid = slider->getName().getIntValue();
+        par[btnRange * 16 + sid] = slider->getValue();
     }
 };
