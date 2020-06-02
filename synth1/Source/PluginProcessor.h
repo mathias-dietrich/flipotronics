@@ -16,7 +16,7 @@
 //==============================================================================
 /**
 */
-class Synth1AudioProcessor  : public AudioProcessor
+class Synth1AudioProcessor  : public AudioProcessor, MidiKeyboardStateListener
 {
 public:
     //==============================================================================
@@ -57,8 +57,24 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     Core *core;
+    
+
+    void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override
+    {
+        std::cout << midiNoteNumber << std::endl;
+    }
+     
+    void handleNoteOff (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override
+    {
+         std::cout << midiNoteNumber << std::endl;
+    }
+
+    
+
 
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessor)
+    
+    
 };

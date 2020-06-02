@@ -12,11 +12,11 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-
+#include "SynthAudioSource.h"
 //==============================================================================
 /**
 */
-class Synth1AudioProcessorEditor  : public AudioProcessorEditor
+class Synth1AudioProcessorEditor  : public AudioProcessorEditor,MidiKeyboardStateListener
 {
 public:
     Synth1AudioProcessorEditor (Synth1AudioProcessor&);
@@ -25,6 +25,9 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+    
+    MidiKeyboardState keyboardState;
+    MidiKeyboardComponent keyboardComponent;
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -42,5 +45,21 @@ private:
             lastX = i;
             lastY = v;
         }
+    }
+    
+    void timerCallback()
+    {
+        keyboardComponent.grabKeyboardFocus();
+        //stopTimer();
+    }
+    
+    void handleNoteOn (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity)
+    {
+        processor.handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
+    }
+     
+    void handleNoteOff (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity)
+    {
+        processor.handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
     }
 };

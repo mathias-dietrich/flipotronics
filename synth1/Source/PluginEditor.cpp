@@ -15,11 +15,14 @@
 
 //==============================================================================
 Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+    : AudioProcessorEditor (&p), processor (p), 
+    keyboardComponent (keyboardState, MidiKeyboardComponent::horizontalKeyboard)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
+
+    addAndMakeVisible (keyboardComponent);
     setSize (800, 600);
+    keyboardState.addListener (this);
+    //startTimer (400);
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor()
@@ -73,6 +76,7 @@ void Synth1AudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+     keyboardComponent.setBounds (0,  getHeight() - 50, getWidth(),  50);
 }
 
 

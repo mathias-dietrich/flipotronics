@@ -158,6 +158,9 @@
 		4F88DBC824859F33006ABA7A /* Func.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Func.h; path = ../../Source/Func.h; sourceTree = "<group>"; };
 		4F88DBC92485A52F006ABA7A /* Enum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Enum.h; path = ../../Source/Enum.h; sourceTree = "<group>"; };
 		4F88DBCA2485A7AD006ABA7A /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Const.h; path = ../../Source/Const.h; sourceTree = "<group>"; };
+		4F88DBCB2485B19F006ABA7A /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = ../../../TODO.txt; sourceTree = "<group>"; };
+		4F88DBCC2485B450006ABA7A /* SynthAudioSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SynthAudioSource.h; path = ../../Source/SynthAudioSource.h; sourceTree = "<group>"; };
+		4F88DBCD24862341006ABA7A /* Param.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Param.h; path = ../../Source/Param.h; sourceTree = "<group>"; };
 		4FC4C0BB248395E700CBE568 /* Arp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Arp.cpp; path = ../../Source/Arp.cpp; sourceTree = "<group>"; };
 		4FC4C0BC248395E700CBE568 /* Arp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Arp.h; path = ../../Source/Arp.h; sourceTree = "<group>"; };
 		4FC4C0C3248396B500CBE568 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = ../../Source/Note.h; sourceTree = "<group>"; };
@@ -342,6 +345,8 @@
 				4FC4C0C424839DE200CBE568 /* Voice.h */,
 				4F88DBC92485A52F006ABA7A /* Enum.h */,
 				4F88DBCA2485A7AD006ABA7A /* Const.h */,
+				4F88DBCC2485B450006ABA7A /* SynthAudioSource.h */,
+				4F88DBCD24862341006ABA7A /* Param.h */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 		FA8B1015400F39E650751125 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4F88DBCB2485B19F006ABA7A /* TODO.txt */,
 				9C6B7E2C03EC63CCDDD66A19 /* synth1 */,
 				BA2A245135C49729F267B18F /* JUCE Modules */,
 				2CC062C26534934A7B0AB445 /* JUCE Library Code */,

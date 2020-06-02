@@ -1,0 +1,25 @@
+TODO
+
+Config:
+
+Parameter
+Serializer
+
+
+FILTER
+
+MIDI Parsing
+
+Voice Pool
+
+IN Queue
+
+Matrix
+
+Draw Freq Plot
+
+Edit ADSR
+
+LFO
+
+OSC

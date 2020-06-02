@@ -21,7 +21,7 @@ Synth1AudioProcessor::Synth1AudioProcessor()
                       #endif
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                      )
 #endif
 {
     core = new Core();
