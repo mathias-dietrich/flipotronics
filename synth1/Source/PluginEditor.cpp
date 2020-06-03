@@ -1,6 +1,6 @@
 /*
   ==============================================================================
-
+ 
   ==============================================================================
 */
 
@@ -44,6 +44,27 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnLoad.addListener (this);
     btnLoad.setRadioGroupId(17);
     addAndMakeVisible (btnLoad);
+    
+    btnRange0.setButtonText ("Range 1");
+    btnRange0.addListener (this);
+    btnRange0.setRadioGroupId(18);
+    btnRange0.setToggleState(true, NotificationType::dontSendNotification);
+    addAndMakeVisible (btnRange0);
+    
+    btnRange1.setButtonText ("Range 2");
+    btnRange1.addListener (this);
+    btnRange1.setRadioGroupId(19);
+    addAndMakeVisible (btnRange1);
+    
+    btnRange2.setButtonText ("Range 3");
+    btnRange2.addListener (this);
+    btnRange2.setRadioGroupId(20);
+    addAndMakeVisible (btnRange2);
+    
+    btnRange3.setButtonText ("Range 4");
+    btnRange3.addListener (this);
+    btnRange3.setRadioGroupId(21);
+    addAndMakeVisible (btnRange3);
     
     addAndMakeVisible (timeLabel);
     timeLabel.setColour (Label::backgroundColourId, Colours::black);
@@ -159,6 +180,11 @@ void Synth1AudioProcessorEditor::resized()
             boxes[i+8].setBounds (10  + i * 100,  dialY, 100,  20);
             dials[i+8].setBounds (10  + i * 100,  dialY+20, 100,  100);
     }
+    
+    btnRange0.setBounds (820,  5, 80,  20);
+    btnRange1.setBounds (910,  5, 80,  20);
+    btnRange2.setBounds (1000, 5, 80,  20);
+    btnRange3.setBounds (1090, 5, 80,  20);
 }
 
 

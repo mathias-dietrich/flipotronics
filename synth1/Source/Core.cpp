@@ -41,20 +41,21 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
 
     ScopedNoDenormals noDenormals;
  
+    // Clear buffer
     auto* channelDataL = buffer.getWritePointer (0);
     auto* channelDataR = buffer.getWritePointer (1);
-    
-    
-    // clear buffer
     for (int i=0; i<samplesPerBlock; ++i) {
         channelDataL[i] =  0;
         channelDataR[i] =  0;
     }
     
+    // Render Voices
     for( int i =0; i < voiceCount;++i){
            if(voices[i].active){
                voices[i].render(clock, buffer,voiceCount  );
            }
      }
+    
+    // Move Clock
     clock += samplesPerBlock;
 }

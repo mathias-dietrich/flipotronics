@@ -28,7 +28,6 @@ public:
     double volOscTriangle = 0.0;
     double volOscWhite = 0.0;
     
-
     Voice(){
         waveTable = new WaveTable();
     }
@@ -55,7 +54,9 @@ public:
         float *tableSaw = waveTable->sawBuffer;
         float *tableTriangle = waveTable->triangleBuffer;
         float *tableWhite = waveTable->whiteBuffer;
+    }
         
+        /*
         for (int i=0; i<samplesPerBlock; ++i) {
             double bpm = 120.0;
             double secconds = clock / sampleRate;
@@ -90,8 +91,10 @@ public:
                 channelDataR[i] =  0;
             }
             ++clock;
+        
         }
     }
+     */
     
 private:
     int sampleRate;
@@ -101,5 +104,4 @@ private:
     int lastBeat = -1;
 };
     
-
 #endif /* Voice_h */

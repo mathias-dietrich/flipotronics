@@ -36,6 +36,12 @@ public:
     TextButton btnParam[16];
     TextButton btnSave;
     TextButton btnLoad;
+    
+    TextButton btnRange0;
+    TextButton btnRange1;
+    TextButton btnRange2;
+    TextButton btnRange3;
+    
     Label timeLabel;
     
     TextEditor boxes[16];
@@ -43,7 +49,9 @@ public:
     
     FileManager *fileManager;
     
-    int btnRange = 0;
+    int paramRange = 0;
+    int paramRoot = 0;
+
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -81,40 +89,90 @@ private:
     
     void buttonClicked (Button* button)  override // [2]
     {
-        btnRange = button->getRadioGroupId();
-        
         // Save
-        if(btnRange==16) {
+        if(button->getRadioGroupId()==16) {
              fileManager->save();
            return;
         }
         
         // Load
-        if(btnRange==17) {
+        if(button->getRadioGroupId()==17) {
             fileManager->load();
-            btnRange = 0;
             setDials();
             return;
         }
-    
-        // Param Select
-        for(int i=0; i < 16; ++i){
-            btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
+        
+         if(button->getRadioGroupId()==18) {
+             paramRoot = 0;
+             btnRange0.setToggleState(true, NotificationType::dontSendNotification);
+             btnRange1.setToggleState(false, NotificationType::dontSendNotification);
+             btnRange2.setToggleState(false, NotificationType::dontSendNotification);
+             btnRange3.setToggleState(false, NotificationType::dontSendNotification);
+             setButtonRanges();
+             return;
+         }
+        
+        if(button->getRadioGroupId()==19) {
+            paramRoot = 1;
+            btnRange0.setToggleState(false, NotificationType::dontSendNotification);
+            btnRange1.setToggleState(true, NotificationType::dontSendNotification);
+            btnRange2.setToggleState(false, NotificationType::dontSendNotification);
+            btnRange3.setToggleState(false, NotificationType::dontSendNotification);
+            setButtonRanges();
+            return;
         }
-        btnParam[btnRange].setToggleState(true, NotificationType::dontSendNotification);
+        
+        if(button->getRadioGroupId()==20) {
+            paramRoot = 2;
+            btnRange0.setToggleState(false, NotificationType::dontSendNotification);
+            btnRange1.setToggleState(false, NotificationType::dontSendNotification);
+            btnRange2.setToggleState(true, NotificationType::dontSendNotification);
+            btnRange3.setToggleState(false, NotificationType::dontSendNotification);
+            setButtonRanges();
+            return;
+        }
+        
+        if(button->getRadioGroupId()==21) {
+            paramRoot = 3;
+            btnRange0.setToggleState(false, NotificationType::dontSendNotification);
+            btnRange1.setToggleState(false, NotificationType::dontSendNotification);
+            btnRange2.setToggleState(false, NotificationType::dontSendNotification);
+            btnRange3.setToggleState(true, NotificationType::dontSendNotification);
+            setButtonRanges();
+            return;
+        }
+        
+        paramRange = button->getRadioGroupId();
         setDials();
     }
     
     void setDials(){
         for(int i=0; i < 16; ++i){
-            boxes[i].setText("Param " + toString( btnRange * 16 + i));
-            dials[i].setValue(par[btnRange * 16 + i]);
+            boxes[i].setText("Param " + toString( paramRoot * 256 + paramRange * 16 + i));
+            dials[i].setValue(par[paramRoot * 256 + paramRange * 16 + i]);
         }
+        // Param Select
+        for(int i=0; i < 16; ++i){
+            btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
+        }
+        btnParam[paramRange].setToggleState(true, NotificationType::dontSendNotification);
     }
     
     void sliderValueChanged(Slider *  slider) override
     {
         int sid = slider->getName().getIntValue();
-        par[btnRange * 16 + sid] = slider->getValue();
+        par[paramRoot * 256 + paramRange * 16 + sid] = slider->getValue();
+    }
+    
+    void setButtonRanges(){
+        int from = 0;
+        int to = 15;
+        for(int i=0; i < 16; ++i){
+            btnParam[i].setButtonText (toString(paramRoot * 256  + paramRange * 16 + from) + " - " + toString(paramRoot * 256 + paramRange * 16 + to));
+            btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
+            from += 16;
+            to += 16;
+        }
+       setDials();
     }
 };
