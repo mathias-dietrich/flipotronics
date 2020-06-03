@@ -54,6 +54,30 @@ class ParamBuilder {       // The class
             p0.stepVal = 0.1;
             p0.def = 440.0;
             params[0] = p0;
+            
+            Param p;
+            p.pid = 0;
+            p.name = "NoVoices";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 1;
+            p.maxVal = 32;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 8;
+            params[1] = p;
+            
+
+           p.pid = 0;
+           p.name = "Volume";
+           p.writeable = 1;
+           p.automate = 1;
+           p.minVal = 0;
+           p.maxVal = 1;
+           p.stepVal = 0.011;
+           p.type = uFloat;
+           p.def = 8;
+           params[7] = p;
         }
 };
 

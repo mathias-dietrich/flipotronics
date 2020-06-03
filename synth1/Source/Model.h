@@ -14,8 +14,6 @@
 
 extern double par[MAXPARAM];
 extern Param params[MAXPARAM];
-extern double tuning;
-extern int noOfVoices;
 extern double tuneTable[256];
 extern double tuneMulti[12];
 

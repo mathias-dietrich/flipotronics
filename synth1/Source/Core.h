@@ -27,10 +27,6 @@ class Core {       // The class
         delete b;
         
         arp = new Arp();
-        
-        // Setup Global Variables (in Model.h)
-        tuning = 440.0;
-        noOfVoices = 8;
     }
     
     ~Core(){
@@ -65,31 +61,30 @@ class Core {       // The class
     }
     
     void killAllVoice(){
-        for(int i=0; i < noOfVoices;i++){
+        for(int i=0; i < ((int)par[1]);i++){
             voices[i].active = false;
         }
          std::cout << "Kill All Voice midiNoteNumber:" << std::endl;
     }
     
     int findNewVoice(){
-        for(int i=0; i < noOfVoices;i++){
-            if(!voices[i].active ){
+        for(int i=0; i < MAXVOICE;i++){
+            if(!voices[i].active){
                 voices[i].now = Time::currentTimeMillis();
-                
                 return voices[i].vid;
             }
-            // TODO find oldest voice
-            return -1;
         }
+        // TODO find oldest voice
+        return -1;
     }
     
     int findExistingVoice(int midiChannel, int midiNoteNumber){
-        for(int i=0; i < noOfVoices;i++){
+        for(int i=0; i < MAXVOICE;i++){
             if(midiChannel == voices[i].midiChannel && midiNoteNumber== voices[i].noteNumber){
                 return voices[i].vid;
             }
-            return -1;
         }
+        return -1;
     }
     
      Arp *arp;

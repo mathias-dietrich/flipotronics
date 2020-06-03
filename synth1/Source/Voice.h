@@ -45,7 +45,6 @@ public:
         this->sampleRate = sampleRate;
         this->samplesPerBlock = samplesPerBlock;
         waveTable->init(sampleRate, samplesPerBlock);
-        
     }
     
     void setup(){
@@ -70,7 +69,7 @@ public:
          */
         
         for (int i=0; i<samplesPerBlock; ++i) {
-            float v = volOscSin * tableSin[tablePos0] * velocity / ((float)noOfVoices);
+            float v = volOscSin * tableSin[tablePos0] * velocity / par[1] * par[7];
             channelDataL[i] += v;
             channelDataR[i] += v;
             float t = par[0] / 440.0;

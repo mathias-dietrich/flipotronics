@@ -12,19 +12,21 @@
 void Core::init (double sampleRate, int samplesPerBlock){
     this->sampleRate = sampleRate;
     this->samplesPerBlock = samplesPerBlock;
+    
+    // ARP
     arp->init(sampleRate, samplesPerBlock);
-    
-    noOfVoices = 2;
-    
-    for (int i=0; i<noOfVoices; ++i) {
-        voices[i].init( sampleRate,  samplesPerBlock);
+
+    // Voices
+    for (int i=0; i<MAXVOICE; ++i) {
+        voices[i].vid = i;
+        voices[i].init( sampleRate, samplesPerBlock);
         voices[i].active = false;
     }
     
+    // Tuning
     for (int i=0; i<256; ++i) {
         tuneTable[i] = MidiToFreq(i,440);
     }
-    
     for (int i=0; i<12; ++i) {
         tuneMulti[i] = 1.0;
     }
@@ -61,7 +63,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     }
     
     // Render Voices
-    for(int i=0; i < noOfVoices;++i){
+    for(int i=0; i < MAXVOICE;++i){
            if(voices[i].active){
                voices[i].render(clock, buffer);
            }

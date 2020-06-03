@@ -70,6 +70,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
         dials[i].setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
         dials[i].setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
         dials[i].setNumDecimalPlacesToDisplay(2);
+        dials[i].setName(toString(i));
+        dials[i].addListener (this);
         addAndMakeVisible (boxes[i]);
         boxes[i].setJustification(Justification::horizontallyCentred);
     }

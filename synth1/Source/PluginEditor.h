@@ -143,12 +143,10 @@ private:
     
     void setDials(){
         for(int i=0; i < 16; ++i){
-            dials[i].removeListener(this);
             int pid = paramRoot * 256 + paramRange * 16 + i;
             boxes[i].setText(params[pid].name);
             dials[i].setRange(params[pid].minVal,params[pid].maxVal,params[pid].stepVal);
             dials[i].setValue(par[pid], dontSendNotification);
-            dials[i].addListener (this);
         }
         // Param Select
         for(int i=0; i < 16; ++i){

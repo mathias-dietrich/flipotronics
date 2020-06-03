@@ -14,8 +14,6 @@
 
 // Global Variables
 double par[MAXPARAM];
-double tuning;
-int noOfVoices;
 double tuneTable[256];
 double tuneMulti[12];
 Param params[MAXPARAM];

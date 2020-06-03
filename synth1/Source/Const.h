@@ -12,5 +12,5 @@
 #define VERSION "1.0.0"
 #define PRODUCTNAME "Flipotronics 1 - 1.0.0"
 #define MAXPARAM 1024
-
+#define MAXVOICE 32
 #endif /* Const_h */
