@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
-
 #pragma once
 
 #include <JuceHeader.h>
@@ -60,12 +50,17 @@ public:
     
     void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override
     {
-        std::cout << midiNoteNumber << std::endl;
+        core->startVoice( midiChannel,  midiNoteNumber,  velocity);
     }
      
     void handleNoteOff (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override
     {
-         std::cout << midiNoteNumber << std::endl;
+         core->endVoice( midiChannel,  midiNoteNumber);
+    }
+    
+    void panic ()
+    {
+        core->killAllVoice();
     }
 
 private:

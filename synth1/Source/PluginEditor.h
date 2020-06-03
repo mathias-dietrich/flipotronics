@@ -71,12 +71,6 @@ private:
         }
     }
     
-    void timerCallback()
-    {
-        keyboardComponent.grabKeyboardFocus();
-        //stopTimer();
-    }
-    
     void handleNoteOn (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override
     {
         processor.handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
@@ -84,7 +78,7 @@ private:
      
     void handleNoteOff (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override
     {
-        processor.handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
+        processor.handleNoteOff(state, midiChannel, midiNoteNumber, velocity);
     }
     
     void buttonClicked (Button* button)  override // [2]

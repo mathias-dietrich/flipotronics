@@ -14,19 +14,12 @@ void Core::init (double sampleRate, int samplesPerBlock){
     this->samplesPerBlock = samplesPerBlock;
     arp->init(sampleRate, samplesPerBlock);
     
-    for (int i=0; i<voiceCount; ++i) {
+    noOfVoices = 2;
+    
+    for (int i=0; i<noOfVoices; ++i) {
         voices[i].init( sampleRate,  samplesPerBlock);
         voices[i].active = false;
     }
-    voices[0].active = true;
-    voices[0].freq = 440;
-    voices[0].volume = 1.0;
-    voices[0].volOscSin = 1.0;
-    
-    voices[1].active = true;
-    voices[1].freq = 440 * 3;
-    voices[1].volume = 1.0;
-    voices[1].volOscSaw = 1.0;
     
     std::cout << "==========================" << std::endl;
     float t = LinearToDecibel(0.0);
@@ -50,9 +43,9 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     }
     
     // Render Voices
-    for( int i =0; i < voiceCount;++i){
+    for( int i =0; i < noOfVoices;++i){
            if(voices[i].active){
-               voices[i].render(clock, buffer,voiceCount  );
+               voices[i].render(clock, buffer  );
            }
      }
     

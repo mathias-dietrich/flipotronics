@@ -10,6 +10,6 @@
 #define Model_h
 
 extern double par[1024];
-
-
+extern double tuning;
+extern int noOfVoices;
 #endif /* Model_h */

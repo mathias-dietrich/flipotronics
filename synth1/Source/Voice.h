@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <JuceHeader.h>
 #include "WaveTable.h"
+#include "Model.h"
+#include "Func.h"
 
 class Voice {       // The class
 
@@ -20,14 +22,17 @@ public:
     bool active;
     WaveTable *waveTable;
     double freq = 440;
-    int velocity;
-    double volume = 1.0;
-    double volOscSin = 0.0;
-    double volOscSaw = 0.0;
-    double volOscSquare = 0.0;
-    double volOscTriangle = 0.0;
-    double volOscWhite = 0.0;
-    
+    int noteNumber = 0;
+    float velocity = 1.0;
+    double volOscSin = 1.0;
+    double volOscSaw = 1.0;
+    double volOscSquare = 1.0;
+    double volOscTriangle = 1.0;
+    double volOscWhite = 1.0;
+    int midiChannel = 0;
+    int64 now = Time::currentTimeMillis();
+    int tablePos0 = 0;
+
     Voice(){
         waveTable = new WaveTable();
     }
@@ -40,9 +45,17 @@ public:
         this->sampleRate = sampleRate;
         this->samplesPerBlock = samplesPerBlock;
         waveTable->init(sampleRate, samplesPerBlock);
+        
     }
     
-    void render(int clock, AudioBuffer<float>& buffer, double voiceCount){
+    void setup(){
+        freq = MidiToFreq( noteNumber,  tuning);
+        tablePos0 = 0;
+        active = true;
+    }
+    
+    
+    void render(int clock, AudioBuffer<float>& buffer){
         
         ScopedNoDenormals noDenormals;
     
@@ -50,51 +63,24 @@ public:
         auto* channelDataR = buffer.getWritePointer (1);
     
         float *tableSin = waveTable->sinBuffer;
+        /*
         float *tableSquare = waveTable->squareBuffer;
         float *tableSaw = waveTable->sawBuffer;
         float *tableTriangle = waveTable->triangleBuffer;
         float *tableWhite = waveTable->whiteBuffer;
-    }
+         */
         
-        /*
         for (int i=0; i<samplesPerBlock; ++i) {
-            double bpm = 120.0;
-            double secconds = clock / sampleRate;
-            int sixteens = 2 * secconds * 60.0 / bpm;
-            
-            if(lastBeat != sixteens){
-                 std::cout << sixteens << std::endl;
-                lastBeat = sixteens;
-                adsr = sampleRate / 8;
+            float v = volOscSin * tableSin[tablePos0] * velocity / ((float)noOfVoices);
+            channelDataL[i] += v;
+            channelDataR[i] += v;
+            tablePos0 += freq;
+            if(tablePos0 >= sampleRate){
+                tablePos0 -= sampleRate;
             }
-            
-            if(adsr > 0){
-                --adsr;
-                float v = volOscSin * tableSin[sampleId];
-                v += volOscSquare * tableSin[sampleId];
-                v += volOscSaw * tableSaw[sampleId];
-                v += volOscSquare * tableSquare[sampleId];
-                v += volOscTriangle * tableTriangle[sampleId];
-                v += volOscWhite * tableWhite[sampleId];
-                
-                v = v * volume / 5.0 / voiceCount;
-
-                channelDataL[i] += v;
-                channelDataR[i] += v;
-                sampleId += freq;
-                if(sampleId >= sampleRate){
-                    sampleId -= sampleRate;
-                }
-            }else{
-                sampleId = 0;
-                channelDataL[i] =  0;
-                channelDataR[i] =  0;
-            }
-            ++clock;
-        
         }
+        clock += samplesPerBlock;
     }
-     */
     
 private:
     int sampleRate;

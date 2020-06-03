@@ -11,7 +11,10 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+// Global Variables
 double par[1024];
+double tuning;
+int noOfVoices;
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()
