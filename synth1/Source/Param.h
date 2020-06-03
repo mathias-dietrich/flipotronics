@@ -13,15 +13,17 @@
 
 struct Param{
     E_UnitType type;
-    string name;
+    String name;
     int pid;
     int writeable;
     int automate;
-    
     int valI;
     float valF;
     double valD;
-    string valS;
-    float stepValue;
+    float def;
+    String valS;
+    float stepVal;
+    float minVal;
+    float maxVal;
 };
 #endif /* Param_h */

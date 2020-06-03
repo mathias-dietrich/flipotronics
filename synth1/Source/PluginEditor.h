@@ -52,8 +52,9 @@ public:
     int paramRange = 0;
     int paramRoot = 0;
 
-
 private:
+
+    
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     Synth1AudioProcessor& processor;
@@ -142,8 +143,12 @@ private:
     
     void setDials(){
         for(int i=0; i < 16; ++i){
-            boxes[i].setText("Param " + toString( paramRoot * 256 + paramRange * 16 + i));
-            dials[i].setValue(par[paramRoot * 256 + paramRange * 16 + i]);
+            dials[i].removeListener(this);
+            int pid = paramRoot * 256 + paramRange * 16 + i;
+            boxes[i].setText(params[pid].name);
+            dials[i].setRange(params[pid].minVal,params[pid].maxVal,params[pid].stepVal);
+            dials[i].setValue(par[pid], dontSendNotification);
+            dials[i].addListener (this);
         }
         // Param Select
         for(int i=0; i < 16; ++i){
@@ -163,7 +168,6 @@ private:
         int to = 15;
         for(int i=0; i < 16; ++i){
             btnParam[i].setButtonText (toString(paramRoot * 256  + paramRange * 16 + from) + " - " + toString(paramRoot * 256 + paramRange * 16 + to));
-            btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
             from += 16;
             to += 16;
         }

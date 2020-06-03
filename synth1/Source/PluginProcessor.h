@@ -2,6 +2,8 @@
 
 #include <JuceHeader.h>
 #include "Core.h"
+#include "Param.h"
+#include "Const.h"
 
 //==============================================================================
 /**

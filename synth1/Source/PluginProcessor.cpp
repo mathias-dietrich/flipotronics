@@ -11,10 +11,14 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+
 // Global Variables
-double par[1024];
+double par[MAXPARAM];
 double tuning;
 int noOfVoices;
+double tuneTable[256];
+double tuneMulti[12];
+Param params[MAXPARAM];
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()
@@ -45,11 +49,7 @@ const String Synth1AudioProcessor::getName() const
 
 bool Synth1AudioProcessor::acceptsMidi() const
 {
-   #if JucePlugin_WantsMidiInput
     return true;
-   #else
-    return false;
-   #endif
 }
 
 bool Synth1AudioProcessor::producesMidi() const
@@ -103,8 +103,6 @@ void Synth1AudioProcessor::changeProgramName (int index, const String& newName)
 //==============================================================================
 void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
     core->init( sampleRate,  samplesPerBlock);
 }
 

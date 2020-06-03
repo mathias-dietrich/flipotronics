@@ -1,9 +1,3 @@
-/*
-  ==============================================================================
- 
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "Const.h"
@@ -75,18 +69,14 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
         addAndMakeVisible (dials[i]);
         dials[i].setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
         dials[i].setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
-        dials[i].setRange(0.0, 1.0,0.01);
         dials[i].setNumDecimalPlacesToDisplay(2);
-        dials[i].addListener (this);
-        dials[i].setName(toString(i));
-
         addAndMakeVisible (boxes[i]);
-        boxes[i].setText("Param " + toString(i));
         boxes[i].setJustification(Justification::horizontallyCentred);
     }
     
     fileManager->load();
     setDials();
+    
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor()

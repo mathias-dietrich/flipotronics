@@ -31,11 +31,9 @@ class FileManager {       // The class
             if (! inputStream.openedOk())
                    return;  // failed to open
         
-        int paramId = 0;
             for(int i=0; i < 1024;++i){
                double v = inputStream.readDouble();
-               par[paramId] = v;
-               ++paramId;
+               par[i] = v;
             }
         std::cout << "loaded from  " << rp.getFullPathName() << std::endl;
     }

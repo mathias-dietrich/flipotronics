@@ -21,19 +21,37 @@ void Core::init (double sampleRate, int samplesPerBlock){
         voices[i].active = false;
     }
     
-    std::cout << "==========================" << std::endl;
-    float t = LinearToDecibel(0.0);
-    std::cout << t << std::endl;
-    std::cout << MidiToFreq(69, 440) << std::endl;
-    std::cout << FreqToMidi(MidiToFreq(69, 440),440) << std::endl;
+    for (int i=0; i<256; ++i) {
+        tuneTable[i] = MidiToFreq(i,440);
+    }
     
-    std::cout << "==========================" << std::endl;
+    for (int i=0; i<12; ++i) {
+        tuneMulti[i] = 1.0;
+    }
 }
 
 void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int totalNumInputChannels, int totalNumOutputChannels) {
 
     ScopedNoDenormals noDenormals;
- 
+    
+    // Handle Midi Messages
+    MidiMessage result;
+    int samplePosition;
+    MidiBuffer::Iterator n(midiMessages);
+    while(n.getNextEvent (result, samplePosition)){
+        if(result.isNoteOn()){
+            int note = result.getNoteNumber();
+            float velocity = result.getVelocity() / 127.0;
+            int channel = result.getChannel();
+            startVoice(channel,note, velocity);
+        }
+        if(result.isNoteOff()){
+            int note = result.getNoteNumber();
+            int channel = result.getChannel();
+            endVoice(channel,note);
+        }
+    }
+
     // Clear buffer
     auto* channelDataL = buffer.getWritePointer (0);
     auto* channelDataR = buffer.getWritePointer (1);
@@ -43,9 +61,9 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     }
     
     // Render Voices
-    for( int i =0; i < noOfVoices;++i){
+    for(int i=0; i < noOfVoices;++i){
            if(voices[i].active){
-               voices[i].render(clock, buffer  );
+               voices[i].render(clock, buffer);
            }
      }
     

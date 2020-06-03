@@ -49,11 +49,10 @@ public:
     }
     
     void setup(){
-        freq = MidiToFreq( noteNumber,  tuning);
+        freq = tuneTable[noteNumber] * tuneMulti[noteNumber % 12];
         tablePos0 = 0;
         active = true;
     }
-    
     
     void render(int clock, AudioBuffer<float>& buffer){
         
@@ -74,7 +73,8 @@ public:
             float v = volOscSin * tableSin[tablePos0] * velocity / ((float)noOfVoices);
             channelDataL[i] += v;
             channelDataR[i] += v;
-            tablePos0 += freq;
+            float t = par[0] / 440.0;
+            tablePos0 += freq * t;
             if(tablePos0 >= sampleRate){
                 tablePos0 -= sampleRate;
             }

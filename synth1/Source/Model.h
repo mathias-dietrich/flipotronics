@@ -9,7 +9,14 @@
 #ifndef Model_h
 #define Model_h
 
-extern double par[1024];
+#include "Param.h"
+#include "Const.h"
+
+extern double par[MAXPARAM];
+extern Param params[MAXPARAM];
 extern double tuning;
 extern int noOfVoices;
+extern double tuneTable[256];
+extern double tuneMulti[12];
+
 #endif /* Model_h */

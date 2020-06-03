@@ -15,21 +15,22 @@
 #include "Arp.h"
 #include "Voice.h"
 #include "Const.h"
+#include "ParamBuilder.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
-
 
 class Core {       // The class
   public:             // Access specifier
     Core(){
+        ParamBuilder *b = new ParamBuilder();
+        b->build();
+        delete b;
+        
         arp = new Arp();
         
         // Setup Global Variables (in Model.h)
         tuning = 440.0;
         noOfVoices = 8;
-        for(int i=0; i < MAXPARAM; ++i){
-            par[i] = 0;
-        }
     }
     
     ~Core(){
