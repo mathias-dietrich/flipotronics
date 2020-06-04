@@ -19,6 +19,8 @@ double tuneMulti[12];
 Param params[MAXPARAM];
 int samplerate;
 int samplesperblock;
+int viewModeSetting;
+int patchCurrent;
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()

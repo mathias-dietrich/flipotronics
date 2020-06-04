@@ -53,6 +53,10 @@ public:
         active = true;
     }
     
+    void update(int clock){
+        
+    }
+    
     void render(int clock, AudioBuffer<float>& buffer){
         
         int sr = sampleRate * OVERSAMPLING;

@@ -13,6 +13,8 @@ void Core::init (double sampleRate, int samplesPerBlock){
     this->sampleRate = sampleRate;
     this->samplesPerBlock = samplesPerBlock;
     
+    patchCurrent = 1;
+    
     // ARP
     arp->init(sampleRate, samplesPerBlock);
 
@@ -53,7 +55,17 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
             endVoice(channel,note);
         }
     }
-
+    
+    // Update
+    if(updateCounter % UPDATEDEVIDER == 0){
+        for(int i=0; i < MAXVOICE;++i){
+            if(voices[i].active){
+              voices[i].update(clock);
+            }
+        }
+    }
+    ++updateCounter;
+    
     // Clear buffer
     auto* channelDataL = buffer.getWritePointer (0);
     auto* channelDataR = buffer.getWritePointer (1);

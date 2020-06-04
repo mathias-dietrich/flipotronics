@@ -33,6 +33,8 @@ class Core {       // The class
         delete arp;
     }
     
+    int updateCounter = 0;
+    
     Voice voices[32] ;
     
     void handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages,int totalNumInputChannels, int totalNumOutputChannels);

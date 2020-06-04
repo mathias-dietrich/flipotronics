@@ -42,6 +42,10 @@ public:
     TextButton btnRange2;
     TextButton btnRange3;
     
+    TextButton btnProgUp;
+    TextButton btnProgDown;
+    TextButton btnPanic;
+    
     Label timeLabel;
     
     TextEditor boxes[16];
@@ -53,6 +57,14 @@ public:
     int paramRoot = 0;
     
     ComboBox playMode;
+    ComboBox viewMode;
+    
+    Slider pitchWheel;
+    Slider modWheel;
+    Slider expWheel;
+    
+    Label progName;
+    Label progNumber;
 
 private:
 
@@ -139,6 +151,31 @@ private:
             return;
         }
         
+        if(button->getRadioGroupId()==22) {
+           // Progr Up
+            patchCurrent++;
+            if(patchCurrent >=128){
+                patchCurrent = 1;
+            }
+            setDials();
+            return;
+        }
+        
+        if(button->getRadioGroupId()==23) {
+            patchCurrent--;
+            if(patchCurrent < 1){
+               patchCurrent = 128;
+            }
+            setDials();
+            return;
+        }
+        
+        // Panic
+        if(button->getRadioGroupId()==24) {
+            processor.panic();
+            return;
+        }
+        
         paramRange = button->getRadioGroupId();
         setDials();
     }
@@ -155,11 +192,26 @@ private:
             btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
         }
         btnParam[paramRange].setToggleState(true, NotificationType::dontSendNotification);
+        progNumber.setText(toString(patchCurrent), NotificationType::dontSendNotification);
     }
     
-    void sliderValueChanged(Slider *  slider) override
-    {
+    void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();
+        
+        // Pitch Wheel
+        if(sid==100){
+            return;
+        }
+        
+        // Mod Wheel
+        if(sid==101){
+            return;
+        }
+        
+        // Exp Wheel
+        if(sid==102){
+            return;
+        }
         par[paramRoot * 256 + paramRange * 16 + sid] = slider->getValue();
     }
     
@@ -192,4 +244,26 @@ private:
         }
         setDials();
     }
+    
+    void styleMenuChangedView(){
+        switch (viewMode.getSelectedId())
+        {
+            case 1: // Wave
+                viewModeSetting = 1;
+                break;
+            case 2: // Matrix
+                viewModeSetting = 2;
+                break;
+            case 3: // debug
+                viewModeSetting = 3;
+                break;
+        }
+        repaint();
+    }
+    
+    
+    void sliderDragEnded(Slider *) override{
+        pitchWheel.setValue(8192);
+    }
+
 };

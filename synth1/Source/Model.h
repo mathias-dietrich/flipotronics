@@ -19,4 +19,6 @@ extern Param params[MAXPARAM];
 extern double tuneTable[256];
 extern double tuneMulti[12];
 
+extern int viewModeSetting;
+extern int patchCurrent;
 #endif /* Model_h */

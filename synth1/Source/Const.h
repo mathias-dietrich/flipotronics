@@ -15,4 +15,5 @@
 #define MAXVOICE 32
 #define OVERSAMPLING 4
 #define SAMPLERATEMAX 192000
+#define UPDATEDEVIDER 10
 #endif /* Const_h */
