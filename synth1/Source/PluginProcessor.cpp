@@ -17,6 +17,8 @@ double par[MAXPARAM];
 double tuneTable[256];
 double tuneMulti[12];
 Param params[MAXPARAM];
+int samplerate;
+int samplesperblock;
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()
@@ -101,6 +103,8 @@ void Synth1AudioProcessor::changeProgramName (int index, const String& newName)
 //==============================================================================
 void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    samplerate = sampleRate;
+    samplesperblock = samplesPerBlock;
     core->init( sampleRate,  samplesPerBlock);
 }
 

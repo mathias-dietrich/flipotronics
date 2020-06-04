@@ -78,6 +78,17 @@ class ParamBuilder {       // The class
            p.type = uFloat;
            p.def = 8;
            params[7] = p;
+            
+            p.pid = 1023;
+            p.name = "PlayMode";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 1;
+            p.maxVal = 4;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 1;
+            params[1023] = p;
         }
 };
 

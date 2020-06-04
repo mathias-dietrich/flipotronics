@@ -12,6 +12,8 @@
 #include "Param.h"
 #include "Const.h"
 
+extern int samplesperblock;
+extern int samplerate;
 extern double par[MAXPARAM];
 extern Param params[MAXPARAM];
 extern double tuneTable[256];

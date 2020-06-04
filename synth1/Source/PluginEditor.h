@@ -51,6 +51,8 @@ public:
     
     int paramRange = 0;
     int paramRoot = 0;
+    
+    ComboBox playMode;
 
 private:
 
@@ -65,7 +67,7 @@ private:
         int lastX = 0;
         int lastY = half;
         for(int i=0; i< width;++i){
-            int v = half - buf[i] * 200;
+            int v = half - buf[i * OVERSAMPLING] * 200;
              g.drawLine (lastX, lastY, i, v, 1.0f);
             lastX = i;
             lastY = v;
@@ -170,5 +172,24 @@ private:
             to += 16;
         }
        setDials();
+    }
+    
+    void styleMenuChanged(){
+        switch (playMode.getSelectedId())
+        {
+            case 1: // Poly
+                par[1023] = 1;
+                break;
+            case 2: // Unisono
+                par[1023] = 2;
+                break;
+            case 3: // Mono
+                par[1023] = 3;
+                break;
+            case 4: // Legato
+                par[1023] = 4;
+                break;
+        }
+        setDials();
     }
 };

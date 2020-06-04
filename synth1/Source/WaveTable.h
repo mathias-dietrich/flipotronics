@@ -11,8 +11,9 @@
 
 #include <stdio.h>
 #include <JuceHeader.h>
+#include "Const.h"
 
-#define TABLEMAX 192000
+
 class WaveTable {// The class
   public:             // Access specifier
     WaveTable(){
@@ -22,13 +23,14 @@ class WaveTable {// The class
     ~WaveTable(){
         
     }
+    
     void init (double sampleRate, int samplesPerBlock);
     
-    float *sinBuffer = new float[TABLEMAX];
-    float *sawBuffer = new float[TABLEMAX];
-    float *squareBuffer = new float[TABLEMAX];
-    float *triangleBuffer = new float[TABLEMAX];
-    float *whiteBuffer = new float[TABLEMAX];
+    float *sinBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
+    float *sawBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
+    float *squareBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
+    float *triangleBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
+    float *whiteBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
     
 private:
     int sampleRate;

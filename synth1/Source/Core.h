@@ -45,7 +45,7 @@ class Core {       // The class
         voices[vid].velocity = velocity;
         voices[vid].setup();
 
-        std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << std::endl;
+        std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << " freq: " << voices[vid].freq << std::endl;
     }
     
     void endVoice(int midiChannel, int midiNoteNumber){

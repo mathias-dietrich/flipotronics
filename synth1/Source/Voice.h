@@ -55,6 +55,7 @@ public:
     
     void render(int clock, AudioBuffer<float>& buffer){
         
+        int sr = sampleRate * OVERSAMPLING;
         ScopedNoDenormals noDenormals;
     
         auto* channelDataL = buffer.getWritePointer (0);
@@ -73,9 +74,9 @@ public:
             channelDataL[i] += v;
             channelDataR[i] += v;
             float t = par[0] / 440.0;
-            tablePos0 += freq * t;
-            if(tablePos0 >= sampleRate){
-                tablePos0 -= sampleRate;
+            tablePos0 += OVERSAMPLING * freq * t;
+            if(tablePos0 >= sr){
+                tablePos0 -= sr;
             }
         }
         clock += samplesPerBlock;

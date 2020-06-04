@@ -27,7 +27,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
         from += 16;
         to += 16;
     }
-     btnParam[0].setToggleState(true, NotificationType::dontSendNotification);
+    
+    btnParam[0].setToggleState(true, NotificationType::dontSendNotification);
     
     btnSave.setButtonText ("Save");
     btnSave.addListener (this);
@@ -79,6 +80,13 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     fileManager->load();
     setDials();
     
+    addAndMakeVisible(playMode);
+    playMode.addItem ("Poly", 1);
+    playMode.addItem ("Unisono", 2);
+    playMode.addItem ("Mono", 3);
+    playMode.addItem ("Legato", 4);
+    playMode.onChange = [this] { styleMenuChanged(); };
+    playMode.setSelectedId(par[1023]);
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor()
@@ -177,6 +185,8 @@ void Synth1AudioProcessorEditor::resized()
     btnRange1.setBounds (910,  5, 80,  20);
     btnRange2.setBounds (1000, 5, 80,  20);
     btnRange3.setBounds (1090, 5, 80,  20);
+    
+    playMode.setBounds (820, 290, 80,  20);
 }
 
 
