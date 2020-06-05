@@ -84,8 +84,13 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     
     btnPanic.setButtonText ("Panic");
     btnPanic.addListener (this);
-    btnPanic.setRadioGroupId(24);
+    btnPanic.setRadioGroupId(25);
     addAndMakeVisible (btnPanic);
+    
+    btnBrowse.setButtonText ("Browse");
+    btnBrowse.addListener (this);
+    btnBrowse.setRadioGroupId(26);
+    addAndMakeVisible (btnBrowse);
     
     addAndMakeVisible (timeLabel);
     timeLabel.setColour (Label::backgroundColourId, Colours::black);
@@ -126,8 +131,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     pitchWheel.setNumDecimalPlacesToDisplay(2);
     pitchWheel.setName("100");
     pitchWheel.addListener (this);
-    pitchWheel.setRange(0, 16384, 1);
-    pitchWheel.setValue(8192);
+    pitchWheel.setRange(-8192, 8192, 1);
+    pitchWheel.setValue(0);
     addAndMakeVisible(pitchWheel);
     
     modWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
@@ -149,19 +154,19 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     graphZoom.setSliderStyle(Slider::SliderStyle::LinearHorizontal );
     graphZoom.setName("103");
     graphZoom.addListener (this);
-    graphZoom.setRange(1, 4000,1);
-    graphZoom.setValue(20);
+    graphZoom.setRange(5, 4000,1);
+    graphZoom.setValue(zoom);
     addAndMakeVisible(graphZoom);
     
     graphZoomY.setSliderStyle(Slider::SliderStyle::LinearVertical );
     graphZoomY.setName("104");
     graphZoomY.addListener (this);
     graphZoomY.setRange(0.5, 4,0.01);
-    graphZoomY.setValue(1);
+    graphZoomY.setValue(zoomY);
     graphZoomY.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(graphZoomY);
     
-    progName.setColour (Label::backgroundColourId, Colours::darkgreen);
+    progName.setColour (Label::backgroundColourId, C_DARKGREY);
     progName.setColour (Label::textColourId, Colours::white);
     progName.setJustificationType (Justification::centred);
     progName.setText("Flipotronics", NotificationType::dontSendNotification);
@@ -171,10 +176,11 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     progName.setFont(f2);
     addAndMakeVisible(progName);
    
-    progNumber.setColour (Label::backgroundColourId, Colours::darkgreen);
+   // progNumber.setColour (Label::backgroundColourId, C_DARKGREY);
     progNumber.setColour (Label::textColourId, Colours::white);
     progNumber.setJustificationType (Justification::centred);
     progNumber.setText("1", NotificationType::dontSendNotification);
+    
     auto f =  progNumber.getFont();
     f.setSizeAndStyle(40, 0, 0.5, 0.5);
     f.setBold(true);
@@ -198,7 +204,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     }
     delete w;
     
-    startTimer(100);
+    startTimer(50);
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
@@ -230,19 +236,8 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     r.setY(315);
     g.fillRect(r);
 
-    rv.setX(840);
-    rv.setY(50);
-    rv.setWidth(120);
-    rv.setHeight(80);
-    g.setColour (Colours::lightyellow);
-    g.fillRect(rv);
-    
-    rv.setX(980);
-    rv.setY(50);
-    rv.setWidth(120);
-    rv.setHeight(80);
-    g.setColour (Colours::lightyellow);
-    g.fillRect(rv);
+    g.drawImageWithin(vumeter, 840, 40, 120,80, juce::RectanglePlacement::stretchToFit, false);
+    g.drawImageWithin(vumeter, 980, 40, 120,80, juce::RectanglePlacement::stretchToFit, false);
 
     if(viewModeSetting !=1){
         return;
@@ -294,27 +289,28 @@ void Synth1AudioProcessorEditor::resized()
     graphZoomY.setBounds (0 ,  312, 20,  385);
     
     // Range Buttons
-    btnRange0.setBounds (820,  5, 80,  20);
-    btnRange1.setBounds (910,  5, 80,  20);
-    btnRange2.setBounds (1000, 5, 80,  20);
-    btnRange3.setBounds (1090, 5, 80,  20);
+    btnRange0.setBounds (820, 5, 80, 20);
+    btnRange1.setBounds (910, 5, 80, 20);
+    btnRange2.setBounds (1000, 5, 80, 20);
+    btnRange3.setBounds (1090, 5, 80, 20);
     
-    btnProgDown.setBounds (840, 265, 80,  20);
-    btnProgUp.setBounds (1020, 265, 80,  20);
-    btnPanic.setBounds (1000, 290, 80,  20);
+    btnProgDown.setBounds (840, 250, 80, 20);
+    btnProgUp.setBounds (1020, 250, 80, 20);
+    btnPanic.setBounds (1000, 290, 80, 20);
+    btnBrowse.setBounds (922, 205, 90, 30);
     
     // Play Mode
-    playMode.setBounds (820, 290, 80,  20);
-    viewMode.setBounds (910, 290, 80,  20);
+    playMode.setBounds (820, 290, 80, 20);
+    viewMode.setBounds (910, 290, 80, 20);
     
     // Live Controller
-    pitchWheel.setBounds(1100, 60, 80,  250);
-    modWheel.setBounds (1200, 60, 80,  250);
-    expWheel.setBounds (1300, 60, 80,  250);
+    pitchWheel.setBounds(1100, 60, 80, 250);
+    modWheel.setBounds (1200, 60, 80, 250);
+    expWheel.setBounds (1300, 60, 80, 250);
     
     // Lable
-    progName.setBounds(840, 140, 260,  60);
-    progNumber.setBounds(840, 200, 260,  60);
+    progName.setBounds(840, 137, 260,  60);
+    progNumber.setBounds(930, 245, 80,  30);
 }
 
 

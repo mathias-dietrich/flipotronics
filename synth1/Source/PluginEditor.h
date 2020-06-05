@@ -7,6 +7,8 @@
 #include "Model.h"
 #include "FileManager.h"
 #include "BankLoader.h"
+#include "img.h"
+#include "Color.h"
 //==============================================================================
 /**
 */
@@ -21,7 +23,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    float zoom = 20;
+    float zoom = 5;
     float zoomY = 1;
     
     MidiKeyboardState keyboardState;
@@ -40,6 +42,7 @@ public:
     TextButton btnProgUp;
     TextButton btnProgDown;
     TextButton btnPanic;
+    TextButton btnBrowse;
     
     Label timeLabel;
     
@@ -68,6 +71,8 @@ public:
 
 private:
     Synth1AudioProcessor& processor;
+    
+    Image vumeter = ImageCache::getFromMemory (img::meter_png, img::meter_pngSize);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
     
@@ -182,7 +187,13 @@ private:
         }
         
         // Panic
-        if(button->getRadioGroupId()==24) {
+        if(button->getRadioGroupId()==25) {
+            processor.panic();
+            return;
+        }
+        
+        // Browse
+        if(button->getRadioGroupId()==26) {
             processor.panic();
             return;
         }
@@ -286,12 +297,10 @@ private:
     }
     
     void sliderDragEnded(Slider *) override{
-        pitchWheel.setValue(8192);
+        pitchWheel.setValue(0);
     }
     
     void timerCallback() override{
         repaint();
     }
-
-
 };

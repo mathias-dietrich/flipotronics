@@ -14,6 +14,7 @@
 #include "WaveTable.h"
 #include "Model.h"
 #include "Func.h"
+#include "ParamBuilder.h"
 
 class Voice {       // The class
 
@@ -31,7 +32,9 @@ public:
     double volOscWhite = 1.0;
     int midiChannel = 0;
     int64 now = Time::currentTimeMillis();
-    int tablePos0 = 0;
+    float tablePos0 = 0;
+    float tablePos1 = 0;
+    float tablePosSub = 0;
 
     Voice(){
         waveTable = new WaveTable();
@@ -72,14 +75,19 @@ public:
         float *tableWhite = waveTable->whiteBuffer;
         
         for (int i=0; i<samplesPerBlock; ++i) {
-            //float v = (tableSin[tablePos0]  + tableSquare[tablePos0]) * velocity / par[1] * par[7];
-             float v = tableSaw[tablePos0]  * velocity / par[1] * par[7];
+            float v = tableSaw[((int)tablePos0)]  * velocity / par[P_NOVOICES] ;
+            v += tableSaw[((int)tablePosSub)]  * velocity / par[P_NOVOICES] * par[P_OSC1_SUB];
+            v = v * par[7];
             channelDataL[i] += v;
             channelDataR[i] += v;
             float t = par[0] / 440.0;
-            tablePos0 += OVERSAMPLING * freq * t;
+            tablePos0 += OVERSAMPLING * (freq + par[P_OSC1_FINE])  * t;
             if(tablePos0 >= sr){
                 tablePos0 -= sr;
+            }
+            tablePosSub += OVERSAMPLING * freq /3.0 * t;
+            if(tablePosSub >= sr){
+                tablePosSub -= sr;
             }
         }
         clock += samplesPerBlock;

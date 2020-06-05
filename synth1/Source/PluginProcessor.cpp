@@ -10,7 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-
+#include "img.h"
 
 // Global Variables
 double par[MAXPARAM];

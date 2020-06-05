@@ -315,6 +315,7 @@ class ParamBuilder {       // The class
             p.def = 0;
             params[P_NOISE_TYPE] = p;
 
+            // OSC 1
             p.pid = P_OSC1_OCT;
             p.name = "Osc1 Octave";
             p.writeable = 1;
@@ -343,7 +344,7 @@ class ParamBuilder {       // The class
             p.automate = 1;
             p.minVal = -6;
             p.maxVal = 6;
-            p.stepVal = 1;
+            p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 0;
             params[P_OSC1_FINE] = p;
