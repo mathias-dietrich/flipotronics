@@ -18,10 +18,22 @@
 
 #define P_TUNING 0
 #define P_NOVOICES 1
+#define P_EXP_FILTER1 2
+#define P_EXP_FILTER2 3
+#define P_EXP_RES1 4
+#define P_EXP_LFO1 5
+#define P_EXP_PORTAMENTO 6
 #define P_VOLUME 7
+#define P_PITCHWHEELMIN 8
+#define P_PITCHWHEELMAX 9
 #define P_PAN 10
+#define P_MOD_FILTER 11
+#define P_MOD_LFO1 12
+#define P_MOD_LFO2 13
 
 // Osc
+#define P_NOISE_LEVEL 14
+#define P_NOISE_TYPE 15
 #define P_OSC1_OCT 16
 #define P_OSC1_SEMI 17
 #define P_OSC1_FINE 18
@@ -149,6 +161,61 @@ class ParamBuilder {       // The class
             p.def = 8;
             params[P_NOVOICES] = p;
             
+            p.pid = P_EXP_FILTER1;
+            p.name = "Exp Filter 1";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_EXP_FILTER1] = p;
+            
+            p.pid = P_EXP_FILTER2;
+            p.name = "Exp Filter 2";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_EXP_FILTER2] = p;
+            
+            p.pid = P_EXP_RES1;
+            p.name = "Exp Res 1";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_EXP_RES1] = p;
+            
+            p.pid = P_EXP_LFO1;
+            p.name = "Exp Lfo 1";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_EXP_LFO1] = p;
+            
+            p.pid = P_EXP_PORTAMENTO;
+            p.name = "Portamento";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1000;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 0;
+            params[P_EXP_PORTAMENTO] = p;
+            
             p.pid = P_VOLUME;
             p.name = "Volume";
             p.writeable = 1;
@@ -170,6 +237,83 @@ class ParamBuilder {       // The class
             p.type = uFloat;
             p.def = 0.5;
             params[P_PAN] = p;
+            
+            p.pid = P_PITCHWHEELMIN;
+            p.name = "PitchWheel Min";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 12;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 5;
+            params[P_PITCHWHEELMIN] = p;
+            
+            p.pid = P_PITCHWHEELMAX;
+            p.name = "PitchWheel Max";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 12;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 7;
+            params[P_PITCHWHEELMAX] = p;
+            
+            p.pid = P_MOD_FILTER;
+            p.name = "Mod Filter";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.1;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_MOD_FILTER] = p;
+            
+            p.pid = P_MOD_LFO1;
+            p.name = "Mod LFO 1";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.1;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_MOD_LFO1] = p;
+            
+            p.pid = P_MOD_LFO2;
+            p.name = "Mod LFO 2";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.1;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_MOD_LFO2] = p;
+            
+            p.pid = P_NOISE_LEVEL;
+            p.name = "Noise Level";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_NOISE_LEVEL] = p;
+            
+            p.pid = P_NOISE_TYPE;
+            p.name = "Noise Type";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 2;
+            p.stepVal = 0.01;
+            p.type = uInt;
+            p.def = 0;
+            params[P_NOISE_TYPE] = p;
 
             p.pid = P_OSC1_OCT;
             p.name = "Osc1 Octave";
