@@ -16,12 +16,14 @@
 #include "Voice.h"
 #include "Const.h"
 #include "ParamBuilder.h"
+#include "PatchLoader.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 
 class Core {       // The class
   public:             // Access specifier
     Core(){
+        patchLoader = new PatchLoader();
         ParamBuilder *b = new ParamBuilder();
         b->build();
         delete b;
@@ -31,9 +33,16 @@ class Core {       // The class
     
     ~Core(){
         delete arp;
+        delete patchLoader;
+    }
+    
+    void loadPatch(int p){
+        patchLoader->load(p);
     }
     
     int updateCounter = 0;
+    
+    PatchLoader *patchLoader;
     
     Voice voices[32] ;
     

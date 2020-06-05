@@ -21,6 +21,9 @@ int samplerate;
 int samplesperblock;
 int viewModeSetting;
 int patchCurrent;
+String patchNameCurrent = "Init";
+bool compareMode = false;
+BankData bankData;
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()

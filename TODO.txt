@@ -2,11 +2,9 @@ TODO
 https://www.kvraudio.com/forum/viewtopic.php?f=33&t=329696
 https://www.kvraudio.com/forum/viewtopic.php?f=33&t=329696
 
-Config:
+Last Settings
 
-Parameter
-Serializer
-
+Compare
 
 FILTER
 
@@ -18,6 +16,8 @@ IN Queue
 
 Matrix
 
+Macros
+
 Draw Freq Plot
 
 Edit ADSR
@@ -25,3 +25,11 @@ Edit ADSR
 LFO
 
 OSC
+
+Analog Behaviour
+
+FX
+
+C-Sound
+
+

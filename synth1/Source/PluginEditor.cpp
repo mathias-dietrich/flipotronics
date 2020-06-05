@@ -14,10 +14,13 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible (keyboardComponent);
     setSize (1400, 780);
     keyboardState.addListener (this);
-    
+    patchCurrent = 0;
     viewModeSetting = 1;
     
-    fileManager = new FileManager();
+    //fileManager = new FileManager();
+    bankLoader = new BankLoader();
+    bankLoader->load();
+    processor.loadPatch(0);
     
     int from = 0;
     int to = 15;
@@ -32,6 +35,11 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     }
     
     btnParam[0].setToggleState(true, NotificationType::dontSendNotification);
+    
+    btnCompare.setButtonText ("Compare");
+    btnCompare.addListener (this);
+    btnCompare.setRadioGroupId(24);
+    addAndMakeVisible (btnCompare);
     
     btnSave.setButtonText ("Save");
     btnSave.addListener (this);
@@ -95,7 +103,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
         boxes[i].setJustification(Justification::horizontallyCentred);
     }
     
-    fileManager->load();
+    
+     modelOld = modelOld.copy();
     setDials();
     
     addAndMakeVisible(playMode);
@@ -161,7 +170,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor()
 {
-    delete fileManager;
+    delete bankLoader;
 }
 
 //==============================================================================
@@ -235,6 +244,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     //drawsome( g,  half,  width,  buf );
     
     delete w;
+    
 }
 
 void Synth1AudioProcessorEditor::resized()
@@ -254,8 +264,9 @@ void Synth1AudioProcessorEditor::resized()
         btnParam[i+8].setBounds (10 + i * 100,  25 , 100,  20);
     }
     
-    btnSave.setBounds (width-220,  25 , 100,  20);
-    btnLoad.setBounds (width-110,  25 , 100,  20);
+    btnCompare.setBounds (width-270, 30, 80, 20);
+    btnSave.setBounds (width-180, 30, 80, 20);
+    btnLoad.setBounds (width-90, 30, 80, 20);
     
     int dialY = 60;
     for(int i=0; i < 8; ++i){
@@ -293,10 +304,6 @@ void Synth1AudioProcessorEditor::resized()
     // Lable
     progName.setBounds(840, 140, 260,  60);
     progNumber.setBounds(840, 200, 260,  60);
-    
-    
-   
-   
 }
 
 

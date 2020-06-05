@@ -155,12 +155,14 @@
 		4F53E61B248302B60080F061 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Core.h; path = ../../Source/Core.h; sourceTree = "<group>"; };
 		4F53E62024836C1E0080F061 /* WaveTable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = WaveTable.cpp; path = ../../Source/WaveTable.cpp; sourceTree = "<group>"; };
 		4F53E62124836C1E0080F061 /* WaveTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WaveTable.h; path = ../../Source/WaveTable.h; sourceTree = "<group>"; };
+		4F60EF7D248A05B800E349AD /* BankLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BankLoader.h; path = ../../Source/BankLoader.h; sourceTree = "<group>"; };
 		4F88DBC824859F33006ABA7A /* Func.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Func.h; path = ../../Source/Func.h; sourceTree = "<group>"; };
 		4F88DBC92485A52F006ABA7A /* Enum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Enum.h; path = ../../Source/Enum.h; sourceTree = "<group>"; };
 		4F88DBCA2485A7AD006ABA7A /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Const.h; path = ../../Source/Const.h; sourceTree = "<group>"; };
 		4F88DBCB2485B19F006ABA7A /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = ../../../TODO.txt; sourceTree = "<group>"; };
 		4F88DBCC2485B450006ABA7A /* SynthAudioSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SynthAudioSource.h; path = ../../Source/SynthAudioSource.h; sourceTree = "<group>"; };
 		4F88DBCD24862341006ABA7A /* Param.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Param.h; path = ../../Source/Param.h; sourceTree = "<group>"; };
+		4F919949248918EF004D76B7 /* PatchLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PatchLoader.h; path = ../../Source/PatchLoader.h; sourceTree = "<group>"; };
 		4F93CA3E24865921005588D2 /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../../Source/Model.h; sourceTree = "<group>"; };
 		4F93CA3F24867C7C005588D2 /* FileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FileManager.h; path = ../../Source/FileManager.h; sourceTree = "<group>"; };
 		4FA53D032487E84E0056C32E /* ParamBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParamBuilder.h; path = ../../Source/ParamBuilder.h; sourceTree = "<group>"; };
@@ -353,6 +355,8 @@
 				4F93CA3E24865921005588D2 /* Model.h */,
 				4F93CA3F24867C7C005588D2 /* FileManager.h */,
 				4FA53D032487E84E0056C32E /* ParamBuilder.h */,
+				4F919949248918EF004D76B7 /* PatchLoader.h */,
+				4F60EF7D248A05B800E349AD /* BankLoader.h */,
 			);
 			name = core;
 			sourceTree = "<group>";

@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #pragma once
 
 #include <JuceHeader.h>
@@ -16,6 +6,7 @@
 #include "Func.h"
 #include "Model.h"
 #include "FileManager.h"
+#include "BankLoader.h"
 //==============================================================================
 /**
 */
@@ -36,6 +27,7 @@ public:
     TextButton btnParam[16];
     TextButton btnSave;
     TextButton btnLoad;
+    TextButton btnCompare;
     
     TextButton btnRange0;
     TextButton btnRange1;
@@ -51,7 +43,7 @@ public:
     TextEditor boxes[16];
     Slider dials[16] ;
     
-    FileManager *fileManager;
+    BankLoader *bankLoader;
     
     int paramRange = 0;
     int paramRoot = 0;
@@ -65,12 +57,10 @@ public:
     
     Label progName;
     Label progNumber;
+    
+    Model modelOld;
 
 private:
-
-    
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
     Synth1AudioProcessor& processor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
@@ -100,13 +90,15 @@ private:
     {
         // Save
         if(button->getRadioGroupId()==16) {
-             fileManager->save();
+             //fileManager->save();
+             bankLoader->save();
            return;
         }
         
         // Load
         if(button->getRadioGroupId()==17) {
-            fileManager->load();
+            //fileManager->load();
+            bankLoader->load();
             setDials();
             return;
         }
@@ -154,18 +146,29 @@ private:
         if(button->getRadioGroupId()==22) {
            // Progr Up
             patchCurrent++;
-            if(patchCurrent >=128){
-                patchCurrent = 1;
+            if(patchCurrent >=127){
+                patchCurrent = 0;
             }
+            compareMode = false;
+            processor.loadPatch(patchCurrent);
             setDials();
             return;
         }
         
         if(button->getRadioGroupId()==23) {
             patchCurrent--;
-            if(patchCurrent < 1){
-               patchCurrent = 128;
+            if(patchCurrent < 0){
+               patchCurrent = 127;
             }
+            compareMode = false;
+            processor.loadPatch(patchCurrent);
+            setDials();
+            return;
+        }
+        
+        if(button->getRadioGroupId()==24) {
+            compareMode = !compareMode;
+            modelOld = modelOld.swap(modelOld);
             setDials();
             return;
         }
@@ -192,7 +195,9 @@ private:
             btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
         }
         btnParam[paramRange].setToggleState(true, NotificationType::dontSendNotification);
-        progNumber.setText(toString(patchCurrent), NotificationType::dontSendNotification);
+        progNumber.setText(toString(patchCurrent+1), NotificationType::dontSendNotification);
+        progName.setText(patchNameCurrent, NotificationType::dontSendNotification);
+        btnCompare.setToggleState(compareMode, NotificationType::dontSendNotification);
     }
     
     void sliderValueChanged(Slider *  slider) override {
@@ -261,9 +266,7 @@ private:
         repaint();
     }
     
-    
     void sliderDragEnded(Slider *) override{
         pitchWheel.setValue(8192);
     }
-
 };

@@ -25,5 +25,23 @@ struct Param{
     float stepVal;
     float minVal;
     float maxVal;
+    
+    Param copy(){
+        Param p;
+        p.type = type;
+        p.name = String(name);
+        p.pid = pid;
+        p.writeable = writeable;
+        p.automate = automate;
+        p.valI = valI;
+        p.valF = valF;
+        p.valD = valD;
+        p.def = def;
+        p.valS = String(valS);
+        p.stepVal = stepVal;
+        p.minVal = minVal;
+        p.maxVal = maxVal;
+        return p;
+    }
 };
 #endif /* Param_h */

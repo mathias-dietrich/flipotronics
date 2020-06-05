@@ -51,19 +51,20 @@ public:
     
     Core *core;
     
-    void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override
-    {
+    void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override {
         core->startVoice( midiChannel,  midiNoteNumber,  velocity);
     }
      
-    void handleNoteOff (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override
-    {
+    void handleNoteOff (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override {
          core->endVoice( midiChannel,  midiNoteNumber);
     }
     
-    void panic ()
-    {
+    void panic(){
         core->killAllVoice();
+    }
+    
+    void loadPatch(int p){
+        core->loadPatch(p);
     }
 
 private:
