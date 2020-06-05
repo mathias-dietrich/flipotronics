@@ -89,6 +89,25 @@
 #define P_ADSR4_FILT 78
 #define P_ADSR4_VOL 79
 
+#define P_LFO1_FREQ 80
+#define P_LFO1_WAV 81
+#define P_LFO1_DELAY 82
+#define P_LFO1_SYNC 83
+#define P_LFO1_PITCH 84
+#define P_LFO1_FILTER 85
+#define P_LFO1_VOL 86
+#define P_LFO1_ 87
+
+#define P_LFO2_FREQ 88
+#define P_LFO2_WAV 89
+#define P_LFO2_DELAY 90
+#define P_LFO2_SYNC 91
+#define P_LFO2_PITCH 92
+#define P_LFO2_FILTER 93
+#define P_LFO2_VOL 94
+#define P_LFO2_ 95
+
+
 #define P_PLAYMODE 1023
 
 class ParamBuilder {       // The class
@@ -779,6 +798,163 @@ class ParamBuilder {       // The class
             p.type = uFloat;
             p.def = 0;
             params[P_ADSR4_VOL] = p;
+            
+            p.pid = P_LFO1_FREQ;
+            p.name = "LFO 1 Freq";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0.1;
+            p.maxVal = 20;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_LFO1_FREQ] = p;
+            
+            p.pid = P_LFO1_WAV;
+            p.name = "LFO 1 Wave";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 5;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 0;
+            params[P_LFO1_WAV] = p;
+   
+            p.pid = P_LFO1_DELAY;
+            p.name = "LFO 1 Delay";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 2000;
+            p.stepVal = 0.1;
+            p.type = uInt;
+            p.def = 0;
+            params[P_LFO1_DELAY] = p;
+
+            p.pid = P_LFO1_SYNC;
+            p.name = "LFO 1 Sync";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 0;
+            params[P_LFO1_SYNC] = p;
+
+            p.pid = P_LFO1_PITCH;
+            p.name = "LFO 1 Sync";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_LFO1_PITCH] = p;
+            
+            p.pid = P_LFO1_FILTER;
+            p.name = "LFO 1 Filter";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_LFO1_FILTER] = p;
+            
+            p.pid = P_LFO1_VOL;
+            p.name = "LFO 1 Vol";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_LFO1_VOL] = p;
+            
+            // LFO2
+            p.pid = P_LFO2_FREQ;
+            p.name = "LFO 2 Freq";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0.1;
+            p.maxVal = 20;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_LFO2_FREQ] = p;
+
+            p.pid = P_LFO1_WAV;
+            p.name = "LFO 2 Wave";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 5;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 0;
+            params[P_LFO2_WAV] = p;
+
+            p.pid = P_LFO1_DELAY;
+            p.name = "LFO 2 Delay";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 2000;
+            p.stepVal = 0.1;
+            p.type = uInt;
+            p.def = 0;
+            params[P_LFO2_DELAY] = p;
+
+            p.pid = P_LFO2_SYNC;
+            p.name = "LFO 2 Sync";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 0;
+            params[P_LFO2_SYNC] = p;
+
+            p.pid = P_LFO2_PITCH;
+            p.name = "LFO 2 Sync";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_LFO2_PITCH] = p;
+
+            p.pid = P_LFO2_FILTER;
+            p.name = "LFO 2 Filter";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_LFO2_FILTER] = p;
+
+            p.pid = P_LFO2_VOL;
+            p.name = "LFO 2 Vol";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            params[P_LFO2_VOL] = p;
+
+
             
             p.pid = P_PLAYMODE;
             p.name = "PlayMode";
