@@ -41,6 +41,7 @@ class Core {       // The class
     }
     
     int updateCounter = 0;
+    int scopeCounter = 0;
     
     PatchLoader *patchLoader;
     

@@ -11,7 +11,7 @@
 /**
 */
 class Synth1AudioProcessorEditor  : public AudioProcessorEditor,MidiKeyboardStateListener,
-    public Button::Listener,  public Slider::Listener
+    public Button::Listener,  public Slider::Listener,public Timer
 {
 public:
     Synth1AudioProcessorEditor (Synth1AudioProcessor&);
@@ -20,6 +20,9 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+    
+    float zoom = 20;
+    float zoomY = 1;
     
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
@@ -55,6 +58,9 @@ public:
     Slider modWheel;
     Slider expWheel;
     
+    Slider graphZoom;
+    Slider graphZoomY;
+    
     Label progName;
     Label progNumber;
     
@@ -65,11 +71,13 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
     
-    void drawsome(Graphics& g, int half, int width, float * buf ){
+    void drawPlot(Graphics& g, int half, int width, float * buf ){
         int lastX = 0;
         int lastY = half;
+        int sr = samplerate * OVERSAMPLING;
         for(int i=0; i< width;++i){
-            int v = half - buf[i * OVERSAMPLING] * 200;
+            int pos = i  * sr / zoom  / width;
+            int v = half - buf[pos] * 180 * zoomY;
              g.drawLine (lastX, lastY, i, v, 1.0f);
             lastX = i;
             lastY = v;
@@ -217,6 +225,17 @@ private:
         if(sid==102){
             return;
         }
+        
+        // Zoom
+        if(sid==103){
+            zoom = slider->getValue();
+            return;
+        }
+        // Zoom Y
+        if(sid==104){
+            zoomY = slider->getValue();
+            return;
+        }
         par[paramRoot * 256 + paramRange * 16 + sid] = slider->getValue();
     }
     
@@ -269,4 +288,10 @@ private:
     void sliderDragEnded(Slider *) override{
         pitchWheel.setValue(8192);
     }
+    
+    void timerCallback() override{
+        repaint();
+    }
+
+
 };

@@ -103,8 +103,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
         boxes[i].setJustification(Justification::horizontallyCentred);
     }
     
-    
-     modelOld = modelOld.copy();
+    modelOld = modelOld.copy();
     setDials();
     
     addAndMakeVisible(playMode);
@@ -147,6 +146,21 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     expWheel.setRange(0, 127,1);
     addAndMakeVisible(expWheel);
     
+    graphZoom.setSliderStyle(Slider::SliderStyle::LinearHorizontal );
+    graphZoom.setName("103");
+    graphZoom.addListener (this);
+    graphZoom.setRange(1, 4000,1);
+    graphZoom.setValue(20);
+    addAndMakeVisible(graphZoom);
+    
+    graphZoomY.setSliderStyle(Slider::SliderStyle::LinearVertical );
+    graphZoomY.setName("104");
+    graphZoomY.addListener (this);
+    graphZoomY.setRange(0.5, 4,0.01);
+    graphZoomY.setValue(1);
+    graphZoomY.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
+    addAndMakeVisible(graphZoomY);
+    
     progName.setColour (Label::backgroundColourId, Colours::darkgreen);
     progName.setColour (Label::textColourId, Colours::white);
     progName.setJustificationType (Justification::centred);
@@ -166,10 +180,28 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     f.setBold(true);
     progNumber.setFont(f);
     addAndMakeVisible(progNumber);
+    
+    // Plot
+    Rectangle<int> r = getLocalBounds();
+    int width = r.getWidth();
+    WaveTable *w = new WaveTable();
+    w->init(samplerate, samplesperblock);
+    int sr = OVERSAMPLING * samplerate;
+    float pos = 0;
+    for(int i= 0; i < sr;++i){
+        pos += 440  ;
+        if(pos >= sr){
+            pos -= sr;
+        }
+        int p = pos;
+        scopeBuffer[i] = w->sinBuffer[p];
+    }
+    delete w;
+    
+    startTimer(100);
 }
 
-Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor()
-{
+Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
     delete bankLoader;
 }
 
@@ -179,7 +211,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     Rectangle<int> r = getLocalBounds();
     int width = r.getWidth();
     int height = r.getHeight() ;
-    int half = height / 2 + 128;
+    int half = height / 2 + 120;
     
     // BG
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
@@ -194,7 +226,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     g.drawFittedText (PRODUCTNAME, rv, Justification::topRight, 1);
     
     g.setColour (Colours::black);
-    r.setHeight(410);
+    r.setHeight(380);
     r.setY(315);
     g.fillRect(r);
 
@@ -212,7 +244,6 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     g.setColour (Colours::lightyellow);
     g.fillRect(rv);
 
-    
     if(viewModeSetting !=1){
         return;
     }
@@ -220,31 +251,9 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     // Plot
     g.setColour (Colours::white);
     g.drawLine (0, half, width, half, 0.5f);
-    WaveTable *w = new WaveTable();
-    w->init(width, width);
-    
-    auto buf = w->sinBuffer;
-    g.setColour (Colours::red);
-    drawsome( g,  half,  width,  buf );
-    
-    buf = w->triangleBuffer;
-    g.setColour (Colours::green);
-    drawsome( g,  half,  width,  buf );
-    
-    buf = w->sawBuffer;
-    g.setColour (Colours::blue);
-    drawsome( g,  half,  width,  buf );
 
-    buf = w->squareBuffer;
-    g.setColour (Colours::yellow);
-    drawsome( g,  half,  width,  buf );
-    
-    buf = w->whiteBuffer;
-    g.setColour (Colours::white);
-    //drawsome( g,  half,  width,  buf );
-    
-    delete w;
-    
+    g.setColour (Colours::red);
+    drawPlot( g, half, width, scopeBuffer );
 }
 
 void Synth1AudioProcessorEditor::resized()
@@ -281,12 +290,14 @@ void Synth1AudioProcessorEditor::resized()
             dials[i+8].setBounds (10  + i * 100,  dialY+20, 100,  100);
     }
     
+    graphZoom.setBounds (0 ,  700, width-10,  20);
+    graphZoomY.setBounds (0 ,  312, 20,  385);
+    
     // Range Buttons
     btnRange0.setBounds (820,  5, 80,  20);
     btnRange1.setBounds (910,  5, 80,  20);
     btnRange2.setBounds (1000, 5, 80,  20);
     btnRange3.setBounds (1090, 5, 80,  20);
-    
     
     btnProgDown.setBounds (840, 265, 80,  20);
     btnProgUp.setBounds (1020, 265, 80,  20);

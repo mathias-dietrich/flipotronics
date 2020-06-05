@@ -24,6 +24,7 @@ int patchCurrent;
 String patchNameCurrent = "Init";
 bool compareMode = false;
 BankData bankData;
+float scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()

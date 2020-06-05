@@ -74,6 +74,7 @@ extern int patchCurrent;
 extern String patchNameCurrent;
 extern bool compareMode;
 extern BankData bankData;
+extern float scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
 
 class Model {
     
