@@ -23,7 +23,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    float zoom = 5;
+    float zoom =440;
     float zoomY = 1;
     
     MidiKeyboardState keyboardState;
@@ -77,12 +77,34 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
     
     void drawPlot(Graphics& g, int half, int width, float * buf ){
+        
+        // search positive zero crossing
+        int offset =0;
+        while(buf[offset] > 0){
+            ++offset;
+        }
+        
+        while(offset < width){
+            if(buf[offset] <0 && buf[offset+1] >=0){
+                break;
+            }
+            ++offset;
+        }
+        
         int lastX = 0;
         int lastY = half;
         int sr = samplerate * OVERSAMPLING;
+        
         for(int i=0; i< width;++i){
-            int pos = i  * sr / zoom  / width;
-            int v = half - buf[pos] * 180 * zoomY;
+            int p = offset + i;
+          
+            int pos = p  * sr / zoom  / width;
+            if(pos >= width){
+                pos -= width;
+            }
+            
+            float a = tanh(3.0f * buf[pos]);
+            int v = half - a * 180 * zoomY;
              g.drawLine (lastX, lastY, i, v, 1.0f);
             lastX = i;
             lastY = v;

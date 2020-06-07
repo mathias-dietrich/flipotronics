@@ -178,6 +178,7 @@
 		4FC4C0BC248395E700CBE568 /* Arp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Arp.h; path = ../../Source/Arp.h; sourceTree = "<group>"; };
 		4FC4C0C3248396B500CBE568 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = ../../Source/Note.h; sourceTree = "<group>"; };
 		4FC4C0C424839DE200CBE568 /* Voice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Voice.h; path = ../../Source/Voice.h; sourceTree = "<group>"; };
+		4FE13226248D081600B67233 /* Adsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Adsr.h; path = ../../Source/Adsr.h; sourceTree = "<group>"; };
 		53C3F00C4E40FB17A6C3315E /* juce_audio_formats */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_formats; path = "~/JUCE/modules/juce_audio_formats"; sourceTree = "<absolute>"; };
 		587EA1A23256BEBF498EB891 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		5C8451858BCEA378E6332BF5 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppConfig.h; path = ../../JuceLibraryCode/AppConfig.h; sourceTree = SOURCE_ROOT; };
@@ -376,6 +377,7 @@
 				4F919949248918EF004D76B7 /* PatchLoader.h */,
 				4F60EF7D248A05B800E349AD /* BankLoader.h */,
 				4F712E06248ADE3B00EBC733 /* Color.h */,
+				4FE13226248D081600B67233 /* Adsr.h */,
 			);
 			name = core;
 			sourceTree = "<group>";

@@ -55,14 +55,14 @@ class Core {       // The class
         voices[vid].midiChannel = midiChannel;
         voices[vid].noteNumber = midiNoteNumber;
         voices[vid].velocity = velocity;
-        voices[vid].setup();
+        voices[vid].reset();
 
         std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << " freq: " << voices[vid].freq << std::endl;
     }
     
     void endVoice(int midiChannel, int midiNoteNumber){
         int vid = findExistingVoice(midiChannel, midiNoteNumber);
-        voices[vid].active = false;
+        voices[vid]. noteOff();
         std::cout <<  "End Voice midiNoteNumber:" << midiNoteNumber  << std::endl;
     }
     

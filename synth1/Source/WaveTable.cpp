@@ -11,13 +11,12 @@
 
 void WaveTable::init (double sampleRate, int samplesPerBlock){
     this->sampleRate = sampleRate;
+    sr = sampleRate * OVERSAMPLING;
     this->samplesPerBlock = samplesPerBlock;
 
      int sr = OVERSAMPLING * sampleRate;
     m_time = 0.0;
     m_deltaTime = 1.0 / (float)sr;
-    
-   
     
     // Sin Table
     for (int sample = 0; sample < sr; ++sample) {
@@ -26,21 +25,31 @@ void WaveTable::init (double sampleRate, int samplesPerBlock){
          m_time += m_deltaTime;
     }
     
-    // Square Table
-    for (int sample = 0; sample < sr; ++sample) {
+    // Square Table Generator - add Sin waves up
+    int harmonics = 10;
+    int freqmul = 1;
+    float vol = 1.0f;
+    for (int sample = 0; sample < sr; ++sample){
+        squareBuffer[sample] = 0;
         if(sample < sr/2){
-            squareBuffer[sample] = 1;
-        }else{
-            squareBuffer[sample] = -1;
+            squareBuffer[sample] = 0.5;
+           }else{
+            squareBuffer[sample] = -0.5;
         }
     }
-    
-    // Saw Table
-    for (int sample = 0; sample < sr/2; ++sample) {
-        sawBuffer[sample] = 2.0 * sample / sr ;
+    for(int i=0; i < harmonics;++i){
+        for (int sample = 0; sample < sr; ++sample) {
+            int pos = checkPos(sample * freqmul);
+            squareBuffer[sample] += sinBuffer[pos] * vol / 10.0f;
+        }
+        freqmul += 2;
+        vol *= 0.5;
     }
-    for (int sample = sr/2; sample < sr; ++sample) {
-        sawBuffer[sample] = 2.0 * sample / sr - 2;
+        
+    // Saw Table
+    // (2.0 * mPhase / twoPI) - 1.0;
+    for (int sample = 0; sample < sr; ++sample) {
+        sawBuffer[sample] = 2.0f * sample / sr  - 1.0f;
     }
     
     // Triangle Table
@@ -53,12 +62,11 @@ void WaveTable::init (double sampleRate, int samplesPerBlock){
             triangleBuffer[sample] = -1.0 + 4.0 * (sample - 3 * sr / 4) / sr;
         }
     }
-    
+
     // White Table
+     Random *random = new Random();
     for (int sample = 0; sample < sr; ++sample) {
-         Random *random = new Random();
         whiteBuffer[sample] = random->nextFloat() * 2.0 - 1.0;
-        //std::cout << whiteBuffer[sample] << std::endl;
-        delete random;
     }
+    delete random;
 }

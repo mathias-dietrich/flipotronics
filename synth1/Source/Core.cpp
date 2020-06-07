@@ -84,6 +84,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     for (int i=0; i<samplesPerBlock; ++i) {
         scopeBuffer[i + scopeCounter * samplesPerBlock] =  (channelDataL[i] + channelDataR[i]) / 2.0;
     }
+    
     ++scopeCounter;
     if (scopeCounter >= sampleRate / samplesPerBlock){
         scopeCounter = 0;

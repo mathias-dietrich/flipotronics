@@ -204,7 +204,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     }
     delete w;
     
-    startTimer(50);
+    startTimer(1000 / SCOPEFRAMES);
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){

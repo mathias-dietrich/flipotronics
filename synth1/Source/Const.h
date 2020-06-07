@@ -13,10 +13,10 @@
 #define PRODUCTNAME "Flipotronics 1 - 1.0.0"
 #define MAXPARAM 1024
 #define MAXVOICE 32
-#define OVERSAMPLING 4
+#define OVERSAMPLING 16
 #define SAMPLERATEMAX 192000
 #define UPDATEDEVIDER 10
 
-
+#define SCOPEFRAMES 12
 
 #endif /* Const_h */

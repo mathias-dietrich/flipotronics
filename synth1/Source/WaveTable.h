@@ -10,6 +10,8 @@
 #define WaveTable_hpp
 
 #include <stdio.h>
+
+
 #include <JuceHeader.h>
 #include "Const.h"
 
@@ -24,6 +26,17 @@ class WaveTable {// The class
         
     }
     
+    inline int checkPos(int pos){
+        while(pos < 0){
+            pos += sr;
+        }
+        while(pos >= sr){
+           pos -= sr;
+        }
+        return pos;
+    }
+    
+    int sr;
     void init (double sampleRate, int samplesPerBlock);
     
     float *sinBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
