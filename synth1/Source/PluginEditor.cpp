@@ -189,7 +189,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     
     // Plot
     Rectangle<int> r = getLocalBounds();
-    int width = r.getWidth();
+
     WaveTable *w = new WaveTable();
     w->init(samplerate, samplesperblock);
     int sr = OVERSAMPLING * samplerate;

@@ -45,7 +45,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     while(n.getNextEvent (result, samplePosition)){
         if(result.isNoteOn()){
             int note = result.getNoteNumber();
-            float velocity = result.getVelocity() / 127.0;
+            float velocity = result.getVelocity() / 127.0f;
             int channel = result.getChannel();
             startVoice(channel,note, velocity);
         }
@@ -82,7 +82,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
      }
     
     for (int i=0; i<samplesPerBlock; ++i) {
-        scopeBuffer[i + scopeCounter * samplesPerBlock] =  (channelDataL[i] + channelDataR[i]) / 2.0;
+        scopeBuffer[i + scopeCounter * samplesPerBlock] =  (channelDataL[i] + channelDataR[i]) / 2.0f;
     }
     
     ++scopeCounter;

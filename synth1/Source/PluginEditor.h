@@ -227,9 +227,32 @@ private:
     void setDials(){
         for(int i=0; i < 16; ++i){
             int pid = paramRoot * 256 + paramRange * 16 + i;
-            boxes[i].setText(params[pid].name);
+            
             dials[i].setRange(params[pid].minVal,params[pid].maxVal,params[pid].stepVal);
-            dials[i].setValue(par[pid], dontSendNotification);
+            boxes[i].setText(params[pid].name);
+            if( params[pid].type == uWaveType){
+                dials[i].setTextValueSuffix(" " + getWaveType(E_WaveType(int(par[pid]))));
+                dials[i].setValue(par[pid], dontSendNotification);
+            }
+            else if( params[pid].type == uPhase){
+                dials[i].setTextValueSuffix(" degrees");
+            }
+            else if( params[pid].type == uTimeMsec){
+                dials[i].setTextValueSuffix(" msec");
+            }
+            else if( params[pid].type == uDb){
+                dials[i].setSkewFactor (6);
+                dials[i].setTextValueSuffix(" dB");
+            }
+            else if( params[pid].type == uBool){
+                bool test = par[pid];
+                String text = test ? " on" : " off" ;
+                dials[i].setTextValueSuffix(text);
+                 dials[i].setValue(par[pid], dontSendNotification);
+            }
+            else{
+               dials[i].setValue(par[pid], dontSendNotification);
+            }
         }
         // Param Select
         for(int i=0; i < 16; ++i){
@@ -270,6 +293,7 @@ private:
             return;
         }
         par[paramRoot * 256 + paramRange * 16 + sid] = slider->getValue();
+        setDials();
     }
     
     void setButtonRanges(){

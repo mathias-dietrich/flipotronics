@@ -212,7 +212,7 @@ class ParamBuilder {       // The class
             p.minVal = 0;
             p.maxVal = 1000;
             p.stepVal = 1;
-            p.type = uInt;
+            p.type = uTimeMsec;
             p.def = 0;
             params[P_EXP_PORTAMENTO] = p;
             
@@ -220,11 +220,12 @@ class ParamBuilder {       // The class
             p.name = "Volume";
             p.writeable = 1;
             p.automate = 1;
-            p.minVal = 0;
-            p.maxVal = 1;
+            p.minVal = -96;
+            p.maxVal = 0;
             p.stepVal = 0.01;
-            p.type = uFloat;
+            p.type = uDb;
             p.def = 8;
+           
             params[P_VOLUME] = p;
             
             p.pid = P_PAN;
@@ -365,9 +366,9 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
-            p.maxVal = 6;
+            p.maxVal = 8;
             p.stepVal = 1;
-            p.type = uInt;
+            p.type =  uWaveType;
             p.def = 0;
             params[P_OSC1_WAV] = p;
             
@@ -389,7 +390,7 @@ class ParamBuilder {       // The class
             p.minVal = 0;
             p.maxVal = 1;
             p.stepVal = 0.01;
-            p.type = uFloat;
+            p.type = uPhase;
             p.def = 0.0;
             params[P_OSC1_PHASE] = p;
             
@@ -398,7 +399,7 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
-            p.maxVal = 1;
+            p.maxVal = 358;
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
@@ -453,9 +454,9 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
-            p.maxVal = 6;
+            p.maxVal = 8;
             p.stepVal = 1;
-            p.type = uInt;
+            p.type =  uWaveType;
             p.def = 0;
             params[P_OSC2_WAV] = p;
             
@@ -475,9 +476,9 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
-            p.maxVal = 1;
+            p.maxVal = 358;
             p.stepVal = 0.01;
-            p.type = uFloat;
+            p.type = uPhase;
             p.def = 0.0;
             params[P_OSC2_PHASE] = p;
             

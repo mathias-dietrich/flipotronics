@@ -17,8 +17,7 @@
 #include "ParamBuilder.h"
 #include "Adsr.h"
 
-
-class Voice {       // The class
+class Voice {
 
 public:
     int vid;
@@ -91,7 +90,6 @@ public:
      }
     
     void reset(){
-        
         tablePos0 = 0;
         tablePos1 = sampleRate/2;
         tablePos0_n1 = -1;
@@ -130,61 +128,77 @@ public:
 
         float * table0;
         switch(((int)par[P_OSC1_WAV])){
-            case 0:
+            case wSin:
                 table0 =  waveTable->sinBuffer;
                 break;
                 
-            case 1:
+            case wSquare:
                 table0 =  waveTable->squareBuffer;
                 break;
                 
-            case 2:
+            case wSaw:
                 table0 =  waveTable->sawBuffer;
                 break;
                 
-            case 3:
+            case wTriangle:
                 table0 =  waveTable->triangleBuffer;
                 break;
                 
-            case 4:
+            case wWhite:
                 table0 =  waveTable->whiteBuffer;
                 break;
                 
-            case 5:
+            case wPink:
                 table0 =  waveTable->whiteBuffer;
                 break;
             
-            case 6:
+            case wBrown:
+                table0 =  waveTable->whiteBuffer;
+                break;
+                
+            case wShark:
+                table0 =  waveTable->whiteBuffer;
+                break;
+                
+            case wTable:
                 table0 =  waveTable->whiteBuffer;
                 break;
         }
         float * table1;
         switch(((int)par[P_OSC2_WAV])){
-            case 0:
+            case wSin:
                 table1 =  waveTable->sinBuffer;
                 break;
                 
-            case 1:
+            case wSquare:
                 table1 =  waveTable->squareBuffer;
                 break;
                 
-            case 2:
+            case wSaw:
                 table1 =  waveTable->sawBuffer;
                 break;
                 
-            case 3:
+            case wTriangle:
                 table1 =  waveTable->triangleBuffer;
                 break;
                 
-            case 4:
+            case wWhite:
                 table1 =  waveTable->whiteBuffer;
                 break;
                 
-            case 5:
-                table1 =  waveTable->triangleBuffer;
+            case wPink:
+                table1 =  waveTable->whiteBuffer;
+                break;
+            
+            case wBrown:
+                table1 =  waveTable->whiteBuffer;
                 break;
                 
-            case 6:
+            case wShark:
+                table1 =  waveTable->whiteBuffer;
+                break;
+                
+            case wTable:
                 table1 =  waveTable->whiteBuffer;
                 break;
         }
@@ -193,10 +207,10 @@ public:
         for (int i=0; i<samplesPerBlock; ++i) {
             int p0 = tablePos0;
             int p1 = tablePos1;
-            p0 = p0 / (1.0f + par[P_OSC1_PULSE] / 100.0);
-            p1 = p1 / (1.0f + par[P_OSC2_PULSE] / 100.0);
-            float v0 = interpolate(checkPos(p0 + par[P_OSC1_PHASE] * sr), table0);
-            float v1 = interpolate(checkPos(p1 + par[P_OSC2_PHASE] * sr), table1);
+            p0 = p0 / (1.0f + par[P_OSC1_PULSE] * 0.01f);
+            p1 = p1 / (1.0f + par[P_OSC2_PULSE] * 0.01f);
+            float v0 = interpolate(checkPos(p0 + par[P_OSC1_PHASE] / 360.0f * sr), table0);
+            float v1 = interpolate(checkPos(p1 + par[P_OSC2_PHASE] / 360.0f * sr), table1);
             float vSub = interpolate(checkPos(tablePosSub), table2);
 
             v0 = v0 * velocity / par[P_NOVOICES];
@@ -206,8 +220,8 @@ public:
             v1 = v1 * adsr0.vol * par[P_OSC2_VOL];
             
             vSub = vSub * adsr0.vol * par[P_OSC1_SUB];
-            
-            float mono = (v0 + v1 + vSub)  * par[P_VOLUME] / 3.0f;
+            float vol = DecibelToLinear(par[P_VOLUME]);
+            float mono = (v0 + v1 + vSub)  * vol / 3.0f;
             float vSumL = mono * (1.0f - par[P_PAN]);
             float vSumR = mono * par[P_PAN];
             
@@ -236,11 +250,11 @@ public:
             int midiNote1 = noteNumber + par[P_OSC2_SEMI] + 12 * par[P_OSC2_OCT];
             float freq1 = tuneTable[midiNote1] * tuneMulti[midiNote1 % 12];
             
-            float t = par[0] / 440.0;
+            float t = par[0] / 440.0f;
             
             // fine tune
-            freq0 = freq0 + freq0 *  par[P_OSC1_FINE] / 100.0f;
-            freq1 = freq1 + freq1 *  par[P_OSC2_FINE] / 100.0f;
+            freq0 = freq0 + freq0 *  par[P_OSC1_FINE] * 0.01f;
+            freq1 = freq1 + freq1 *  par[P_OSC2_FINE] * 0.01f;
             
             // move pos
             tablePos0 += OVERSAMPLING * freq0  * t ;
@@ -255,16 +269,15 @@ public:
                 sync = false;
                 lastPos0 = 1;
             }else{
-                tablePos1 += OVERSAMPLING * freq1  * t ;
+                tablePos1 += OVERSAMPLING * freq1  * t;
                 lastPos0 = tablePos0;
             }
             
-            
-            tablePosSub += OVERSAMPLING * freq0 /3.0 * t;
+            tablePosSub += OVERSAMPLING * freq0 / 3.0f * t;
             
             // bounds check
-            tablePos0 = checkPos(tablePos0 );
-            tablePos1 = checkPos(tablePos1 );
+            tablePos0 = checkPos(tablePos0);
+            tablePos1 = checkPos(tablePos1);
             tablePosSub = checkPos(tablePosSub);
             
             adsr0.tick();

@@ -27,7 +27,7 @@ class Core {       // The class
         ParamBuilder *b = new ParamBuilder();
         b->build();
         delete b;
-        
+    
         arp = new Arp();
     }
     
@@ -99,10 +99,11 @@ class Core {       // The class
         return -1;
     }
     
-     Arp *arp;
+     
     
 private:
-
+    Arp *arp;
+    
     double clock = 0;
     int sampleRate;
     int samplesPerBlock;

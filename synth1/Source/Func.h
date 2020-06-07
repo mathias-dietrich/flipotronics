@@ -31,12 +31,21 @@ inline int intFromString(String s) {
 // 0.0 - 1.0
 inline float LinearToDecibel(float linear)
 {
+    return Decibels::gainToDecibels(linear, 96.0f);
+    /*
    float db;
    if (linear != 0.0f)
      db = 20.0f * log10(linear);
    else
      db = -144.0f;  // effectively minus infinity
    return db;
+     */
+}
+
+inline float DecibelToLinear(float db)
+{
+    return Decibels::decibelsToGain(db, 96.0f);
+  // return  exp(db/20.0f);
 }
 
 inline float MidiToLinear(int midi)
@@ -57,6 +66,37 @@ inline float MidiToFreq(int note, float tuning)
 inline int FreqToMidi(float freq, float tuning)
 {
     return log(freq/tuning)/log(2) * 12.0 + 69;
+}
+
+inline String getWaveType(E_WaveType type){
+    switch(type){
+        case wSin:
+            return "Sin";
+            
+        case wSaw:
+            return "Saw";
+        
+        case wTriangle:
+            return "Triangle";
+        
+        case wSquare:
+            return "Square";
+        
+        case wShark:
+            return "Shark";
+        
+        case wWhite:
+            return "White";
+        
+        case wBrown:
+            return "Brown";
+            
+        case wPink:
+            return "Pink";
+            
+        case wTable:
+            return "Table";
+    }
 }
    
 #endif /* Func_h */
