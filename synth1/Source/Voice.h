@@ -45,6 +45,8 @@ public:
     Adsr adsr2;
     Adsr adsr3;
     
+    int lastPos0 = 1;
+    
     Voice(){
         waveTable = new WaveTable();
     }
@@ -105,6 +107,8 @@ public:
         adsr1.start();
         adsr2.start();
         adsr3.start();
+        
+        lastPos0 = 1;
     }
     
     void noteOff(){
@@ -240,7 +244,22 @@ public:
             
             // move pos
             tablePos0 += OVERSAMPLING * freq0  * t ;
-            tablePos1 += OVERSAMPLING * freq1  * t ;
+            
+            bool sync = false;
+            if(tablePos0 < lastPos0){
+                sync = true;
+            }
+            
+            if(sync && par[P_OSC2_SYNC] ){
+                tablePos1 = 0;
+                sync = false;
+                lastPos0 = 1;
+            }else{
+                tablePos1 += OVERSAMPLING * freq1  * t ;
+                lastPos0 = tablePos0;
+            }
+            
+            
             tablePosSub += OVERSAMPLING * freq0 /3.0 * t;
             
             // bounds check
