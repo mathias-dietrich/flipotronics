@@ -216,7 +216,7 @@ private:
         
         // Browse
         if(button->getRadioGroupId()==26) {
-            processor.panic();
+            processor.browse();
             return;
         }
         

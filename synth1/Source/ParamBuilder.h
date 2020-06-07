@@ -40,7 +40,7 @@
 #define P_OSC1_VOL 19
 #define P_OSC1_WAV 20
 #define P_OSC1_PULSE 21
-#define P_OSC1_KEYFOLLOW 22
+#define P_OSC1_PHASE 22
 #define P_OSC1_SUB 23
 
 #define P_OSC2_OCT 24
@@ -49,7 +49,7 @@
 #define P_OSC2_VOL 27
 #define P_OSC2_WAV 28
 #define P_OSC2_PULSE 29
-#define P_OSC2_KEYFOLLOW 30
+#define P_OSC2_PHASE 30
 #define P_OSC2_SYNC 31
 
 // Filter
@@ -382,16 +382,16 @@ class ParamBuilder {       // The class
             p.def = 0;
             params[P_OSC1_PULSE] = p;
             
-            p.pid = P_OSC1_KEYFOLLOW;
-            p.name = "Osc1 Key Follow";
+            p.pid = P_OSC1_PHASE;
+            p.name = "Osc1 Phase";
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
             p.maxVal = 1;
             p.stepVal = 0.01;
             p.type = uFloat;
-            p.def = 0.5;
-            params[P_OSC1_KEYFOLLOW] = p;
+            p.def = 0.0;
+            params[P_OSC1_PHASE] = p;
             
             p.pid = P_OSC1_SUB;
             p.name = "Osc1 Sub";
@@ -432,7 +432,7 @@ class ParamBuilder {       // The class
             p.automate = 1;
             p.minVal = -6;
             p.maxVal = 6;
-            p.stepVal = 1;
+            p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 0;
             params[P_OSC2_FINE] = p;
@@ -470,16 +470,16 @@ class ParamBuilder {       // The class
             p.def = 0;
             params[P_OSC2_PULSE] = p;
             
-            p.pid = P_OSC2_KEYFOLLOW;
-            p.name = "Osc2 Key Follow";
+            p.pid = P_OSC2_PHASE;
+            p.name = "Osc2 Phase";
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
             p.maxVal = 1;
             p.stepVal = 0.01;
             p.type = uFloat;
-            p.def = 0.5;
-            params[P_OSC2_KEYFOLLOW] = p;
+            p.def = 0.0;
+            params[P_OSC2_PHASE] = p;
             
             p.pid = P_OSC2_SYNC;
             p.name = "Osc2 Sync";

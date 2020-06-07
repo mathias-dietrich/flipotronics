@@ -63,6 +63,10 @@ public:
         core->killAllVoice();
     }
     
+    void browse(){
+
+    }
+    
     void loadPatch(int p){
         core->loadPatch(p);
     }

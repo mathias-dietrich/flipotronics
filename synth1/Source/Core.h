@@ -57,7 +57,7 @@ class Core {       // The class
         voices[vid].velocity = velocity;
         voices[vid].reset();
 
-        std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << " freq: " << voices[vid].freq << std::endl;
+        std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << std::endl;
     }
     
     void endVoice(int midiChannel, int midiNoteNumber){
@@ -73,8 +73,8 @@ class Core {       // The class
     }
     
     void killAllVoice(){
-        for(int i=0; i < ((int)par[1]);i++){
-            voices[i].active = false;
+        for(int i=0; i < MAXVOICE;i++){
+            voices[i].kill();
         }
          std::cout << "Kill All Voice midiNoteNumber:" << std::endl;
     }

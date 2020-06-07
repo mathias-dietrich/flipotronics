@@ -24,7 +24,6 @@ public:
     int vid;
     bool active;
     WaveTable *waveTable;
-    double freq = 440;
     int noteNumber = 0;
     float velocity = 1.0;
     double volOscSin = 1.0;
@@ -81,8 +80,16 @@ public:
         adsr3.init(sampleRate,samplesPerBlock);
     }
     
+    void kill(){
+        active = false;
+        adsr0.state = Adsr::ADSR_OFF;
+        adsr1.state = Adsr::ADSR_OFF;
+        adsr2.state = Adsr::ADSR_OFF;
+        adsr3.state = Adsr::ADSR_OFF;
+     }
+    
     void reset(){
-        freq = tuneTable[noteNumber] * tuneMulti[noteNumber % 12];
+        
         tablePos0 = 0;
         tablePos1 = sampleRate/2;
         tablePos0_n1 = -1;
@@ -116,49 +123,129 @@ public:
         int sr = sampleRate * OVERSAMPLING;
         auto* channelDataL = buffer.getWritePointer (0);
         auto* channelDataR = buffer.getWritePointer (1);
-        float *tableSin = waveTable->sinBuffer;
-        float *tableSquare = waveTable->squareBuffer;
-        float *tableSaw = waveTable->sawBuffer;
-        float *tableTriangle = waveTable->triangleBuffer;
-        float *tableWhite = waveTable->whiteBuffer;
+
+        float * table0;
+        switch(((int)par[P_OSC1_WAV])){
+            case 0:
+                table0 =  waveTable->sinBuffer;
+                break;
+                
+            case 1:
+                table0 =  waveTable->squareBuffer;
+                break;
+                
+            case 2:
+                table0 =  waveTable->sawBuffer;
+                break;
+                
+            case 3:
+                table0 =  waveTable->triangleBuffer;
+                break;
+                
+            case 4:
+                table0 =  waveTable->whiteBuffer;
+                break;
+                
+            case 5:
+                table0 =  waveTable->whiteBuffer;
+                break;
+            
+            case 6:
+                table0 =  waveTable->whiteBuffer;
+                break;
+        }
+        float * table1;
+        switch(((int)par[P_OSC2_WAV])){
+            case 0:
+                table1 =  waveTable->sinBuffer;
+                break;
+                
+            case 1:
+                table1 =  waveTable->squareBuffer;
+                break;
+                
+            case 2:
+                table1 =  waveTable->sawBuffer;
+                break;
+                
+            case 3:
+                table1 =  waveTable->triangleBuffer;
+                break;
+                
+            case 4:
+                table1 =  waveTable->whiteBuffer;
+                break;
+                
+            case 5:
+                table1 =  waveTable->triangleBuffer;
+                break;
+                
+            case 6:
+                table1 =  waveTable->whiteBuffer;
+                break;
+        }
+        float * table2 = waveTable->sinBuffer;
         
         for (int i=0; i<samplesPerBlock; ++i) {
-            float v = interpolate(tablePos0, tableTriangle);
-           // float v = tableSin[((int)tablePos0)];
+            int p0 = tablePos0;
+            int p1 = tablePos1;
+            p0 = p0 / (1.0f + par[P_OSC1_PULSE] / 100.0);
+            p1 = p1 / (1.0f + par[P_OSC2_PULSE] / 100.0);
+            float v0 = interpolate(checkPos(p0 + par[P_OSC1_PHASE] * sr), table0);
+            float v1 = interpolate(checkPos(p1 + par[P_OSC2_PHASE] * sr), table1);
+            float vSub = interpolate(checkPos(tablePosSub), table2);
+
+            v0 = v0 * velocity / par[P_NOVOICES];
+            v0 = v0 * adsr0.vol * par[P_OSC1_VOL];
             
-             v = v * velocity / par[P_NOVOICES] ;
-           // v += 0.2f * tableSquare[((int)tablePos1)]  * velocity / par[P_NOVOICES] ;
-           // v += tableSin[((int)tablePosSub)]  * velocity / par[P_NOVOICES] * par[P_OSC1_SUB];
-           // v += lastF1 * 0.99f;
-           // v = v / 4.0f;
+            v1 = v1 * velocity / par[P_NOVOICES];
+            v1 = v1 * adsr0.vol * par[P_OSC2_VOL];
             
-            lastF0 = v * 0.99f;
-            lastF1 = lastF0 * 0.99f;
+            vSub = vSub * adsr0.vol * par[P_OSC1_SUB];
             
-            v = v * par[7];
+            float mono = (v0 + v1 + vSub)  * par[P_VOLUME] / 3.0f;
+            float vSumL = mono * (1.0f - par[P_PAN]);
+            float vSumR = mono * par[P_PAN];
             
             // check >Level
-            if(v > 1.0f){
-                v = 1.0f;
+            if(vSumL > 1.0f){
+                vSumL = 1.0f;
             }
-            if(v < -1.0f){
-                v = -1.0f;
+            if(vSumL < -1.0f){
+                vSumL = -1.0f;
             }
             
-            v = v * adsr0.vol;
+            if(vSumR > 1.0f){
+                vSumR = 1.0f;
+            }
+            if(vSumR < -1.0f){
+                vSumR = -1.0f;
+            }
             
-            channelDataL[i] += v;
-            channelDataR[i] += v;
+            channelDataL[i] += vSumL;
+            channelDataR[i] += vSumR;
+            
+            // Move the Osc
+            int midiNote0 = noteNumber + par[P_OSC1_SEMI] + 12 * par[P_OSC1_OCT];
+            float freq0 = tuneTable[midiNote0] * tuneMulti[midiNote0 % 12];
+            
+            int midiNote1 = noteNumber + par[P_OSC2_SEMI] + 12 * par[P_OSC2_OCT];
+            float freq1 = tuneTable[midiNote1] * tuneMulti[midiNote1 % 12];
+            
             float t = par[0] / 440.0;
             
+            // fine tune
+            freq0 = freq0 + freq0 *  par[P_OSC1_FINE] / 100.0f;
+            freq1 = freq1 + freq1 *  par[P_OSC2_FINE] / 100.0f;
+            
             // move pos
-            tablePos0 += OVERSAMPLING * (freq + par[P_OSC1_FINE])  * t;
-            tablePos1 += OVERSAMPLING * (freq * 1.01 + par[P_OSC1_FINE])  * t;
-            tablePosSub += OVERSAMPLING * freq /3.0 * t;
+            tablePos0 += OVERSAMPLING * freq0  * t ;
+            tablePos1 += OVERSAMPLING * freq1  * t ;
+            tablePosSub += OVERSAMPLING * freq0 /3.0 * t;
             
             // bounds check
-            tablePos0 = checkPos(tablePos0);
-            tablePos1 = checkPos(tablePos1);
+            tablePos0 = checkPos(tablePos0 );
+            tablePos1 = checkPos(tablePos1 );
             tablePosSub = checkPos(tablePosSub);
             
             adsr0.tick();
