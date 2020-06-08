@@ -31,7 +31,7 @@ inline int intFromString(String s) {
 // 0.0 - 1.0
 inline float LinearToDecibel(float linear)
 {
-    return Decibels::gainToDecibels(linear, 96.0f);
+    return Decibels::gainToDecibels(linear, -96.0f);
     /*
    float db;
    if (linear != 0.0f)
@@ -44,7 +44,7 @@ inline float LinearToDecibel(float linear)
 
 inline float DecibelToLinear(float db)
 {
-    return Decibels::decibelsToGain(db, 96.0f);
+    return Decibels::decibelsToGain(db, -96.0f);
   // return  exp(db/20.0f);
 }
 

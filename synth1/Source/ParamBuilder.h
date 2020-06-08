@@ -388,7 +388,7 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
-            p.maxVal = 1;
+            p.maxVal = 358;
             p.stepVal = 0.01;
             p.type = uPhase;
             p.def = 0.0;
@@ -399,7 +399,7 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
-            p.maxVal = 358;
+            p.maxVal = 1;
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
