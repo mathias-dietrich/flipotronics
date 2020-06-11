@@ -12,19 +12,26 @@
 #include "Enum.h"
 
 struct Param{
-    E_UnitType type;
-    String name;
-    int pid;
-    int writeable;
-    int automate;
-    int valI;
-    float valF;
-    double valD;
-    float def;
-    String valS;
-    float stepVal;
-    float minVal;
-    float maxVal;
+    E_UnitType type = uUnknown;
+    String name = "";
+    int pid = -1;
+    
+    int writeable = 0;
+    int automate = 0;
+    int controllerId = -1;
+    
+    int valI = 0;
+    float valF = 0.0f;
+    double valD = 0.0;
+    double desiredValue = 0.0;
+    
+    String valS = "";
+    
+    float def = 0.0f;
+    float stepVal = 0.01f;
+    float minVal = 0.0f;
+    float maxVal = 1.0f;
+    float smoothTime = 0.0f; // msec
     
     Param copy(){
         Param p;
@@ -41,6 +48,8 @@ struct Param{
         p.stepVal = stepVal;
         p.minVal = minVal;
         p.maxVal = maxVal;
+        p.smoothTime = smoothTime;
+        p.controllerId = controllerId;
         return p;
     }
 };

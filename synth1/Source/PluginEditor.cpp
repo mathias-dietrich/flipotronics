@@ -21,6 +21,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     bankLoader = new BankLoader();
     bankLoader->load();
     processor.loadPatch(0);
+    undoModel.set();
+    compareMode = false;
     
     int from = 0;
     int to = 15;
@@ -33,6 +35,27 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
         from += 16;
         to += 16;
     }
+    for(int i=0; i < 8; ++i){
+       addAndMakeVisible (btnLabel[i]);
+       btnLabel[i].setColour (Label::textColourId, Colours::yellow);
+       btnLabel[i].setJustificationType (Justification::centred);
+       auto f2 =  btnLabel[i].getFont();
+       f2.setSizeAndStyle(15, 0, 0.4, 0.4);
+       btnLabel[i].setFont(f2);
+    }
+    
+    for(int i=0; i < 4; ++i){
+          addAndMakeVisible (rootLabel[i]);
+          rootLabel[i].setColour (Label::textColourId, Colours::yellow);
+          rootLabel[i].setJustificationType (Justification::centred);
+          auto f2 =  btnLabel[i].getFont();
+          f2.setSizeAndStyle(17, 0, 0.4, 0.4);
+          rootLabel[i].setFont(f2);
+    }
+    rootLabel[0].setText("0 - 255", NotificationType::dontSendNotification);
+    rootLabel[1].setText("256 - 511", NotificationType::dontSendNotification);
+    rootLabel[2].setText("512 - 767", NotificationType::dontSendNotification);
+    rootLabel[3].setText("768 - 1023", NotificationType::dontSendNotification);
     
     btnParam[0].setToggleState(true, NotificationType::dontSendNotification);
     
@@ -51,23 +74,23 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnLoad.setRadioGroupId(17);
     addAndMakeVisible (btnLoad);
     
-    btnRange0.setButtonText ("Range 1");
+    btnRange0.setButtonText ("Synth");
     btnRange0.addListener (this);
     btnRange0.setRadioGroupId(18);
     btnRange0.setToggleState(true, NotificationType::dontSendNotification);
     addAndMakeVisible (btnRange0);
     
-    btnRange1.setButtonText ("Range 2");
+    btnRange1.setButtonText ("Wave");
     btnRange1.addListener (this);
     btnRange1.setRadioGroupId(19);
     addAndMakeVisible (btnRange1);
     
-    btnRange2.setButtonText ("Range 3");
+    btnRange2.setButtonText ("FX");
     btnRange2.addListener (this);
     btnRange2.setRadioGroupId(20);
     addAndMakeVisible (btnRange2);
     
-    btnRange3.setButtonText ("Range 4");
+    btnRange3.setButtonText ("Control");
     btnRange3.addListener (this);
     btnRange3.setRadioGroupId(21);
     addAndMakeVisible (btnRange3);
@@ -108,7 +131,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
         boxes[i].setJustification(Justification::horizontallyCentred);
     }
     
-    modelOld = modelOld.copy();
     setDials();
     
     addAndMakeVisible(playMode);
@@ -188,8 +210,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(progNumber);
     
     // Plot
-    Rectangle<int> r = getLocalBounds();
-
     WaveTable *w = new WaveTable();
     w->init(samplerate, samplesperblock);
     int sr = OVERSAMPLING * samplerate;
@@ -236,8 +256,8 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     r.setY(315);
     g.fillRect(r);
 
-    g.drawImageWithin(vumeter, 840, 40, 120,80, juce::RectanglePlacement::stretchToFit, false);
-    g.drawImageWithin(vumeter, 980, 40, 120,80, juce::RectanglePlacement::stretchToFit, false);
+    g.drawImageWithin(vumeter, 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
+    g.drawImageWithin(vumeter, 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
 
     if(viewModeSetting !=1){
         return;
@@ -256,27 +276,29 @@ void Synth1AudioProcessorEditor::resized()
     Rectangle<int> r = getLocalBounds();
     int width = r.getWidth();
     
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-     keyboardComponent.setBounds (0,  getHeight() - 50, getWidth(),  50);
+    keyboardComponent.setBounds (0,  getHeight() - 50, getWidth(),  50);
     
-    //timeLabel.setBounds (0,  0, 100,  20);
     for(int i=0; i < 8; ++i){
          btnParam[i].setBounds (10 + i * 100,  5 , 100,  20);
     }
     for(int i=0; i < 8; ++i){
         btnParam[i+8].setBounds (10 + i * 100,  25 , 100,  20);
     }
+    for(int i=0; i < 8; ++i){
+        btnLabel[i].setBounds (10 + i * 100, 43, 100, 18);;
+    }
     
-    btnCompare.setBounds (width-270, 30, 80, 20);
-    btnSave.setBounds (width-180, 30, 80, 20);
-    btnLoad.setBounds (width-90, 30, 80, 20);
+    int hButtons = 20;
+    btnCompare.setBounds (width-270, hButtons, 80, 20);
+    btnSave.setBounds (width-180, hButtons, 80, 20);
+    btnLoad.setBounds (width-90, hButtons, 80, 20);
     
     int dialY = 60;
     for(int i=0; i < 8; ++i){
          boxes[i].setBounds (10  + i * 100,  dialY, 100,  20);
          dials[i].setBounds (10  + i * 100,  dialY+20, 100,  100);
     }
+   
     
     dialY += 130;
     
@@ -289,10 +311,16 @@ void Synth1AudioProcessorEditor::resized()
     graphZoomY.setBounds (0 ,  312, 20,  385);
     
     // Range Buttons
-    btnRange0.setBounds (820, 5, 80, 20);
-    btnRange1.setBounds (910, 5, 80, 20);
-    btnRange2.setBounds (1000, 5, 80, 20);
-    btnRange3.setBounds (1090, 5, 80, 20);
+    int xVal = 835;
+    btnRange0.setBounds (xVal, 5, 60, 20);
+    btnRange1.setBounds (xVal+70, 5, 60, 20);
+    btnRange2.setBounds (xVal+140, 5, 60, 20);
+    btnRange3.setBounds (xVal+210, 5, 60, 20);
+    
+    rootLabel[0].setBounds (xVal, 25, 60, 20);
+    rootLabel[1].setBounds (xVal+70, 25, 60, 20);
+    rootLabel[2].setBounds (xVal+140, 25, 60, 20);
+    rootLabel[3].setBounds (xVal+210, 25, 60, 20);
     
     btnProgDown.setBounds (840, 250, 80, 20);
     btnProgUp.setBounds (1020, 250, 80, 20);

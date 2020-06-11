@@ -34,6 +34,7 @@ class BankLoader {
             
             bankData.patchData[patchCurrent] = p;
             save("default.flip", &bankData);
+        
         }
     
         void save(BankData * data ){
@@ -90,6 +91,7 @@ class BankLoader {
         
         void load( ){
                load("default.flip");
+              
         }
     
         void load(String name){

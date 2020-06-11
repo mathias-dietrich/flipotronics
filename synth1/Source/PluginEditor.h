@@ -30,6 +30,8 @@ public:
     MidiKeyboardComponent keyboardComponent;
     
     TextButton btnParam[16];
+    Label btnLabel[8];
+    Label rootLabel[4];
     TextButton btnSave;
     TextButton btnLoad;
     TextButton btnCompare;
@@ -67,7 +69,7 @@ public:
     Label progName;
     Label progNumber;
     
-    Model modelOld;
+    Model undoModel;
 
 private:
     Synth1AudioProcessor& processor;
@@ -125,7 +127,6 @@ private:
     {
         // Save
         if(button->getRadioGroupId()==16) {
-             //fileManager->save();
              bankLoader->save();
            return;
         }
@@ -178,33 +179,41 @@ private:
             return;
         }
         
+        // Progr Up
         if(button->getRadioGroupId()==22) {
-           // Progr Up
             patchCurrent++;
             if(patchCurrent >=127){
                 patchCurrent = 0;
             }
-            compareMode = false;
             processor.loadPatch(patchCurrent);
+            compareMode = false;
+            undoModel.set();
             setDials();
             return;
         }
         
+        // Progr Down
         if(button->getRadioGroupId()==23) {
             patchCurrent--;
             if(patchCurrent < 0){
                patchCurrent = 127;
             }
-            compareMode = false;
+            
             processor.loadPatch(patchCurrent);
+            compareMode = false;
+            undoModel.set();
+            
             setDials();
             return;
         }
         
+        // Compare
         if(button->getRadioGroupId()==24) {
-            compareMode = !compareMode;
-            modelOld = modelOld.swap(modelOld);
-            setDials();
+            if(compareMode){
+                compareMode = false;
+                undoModel.recall();
+                 setDials();
+            }
             return;
         }
         
@@ -258,14 +267,64 @@ private:
         for(int i=0; i < 16; ++i){
             btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
         }
-        btnParam[paramRange].setToggleState(true, NotificationType::dontSendNotification);
+        if(paramRange<16){
+            btnParam[paramRange].setToggleState(true, NotificationType::dontSendNotification);
+        }
         progNumber.setText(toString(patchCurrent+1), NotificationType::dontSendNotification);
         progName.setText(patchNameCurrent, NotificationType::dontSendNotification);
         btnCompare.setToggleState(compareMode, NotificationType::dontSendNotification);
+        
+        switch(paramRoot){
+            case 0:
+                btnLabel[0].setText("Master", NotificationType::dontSendNotification);
+                btnLabel[1].setText("Osci", NotificationType::dontSendNotification);
+                btnLabel[2].setText("Filter", NotificationType::dontSendNotification);
+                btnLabel[3].setText("Adsr", NotificationType::dontSendNotification);
+                btnLabel[4].setText("LFO", NotificationType::dontSendNotification);
+                btnLabel[5].setText("", NotificationType::dontSendNotification);
+                btnLabel[6].setText("", NotificationType::dontSendNotification);
+                btnLabel[7].setText("", NotificationType::dontSendNotification);
+                break;
+                
+            case 1:
+                btnLabel[0].setText("", NotificationType::dontSendNotification);
+                btnLabel[1].setText("", NotificationType::dontSendNotification);
+                btnLabel[2].setText("", NotificationType::dontSendNotification);
+                btnLabel[3].setText("", NotificationType::dontSendNotification);
+                btnLabel[4].setText("", NotificationType::dontSendNotification);
+                btnLabel[5].setText("", NotificationType::dontSendNotification);
+                btnLabel[6].setText("", NotificationType::dontSendNotification);
+                btnLabel[7].setText("", NotificationType::dontSendNotification);
+                break;
+                
+            case 2:
+                btnLabel[0].setText("", NotificationType::dontSendNotification);
+                btnLabel[1].setText("", NotificationType::dontSendNotification);
+                btnLabel[2].setText("", NotificationType::dontSendNotification);
+                btnLabel[3].setText("", NotificationType::dontSendNotification);
+                btnLabel[4].setText("", NotificationType::dontSendNotification);
+                btnLabel[5].setText("", NotificationType::dontSendNotification);
+                btnLabel[6].setText("", NotificationType::dontSendNotification);
+                btnLabel[7].setText("", NotificationType::dontSendNotification);
+                break;
+                
+            case 3:
+                btnLabel[0].setText("", NotificationType::dontSendNotification);
+                btnLabel[1].setText("", NotificationType::dontSendNotification);
+                btnLabel[2].setText("", NotificationType::dontSendNotification);
+                btnLabel[3].setText("", NotificationType::dontSendNotification);
+                btnLabel[4].setText("", NotificationType::dontSendNotification);
+                btnLabel[5].setText("", NotificationType::dontSendNotification);
+                btnLabel[6].setText("", NotificationType::dontSendNotification);
+                btnLabel[7].setText("", NotificationType::dontSendNotification);
+                break;
+        }
     }
     
     void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();
+        
+        // Performances
         
         // Pitch Wheel
         if(sid==100){
@@ -292,6 +351,9 @@ private:
             zoomY = slider->getValue();
             return;
         }
+        
+        // Edits Mode ================================================================
+        startEdit();
         par[paramRoot * 256 + paramRange * 16 + sid] = slider->getValue();
         setDials();
     }
@@ -348,5 +410,12 @@ private:
     
     void timerCallback() override{
         repaint();
+    }
+    
+    void startEdit(){
+        if(!compareMode){
+            undoModel.set();
+        }
+        compareMode = true;
     }
 };

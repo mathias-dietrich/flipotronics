@@ -79,28 +79,29 @@ extern float scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
 class Model {
     
 public:
-    double par[MAXPARAM];
-    Param params[MAXPARAM];
-    String patchNameCurrent;
+    double parLocal[MAXPARAM];
+    String patchNameCurrentLocal;
     
-    Model copy(){
-        Model m;
-        m.patchNameCurrent = String(patchNameCurrent);
+   void set(){
         for(int i=0;i<MAXPARAM;i++ ){
-            m.par[i] =  par[i];
-            m.params[i] =  params[i].copy();
+            this->parLocal[i] = par[i];
         }
-        return m;
+        patchNameCurrentLocal = patchNameCurrent;
     }
     
-    Model swap(Model m){
-        Model old = copy();
+    void recall(){
         for(int i=0;i<MAXPARAM;i++ ){
-            par[i] = m.par[i];
-            params[i] = m.params[i].copy();
+            par[i] = parLocal[i];
         }
-        return old;
+        patchNameCurrent =patchNameCurrentLocal;
     }
+    
+    void swap(){
+    
+    }
+    
+private:
+
 };
 
 #endif /* Model_h */
