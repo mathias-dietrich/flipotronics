@@ -13,30 +13,42 @@
 #include <JuceHeader.h>
 
 
-#define CURVESAMPLES 200
+#define CURVESAMPLES 2000
 class Curve {
 
 public:
-    float sample[CURVESAMPLES];
+    double sample[CURVESAMPLES];
+    float prozentOld = 0;
+    
+    Curve(){
+        for(int i=0; i < CURVESAMPLES;++i){
+            sample[i] = i / ((float)CURVESAMPLES);
+        }
+    }
     
     void set(float prozent){
+        
+        // check if the table needs rebuildng
+        if(prozentOld == prozent){
+            return;
+        }
+        prozentOld = prozent;
+        
+        // rebuild table
         if(prozent==0){
             for(int i=0; i < CURVESAMPLES;++i){
                 sample[i] = i / ((float)CURVESAMPLES);
             }
             return;
         }
-        float pr = prozent / 10.0f;
+
+        // https://www.desmos.com/calculator/2p237rbfrn
         float cs = CURVESAMPLES;
-        
-        float cof = 0;
-         if(prozent>0){
-             cof = 1.0f + pr;
-         }else{
-             cof =  1.0 / (1.0f - pr);
-         }
+        float factor = 3.0f;
+        float cof = prozent * factor * 0.01f;
+        float e = std::exp(1.0);
         for(int i=0; i < CURVESAMPLES;++i){
-            sample[i] = pow(i/cs, cof);
+            sample[i] = pow(float(i/cs), pow(e, cof));
         }
     }
 

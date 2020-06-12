@@ -42,6 +42,14 @@ inline float LinearToDecibel(float linear)
      */
 }
 
+inline float degToRad(float degrees){
+    return degrees * M_PI / 180.0f;
+}
+
+inline float radToDeg(float radians){
+   return radians * 180.0f / M_PI;
+}
+
 inline float DecibelToLinear(float db)
 {
     return Decibels::decibelsToGain(db, -96.0f);

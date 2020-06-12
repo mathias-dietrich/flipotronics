@@ -278,9 +278,13 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
         case 2:
             curve.set(par[1022]);
              g.setColour (Colours::white);
-            for(int i=0;i<width;++i){
-                int y = 150 + half - 300.0f * curve.getScaled(i, width) ;
-                 g.drawLine (i, y, i+1, y, 1.0f);
+            int ylast = half + 150;
+            int w = 300; // width
+            int xOffset = 500;
+            for(int i=0;i<w;++i){
+                int y = 150 + half - 300.0f * curve.getScaled(i , w) ;
+                 g.drawLine (xOffset + i, ylast, i + xOffset+1, y, 1.0f);
+                ylast = y;
             }
             break;
     }
