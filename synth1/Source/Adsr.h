@@ -11,6 +11,7 @@
 
 #include <JuceHeader.h>
 #include "Note.h"
+#include "Curve.h"
 
 class Adsr {       // The class
     
@@ -22,6 +23,11 @@ class Adsr {       // The class
     ~Adsr(){
 
     }
+    
+    Curve attackCurve;
+    Curve decayCurve;
+    Curve sustainCurve;
+    Curve releaseCurve;
     
     void init (double sampleRate, int samplesPerBlock){
         this->sampleRate = sampleRate;
@@ -118,11 +124,22 @@ class Adsr {       // The class
     int releaseTimeMsec;
     float sustainLevel;
     
-    int attackCurve;
-    int decayCurve;
-    int releaseCurve;
-    int sustainCurve;
+    void setAttackCurve(int prozent){
+        attackCurve.set(prozent);
+    }
     
+    void setDecayCurve(int prozent){
+        decayCurve.set(prozent);
+    }
+    
+    void setSustainCurve(int prozent){
+        sustainCurve.set(prozent);
+    }
+    
+    void setReleaseCurve(int prozent){
+        releaseCurve.set(prozent);
+    }
+
     float ampTarget;
     float pitchTarget;
     float filterTarget;

@@ -95,10 +95,10 @@ public:
         adsr0.decayTimeMsec = par[P_ADSR1_DECAY];
         adsr0.sustainLevel = par[P_ADSR1_SUSTAIN];
         adsr0.releaseTimeMsec = par[P_ADSR1_RELEASE];
-        adsr0.attackCurve = par[P_ADSR1_ATTACK_CURVE];
-        adsr0.decayCurve = par[P_ADSR1_DECAY_CURVE];
-        adsr0.sustainCurve = par[P_ADSR1_SUSTAIN_CURVE];
-        adsr0.releaseCurve = par[P_ADSR1_RELEASE_CURVE];
+        adsr0.setAttackCurve(par[P_ADSR1_ATTACK_CURVE]);
+        adsr0.setDecayCurve(par[P_ADSR1_DECAY_CURVE]);
+        adsr0.setSustainCurve(par[P_ADSR1_SUSTAIN_CURVE]);
+        adsr0.setReleaseCurve(par[P_ADSR1_RELEASE_CURVE]);
         adsr0.filterTarget = par[P_ADSR1_FILTER];
         adsr0.pitchTarget = par[P_ADSR1_PITCH];
         adsr0.ampTarget = par[P_ADSR1_AMP];
@@ -112,10 +112,11 @@ public:
         adsr1.decayTimeMsec = par[P_ADSR2_DECAY];
         adsr1.sustainLevel = par[P_ADSR2_SUSTAIN];
         adsr1.releaseTimeMsec = par[P_ADSR2_RELEASE];
-        adsr1.attackCurve = par[P_ADSR2_ATTACK_CURVE];
-        adsr1.decayCurve = par[P_ADSR2_DECAY_CURVE];
-        adsr1.sustainCurve = par[P_ADSR2_SUSTAIN_CURVE];
-        adsr1.releaseCurve = par[P_ADSR2_RELEASE_CURVE];
+        adsr1.setAttackCurve(par[P_ADSR2_ATTACK_CURVE]);
+        adsr1.setDecayCurve(par[P_ADSR2_DECAY_CURVE]);
+        adsr1.setSustainCurve(par[P_ADSR2_SUSTAIN_CURVE]);
+        adsr1.setReleaseCurve(par[P_ADSR2_RELEASE_CURVE]);
+
         adsr1.filterTarget = par[P_ADSR2_FILTER];
         adsr1.pitchTarget = par[P_ADSR2_PITCH];
         adsr1.ampTarget = par[P_ADSR2_AMP];
@@ -129,10 +130,11 @@ public:
         adsr2.decayTimeMsec = par[P_ADSR3_DECAY];
         adsr2.sustainLevel = par[P_ADSR3_SUSTAIN];
         adsr2.releaseTimeMsec = par[P_ADSR3_RELEASE];
-        adsr2.attackCurve = par[P_ADSR3_ATTACK_CURVE];
-        adsr2.decayCurve = par[P_ADSR3_DECAY_CURVE];
-        adsr2.sustainCurve = par[P_ADSR3_SUSTAIN_CURVE];
-        adsr2.releaseCurve = par[P_ADSR3_RELEASE_CURVE];
+        adsr2.setAttackCurve(par[P_ADSR3_ATTACK_CURVE]);
+        adsr2.setDecayCurve(par[P_ADSR3_DECAY_CURVE]);
+        adsr2.setSustainCurve(par[P_ADSR3_SUSTAIN_CURVE]);
+        adsr2.setReleaseCurve(par[P_ADSR3_RELEASE_CURVE]);
+
         adsr2.filterTarget = par[P_ADSR3_FILTER];
         adsr2.pitchTarget = par[P_ADSR3_PITCH];
         adsr2.ampTarget = par[P_ADSR3_AMP];
@@ -146,10 +148,11 @@ public:
         adsr3.decayTimeMsec = par[P_ADSR4_DECAY];
         adsr3.sustainLevel = par[P_ADSR4_SUSTAIN];
         adsr3.releaseTimeMsec = par[P_ADSR4_RELEASE];
-        adsr3.attackCurve = par[P_ADSR4_ATTACK_CURVE];
-        adsr3.decayCurve = par[P_ADSR4_DECAY_CURVE];
-        adsr3.sustainCurve = par[P_ADSR4_SUSTAIN_CURVE];
-        adsr3.releaseCurve = par[P_ADSR4_RELEASE_CURVE];
+        adsr3.setAttackCurve(par[P_ADSR4_ATTACK_CURVE]);
+        adsr3.setDecayCurve(par[P_ADSR4_DECAY_CURVE]);
+        adsr3.setSustainCurve(par[P_ADSR4_SUSTAIN_CURVE]);
+        adsr3.setReleaseCurve(par[P_ADSR4_RELEASE_CURVE]);
+
         adsr3.filterTarget = par[P_ADSR4_FILTER];
         adsr3.pitchTarget = par[P_ADSR4_PITCH];
         adsr3.ampTarget = par[P_ADSR4_AMP];

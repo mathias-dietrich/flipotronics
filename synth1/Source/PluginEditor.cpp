@@ -17,6 +17,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     patchCurrent = 0;
     viewModeSetting = 1;
     
+    curve.set(0);
+    
     //fileManager = new FileManager();
     bankLoader = new BankLoader();
     bankLoader->load();
@@ -142,11 +144,15 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     playMode.setSelectedId(par[1023]);
     
     addAndMakeVisible(viewMode);
-    viewMode.addItem ("Wave", 1);
-    viewMode.addItem ("Matrix", 2);
-    viewMode.addItem ("Debug", 3);
+    viewMode.addItem ("Ouput", 1);
+    viewMode.addItem ("ADSR 1", 2);
+    viewMode.addItem ("ADSR 2", 3);
+    viewMode.addItem ("ADSR 3", 4);
+    viewMode.addItem ("ADSR 4", 5);
+    viewMode.addItem ("Matrix", 6);
+    viewMode.addItem ("Debug", 7);
     viewMode.onChange = [this] { styleMenuChangedView(); };
-    viewMode.setSelectedId(1);
+    viewMode.setSelectedId(2);
     
     pitchWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
     pitchWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
@@ -259,16 +265,25 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     g.drawImageWithin(vumeter, 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
     g.drawImageWithin(vumeter, 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
 
-    if(viewModeSetting !=1){
-        return;
-    }
-    
-    // Plot
-    g.setColour (Colours::white);
-    g.drawLine (0, half, width, half, 0.5f);
+    switch(viewModeSetting){
+        case 1:
+            // Plot
+            g.setColour (Colours::white);
+            g.drawLine (0, half, width, half, 0.5f);
 
-    g.setColour (Colours::red);
-    drawPlot( g, half, width, scopeBuffer );
+            g.setColour (Colours::red);
+            drawPlot( g, half, width, scopeBuffer );
+            break;
+            
+        case 2:
+            curve.set(par[1022]);
+             g.setColour (Colours::white);
+            for(int i=0;i<width;++i){
+                int y = 150 + half - 300.0f * curve.getScaled(i, width) ;
+                 g.drawLine (i, y, i+1, y, 1.0f);
+            }
+            break;
+    }
 }
 
 void Synth1AudioProcessorEditor::resized()

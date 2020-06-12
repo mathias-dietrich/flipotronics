@@ -9,6 +9,7 @@
 #include "BankLoader.h"
 #include "img.h"
 #include "Color.h"
+#include "Curve.h"
 //==============================================================================
 /**
 */
@@ -28,6 +29,8 @@ public:
     
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
+    
+    Curve curve;
     
     TextButton btnParam[16];
     Label btnLabel[8];

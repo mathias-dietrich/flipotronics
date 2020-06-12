@@ -155,6 +155,7 @@
 		4936648CA072F925CA6348D4 /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
 		4BF21E3EA2D442079E920D85 /* synth1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = synth1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC000940015491524181C5E /* Info-VST3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-VST3.plist"; sourceTree = SOURCE_ROOT; };
+		4F0F15832493458E00031C20 /* Curve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Curve.h; path = ../../Source/Curve.h; sourceTree = "<group>"; };
 		4F315158248AD76800AC1A6C /* meter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meter.png; sourceTree = "<group>"; };
 		4F53E61A248302B60080F061 /* Core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Core.cpp; path = ../../Source/Core.cpp; sourceTree = "<group>"; };
 		4F53E61B248302B60080F061 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Core.h; path = ../../Source/Core.h; sourceTree = "<group>"; };
@@ -378,6 +379,7 @@
 				4F60EF7D248A05B800E349AD /* BankLoader.h */,
 				4F712E06248ADE3B00EBC733 /* Color.h */,
 				4FE13226248D081600B67233 /* Adsr.h */,
+				4F0F15832493458E00031C20 /* Curve.h */,
 			);
 			name = core;
 			sourceTree = "<group>";

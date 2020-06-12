@@ -1678,6 +1678,18 @@ class ParamBuilder {       // The class
             p.type = uInt;
             p.def = 1;
             params[P_PLAYMODE] = p;
+            
+            // Curvetest
+            p.pid = 1022;
+            p.name = "curve";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = -100;
+            p.maxVal = 100;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 0;
+            params[1022] = p;
         }
 };
 
