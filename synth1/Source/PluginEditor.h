@@ -127,14 +127,19 @@ private:
     {
         // Save
         if(button->getRadioGroupId()==16) {
-             bankLoader->save();
+            bankLoader->save();
+            undoModel.set();
+            compareMode = false;
+            setDials();
            return;
         }
         
         // Load
         if(button->getRadioGroupId()==17) {
-            //fileManager->load();
             bankLoader->load();
+            processor.loadPatch(patchCurrent);
+            undoModel.set();
+            compareMode = false;
             setDials();
             return;
         }
@@ -209,11 +214,9 @@ private:
         
         // Compare
         if(button->getRadioGroupId()==24) {
-            if(compareMode){
-                compareMode = false;
-                undoModel.recall();
-                 setDials();
-            }
+            compareMode = !compareMode;
+            undoModel.swap();
+            setDials();
             return;
         }
         
@@ -236,7 +239,6 @@ private:
     void setDials(){
         for(int i=0; i < 16; ++i){
             int pid = paramRoot * 256 + paramRange * 16 + i;
-            
             dials[i].setRange(params[pid].minVal,params[pid].maxVal,params[pid].stepVal);
             boxes[i].setText(params[pid].name);
             if( params[pid].type == uWaveType){
@@ -245,22 +247,30 @@ private:
             }
             else if( params[pid].type == uPhase){
                 dials[i].setTextValueSuffix(" degrees");
+                dials[i].setValue(par[pid], dontSendNotification);
             }
             else if( params[pid].type == uTimeMsec){
                 dials[i].setTextValueSuffix(" msec");
+                dials[i].setSkewFactor(0.5);
+                dials[i].setValue(par[pid], dontSendNotification);
             }
             else if( params[pid].type == uDb){
                 dials[i].setSkewFactor (6);
                 dials[i].setTextValueSuffix(" dB");
+                dials[i].setValue(par[pid], dontSendNotification);
             }
             else if( params[pid].type == uBool){
                 bool test = par[pid];
                 String text = test ? " on" : " off" ;
                 dials[i].setTextValueSuffix(text);
-                 dials[i].setValue(par[pid], dontSendNotification);
+            }
+            else if( params[pid].type == uCurve){
+                dials[i].setSkewFactor(1);
+                dials[i].setTextValueSuffix(" %");
             }
             else{
-               dials[i].setValue(par[pid], dontSendNotification);
+                dials[i].setTextValueSuffix("");
+                dials[i].setValue(par[pid], dontSendNotification);
             }
         }
         // Param Select
@@ -279,9 +289,9 @@ private:
                 btnLabel[0].setText("Master", NotificationType::dontSendNotification);
                 btnLabel[1].setText("Osci", NotificationType::dontSendNotification);
                 btnLabel[2].setText("Filter", NotificationType::dontSendNotification);
-                btnLabel[3].setText("Adsr", NotificationType::dontSendNotification);
-                btnLabel[4].setText("LFO", NotificationType::dontSendNotification);
-                btnLabel[5].setText("", NotificationType::dontSendNotification);
+                btnLabel[3].setText("Adsr 1", NotificationType::dontSendNotification);
+                btnLabel[4].setText("Adsr 3", NotificationType::dontSendNotification);
+                btnLabel[5].setText("LFO", NotificationType::dontSendNotification);
                 btnLabel[6].setText("", NotificationType::dontSendNotification);
                 btnLabel[7].setText("", NotificationType::dontSendNotification);
                 break;
@@ -354,7 +364,12 @@ private:
         
         // Edits Mode ================================================================
         startEdit();
-        par[paramRoot * 256 + paramRange * 16 + sid] = slider->getValue();
+        int pid = paramRoot * 256 + paramRange * 16 + sid;
+        if(params[pid].smoothTime > 0){
+            parTargetDelta[pid] = par[pid] - slider->getValue();
+        }else{
+            par[pid] = slider->getValue();
+        }
         setDials();
     }
     
@@ -413,9 +428,6 @@ private:
     }
     
     void startEdit(){
-        if(!compareMode){
-            undoModel.set();
-        }
         compareMode = true;
     }
 };

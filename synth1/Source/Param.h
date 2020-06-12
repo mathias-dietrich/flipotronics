@@ -23,7 +23,6 @@ struct Param{
     int valI = 0;
     float valF = 0.0f;
     double valD = 0.0;
-    double desiredValue = 0.0;
     
     String valS = "";
     

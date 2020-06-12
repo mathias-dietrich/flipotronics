@@ -14,6 +14,8 @@
 
 // Global Variables
 double par[MAXPARAM];
+double parTargetDelta[MAXPARAM];
+double paramsUndo[MAXPARAM];
 double tuneTable[256];
 double tuneMulti[12];
 Param params[MAXPARAM];
@@ -22,6 +24,7 @@ int samplesperblock;
 int viewModeSetting;
 int patchCurrent;
 String patchNameCurrent = "Init";
+String patchNameCurrentUndo;
 bool compareMode = false;
 BankData bankData;
 float scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];

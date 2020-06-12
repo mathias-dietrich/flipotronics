@@ -299,7 +299,6 @@ void Synth1AudioProcessorEditor::resized()
          dials[i].setBounds (10  + i * 100,  dialY+20, 100,  100);
     }
    
-    
     dialY += 130;
     
     for(int i=0; i < 8; ++i){

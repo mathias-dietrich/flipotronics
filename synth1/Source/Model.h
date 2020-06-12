@@ -65,13 +65,18 @@ public:
 extern int samplesperblock;
 extern int samplerate;
 extern double par[MAXPARAM];
+extern double parTargetDelta[MAXPARAM];
+extern double paramsUndo[MAXPARAM];
+
 extern Param params[MAXPARAM];
+
 extern double tuneTable[256];
 extern double tuneMulti[12];
 
 extern int viewModeSetting;
 extern int patchCurrent;
 extern String patchNameCurrent;
+extern String patchNameCurrentUndo;
 extern bool compareMode;
 extern BankData bankData;
 extern float scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
@@ -79,25 +84,31 @@ extern float scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
 class Model {
     
 public:
-    double parLocal[MAXPARAM];
-    String patchNameCurrentLocal;
-    
+
    void set(){
         for(int i=0;i<MAXPARAM;i++ ){
-            this->parLocal[i] = par[i];
+           paramsUndo[i] = par[i];
         }
-        patchNameCurrentLocal = patchNameCurrent;
+        patchNameCurrentUndo = patchNameCurrent;
     }
     
     void recall(){
         for(int i=0;i<MAXPARAM;i++ ){
-            par[i] = parLocal[i];
+            par[i] = paramsUndo[i];
         }
-        patchNameCurrent =patchNameCurrentLocal;
+        patchNameCurrent = patchNameCurrentUndo;
     }
     
     void swap(){
-    
+        String pn = patchNameCurrent;
+        patchNameCurrent = patchNameCurrentUndo;
+        patchNameCurrentUndo = pn;
+
+        for(int i=0;i<MAXPARAM;i++ ){
+            float t = par[i];
+            par[i] = paramsUndo[i];
+            paramsUndo[i] = t;
+        }
     }
     
 private:

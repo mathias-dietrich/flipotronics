@@ -213,6 +213,7 @@ class BankLoader {
                     auto markerPatchEnd = stream.readNextLine().trim();
                     std::cout << markerPatchEnd << std::endl;
                 }
+                
             }
         }
     private:

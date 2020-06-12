@@ -42,6 +42,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     MidiMessage result;
     int samplePosition;
     MidiBuffer::Iterator n(midiMessages);
+    
     while(n.getNextEvent (result, samplePosition)){
         if(result.isNoteOn()){
             int note = result.getNoteNumber();
@@ -58,6 +59,17 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     
     // Update
     if(updateCounter % UPDATEDEVIDER == 0){
+        
+        // handle Smoothing
+        float c = sampleRate / 1000.0f * UPDATEDEVIDER;
+        for(int i =0; i < MAXPARAM;++i){
+            if(params[i].smoothTime > 0){
+                if(abs(par[i]) < abs(par[i] + parTargetDelta[i]) - 0.001){
+                    float delta =  parTargetDelta[i] /  (params[i].smoothTime *c);
+                    par[i] += delta;
+                }
+            }
+        }
         for(int i=0; i < MAXVOICE;++i){
             if(voices[i].active){
               voices[i].update(clock);

@@ -20,14 +20,14 @@
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 
-class Core {       // The class
-  public:             // Access specifier
+class Core {
+    
+  public:
     Core(){
         patchLoader = new PatchLoader();
         ParamBuilder *b = new ParamBuilder();
         b->build();
         delete b;
-    
         arp = new Arp();
     }
     
@@ -39,15 +39,9 @@ class Core {       // The class
     void loadPatch(int p){
         patchLoader->load(p);
     }
-    
-    int updateCounter = 0;
-    int scopeCounter = 0;
-    
-    PatchLoader *patchLoader;
-    
-    Voice voices[32] ;
-    
+
     void handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages,int totalNumInputChannels, int totalNumOutputChannels);
+    
     void init (double sampleRate, int samplesPerBlock);
     
     void startVoice(int midiChannel, int midiNoteNumber, float velocity){
@@ -99,11 +93,13 @@ class Core {       // The class
         return -1;
     }
     
-     
+    int updateCounter = 0;
+    int scopeCounter = 0;
+    PatchLoader *patchLoader;
+    Voice voices[32] ;
     
 private:
     Arp *arp;
-    
     double clock = 0;
     int sampleRate;
     int samplesPerBlock;

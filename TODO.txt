@@ -10,16 +10,13 @@ https://www.kvraudio.com/forum/viewtopic.php?f=33&t=329696
 - SuperCollider
 - Bidule
 - Usine
-
-
 ================================================================
-Last Settings
-
-Compare
 
 Parameter automation
 
 FILTER
+
+Last Settings
 
 MIDI Parsing
 
