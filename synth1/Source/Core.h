@@ -18,6 +18,7 @@
 #include "ParamBuilder.h"
 #include "PatchLoader.h"
 
+
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 
 class Core {
@@ -35,6 +36,8 @@ class Core {
         delete arp;
         delete patchLoader;
     }
+    
+    stk::Filter * filter;
     
     void loadPatch(int p){
         patchLoader->load(p);

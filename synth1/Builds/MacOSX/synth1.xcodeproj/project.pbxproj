@@ -38,6 +38,13 @@
 		4599B1A168D7EF3F6D163426 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = FFEA8FDBAD22152A9A868425 /* include_juce_audio_processors.mm */; };
 		4A8D2E8CC1BE5F98F4BB1670 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 778F6CA556FDCC4981ACDE72 /* include_juce_audio_formats.mm */; };
 		4D6253CEBB7715A7C964F1E4 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32433D092E232C55792342CC /* include_juce_gui_extra.mm */; };
+		4F0F15892493A20800031C20 /* stk in Resources */ = {isa = PBXBuildFile; fileRef = 4F0F15882493A20800031C20 /* stk */; };
+		4F0F158A2493A20800031C20 /* stk in Resources */ = {isa = PBXBuildFile; fileRef = 4F0F15882493A20800031C20 /* stk */; };
+		4F0F158B2493A20800031C20 /* stk in Resources */ = {isa = PBXBuildFile; fileRef = 4F0F15882493A20800031C20 /* stk */; };
+		4F0F158D2493A21200031C20 /* stk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F158C2493A21200031C20 /* stk.mm */; };
+		4F0F158E2493A21200031C20 /* stk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F158C2493A21200031C20 /* stk.mm */; };
+		4F0F158F2493A21200031C20 /* stk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F158C2493A21200031C20 /* stk.mm */; };
+		4F0F15902493A21200031C20 /* stk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F158C2493A21200031C20 /* stk.mm */; };
 		4F53E5ED2482F8D90080F061 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = BD2605538DA3B41EE9407E59 /* RecentFilesMenuTemplate.nib */; };
 		4F53E5EE2482F8D90080F061 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587EA1A23256BEBF498EB891 /* Accelerate.framework */; };
 		4F53E5EF2482F8D90080F061 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096FB91132473A7A8CDB719A /* AudioToolbox.framework */; };
@@ -143,7 +150,6 @@
 		0B240896F968EC6C7D66F9BC /* Info-AU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-AU.plist"; sourceTree = SOURCE_ROOT; };
 		14A6356AAAEE22E120AEF348 /* include_juce_events.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_events.mm; path = ../../JuceLibraryCode/include_juce_events.mm; sourceTree = SOURCE_ROOT; };
 		16E0545BFA7E39F350C74897 /* libsynth1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsynth1.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		1C6C61CD00102571EAC585C3 /* juce_audio_basics */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_basics; path = "~/JUCE/modules/juce_audio_basics"; sourceTree = "<absolute>"; };
 		25B0DFBC54FBF0AAFABC28FB /* JuceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JuceHeader.h; path = ../../JuceLibraryCode/JuceHeader.h; sourceTree = SOURCE_ROOT; };
 		264E9DF5E9BE7F45DAD43BE9 /* include_juce_audio_plugin_client_VST3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_VST3.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST3.cpp; sourceTree = SOURCE_ROOT; };
 		2B6AB5AC58B20B5DD0EA32D3 /* juce_gui_basics */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_gui_basics; path = "~/JUCE/modules/juce_gui_basics"; sourceTree = "<absolute>"; };
@@ -156,6 +162,9 @@
 		4BF21E3EA2D442079E920D85 /* synth1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = synth1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC000940015491524181C5E /* Info-VST3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-VST3.plist"; sourceTree = SOURCE_ROOT; };
 		4F0F15832493458E00031C20 /* Curve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Curve.h; path = ../../Source/Curve.h; sourceTree = "<group>"; };
+		4F0F15882493A20800031C20 /* stk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = stk; path = ../../../../JUCE/modules/stk_module/stk; sourceTree = "<group>"; };
+		4F0F158C2493A21200031C20 /* stk.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = stk.mm; path = ../../../../JUCE/modules/stk_module/stk.mm; sourceTree = "<group>"; };
+		4F0F15912493A21D00031C20 /* stk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stk.h; path = ../../../../JUCE/modules/stk_module/stk.h; sourceTree = "<group>"; };
 		4F315158248AD76800AC1A6C /* meter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meter.png; sourceTree = "<group>"; };
 		4F53E61A248302B60080F061 /* Core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Core.cpp; path = ../../Source/Core.cpp; sourceTree = "<group>"; };
 		4F53E61B248302B60080F061 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Core.h; path = ../../Source/Core.h; sourceTree = "<group>"; };
@@ -320,6 +329,8 @@
 		2CC062C26534934A7B0AB445 /* JUCE Library Code */ = {
 			isa = PBXGroup;
 			children = (
+				4F0F15912493A21D00031C20 /* stk.h */,
+				4F0F158C2493A21200031C20 /* stk.mm */,
 				5C8451858BCEA378E6332BF5 /* AppConfig.h */,
 				C43D014C13F89949ADE828A4 /* include_juce_audio_basics.mm */,
 				7A36B8257319BEFB4D5576E5 /* include_juce_audio_devices.mm */,
@@ -418,7 +429,7 @@
 		BA2A245135C49729F267B18F /* JUCE Modules */ = {
 			isa = PBXGroup;
 			children = (
-				1C6C61CD00102571EAC585C3 /* juce_audio_basics */,
+				4F0F15882493A20800031C20 /* stk */,
 				693D26C7469467603C220B73 /* juce_audio_devices */,
 				53C3F00C4E40FB17A6C3315E /* juce_audio_formats */,
 				EFBCF69421BFF22799F64CB9 /* juce_audio_plugin_client */,
@@ -672,6 +683,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C8DDC8D96D6A66E4AE17623 /* RecentFilesMenuTemplate.nib in Resources */,
+				4F0F15892493A20800031C20 /* stk in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,6 +692,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F53E5FA2482F8D90080F061 /* RecentFilesMenuTemplate.nib in Resources */,
+				4F0F158B2493A20800031C20 /* stk in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +701,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F53E5ED2482F8D90080F061 /* RecentFilesMenuTemplate.nib in Resources */,
+				4F0F158A2493A20800031C20 /* stk in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,6 +723,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F0F158F2493A21200031C20 /* stk.mm in Sources */,
 				4F53E62424836C1E0080F061 /* WaveTable.cpp in Sources */,
 				4F53E61E248302B60080F061 /* Core.cpp in Sources */,
 				616628D7E62260836548CA06 /* include_juce_audio_plugin_client_Standalone.cpp in Sources */,
@@ -739,6 +754,7 @@
 				E5597E1C1821911D8649595D /* include_juce_graphics.mm in Sources */,
 				4FC4C0C0248395E700CBE568 /* Arp.cpp in Sources */,
 				34FC54731171BACA7992E7AA /* include_juce_gui_basics.mm in Sources */,
+				4F0F15902493A21200031C20 /* stk.mm in Sources */,
 				4D6253CEBB7715A7C964F1E4 /* include_juce_gui_extra.mm in Sources */,
 				4F53E62524836C1E0080F061 /* WaveTable.cpp in Sources */,
 				9CAB859822C3D850CEAE1F47 /* include_juce_opengl.mm in Sources */,
@@ -749,6 +765,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F0F158E2493A21200031C20 /* stk.mm in Sources */,
 				4FC4C0BE248395E700CBE568 /* Arp.cpp in Sources */,
 				4F53E61D248302B60080F061 /* Core.cpp in Sources */,
 				4F53E62324836C1E0080F061 /* WaveTable.cpp in Sources */,
@@ -762,6 +779,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F0F158D2493A21200031C20 /* stk.mm in Sources */,
 				4F53E62224836C1E0080F061 /* WaveTable.cpp in Sources */,
 				4F53E61C248302B60080F061 /* Core.cpp in Sources */,
 				2304AE940287AE405DED4AD7 /* include_juce_audio_plugin_client_VST3.cpp in Sources */,
