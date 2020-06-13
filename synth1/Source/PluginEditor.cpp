@@ -12,7 +12,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
 {
     getLookAndFeel().setColour (Slider::thumbColourId, Colours::orange);
     addAndMakeVisible (keyboardComponent);
-    setSize (1400, 780);
+ 
     keyboardState.addListener (this);
     patchCurrent = 0;
     viewModeSetting = 1;
@@ -141,7 +141,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     playMode.addItem ("Mono", 3);
     playMode.addItem ("Legato", 4);
     playMode.onChange = [this] { styleMenuChanged(); };
-    playMode.setSelectedId(par[1023]);
+    playMode.setSelectedId(par[1023], NotificationType::dontSendNotification);
     
     addAndMakeVisible(viewMode);
     viewMode.addItem ("Ouput", 1);
@@ -152,7 +152,17 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewMode.addItem ("Matrix", 6);
     viewMode.addItem ("Debug", 7);
     viewMode.onChange = [this] { styleMenuChangedView(); };
-    viewMode.setSelectedId(2);
+    viewMode.setSelectedId(2, NotificationType::dontSendNotification);
+
+    addAndMakeVisible(viewZoom);
+    viewZoom.addItem ("50%", 1);
+    viewZoom.addItem ("75%", 2);
+    viewZoom.addItem ("100%", 3);
+    viewZoom.addItem ("125%", 4);
+    viewZoom.addItem ("150%", 5);
+    viewZoom.addItem ("200%", 6);
+    viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
+    viewZoom.setSelectedId(3,  NotificationType::dontSendNotification);
     
     pitchWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
     pitchWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
@@ -231,6 +241,11 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     delete w;
     
     startTimer(1000 / SCOPEFRAMES);
+    
+    // Sizing
+   // setResizable(false, false);
+   // setResizeLimits(600, 400, 2400, 1600);
+    setSize (1400, 780);
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
@@ -251,10 +266,10 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     // Version
     Rectangle<int> rv = getLocalBounds();
   
-    rv.setWidth(rv.getWidth()-15);
+    rv.setWidth(rv.getWidth()-120);
     rv.setHeight(40);
     g.setColour (Colours::white);
-    g.setFont (19.0f);
+    g.setFont (17.0f);
     g.drawFittedText (PRODUCTNAME, rv, Justification::topRight, 1);
     
     g.setColour (Colours::black);
@@ -294,9 +309,12 @@ void Synth1AudioProcessorEditor::resized()
 {
     Rectangle<int> r = getLocalBounds();
     int width = r.getWidth();
+    int height = r.getHeight();
     
-    keyboardComponent.setBounds (0,  getHeight() - 50, getWidth(),  50);
+    // Keyboard
+    keyboardComponent.setBounds (100,  height - 50, 1200,  50);
     
+    // Buttons
     for(int i=0; i < 8; ++i){
          btnParam[i].setBounds (10 + i * 100,  5 , 100,  20);
     }
@@ -307,11 +325,28 @@ void Synth1AudioProcessorEditor::resized()
         btnLabel[i].setBounds (10 + i * 100, 43, 100, 18);;
     }
     
-    int hButtons = 20;
+    int hButtons = 30;
     btnCompare.setBounds (width-270, hButtons, 80, 20);
     btnSave.setBounds (width-180, hButtons, 80, 20);
     btnLoad.setBounds (width-90, hButtons, 80, 20);
     
+    int xVal = 835;
+       btnRange0.setBounds (xVal, 5, 60, 20);
+       btnRange1.setBounds (xVal+70, 5, 60, 20);
+       btnRange2.setBounds (xVal+140, 5, 60, 20);
+       btnRange3.setBounds (xVal+210, 5, 60, 20);
+       
+       rootLabel[0].setBounds (xVal, 25, 60, 20);
+       rootLabel[1].setBounds (xVal+70, 25, 60, 20);
+       rootLabel[2].setBounds (xVal+140, 25, 60, 20);
+       rootLabel[3].setBounds (xVal+210, 25, 60, 20);
+       
+       btnProgDown.setBounds (840, 250, 80, 20);
+       btnProgUp.setBounds (1020, 250, 80, 20);
+       btnPanic.setBounds (1000, 290, 80, 20);
+       btnBrowse.setBounds (922, 205, 90, 30);
+    
+    // Sliders
     int dialY = 60;
     for(int i=0; i < 8; ++i){
          boxes[i].setBounds (10  + i * 100,  dialY, 100,  20);
@@ -328,33 +363,19 @@ void Synth1AudioProcessorEditor::resized()
     graphZoom.setBounds (0 ,  700, width-10,  20);
     graphZoomY.setBounds (0 ,  312, 20,  385);
     
-    // Range Buttons
-    int xVal = 835;
-    btnRange0.setBounds (xVal, 5, 60, 20);
-    btnRange1.setBounds (xVal+70, 5, 60, 20);
-    btnRange2.setBounds (xVal+140, 5, 60, 20);
-    btnRange3.setBounds (xVal+210, 5, 60, 20);
-    
-    rootLabel[0].setBounds (xVal, 25, 60, 20);
-    rootLabel[1].setBounds (xVal+70, 25, 60, 20);
-    rootLabel[2].setBounds (xVal+140, 25, 60, 20);
-    rootLabel[3].setBounds (xVal+210, 25, 60, 20);
-    
-    btnProgDown.setBounds (840, 250, 80, 20);
-    btnProgUp.setBounds (1020, 250, 80, 20);
-    btnPanic.setBounds (1000, 290, 80, 20);
-    btnBrowse.setBounds (922, 205, 90, 30);
-    
-    // Play Mode
-    playMode.setBounds (820, 290, 80, 20);
-    viewMode.setBounds (910, 290, 80, 20);
-    
     // Live Controller
     pitchWheel.setBounds(1100, 60, 80, 250);
     modWheel.setBounds (1200, 60, 80, 250);
     expWheel.setBounds (1300, 60, 80, 250);
     
-    // Lable
+   
+    // Drop Downs
+    playMode.setBounds (820, 290, 80, 20);
+    viewMode.setBounds (910, 290, 80, 20);
+    viewZoom.setBounds (width-90, 0, 80, 20);
+    
+
+    // Labels
     progName.setBounds(840, 137, 260,  60);
     progNumber.setBounds(930, 245, 80,  30);
 }

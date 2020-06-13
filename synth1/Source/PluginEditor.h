@@ -61,6 +61,7 @@ public:
     
     ComboBox playMode;
     ComboBox viewMode;
+    ComboBox viewZoom;
     
     Slider pitchWheel;
     Slider modWheel;
@@ -419,6 +420,39 @@ private:
                 viewModeSetting = 3;
                 break;
         }
+        repaint();
+    }
+    
+    void styleMenuChangedViewZoom()
+    {
+        int ws = 1400;
+        int hs = 780;
+        float p = 1.0f;
+        Desktop::getInstance().setGlobalScaleFactor(1);
+        switch (viewZoom.getSelectedId())
+        {
+            case 1: // 50
+                p = 0.5f;
+                break;
+            case 2: // 75
+                p = 0.75f;
+                break;
+            case 3: // 100
+                p = 1.0f;
+                break;
+            case 4: // 125
+                p = 1.25f;
+                break;
+            case 5: // 150
+                p = 1.5f;
+                break;
+                
+            case 6: // 200
+                p = 2.0f;
+                break;
+        }
+        setSize (ws * p, hs * p);
+        Desktop::getInstance().setGlobalScaleFactor((float)this->getWidth() / ws);
         repaint();
     }
     
