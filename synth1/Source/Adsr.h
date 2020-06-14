@@ -24,10 +24,13 @@ class Adsr {       // The class
 
     }
     
+    int uid;
     Curve attackCurve;
     Curve decayCurve;
     float sustainRatio = 0;
     Curve releaseCurve;
+    
+    float susustainLevelInternal;
     
     void init (double sampleRate, int samplesPerBlock){
         this->sampleRate = sampleRate;
@@ -39,15 +42,16 @@ class Adsr {       // The class
         timeLapse = 0;
         state = ADSR_DEL;
         output = 0.0f;
+        susustainLevelInternal = sustainLevel;
     }
     
     void release(){
-        
         releaseTimeStart = timeLapse;
         state = ADSR_RELEASE;
+        if(uid>0)std::cout << "ADSR_RELEASE" << uid << std::endl;
     }
     
-    void tick(){
+    void tick(int tickSamples){
         
         switch(state){
             case ADSR_DEL:
@@ -60,9 +64,13 @@ class Adsr {       // The class
             case ADSR_ATTACK:
             {
                int t = timeLapse / samplesPerMillisecond - delayTimeMsec;
+                if(attackTimeMsec<=1){
+                    attackTimeMsec = 1.0;
+                }
                output = attackCurve.getScaled(t,attackTimeMsec);
                if(t >= attackTimeMsec ){
                    state = ADSR_HOLD;
+                   if(uid>0)std::cout << "ADSR_HOLD" << uid <<std::endl;
                }
                break;
             }
@@ -72,6 +80,7 @@ class Adsr {       // The class
               int t = timeLapse / samplesPerMillisecond - delayTimeMsec - attackTimeMsec;
               if(t >= holdTimeMsec ){
                   state = ADSR_DECAY;
+                   if(uid>0)std::cout << "ADSR_DECAY" << uid <<std::endl;
               }
               break;
             }
@@ -83,6 +92,7 @@ class Adsr {       // The class
                 output = (1.0 - tableValue) * decayRange  + sustainLevel;
                 if(t >= decayTimeMsec ){
                     state = ADSR_SUSTAIN;
+                     if(uid>0)std::cout << "ADSR_SUSTAIN" << uid <<std::endl;
                 }
                 break;
             }
@@ -91,34 +101,44 @@ class Adsr {       // The class
                 int t = timeLapse / samplesPerMillisecond - delayTimeMsec - attackTimeMsec - holdTimeMsec - decayTimeMsec;
                 
                 if(sustainRatio > 0){
-                    sustainLevel  =  sustainLevel + sustainLevel * (sustainRatio / 100.0f) * 0.01f * (t / 1000.0f);
+                    susustainLevelInternal  =  susustainLevelInternal + susustainLevelInternal * (sustainRatio / 100.0f) * 0.01f * (t / 1000.0f);
                 }else if(sustainRatio < 0){
-                   sustainLevel  =  sustainLevel - sustainLevel * (abs(sustainRatio) / 100.0f) * 0.01f * (t / 1000.0f);
+                   susustainLevelInternal  =  susustainLevelInternal - susustainLevelInternal * (abs(sustainRatio) / 100.0f) * 0.01f * (t / 1000.0f);
                 }
                 
-                if(sustainLevel >=1){
-                    sustainLevel = 1;
+                if(susustainLevelInternal >=1){
+                    susustainLevelInternal = 1;
                 }
                 
-                if(sustainLevel < 0){
-                    sustainLevel = 0;
+                if(susustainLevelInternal < 0){
+                    susustainLevelInternal = 0;
                 }
-                output = sustainLevel;
+                output = susustainLevelInternal;
                 break;
             }
             case ADSR_RELEASE:
             {
-                int t = (timeLapse - releaseTimeStart)/ samplesPerMillisecond;
+                int t = (timeLapse - releaseTimeStart) / samplesPerMillisecond;
+                if(releaseTimeMsec <= 1.0f){
+                    releaseTimeMsec = 1.0f;
+                }
                 float tableValue = releaseCurve.getScaled( t, releaseTimeMsec);
-                output = (1.0 - tableValue) * sustainLevel;
-                if(output < 0.00001){
-                    output = 0;
-                    state = ADSR_OFF;
+                output = (1.0f - tableValue) * susustainLevelInternal;
+                if(output == 0){
+                    state = ADSR_DONE;
+                    if(uid>0)std::cout << "ADSR_DONE" << uid << std::endl;
                 }
                 break;
             }
+                
+            case ADSR_OFF:
+                break;
+                
+            case ADSR_DONE:
+                break;
         }
-         ++timeLapse;
+        timeLapse += tickSamples;
+        if(uid > 0)std::cout << output << std::endl;
     }
     
     void setAttackCurve(int prozent){

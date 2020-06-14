@@ -59,7 +59,7 @@ class Core {
     
     void endVoice(int midiChannel, int midiNoteNumber){
         int vid = findExistingVoice(midiChannel, midiNoteNumber);
-        voices[vid]. noteOff();
+        voices[vid].noteOff();
         std::cout <<  "End Voice midiNoteNumber:" << midiNoteNumber  << std::endl;
     }
     

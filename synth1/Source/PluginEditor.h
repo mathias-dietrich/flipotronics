@@ -413,21 +413,10 @@ private:
     }
     
     void styleMenuChangedView(){
-        switch (viewMode.getSelectedId())
-        {
-            case 1: // Wave
-                viewModeSetting = 1;
-                break;
-            case 2: // Matrix
-                viewModeSetting = 2;
-                break;
-            case 3: // debug
-                viewModeSetting = 3;
-                break;
-        }
+        viewModeSetting = viewMode.getSelectedId();
         repaint();
     }
-    
+          
     void styleMenuChangedViewZoom()
     {
         int ws = 1400;
@@ -471,5 +460,51 @@ private:
     
     void startEdit(){
         compareMode = true;
+    }
+    
+    void drawAdsr(Adsr * adsr, Graphics& g, int width, int half){
+
+       adsr->start();
+       
+       float length = adsr->delayTimeMsec + adsr->attackTimeMsec + adsr->holdTimeMsec + adsr->decayTimeMsec + adsr->releaseTimeMsec;
+      
+       int SustainTime = length * 5 / 24;
+       int releaseSample =  adsr->samplesPerMillisecond * (adsr->delayTimeMsec + adsr->attackTimeMsec + adsr->holdTimeMsec + adsr->decayTimeMsec + SustainTime);
+       adsr->releaseTimeStart = releaseSample;
+       
+       length += SustainTime;
+       float ticks = length / width * adsr->samplesPerMillisecond;
+       
+       int bottom = half + 150;
+       int ylast = bottom;
+       g.setColour (Colours::red);
+       g.drawLine (0, half,width, half, 2.0f);
+       
+       for(int i=0;i<width;++i){
+           int y = 150 + half - 300.0f * adsr->output;
+           g.setColour (Colours::yellow);
+           g.drawLine (i, ylast, i+1, y, 2.0f);
+           if(adsr->state == Adsr::ADSR_RELEASE){
+                g.setColour (Colours::blue);
+           }else if(adsr->state == Adsr::ADSR_HOLD){
+               g.setColour (Colours::yellow);
+           }else if(adsr->state == Adsr::ADSR_ATTACK){
+               g.setColour (Colours::red);
+           }
+           else if(adsr->state == Adsr::ADSR_SUSTAIN){
+               g.setColour (Colours::grey);
+           }
+           else{
+               g.setColour (Colours::green);
+           }
+               
+           g.drawLine (i, y, i, bottom   , 0.4f);
+
+           adsr->tick(ticks);
+           if(adsr->timeLapse >= releaseSample && adsr->state == Adsr::ADSR_SUSTAIN){
+               adsr->release();
+           }
+           ylast = y;
+       }
     }
 };

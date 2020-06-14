@@ -200,7 +200,7 @@ class ParamBuilder {       // The class
             p0.maxVal = 445.0;
             p0.stepVal = 0.1;
             p0.def = 440.0;
-            p0.smoothTime = 2000;
+            p0.smoothTime = 0;
             params[P_TUNING] = p0;
             
             Param p;

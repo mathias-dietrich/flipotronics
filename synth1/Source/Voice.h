@@ -44,10 +44,17 @@ public:
     Adsr adsr2;
     Adsr adsr3;
     
+    float adsr0Target;
+    float adsr0Target1;
+    
     int lastPos0 = 1;
     
     Voice(){
         waveTable = new WaveTable();
+        adsr0.uid = 1;
+        adsr1.uid = 2;
+        adsr2.uid = 3;
+        adsr3.uid = 4;
     }
     
     ~Voice(){
@@ -79,6 +86,8 @@ public:
         adsr1.init(sampleRate,samplesPerBlock);
         adsr2.init(sampleRate,samplesPerBlock);
         adsr3.init(sampleRate,samplesPerBlock);
+        
+        adsr0Target = 0;
         setParams();
     }
     
@@ -181,10 +190,10 @@ public:
     }
     
     void noteOff(){
-        adsr0.state = Adsr::ADSR_RELEASE;
-        adsr1.state = Adsr::ADSR_RELEASE;
-        adsr2.state = Adsr::ADSR_RELEASE;
-        adsr3.state = Adsr::ADSR_RELEASE;
+        adsr0.release();
+        adsr1.release();
+        adsr2.release();
+        adsr3.release();
     }
     
     void update(int clock){
@@ -285,7 +294,6 @@ public:
             float v1 = interpolate(checkPos(p1 + par[P_OSC2_PHASE] / 360.0f * sr), table1);
             float vSub = interpolate(checkPos(tablePosSub), table2);
 
-           // volVelo *= adsr0.output;
             v0 *= volVelo;
             v0 *=  DecibelToLinear(par[P_OSC1_VOL]);
             
@@ -295,6 +303,11 @@ public:
             vSub = vSub * adsr0.output * par[P_OSC1_SUB];
             float vol = DecibelToLinear(par[P_VOLUME]);
             float mono = (v0 + v1 + vSub)  * vol / 3.0f;
+            
+            adsr0Target =  (adsr0Target + adsr0Target1 + adsr0.output) / 3.0;
+            adsr0Target1 = adsr0Target;
+            mono *= adsr0Target;
+            
             float vSumL = mono * (1.0f - par[P_PAN]);
             float vSumR = mono * par[P_PAN];
             
@@ -353,11 +366,13 @@ public:
             tablePos1 = checkPos(tablePos1);
             tablePosSub = checkPos(tablePosSub);
             
-            adsr0.tick();
+            
         }
         clock += samplesPerBlock;
+        adsr0.tick(samplesPerBlock);
         if(adsr0.state == Adsr::ADSR_DONE){
             adsr0.state = Adsr::ADSR_OFF;
+            std::cout << "End of  voice "  << vid << std::endl;
             active = false;
         }
     }

@@ -26,6 +26,12 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     undoModel.set();
     compareMode = false;
     
+    
+    adsr1.uid = -1;
+    adsr2.uid = -1;
+    adsr3.uid = -1;
+    adsr4.uid = -1;
+    
     int from = 0;
     int to = 15;
     for(int i=0; i < 16; ++i){
@@ -244,9 +250,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     
     startTimer(1000 / SCOPEFRAMES);
     
-    // Sizing
-   // setResizable(false, false);
-   // setResizeLimits(600, 400, 2400, 1600);
     setSize (1400, 780);
 }
 
@@ -306,55 +309,67 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             adsr1.setAttackCurve( par[P_ADSR1_ATTACK_CURVE]);
             adsr1.setDecayCurve( par[P_ADSR1_DECAY_CURVE]);
             adsr1.setSustainCurve( par[P_ADSR1_SUSTAIN_CURVE]);
-            std::cout << par[P_ADSR1_SUSTAIN_CURVE];
             adsr1.setReleaseCurve( par[P_ADSR1_RELEASE_CURVE]);
-            adsr1.start();
-            
-            float length = adsr1.delayTimeMsec + adsr1.attackTimeMsec + adsr1.holdTimeMsec + adsr1.decayTimeMsec + adsr1.releaseTimeMsec;
-           
-            int SustainTime = length * 5 / 24;
-            int releaseSample =  adsr1.samplesPerMillisecond * (adsr1.delayTimeMsec + adsr1.attackTimeMsec + adsr1.holdTimeMsec + adsr1.decayTimeMsec + SustainTime);
-            adsr1.releaseTimeStart = releaseSample;
-            
-            length += SustainTime;
-            float ticks = length / width * adsr1.samplesPerMillisecond;
-            
-            int bottom = half + 150;
-            int ylast = bottom;
-            g.setColour (Colours::red);
-            g.drawLine (0, half,width, half, 2.0f);
-            
-            for(int i=0;i<width;++i){
-                int y = 150 + half - 300.0f * adsr1.output;
-                g.setColour (Colours::yellow);
-                g.drawLine (i, ylast, i+1, y, 2.0f);
-                if(adsr1.state == Adsr::ADSR_RELEASE){
-                     g.setColour (Colours::blue);
-                }else if(adsr1.state == Adsr::ADSR_HOLD){
-                    g.setColour (Colours::yellow);
-                }else if(adsr1.state == Adsr::ADSR_ATTACK){
-                    g.setColour (Colours::red);
-                }
-                else if(adsr1.state == Adsr::ADSR_SUSTAIN){
-                    g.setColour (Colours::grey);
-                }
-                else{
-                    g.setColour (Colours::green);
-                }
-                    
-                g.drawLine (i, y, i, bottom   , 0.4f);
-
-                for(int t=0; t < ticks;++t){
-                    adsr1.tick();
-                    if(adsr1.timeLapse >= releaseSample && adsr1.state == Adsr::ADSR_SUSTAIN){
-                        adsr1.release();
-                    }
-                }
-                ylast = y;
-            }
+            drawAdsr(&adsr1, g,  width,  half);
             break;
         }
+
+        case 3: //ADSR 2
+        {
+            adsr2.init(samplerate,  samplesperblock);
+            adsr2.delayTimeMsec = par[P_ADSR2_DELAY];
+            adsr2.attackTimeMsec = par[P_ADSR2_ATTACK];
+            adsr2.holdTimeMsec = par[P_ADSR2_HOLD];
+            adsr2.decayTimeMsec = par[P_ADSR2_DECAY];
+            adsr2.sustainLevel = par[P_ADSR2_SUSTAIN];
+            adsr2.releaseTimeMsec = par[P_ADSR2_RELEASE];
             
+            // Curves
+            adsr2.setAttackCurve( par[P_ADSR2_ATTACK_CURVE]);
+            adsr2.setDecayCurve( par[P_ADSR2_DECAY_CURVE]);
+            adsr2.setSustainCurve( par[P_ADSR2_SUSTAIN_CURVE]);
+            adsr2.setReleaseCurve( par[P_ADSR2_RELEASE_CURVE]);
+            drawAdsr(&adsr2, g,  width,  half);
+            break;
+        }
+        
+        case 4: //ADSR 3
+        {
+            adsr3.init(samplerate,  samplesperblock);
+            adsr3.delayTimeMsec = par[P_ADSR3_DELAY];
+            adsr3.attackTimeMsec = par[P_ADSR3_ATTACK];
+            adsr3.holdTimeMsec = par[P_ADSR3_HOLD];
+            adsr3.decayTimeMsec = par[P_ADSR3_DECAY];
+            adsr3.sustainLevel = par[P_ADSR3_SUSTAIN];
+            adsr3.releaseTimeMsec = par[P_ADSR3_RELEASE];
+            
+            // Curves
+            adsr3.setAttackCurve( par[P_ADSR3_ATTACK_CURVE]);
+            adsr3.setDecayCurve( par[P_ADSR3_DECAY_CURVE]);
+            adsr3.setSustainCurve( par[P_ADSR3_SUSTAIN_CURVE]);
+            adsr3.setReleaseCurve( par[P_ADSR3_RELEASE_CURVE]);
+            drawAdsr(&adsr3, g,  width,  half);
+            break;
+        }
+        
+        case 5: //ADSR 4
+        {
+            adsr4.init(samplerate,  samplesperblock);
+            adsr4.delayTimeMsec = par[P_ADSR4_DELAY];
+            adsr4.attackTimeMsec = par[P_ADSR4_ATTACK];
+            adsr4.holdTimeMsec = par[P_ADSR4_HOLD];
+            adsr4.decayTimeMsec = par[P_ADSR4_DECAY];
+            adsr4.sustainLevel = par[P_ADSR4_SUSTAIN];
+            adsr4.releaseTimeMsec = par[P_ADSR4_RELEASE];
+            
+            // Curves
+            adsr4.setAttackCurve( par[P_ADSR4_ATTACK_CURVE]);
+            adsr4.setDecayCurve( par[P_ADSR4_DECAY_CURVE]);
+            adsr4.setSustainCurve( par[P_ADSR4_SUSTAIN_CURVE]);
+            adsr4.setReleaseCurve( par[P_ADSR4_RELEASE_CURVE]);
+            drawAdsr(&adsr4, g,  width,  half);
+            break;
+        }
         case 6:
             curve.set(par[1022]);
              g.setColour (Colours::white);
@@ -439,7 +454,6 @@ void Synth1AudioProcessorEditor::resized()
     viewMode.setBounds (910, 290, 80, 20);
     viewZoom.setBounds (width-90, 0, 80, 20);
     
-
     // Labels
     progName.setBounds(840, 137, 260,  60);
     progNumber.setBounds(930, 245, 80,  30);

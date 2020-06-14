@@ -13,7 +13,7 @@
 #include <JuceHeader.h>
 
 
-#define CURVESAMPLES 6000
+#define CURVESAMPLES 1000
 class Curve {
 
 public:
@@ -55,7 +55,7 @@ public:
     float getScaled(int pos, int max){
         int p = pos * CURVESAMPLES / max;
         if(p>=CURVESAMPLES){
-            p = CURVESAMPLES-1;
+            return 1.0;
         }
         return sample[p];
     }

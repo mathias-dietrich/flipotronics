@@ -102,7 +102,6 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
         scopeCounter = 0;
     }
     
-    
     // Move Clock
     clock += samplesPerBlock;
 }
