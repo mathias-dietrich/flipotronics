@@ -31,6 +31,10 @@ public:
     MidiKeyboardComponent keyboardComponent;
     
     Curve curve;
+    Adsr adsr1;
+    Adsr adsr2;
+    Adsr adsr3;
+    Adsr adsr4;
     
     TextButton btnParam[16];
     Label btnLabel[8];

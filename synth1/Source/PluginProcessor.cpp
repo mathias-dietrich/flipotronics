@@ -21,7 +21,7 @@ double tuneMulti[12];
 Param params[MAXPARAM];
 int samplerate;
 int samplesperblock;
-int viewModeSetting;
+int viewModeSetting = 1;
 int patchCurrent;
 String patchNameCurrent = "Init";
 String patchNameCurrentUndo;

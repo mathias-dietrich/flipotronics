@@ -149,10 +149,12 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewMode.addItem ("ADSR 2", 3);
     viewMode.addItem ("ADSR 3", 4);
     viewMode.addItem ("ADSR 4", 5);
-    viewMode.addItem ("Matrix", 6);
-    viewMode.addItem ("Debug", 7);
+    viewMode.addItem ("Curve 4", 6);
+    viewMode.addItem ("Matrix", 7);
+    viewMode.addItem ("Debug", 8);
     viewMode.onChange = [this] { styleMenuChangedView(); };
-    viewMode.setSelectedId(2, NotificationType::dontSendNotification);
+    viewModeSetting = 2;
+    viewMode.setSelectedId(viewModeSetting, NotificationType::dontSendNotification);
 
     addAndMakeVisible(viewZoom);
     viewZoom.addItem ("50%", 1);
@@ -290,7 +292,47 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             drawPlot( g, half, width, scopeBuffer );
             break;
             
-        case 2:
+        case 2: //ADSR 1
+        {
+            adsr1.init(samplerate,  samplesperblock);
+            adsr1.delayTimeMsec = par[P_ADSR1_DELAY];
+            adsr1.attackTimeMsec = par[P_ADSR1_ATTACK];
+            adsr1.holdTimeMsec = par[P_ADSR1_HOLD];
+            adsr1.decayTimeMsec = par[P_ADSR1_DECAY];
+            adsr1.sustainLevel = par[P_ADSR1_SUSTAIN];
+            adsr1.releaseTimeMsec = par[P_ADSR1_RELEASE];
+            
+            // Curves
+            adsr1.setAttackCurve( par[P_ADSR1_ATTACK_CURVE]);
+            adsr1.setDecayCurve( par[P_ADSR1_DECAY_CURVE]);
+            adsr1.setSustainCurve( par[P_ADSR1_SUSTAIN_CURVE]);
+            adsr1.setReleaseCurve( par[P_ADSR1_RELEASE_CURVE]);
+            adsr1.start();
+            
+            float length = adsr1.delayTimeMsec + adsr1.attackTimeMsec + adsr1.holdTimeMsec + adsr1.decayTimeMsec + adsr1.releaseTimeMsec;
+            float ticks = length / width * adsr1.samplesPerMillisecond;
+            
+            int bottom = half + 150;
+            int ylast = bottom;
+             g.setColour (Colours::red);
+            g.drawLine (0, half,width, half, 2.0f);
+            
+            for(int i=0;i<width;++i){
+                int y = 150 + half - 300.0f * adsr1.output;
+                g.setColour (Colours::yellow);
+                g.drawLine (i, ylast, i+1, y, 2.0f);
+                g.setColour (Colours::green);
+                g.drawLine (i, y, i, bottom   , 0.4f);
+
+                for(int t=0; t < ticks;++t){
+                    adsr1.tick();
+                }
+                ylast = y;
+            }
+            break;
+        }
+            
+        case 6:
             curve.set(par[1022]);
              g.setColour (Colours::white);
             int ylast = half + 150;

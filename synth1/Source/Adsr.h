@@ -32,26 +32,27 @@ class Adsr {       // The class
     void init (double sampleRate, int samplesPerBlock){
         this->sampleRate = sampleRate;
         this->samplesPerBlock = samplesPerBlock;
+        this->samplesPerMillisecond = 0.001 * sampleRate;
     }
     
     void start(){
         timeLapse = 0;
         state = ADSR_DEL;
-        output = 0;
+        output = 0.0f;
     }
     
     void tick(){
         switch(state){
             case ADSR_DEL:
-                if(delayTimeMsec ==0){
+                if(timeLapse >= delayTimeMsec * samplesPerMillisecond)  {
                     state = ADSR_ATTACK;
-                    break;
-                }
-                if(timeLapse >= delayTimeMsec * 0.001f * sampleRate)  {
-                    state = ADSR_ATTACK;
+                    output = 0.5f;
                 }
                 break;
-                
+        }
+         ++timeLapse;
+    }
+                /*
             case ADSR_ATTACK:
             {
                 if(attackTimeMsec==0){
@@ -66,6 +67,10 @@ class Adsr {       // The class
                }
                 break;
             }
+                
+            case ADSR_HOLD:
+
+             break;
             
             case ADSR_DECAY:
             {
@@ -116,8 +121,9 @@ class Adsr {       // The class
                 break;
             }
         }
-        ++timeLapse;
+       
     }
+                 */
     
     int attackTimeMsec;
     int decayTimeMsec;
@@ -151,15 +157,16 @@ class Adsr {       // The class
     int holdTimeMsec;
     
     
-    
-    enum AdsrState{ADSR_DEL, ADSR_ATTACK, ADSR_DECAY, ADSR_SUSTAIN,ADSR_RELEASE, ADSR_OFF, ADSR_DONE};
+    enum AdsrState{ADSR_DEL, ADSR_ATTACK, ADSR_HOLD, ADSR_DECAY, ADSR_SUSTAIN,ADSR_RELEASE, ADSR_OFF, ADSR_DONE};
     float output;
     AdsrState state = ADSR_OFF;
     int timeLapse = 0;
     
-private:
     int sampleRate;
     int samplesPerBlock;
+    int samplesPerMillisecond;
+private:
+
    
     
 };
