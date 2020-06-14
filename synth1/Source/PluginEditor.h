@@ -275,6 +275,7 @@ private:
             else if( params[pid].type == uCurve){
                 dials[i].setSkewFactor(1);
                 dials[i].setTextValueSuffix(" %");
+                dials[i].setValue(par[pid], dontSendNotification);
             }
             else{
                 dials[i].setTextValueSuffix("");

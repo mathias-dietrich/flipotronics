@@ -79,6 +79,7 @@ public:
         adsr1.init(sampleRate,samplesPerBlock);
         adsr2.init(sampleRate,samplesPerBlock);
         adsr3.init(sampleRate,samplesPerBlock);
+        setParams();
     }
     
     void kill(){

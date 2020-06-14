@@ -306,26 +306,49 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             adsr1.setAttackCurve( par[P_ADSR1_ATTACK_CURVE]);
             adsr1.setDecayCurve( par[P_ADSR1_DECAY_CURVE]);
             adsr1.setSustainCurve( par[P_ADSR1_SUSTAIN_CURVE]);
+            std::cout << par[P_ADSR1_SUSTAIN_CURVE];
             adsr1.setReleaseCurve( par[P_ADSR1_RELEASE_CURVE]);
             adsr1.start();
             
             float length = adsr1.delayTimeMsec + adsr1.attackTimeMsec + adsr1.holdTimeMsec + adsr1.decayTimeMsec + adsr1.releaseTimeMsec;
+           
+            int SustainTime = length * 5 / 24;
+            int releaseSample =  adsr1.samplesPerMillisecond * (adsr1.delayTimeMsec + adsr1.attackTimeMsec + adsr1.holdTimeMsec + adsr1.decayTimeMsec + SustainTime);
+            adsr1.releaseTimeStart = releaseSample;
+            
+            length += SustainTime;
             float ticks = length / width * adsr1.samplesPerMillisecond;
             
             int bottom = half + 150;
             int ylast = bottom;
-             g.setColour (Colours::red);
+            g.setColour (Colours::red);
             g.drawLine (0, half,width, half, 2.0f);
             
             for(int i=0;i<width;++i){
                 int y = 150 + half - 300.0f * adsr1.output;
                 g.setColour (Colours::yellow);
                 g.drawLine (i, ylast, i+1, y, 2.0f);
-                g.setColour (Colours::green);
+                if(adsr1.state == Adsr::ADSR_RELEASE){
+                     g.setColour (Colours::blue);
+                }else if(adsr1.state == Adsr::ADSR_HOLD){
+                    g.setColour (Colours::yellow);
+                }else if(adsr1.state == Adsr::ADSR_ATTACK){
+                    g.setColour (Colours::red);
+                }
+                else if(adsr1.state == Adsr::ADSR_SUSTAIN){
+                    g.setColour (Colours::grey);
+                }
+                else{
+                    g.setColour (Colours::green);
+                }
+                    
                 g.drawLine (i, y, i, bottom   , 0.4f);
 
                 for(int t=0; t < ticks;++t){
                     adsr1.tick();
+                    if(adsr1.timeLapse >= releaseSample && adsr1.state == Adsr::ADSR_SUSTAIN){
+                        adsr1.release();
+                    }
                 }
                 ylast = y;
             }

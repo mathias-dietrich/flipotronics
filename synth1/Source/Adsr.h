@@ -26,7 +26,7 @@ class Adsr {       // The class
     
     Curve attackCurve;
     Curve decayCurve;
-    Curve sustainCurve;
+    float sustainRatio = 0;
     Curve releaseCurve;
     
     void init (double sampleRate, int samplesPerBlock){
@@ -41,94 +41,85 @@ class Adsr {       // The class
         output = 0.0f;
     }
     
+    void release(){
+        
+        releaseTimeStart = timeLapse;
+        state = ADSR_RELEASE;
+    }
+    
     void tick(){
+        
         switch(state){
             case ADSR_DEL:
+            {
                 if(timeLapse >= delayTimeMsec * samplesPerMillisecond)  {
                     state = ADSR_ATTACK;
-                    output = 0.5f;
                 }
                 break;
-        }
-         ++timeLapse;
-    }
-                /*
+            }
             case ADSR_ATTACK:
             {
-                if(attackTimeMsec==0){
-                    attackTimeMsec = 2;
-                }
-               int noSamples =  attackTimeMsec * 0.001f * sampleRate  ;
-               float add = 1.0f / noSamples;
-               output += add;
-               if(output >= 1.0){
-                   output = 1.0;
-                   state = ADSR_DECAY;
+               int t = timeLapse / samplesPerMillisecond - delayTimeMsec;
+               output = attackCurve.getScaled(t,attackTimeMsec);
+               if(t >= attackTimeMsec ){
+                   state = ADSR_HOLD;
                }
-                break;
+               break;
             }
                 
             case ADSR_HOLD:
-
-             break;
-            
+            {
+              int t = timeLapse / samplesPerMillisecond - delayTimeMsec - attackTimeMsec;
+              if(t >= holdTimeMsec ){
+                  state = ADSR_DECAY;
+              }
+              break;
+            }
             case ADSR_DECAY:
             {
-                if(decayTimeMsec==0){
-                      decayTimeMsec = 2;
-                 }
-                int noSamples = decayTimeMsec * 0.001f * sampleRate;
-                float sub = (1.0 - sustainLevel) / noSamples;
-                output -= sub;
-                if(output <= sustainLevel){
-                    output = sustainLevel;
+                int t = timeLapse / samplesPerMillisecond - delayTimeMsec - attackTimeMsec - holdTimeMsec;
+                float decayRange = 1.0 - sustainLevel;
+                float tableValue = decayCurve.getScaled( t,decayTimeMsec);
+                output = (1.0 - tableValue) * decayRange  + sustainLevel;
+                if(t >= decayTimeMsec ){
                     state = ADSR_SUSTAIN;
                 }
                 break;
             }
-            
             case ADSR_SUSTAIN:
             {
-                break; // wait for key releae
+                int t = timeLapse / samplesPerMillisecond - delayTimeMsec - attackTimeMsec - holdTimeMsec - decayTimeMsec;
+                
+                if(sustainRatio > 0){
+                    sustainLevel  =  sustainLevel + sustainLevel * (sustainRatio / 100.0f) * 0.01f * (t / 1000.0f);
+                }else if(sustainRatio < 0){
+                   sustainLevel  =  sustainLevel - sustainLevel * (abs(sustainRatio) / 100.0f) * 0.01f * (t / 1000.0f);
+                }
+                
+                if(sustainLevel >=1){
+                    sustainLevel = 1;
+                }
+                
+                if(sustainLevel < 0){
+                    sustainLevel = 0;
+                }
+                output = sustainLevel;
+                break;
             }
-            
             case ADSR_RELEASE:
             {
-                if(releaseTimeMsec==0){
+                int t = (timeLapse - releaseTimeStart)/ samplesPerMillisecond;
+                float tableValue = releaseCurve.getScaled( t, releaseTimeMsec);
+                output = (1.0 - tableValue) * sustainLevel;
+                if(output < 0.00001){
                     output = 0;
-                    state = ADSR_DONE;
-                    return;
+                    state = ADSR_OFF;
                 }
-                float noSamples = releaseTimeMsec * 0.001f * sampleRate;
-                float sub = sustainLevel / noSamples;
-                output -= sub;
-                if(output <= 0){
-                    state = ADSR_DONE;
-                }
-                break;
-            }
-            
-            case ADSR_DONE:
-            {
-                // do nothing, Voice will go back into the Pool
-                output = 0;
-                break;
-             }
-                
-            case ADSR_OFF:
-            {
-                output = 0;
                 break;
             }
         }
-       
+         ++timeLapse;
     }
-                 */
-    
-    int attackTimeMsec;
-    int decayTimeMsec;
-    int releaseTimeMsec;
-    float sustainLevel;
     
     void setAttackCurve(int prozent){
         attackCurve.set(prozent);
@@ -139,32 +130,43 @@ class Adsr {       // The class
     }
     
     void setSustainCurve(int prozent){
-        sustainCurve.set(prozent);
+        sustainRatio = prozent;
     }
     
     void setReleaseCurve(int prozent){
         releaseCurve.set(prozent);
     }
 
+    float output;
+   
+    // Trigger
+    int trigger;
+    float triggerTreshold;
+    
+    // times
+     int timeLapse = 0;
+    int releaseTimeStart = 0;
+    int delayTimeMsec;
+    int holdTimeMsec;
+    int attackTimeMsec;
+    int decayTimeMsec;
+    int releaseTimeMsec;
+    
+    float sustainLevel;
+    
+    // Targets
     float ampTarget;
     float pitchTarget;
     float filterTarget;
     float fxTarget;
     
-    int trigger;
-    float triggerTreshold;
-    int delayTimeMsec;
-    int holdTimeMsec;
-    
-    
-    enum AdsrState{ADSR_DEL, ADSR_ATTACK, ADSR_HOLD, ADSR_DECAY, ADSR_SUSTAIN,ADSR_RELEASE, ADSR_OFF, ADSR_DONE};
-    float output;
-    AdsrState state = ADSR_OFF;
-    int timeLapse = 0;
-    
+    //
     int sampleRate;
     int samplesPerBlock;
     int samplesPerMillisecond;
+    
+    enum AdsrState{ADSR_DEL, ADSR_ATTACK, ADSR_HOLD, ADSR_DECAY, ADSR_SUSTAIN,ADSR_RELEASE, ADSR_OFF, ADSR_DONE};
+    AdsrState state = ADSR_OFF;
 private:
 
    
