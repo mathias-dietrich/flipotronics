@@ -48,10 +48,16 @@ class Core {
     void init (double sampleRate, int samplesPerBlock);
     
     void startVoice(int midiChannel, int midiNoteNumber, float velocity){
-        int vid = findNewVoice();
+        int vid = findNewVoice(midiNoteNumber, midiChannel);
+        voices[vid].velocity = velocity;
+        if(voices[vid].active){
+            voices[vid].retrigger();
+            return;
+        }
+        
         voices[vid].midiChannel = midiChannel;
         voices[vid].noteNumber = midiNoteNumber;
-        voices[vid].velocity = velocity;
+        
         voices[vid].reset();
 
         std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << std::endl;
@@ -76,7 +82,12 @@ class Core {
          std::cout << "Kill All Voice midiNoteNumber:" << std::endl;
     }
     
-    int findNewVoice(){
+    int findNewVoice(int midiNoteNumber,int midiChannel){
+        for(int i=0; i < MAXVOICE;i++){
+            if(midiNoteNumber==voices[i].noteNumber && midiChannel==voices[i].midiChannel){
+                return i;
+            }
+        }
         for(int i=0; i < MAXVOICE;i++){
             if(!voices[i].active){
                 voices[i].now = Time::currentTimeMillis();

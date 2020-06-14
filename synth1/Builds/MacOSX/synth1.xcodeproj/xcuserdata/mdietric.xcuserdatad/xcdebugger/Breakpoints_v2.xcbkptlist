@@ -270,8 +270,8 @@
             filePath = "../../Source/Voice.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "render(clock, buffer)"
             landmarkType = "7">
          </BreakpointContent>

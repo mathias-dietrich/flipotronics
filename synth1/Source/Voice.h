@@ -189,6 +189,10 @@ public:
         lastPos0 = 1;
     }
     
+    void retrigger(){
+        reset();
+    }
+    
     void noteOff(){
         adsr0.release();
         adsr1.release();
