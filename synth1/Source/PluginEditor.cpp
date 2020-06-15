@@ -123,6 +123,13 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnBrowse.setRadioGroupId(26);
     addAndMakeVisible (btnBrowse);
     
+    btnArp.setButtonText ("Arp");
+    btnArp.addListener (this);
+    btnArp.setRadioGroupId(27);
+    addAndMakeVisible (btnArp);
+    
+    
+    
     addAndMakeVisible (timeLabel);
     timeLabel.setColour (Label::backgroundColourId, Colours::black);
     timeLabel.setColour (Label::textColourId, Colours::white);
@@ -254,6 +261,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
+    processor.close();
     delete bankLoader;
 }
 
@@ -421,10 +429,11 @@ void Synth1AudioProcessorEditor::resized()
        rootLabel[2].setBounds (xVal+140, 25, 60, 20);
        rootLabel[3].setBounds (xVal+210, 25, 60, 20);
        
-       btnProgDown.setBounds (840, 250, 80, 20);
-       btnProgUp.setBounds (1020, 250, 80, 20);
+       btnProgDown.setBounds (840, 205, 80, 20);
+       btnProgUp.setBounds (1020, 205, 80, 20);
        btnPanic.setBounds (1000, 290, 80, 20);
-       btnBrowse.setBounds (922, 205, 90, 30);
+       btnBrowse.setBounds (922, 245, 90, 30);
+       btnArp.setBounds (820, 245, 90, 30);
     
     // Sliders
     int dialY = 60;
@@ -456,7 +465,7 @@ void Synth1AudioProcessorEditor::resized()
     
     // Labels
     progName.setBounds(840, 137, 260,  60);
-    progNumber.setBounds(930, 245, 80,  30);
+    progNumber.setBounds(930, 205, 80,  30);
 }
 
 

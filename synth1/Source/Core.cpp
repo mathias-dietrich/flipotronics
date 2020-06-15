@@ -9,6 +9,8 @@
 #include "Core.h"
 #include "Func.h"
 
+using namespace std;
+
 void Core::init (double sampleRate, int samplesPerBlock){
     this->sampleRate = sampleRate;
     this->samplesPerBlock = samplesPerBlock;
@@ -17,6 +19,7 @@ void Core::init (double sampleRate, int samplesPerBlock){
     
     // ARP
     arp->init(sampleRate, samplesPerBlock);
+    arp->setPlayer(this);
 
     // Voices
     for (int i=0; i<MAXVOICE; ++i) {
@@ -32,12 +35,15 @@ void Core::init (double sampleRate, int samplesPerBlock){
     for (int i=0; i<12; ++i) {
         tuneMulti[i] = 1.0;
     }
+    
+    timeAllowedMsec =  samplesPerBlock / sampleRate * 1000 ;
 }
 
 void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int totalNumInputChannels, int totalNumOutputChannels) {
-
     ScopedNoDenormals noDenormals;
     
+    auto begin = std::chrono::high_resolution_clock::now();
+
     // Handle Midi Messages
     MidiMessage result;
     int samplePosition;
@@ -75,6 +81,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
               voices[i].update(clock);
             }
         }
+        cout << "timeTaken (msec): " << timeTaken / 1000.0f << " Blocksize: " << samplesPerBlock <<  " Allowed: " << timeAllowedMsec << endl;
     }
     ++updateCounter;
     
@@ -104,4 +111,9 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     
     // Move Clock
     clock += samplesPerBlock;
+    
+    auto end = std::chrono::high_resolution_clock::now();
+    
+    int64 nanoSec = std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count();
+    timeTaken = (timeTaken+nanoSec) / 2;
 }

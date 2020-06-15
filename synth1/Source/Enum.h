@@ -17,5 +17,6 @@ enum E_ParamType { pVol, pBalance, pFreq, pDelay, pTime, pTimeSpan, pMidiNote, p
 
 enum E_FileType { fWav,fAiff, fCaf, fMP3, fBank, fPatch, fSettings, fImage, fRaw, fMidi };
 
+enum E_NoteType { nWHOLE,nHALF, nEIGHT, nSIXTEEN, };
 
 #endif /* Enum_h */

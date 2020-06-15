@@ -10,41 +10,104 @@
 #define Arp_hpp
 
 #include <stdio.h>
+#include <chrono>
 #include <JuceHeader.h>
+#include <time.h>
+#include <unistd.h>
+
 #include "Note.h"
+#include "Player.h"
+#include "Enum.h"
 
-class Arp {       // The class
-  public:             // Access specifier
-    Arp(){
-        steps[0].freq = 440;
+// https://github.com/juce-framework/JUCE/blob/master/examples/Utilities/MultithreadingDemo.h
+
+using Clock = std::chrono::high_resolution_clock;
+using TimePoint = std::chrono::time_point<Clock>;
+
+class Arp :  public Thread {
+    
+  public:
+
+    typedef std::chrono::high_resolution_clock Clock;
+    TimePoint last = TimePoint();
+    
+    Arp():Thread ("ARP Thread"){
+
+    }
+
+    ~Arp() {
+        isRunning = false;
+        sleep(1);
+        if(player != nullptr){
+            delete player;
+        }
     }
     
-    ~Arp(){
-
+    void setPlayer(Player * player){
+        this->player = player;
     }
     
+    void run() override{
+        while(isRunning){
+            usleep(250);
+            if(!isRunning)return;
+            
+            auto newTime = std::chrono::high_resolution_clock::now();
+            int64 nano = std::chrono::duration_cast<std::chrono::nanoseconds>(newTime-last).count();
+
+             if(newStart){
+                newStart = false;
+               last = newTime;
+               isNoteOn = true;
+               player->startVoice(1,60, 0.9);
+               continue;
+           }
+           
+          int64 timePassed = nano / 1000000;
+            
+          if (!isNoteOn && timePassed >= tempoMs){
+              last = newTime;
+              isNoteOn = true;
+              player->startVoice(1,60, 0.9);
+              continue;
+          }
+           
+          if (timePassed >= gateTimeMsec){
+              isNoteOn = false;
+              player->endVoice(1,60);
+          }
+        }
+    }
+        
     void init (double sampleRate, int samplesPerBlock){
         this->sampleRate = sampleRate;
         this->samplesPerBlock = samplesPerBlock;
+        last = TimePoint();
     }
     
-   int getNotes(int clock, Note * notes[]){
-       notes[0] = new Note();
-       notes[0]->freq = 220;
-       notes[0]->startClock = clock;
-       notes[0]->endClock = notes[0]->startClock  + sampleRate / 16;
-       notes[1] = new Note();
-       notes[1]->freq = 440;
-       notes[1]->startClock = clock + sampleRate / 2;
-       notes[1]->endClock = notes[1]->startClock  + sampleRate / 16;
-       return 2;
-   }
+    void start(){
+        isRunning = true;
+        newStart = true;
+        last = TimePoint();
+        startThread (3);
+    }
+    void stop(){
+         isRunning = false;
+    }
+    
+    float bpm = 123;
+    E_NoteType noteType = nEIGHT;
+    bool isRunning;
+    float tempoMs = 250;
+    bool newStart = false;
     
 private:
     Note steps[32];
     int sampleRate;
     int samplesPerBlock;
+    bool isNoteOn;
+    int gateTimeMsec = 100;
+     Player * player;
 };
-
 
 #endif /* Arp_hpp */

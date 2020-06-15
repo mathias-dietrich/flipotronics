@@ -263,16 +263,79 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "51966C18-D982-4D06-A8CE-74512EA8EE24"
+            uuid = "4C680814-DD1F-4E4C-B329-3C11C964369A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/Voice.h"
+            filePath = "../../Source/Arp.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
-            landmarkName = "render(clock, buffer)"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "Arp()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4C680814-DD1F-4E4C-B329-3C11C964369A - 4715fbf0ff082521"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Arp::Arp()"
+                  moduleName = "synth1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mdietric/flipotronics/synth1/Source/Arp.h"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "21">
+               </Location>
+               <Location
+                  uuid = "4C680814-DD1F-4E4C-B329-3C11C964369A - 4715fbf0ff082521"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Arp::Arp()"
+                  moduleName = "synth1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mdietric/flipotronics/synth1/Source/Arp.h"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "178">
+               </Location>
+               <Location
+                  uuid = "4C680814-DD1F-4E4C-B329-3C11C964369A - 4715fbf0ff082521"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Arp::Arp()"
+                  moduleName = "synth1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mdietric/flipotronics/synth1/Source/Arp.h"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "205">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B1ACDAE3-0FBF-48A7-9FA8-A4B284FF4C00"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/PluginProcessor.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "close()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

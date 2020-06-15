@@ -51,6 +51,10 @@ public:
     
     Core *core;
     
+    void close(){
+        core->close();
+    }
+    
     void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override {
         core->startVoice( midiChannel,  midiNoteNumber,  velocity);
     }
@@ -65,6 +69,10 @@ public:
     
     void browse(){
 
+    }
+    
+    void setArp(bool running){
+        core->setArp(running);
     }
     
     void loadPatch(int p){

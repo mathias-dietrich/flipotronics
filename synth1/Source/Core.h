@@ -17,27 +17,31 @@
 #include "Const.h"
 #include "ParamBuilder.h"
 #include "PatchLoader.h"
-
+#include "Player.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 
-class Core {
+class Core : public Player{
     
   public:
-    Core(){
+    Core() : Player(){
         patchLoader = new PatchLoader();
-        ParamBuilder *b = new ParamBuilder();
-        b->build();
-        delete b;
+        paramBuilder = new ParamBuilder();
+        paramBuilder->build();
         arp = new Arp();
+    
     }
     
     ~Core(){
         delete arp;
         delete patchLoader;
+        delete paramBuilder;
+        delete filter;
     }
     
-    stk::Filter * filter;
+    void close(){
+        arp->stop();
+    }
     
     void loadPatch(int p){
         patchLoader->load(p);
@@ -57,29 +61,27 @@ class Core {
         
         voices[vid].midiChannel = midiChannel;
         voices[vid].noteNumber = midiNoteNumber;
-        
         voices[vid].reset();
-
         std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << std::endl;
     }
     
     void endVoice(int midiChannel, int midiNoteNumber){
         int vid = findExistingVoice(midiChannel, midiNoteNumber);
         voices[vid].noteOff();
-        std::cout <<  "End Voice midiNoteNumber:" << midiNoteNumber  << std::endl;
+        //std::cout <<  "End Voice midiNoteNumber:" << midiNoteNumber  << std::endl
     }
     
     void killVoice(int midiChannel, int midiNoteNumber){
         int vid = findExistingVoice(midiChannel, midiNoteNumber);
         voices[vid].active = false;
-        std::cout << "Kill Voice midiNoteNumber:" << midiNoteNumber  << std::endl;
+        //std::cout << "Kill Voice midiNoteNumber:" << midiNoteNumber  << std::endl;
     }
     
     void killAllVoice(){
         for(int i=0; i < MAXVOICE;i++){
             voices[i].kill();
         }
-         std::cout << "Kill All Voice midiNoteNumber:" << std::endl;
+        //std::cout << "Kill All Voice midiNoteNumber:" << std::endl;
     }
     
     int findNewVoice(int midiNoteNumber,int midiChannel){
@@ -112,12 +114,24 @@ class Core {
     PatchLoader *patchLoader;
     Voice voices[32] ;
     
+    void setArp(bool running){
+        if(running){
+             arp->start();
+        }else{
+             arp->stop();
+        }
+    }
+    
 private:
     Arp *arp;
     double clock = 0;
     int sampleRate;
     int samplesPerBlock;
     double m_frequency = 440;
+    ParamBuilder *paramBuilder;
+    stk::Filter * filter;
+    int64 timeTaken;
+    int timeAllowedMsec;
 };
 
 #endif /* Core_hpp */

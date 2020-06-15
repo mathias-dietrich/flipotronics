@@ -16,13 +16,15 @@
 #include "Func.h"
 #include "ParamBuilder.h"
 #include "Adsr.h"
+#include "Smooth.h"
+#include "Osc.h"
 
 class Voice {
 
 public:
     int vid;
     bool active;
-    WaveTable *waveTable;
+    //WaveTable *waveTable;
     int noteNumber = 0;
     float velocity = 1.0;
     double volOscSin = 1.0;
@@ -49,58 +51,40 @@ public:
     
     int lastPos0 = 1;
     
+    Smooth smoothMaster;
+    
     Voice(){
-        waveTable = new WaveTable();
         adsr0.uid = 1;
         adsr1.uid = 2;
         adsr2.uid = 3;
         adsr3.uid = 4;
+        
+        smoothMaster.setup(1,sampleRate);
     }
     
     ~Voice(){
-           delete waveTable;
+
     }
-    
-    inline int checkPos(int pos){
-        while(pos < 0){
-            pos += sr;
-        }
-        while(pos >= sr){
-           pos -= sr;
-        }
-        return pos;
-    }
-    
-    inline float interpolate(int pos, float * buffer ){
-        int prevPos = checkPos(pos - 1);
-        int nextPos = checkPos(pos + 1);
-        return (buffer[prevPos] + buffer[pos] + buffer[nextPos]) / 3.0f;
-    }
-    
+
     void init (double sampleRate, int samplesPerBlock){
         this->sampleRate = sampleRate;
         sr = sampleRate * OVERSAMPLING;
         this->samplesPerBlock = samplesPerBlock;
-        waveTable->init(sampleRate, samplesPerBlock);
+
+        osc0.init(sampleRate,samplesPerBlock);
+        osc1.init(sampleRate,samplesPerBlock);
+        
         adsr0.init(sampleRate,samplesPerBlock);
         adsr1.init(sampleRate,samplesPerBlock);
         adsr2.init(sampleRate,samplesPerBlock);
         adsr3.init(sampleRate,samplesPerBlock);
         
         adsr0Target = 0;
+        
         setParams();
     }
     
-    void kill(){
-        active = false;
-        adsr0.state = Adsr::ADSR_OFF;
-        adsr1.state = Adsr::ADSR_OFF;
-        adsr2.state = Adsr::ADSR_OFF;
-        adsr3.state = Adsr::ADSR_OFF;
-     }
-    
     void setParams(){
-
         adsr0.attackTimeMsec = par[P_ADSR1_ATTACK];
         adsr0.decayTimeMsec = par[P_ADSR1_DECAY];
         adsr0.sustainLevel = par[P_ADSR1_SUSTAIN];
@@ -189,6 +173,14 @@ public:
         lastPos0 = 1;
     }
     
+    
+    void kill(){
+        active = false;
+        adsr0.state = Adsr::ADSR_OFF;
+        adsr1.state = Adsr::ADSR_OFF;
+        adsr2.state = Adsr::ADSR_OFF;
+        adsr3.state = Adsr::ADSR_OFF;
+     }
     void retrigger(){
         reset();
     }
@@ -204,99 +196,34 @@ public:
         setParams();
     }
     
+    // ===============================================================================================
+    //   RENDER
+    // ===============================================================================================
     void render(int clock, AudioBuffer<float>& buffer){
         ScopedNoDenormals noDenormals;
         int sr = sampleRate * OVERSAMPLING;
+        
+        // Buffers
         auto* channelDataL = buffer.getWritePointer (0);
         auto* channelDataR = buffer.getWritePointer (1);
 
-        float * table0;
-        switch(((int)par[P_OSC1_WAV])){
-            case wSin:
-                table0 =  waveTable->sinBuffer;
-                break;
-                
-            case wSquare:
-                table0 =  waveTable->squareBuffer;
-                break;
-                
-            case wSaw:
-                table0 =  waveTable->sawBuffer;
-                break;
-                
-            case wTriangle:
-                table0 =  waveTable->triangleBuffer;
-                break;
-                
-            case wWhite:
-                table0 =  waveTable->whiteBuffer;
-                break;
-                
-            case wPink:
-                table0 =  waveTable->whiteBuffer;
-                break;
-            
-            case wBrown:
-                table0 =  waveTable->whiteBuffer;
-                break;
-                
-            case wShark:
-                table0 =  waveTable->whiteBuffer;
-                break;
-                
-            case wTable:
-                table0 =  waveTable->whiteBuffer;
-                break;
-        }
-        float * table1;
-        switch(((int)par[P_OSC2_WAV])){
-            case wSin:
-                table1 =  waveTable->sinBuffer;
-                break;
-                
-            case wSquare:
-                table1 =  waveTable->squareBuffer;
-                break;
-                
-            case wSaw:
-                table1 =  waveTable->sawBuffer;
-                break;
-                
-            case wTriangle:
-                table1 =  waveTable->triangleBuffer;
-                break;
-                
-            case wWhite:
-                table1 =  waveTable->whiteBuffer;
-                break;
-                
-            case wPink:
-                table1 =  waveTable->whiteBuffer;
-                break;
-            
-            case wBrown:
-                table1 =  waveTable->whiteBuffer;
-                break;
-                
-            case wShark:
-                table1 =  waveTable->whiteBuffer;
-                break;
-                
-            case wTable:
-                table1 =  waveTable->whiteBuffer;
-                break;
-        }
-        float * table2 = waveTable->sinBuffer;
+        // Tables
+        float * table0 = osc0.tables[(int)par[P_OSC1_WAV]];
+        float * table1 = osc0.tables[(int)par[P_OSC2_WAV]];
+        float * table2 = osc0.tables[wSin];
         
+        // Prepare
         float volVelo = velocity / par[P_NOVOICES];
+        
+        // Calulate each Sample
         for (int i=0; i<samplesPerBlock; ++i) {
             int p0 = tablePos0;
             int p1 = tablePos1;
             p0 = p0 / (1.0f + par[P_OSC1_PULSE] * 0.01f);
             p1 = p1 / (1.0f + par[P_OSC2_PULSE] * 0.01f);
-            float v0 = interpolate(checkPos(p0 + par[P_OSC1_PHASE] / 360.0f * sr), table0);
-            float v1 = interpolate(checkPos(p1 + par[P_OSC2_PHASE] / 360.0f * sr), table1);
-            float vSub = interpolate(checkPos(tablePosSub), table2);
+            float v0 = osc0.interpolate(osc0.checkPos(p0 + par[P_OSC1_PHASE] / 360.0f * sr), table0);
+            float v1 = osc0.interpolate(osc0.checkPos(p1 + par[P_OSC2_PHASE] / 360.0f * sr), table1);
+            float vSub = osc0.interpolate(osc0.checkPos(tablePosSub), table2);
 
             v0 *= volVelo;
             v0 *=  DecibelToLinear(par[P_OSC1_VOL]);
@@ -306,16 +233,18 @@ public:
             
             vSub = vSub * adsr0.output * par[P_OSC1_SUB];
             float vol = DecibelToLinear(par[P_VOLUME]);
+            
+            // Mono
             float mono = (v0 + v1 + vSub)  * vol / 3.0f;
             
-            adsr0Target =  (adsr0Target + adsr0Target1 + adsr0.output) / 3.0;
-            adsr0Target1 = adsr0Target;
-            mono *= adsr0Target;
+            // ADSR
+            mono *= smoothMaster.processLP(adsr0.output);
             
+            // Pan
             float vSumL = mono * (1.0f - par[P_PAN]);
             float vSumR = mono * par[P_PAN];
             
-            // check >Level
+            // Bounds Check
             if(vSumL > 1.0f){
                 vSumL = 1.0f;
             }
@@ -366,12 +295,13 @@ public:
             tablePosSub += OVERSAMPLING * freq0 / 3.0f * t;
             
             // bounds check
-            tablePos0 = checkPos(tablePos0);
-            tablePos1 = checkPos(tablePos1);
-            tablePosSub = checkPos(tablePosSub);
-            
+            tablePos0 = osc0.checkPos(tablePos0);
+            tablePos1 = osc0.checkPos(tablePos1);
+            tablePosSub = osc0.checkPos(tablePosSub);
             
         }
+
+        // General - once per Block
         clock += samplesPerBlock;
         adsr0.tick(samplesPerBlock);
         if(adsr0.state == Adsr::ADSR_DONE){
@@ -388,6 +318,8 @@ private:
     int adsr;
     int sampleId = 0;
     int lastBeat = -1;
+    Osc osc0;
+    Osc osc1;
 };
     
 #endif /* Voice_h */

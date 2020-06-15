@@ -52,6 +52,7 @@ public:
     TextButton btnProgDown;
     TextButton btnPanic;
     TextButton btnBrowse;
+    TextButton btnArp;
     
     Label timeLabel;
     
@@ -78,6 +79,8 @@ public:
     Label progNumber;
     
     Model undoModel;
+    
+    bool arpOn;
 
 private:
     Synth1AudioProcessor& processor;
@@ -240,6 +243,21 @@ private:
             return;
         }
         
+        // ARP
+        if(button->getRadioGroupId()==27) {
+            if(arpOn){
+                btnArp.setButtonText ("Arp");
+                btnArp.setToggleState(false, NotificationType::dontSendNotification);
+                arpOn = false;
+                processor.panic();
+            }else{
+                btnArp.setButtonText ("Arp");
+                btnArp.setToggleState(true, NotificationType::dontSendNotification);
+                arpOn = true;
+            }
+            processor.setArp(arpOn);
+            return;
+        }
         paramRange = button->getRadioGroupId();
         setDials();
     }

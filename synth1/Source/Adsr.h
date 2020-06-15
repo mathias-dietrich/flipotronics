@@ -48,7 +48,7 @@ class Adsr {       // The class
     void release(){
         releaseTimeStart = timeLapse;
         state = ADSR_RELEASE;
-        if(uid>0)std::cout << "ADSR_RELEASE" << uid << std::endl;
+        //if(uid>0)std::cout << "ADSR_RELEASE" << uid << std::endl;
     }
     
     void tick(int tickSamples){
@@ -70,7 +70,7 @@ class Adsr {       // The class
                output = attackCurve.getScaled(t,attackTimeMsec);
                if(t >= attackTimeMsec ){
                    state = ADSR_HOLD;
-                   if(uid>0)std::cout << "ADSR_HOLD" << uid <<std::endl;
+                  // if(uid>0)std::cout << "ADSR_HOLD" << uid <<std::endl;
                }
                break;
             }
@@ -80,7 +80,7 @@ class Adsr {       // The class
               int t = timeLapse / samplesPerMillisecond - delayTimeMsec - attackTimeMsec;
               if(t >= holdTimeMsec ){
                   state = ADSR_DECAY;
-                   if(uid>0)std::cout << "ADSR_DECAY" << uid <<std::endl;
+                  // if(uid>0)std::cout << "ADSR_DECAY" << uid <<std::endl;
               }
               break;
             }
@@ -92,7 +92,7 @@ class Adsr {       // The class
                 output = (1.0 - tableValue) * decayRange  + sustainLevel;
                 if(t >= decayTimeMsec ){
                     state = ADSR_SUSTAIN;
-                     if(uid>0)std::cout << "ADSR_SUSTAIN" << uid <<std::endl;
+                    // if(uid>0)std::cout << "ADSR_SUSTAIN" << uid <<std::endl;
                 }
                 break;
             }
@@ -126,7 +126,7 @@ class Adsr {       // The class
                 output = (1.0f - tableValue) * susustainLevelInternal;
                 if(output == 0){
                     state = ADSR_DONE;
-                    if(uid>0)std::cout << "ADSR_DONE" << uid << std::endl;
+                    //if(uid>0)std::cout << "ADSR_DONE" << uid << std::endl;
                 }
                 break;
             }
@@ -138,7 +138,7 @@ class Adsr {       // The class
                 break;
         }
         timeLapse += tickSamples;
-        if(uid > 0)std::cout << output << std::endl;
+       // if(uid > 0)std::cout << output << std::endl;
     }
     
     void setAttackCurve(int prozent){
