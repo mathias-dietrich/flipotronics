@@ -263,69 +263,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4C680814-DD1F-4E4C-B329-3C11C964369A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Arp.h"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "Arp()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4C680814-DD1F-4E4C-B329-3C11C964369A - 4715fbf0ff082521"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Arp::Arp()"
-                  moduleName = "synth1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mdietric/flipotronics/synth1/Source/Arp.h"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "21">
-               </Location>
-               <Location
-                  uuid = "4C680814-DD1F-4E4C-B329-3C11C964369A - 4715fbf0ff082521"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Arp::Arp()"
-                  moduleName = "synth1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mdietric/flipotronics/synth1/Source/Arp.h"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "178">
-               </Location>
-               <Location
-                  uuid = "4C680814-DD1F-4E4C-B329-3C11C964369A - 4715fbf0ff082521"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Arp::Arp()"
-                  moduleName = "synth1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mdietric/flipotronics/synth1/Source/Arp.h"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "205">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B1ACDAE3-0FBF-48A7-9FA8-A4B284FF4C00"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -368,6 +305,22 @@
             startingLineNumber = "56"
             endingLineNumber = "56"
             landmarkName = "reset()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D23C65C3-8663-4B8C-A6E3-CA3CA1D5CF84"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Arp.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "setPlayer(player)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -30,6 +30,7 @@ class Core : public Player{
         paramBuilder = new ParamBuilder();
         paramBuilder->build();
         arp = new Arp();
+        arp->setPlayer(this);
     
     }
     
