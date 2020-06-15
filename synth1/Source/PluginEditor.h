@@ -285,6 +285,11 @@ private:
                 dials[i].setTextValueSuffix(" dB");
                 dials[i].setValue(par[pid], dontSendNotification);
             }
+            else if( params[pid].type == uHZ){
+                dials[i].setSkewFactor (0.3);
+                dials[i].setTextValueSuffix(" Hz");
+                dials[i].setValue(par[pid], dontSendNotification);
+            }
             else if( params[pid].type == uBool){
                 bool test = par[pid];
                 String text = test ? " on" : " off" ;

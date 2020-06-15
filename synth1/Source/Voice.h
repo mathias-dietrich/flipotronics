@@ -18,6 +18,7 @@
 #include "Adsr.h"
 #include "Smooth.h"
 #include "Osc.h"
+#include "MultiModeLadderFilter.h"
 
 class Voice {
 
@@ -53,13 +54,18 @@ public:
     
     Smooth smoothMaster;
     
+    MultiModeLadderFilter filter0;
+    MultiModeLadderFilter filter1;
+    
     Voice(){
+        
+        // ADSR
         adsr0.uid = 1;
         adsr1.uid = 2;
         adsr2.uid = 3;
         adsr3.uid = 4;
         
-        smoothMaster.setup(1,sampleRate);
+        
     }
     
     ~Voice(){
@@ -71,15 +77,25 @@ public:
         sr = sampleRate * OVERSAMPLING;
         this->samplesPerBlock = samplesPerBlock;
 
+        // OSC
         osc0.init(sampleRate,samplesPerBlock);
         osc1.init(sampleRate,samplesPerBlock);
         
+        
+        // ADSR
         adsr0.init(sampleRate,samplesPerBlock);
         adsr1.init(sampleRate,samplesPerBlock);
         adsr2.init(sampleRate,samplesPerBlock);
         adsr3.init(sampleRate,samplesPerBlock);
         
         adsr0Target = 0;
+        
+        // Smooth
+        smoothMaster.setup(1,sampleRate);
+        
+        // Filter
+        filter0.setSampleRate(sampleRate);
+        filter1.setSampleRate(sampleRate);
         
         setParams();
     }
@@ -155,6 +171,15 @@ public:
         adsr3.delayTimeMsec = par[P_ADSR4_DELAY];
         adsr3.trigger = par[P_ADSR4_TRIGGER];
         adsr3.triggerTreshold = par[P_ADSR4_TRESHOLD];
+        
+        filter0.setFilterType(par[P_FILTER1_TYPE]);
+        filter0.setCutoff(par[P_FILTER1_FREQ]);
+        filter0.setResonance(par[P_FILTER1_RES] / 100.0f);
+        filter0.setFilterType(LPF1);
+        
+        filter1.setFilterType(par[P_FILTER2_TYPE]);
+        filter1.setCutoff(par[P_FILTER2_FREQ]);
+        filter1.setResonance(par[P_FILTER2_RES] / 100.0f);
     }
     
     void reset(){
@@ -171,8 +196,13 @@ public:
         adsr3.start();
         
         lastPos0 = 1;
+        
+        filter0.reset();
+        filter0.setBoost(true);
+        
+        filter1.reset();
+        filter1.setBoost(true);
     }
-    
     
     void kill(){
         active = false;
@@ -237,13 +267,16 @@ public:
             // Mono
             float mono = (v0 + v1 + vSub)  * vol / 3.0f;
             
+            // Filter
+            mono = filter0.process(mono);
+            
             // ADSR
             mono *= smoothMaster.processLP(adsr0.output);
             
             // Pan
             float vSumL = mono * (1.0f - par[P_PAN]);
             float vSumR = mono * par[P_PAN];
-            
+
             // Bounds Check
             if(vSumL > 1.0f){
                 vSumL = 1.0f;
@@ -298,7 +331,6 @@ public:
             tablePos0 = osc0.checkPos(tablePos0);
             tablePos1 = osc0.checkPos(tablePos1);
             tablePosSub = osc0.checkPos(tablePosSub);
-            
         }
 
         // General - once per Block

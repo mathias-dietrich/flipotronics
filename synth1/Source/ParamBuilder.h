@@ -552,11 +552,12 @@ class ParamBuilder {       // The class
             p.name = "Filter 1 Freq";
             p.writeable = 1;
             p.automate = 1;
-            p.minVal = 20;
+            p.minVal = 40;
             p.maxVal = 7000;
-            p.stepVal = 0.01;
-            p.type = uFloat;
+            p.stepVal = 1;
+            p.type = uHZ;
             p.def = 0;
+            
             params[P_FILTER1_FREQ] = p;
             
             p.pid = P_FILTER1_RES;
@@ -574,11 +575,11 @@ class ParamBuilder {       // The class
             p.name = "Filter 1 Type";
             p.writeable = 1;
             p.automate = 1;
-            p.minVal = 0;
-            p.maxVal = 5;
+            p.minVal = 1;
+            p.maxVal = 14;
             p.stepVal = 1;
             p.type = uInt;
-            p.def = 0;
+            p.def = 1;
             params[P_FILTER1_TYPE] = p;
             
             p.pid = P_FILTER1_DRIVE;
@@ -607,10 +608,10 @@ class ParamBuilder {       // The class
             p.name = "Filter 2 Freq";
             p.writeable = 1;
             p.automate = 1;
-            p.minVal = 20;
+            p.minVal = 40;
             p.maxVal = 7000;
-            p.stepVal = 0.01;
-            p.type = uFloat;
+            p.stepVal = 1.0f;
+            p.type = uHZ;
             p.def = 0;
             params[P_FILTER2_FREQ] = p;
             
@@ -629,8 +630,8 @@ class ParamBuilder {       // The class
             p.name = "Filter 2 Type";
             p.writeable = 1;
             p.automate = 1;
-            p.minVal = 0;
-            p.maxVal = 5;
+            p.minVal = 1;
+            p.maxVal = 14;
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;

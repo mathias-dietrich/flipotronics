@@ -175,6 +175,8 @@
 		4F712E00248ADA9800EBC733 /* img.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = img.cpp; path = ../../Source/img.cpp; sourceTree = "<group>"; };
 		4F712E01248ADA9800EBC733 /* img.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = img.h; path = ../../Source/img.h; sourceTree = "<group>"; };
 		4F712E06248ADE3B00EBC733 /* Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Color.h; path = ../../Source/Color.h; sourceTree = "<group>"; };
+		4F795D7F2497E85E00076DE0 /* MultiModeLadderFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MultiModeLadderFilter.h; path = ../../Source/MultiModeLadderFilter.h; sourceTree = "<group>"; };
+		4F795D802497E94E00076DE0 /* Lowpass1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lowpass1.h; path = ../../Source/Lowpass1.h; sourceTree = "<group>"; };
 		4F88DBC824859F33006ABA7A /* Func.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Func.h; path = ../../Source/Func.h; sourceTree = "<group>"; };
 		4F88DBC92485A52F006ABA7A /* Enum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Enum.h; path = ../../Source/Enum.h; sourceTree = "<group>"; };
 		4F88DBCA2485A7AD006ABA7A /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Const.h; path = ../../Source/Const.h; sourceTree = "<group>"; };
@@ -401,6 +403,15 @@
 			name = core;
 			sourceTree = "<group>";
 		};
+		4F795D7E2497E83300076DE0 /* filter */ = {
+			isa = PBXGroup;
+			children = (
+				4F795D7F2497E85E00076DE0 /* MultiModeLadderFilter.h */,
+				4F795D802497E94E00076DE0 /* Lowpass1.h */,
+			);
+			name = filter;
+			sourceTree = "<group>";
+		};
 		931ED08E764265044F035ABD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +437,7 @@
 		9C6B7E2C03EC63CCDDD66A19 /* synth1 */ = {
 			isa = PBXGroup;
 			children = (
+				4F795D7E2497E83300076DE0 /* filter */,
 				4F53E619248302A10080F061 /* core */,
 				95F74BFB3FC0F6D93448F117 /* Source */,
 			);

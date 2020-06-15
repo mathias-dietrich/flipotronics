@@ -81,7 +81,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
               voices[i].update(clock);
             }
         }
-        cout << "timeTaken (msec): " << timeTaken / 1000.0f << " Blocksize: " << samplesPerBlock <<  " Allowed: " << timeAllowedMsec << endl;
+       // cout << "timeTaken (msec): " << timeTaken / 1000.0f << " Blocksize: " << samplesPerBlock <<  " Allowed: " << timeAllowedMsec << endl;
     }
     ++updateCounter;
     

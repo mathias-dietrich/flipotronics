@@ -19,4 +19,24 @@ enum E_FileType { fWav,fAiff, fCaf, fMP3, fBank, fPatch, fSettings, fImage, fRaw
 
 enum E_NoteType { nWHOLE,nHALF, nEIGHT, nSIXTEEN, };
 
+enum MultiModeLadderFilterTypes
+{
+    OFF=0,
+    LPF1,
+    LPF2,
+    LPF3,
+    LPF4,
+    HPF1,
+    HPF2,
+    HPF3,
+    HPF4,
+    BPF2,
+    BPF4,
+    NF2,
+    NF4,
+    PF2,
+    PF4,
+    NumberOfFilterTypes
+};
+
 #endif /* Enum_h */
