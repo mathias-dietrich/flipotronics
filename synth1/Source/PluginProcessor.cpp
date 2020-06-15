@@ -119,8 +119,7 @@ void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
 
 void Synth1AudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    core->close();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations

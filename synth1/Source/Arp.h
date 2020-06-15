@@ -24,30 +24,28 @@
 using Clock = std::chrono::high_resolution_clock;
 using TimePoint = std::chrono::time_point<Clock>;
 
-class Arp :  public Thread {
+//   : public Thread
+// :Thread ("ARP Thread")
+class Arp  {
     
   public:
 
     typedef std::chrono::high_resolution_clock Clock;
     TimePoint last = TimePoint();
     
-    Arp():Thread ("ARP Thread"){
+    Arp(){
 
     }
 
     ~Arp() {
         isRunning = false;
-        sleep(1);
-        if(player != nullptr){
-            delete player;
-        }
     }
     
     void setPlayer(Player * player){
         this->player = player;
     }
     
-    void run() override{
+    void run() {
         while(isRunning){
             usleep(250);
             if(!isRunning)return;
@@ -86,13 +84,15 @@ class Arp :  public Thread {
     }
     
     void start(){
+        if(isRunning)return;
         isRunning = true;
         newStart = true;
         last = TimePoint();
-        startThread (3);
+        //startThread (3);
     }
     void stop(){
-         isRunning = false;
+        isRunning = false;
+       // signalThreadShouldExit ();
     }
     
     float bpm = 123;

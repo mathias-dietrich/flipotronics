@@ -18,6 +18,7 @@
 #include "ParamBuilder.h"
 #include "PatchLoader.h"
 #include "Player.h"
+#include "Func.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 

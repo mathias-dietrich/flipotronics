@@ -7,7 +7,7 @@
 //
 
 #include "Core.h"
-#include "Func.h"
+
 
 using namespace std;
 
@@ -18,8 +18,8 @@ void Core::init (double sampleRate, int samplesPerBlock){
     patchCurrent = 1;
     
     // ARP
-    arp->init(sampleRate, samplesPerBlock);
-    arp->setPlayer(this);
+   // arp->init(sampleRate, samplesPerBlock);
+    //arp->setPlayer(this);
 
     // Voices
     for (int i=0; i<MAXVOICE; ++i) {

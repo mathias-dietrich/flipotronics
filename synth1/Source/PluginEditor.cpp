@@ -261,7 +261,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
-    processor.close();
     delete bankLoader;
 }
 

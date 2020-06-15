@@ -51,6 +51,10 @@ public:
     
     Core *core;
     
+    void reset() override{
+        
+    }
+    
     void close(){
         core->close();
     }
