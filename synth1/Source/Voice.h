@@ -344,7 +344,7 @@ public:
         adsr0.tick(samplesPerBlock);
         if(adsr0.state == Adsr::ADSR_DONE){
             adsr0.state = Adsr::ADSR_OFF;
-            std::cout << "End of  voice "  << vid << std::endl;
+           // std::cout << "End of  voice "  << vid << std::endl;
             active = false;
         }
     }

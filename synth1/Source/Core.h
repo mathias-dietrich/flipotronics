@@ -31,7 +31,6 @@ class Core : public Player{
         paramBuilder->build();
         arp = new Arp();
         arp->setPlayer(this);
-    
     }
     
     ~Core(){
@@ -64,7 +63,7 @@ class Core : public Player{
         voices[vid].midiChannel = midiChannel;
         voices[vid].noteNumber = midiNoteNumber;
         voices[vid].reset();
-        std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << std::endl;
+        //std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << std::endl;
     }
     
     void endVoice(int midiChannel, int midiNoteNumber){

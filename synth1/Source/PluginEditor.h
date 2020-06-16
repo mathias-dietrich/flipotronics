@@ -308,8 +308,8 @@ private:
                dials[i].setTextValueSuffix(" " + devision(par[pid]));
                dials[i].setValue(par[pid], dontSendNotification);
             }
-
             else if( params[pid].type == uArpMode){
+                dials[i].setSkewFactor(1);
                 if(par[pid]==0){
                      dials[i].setTextValueSuffix(" SEQ");
                 }else if (par[pid]==1){

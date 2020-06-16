@@ -18,7 +18,7 @@
 #include "Note.h"
 #include "Player.h"
 #include "Enum.h"
-
+#include "ParamBuilder.h"
 // https://github.com/juce-framework/JUCE/blob/master/examples/Utilities/MultithreadingDemo.h
 
 using Clock = std::chrono::high_resolution_clock;
@@ -50,29 +50,105 @@ class Arp : public Thread {
             usleep(250);
             if(!isRunning)return;
             
+            float bps = par[P_ARP_BPM] / 60.0f;
+            float tempoMsBeat =  1000.0f / bps;
+            
+            // WHOLE, nHALF, nHALFD, qQuarter, qQuarterD, nEIGHT, nEIGHTD, nSIXTEEN, nSIXTEEND, nThirtyTwo, nThirtyTwoD, nSixtyFour}
+            switch(int(par[P_ARP_DEVISION])){
+                case nWHOLE:
+                    tempoMs = 4.0 * tempoMsBeat;
+                    break;
+                    
+                case nHALF:
+                    tempoMs = 2.0 * tempoMsBeat;
+                    break;
+                    
+                case nHALFD:
+                    tempoMs = 3.0 * tempoMsBeat;
+                    break;
+                    
+                case qQuarter:
+                    tempoMs = 1.0 * tempoMsBeat;
+                    break;
+                    
+                case qQuarterD:
+                    tempoMs = 2.0/3.0 * tempoMsBeat;
+                    break;
+                    
+                case nEIGHT:
+                    tempoMs = 0.5 * tempoMsBeat;
+                    break;
+                    
+                case nEIGHTD:
+                    tempoMs = 0.5 * 2.0 / 3.0 * tempoMsBeat;
+                    break;
+                    
+                case nSIXTEEN:
+                    tempoMs = 0.25 * tempoMsBeat;
+                    break;
+                    
+                case nSIXTEEND:
+                    tempoMs = 0.25 * 2.0 / 3.0 * tempoMsBeat;
+                    break;
+                    
+                case nThirtyTwo:
+                    tempoMs = 0.125 * tempoMsBeat;
+                    break;
+                    
+                case nThirtyTwoD:
+                    tempoMs = 0.125 *  2.0 / 3.0 *tempoMsBeat;
+                    break;
+                    
+                case nSixtyFour:
+                    tempoMs = 0.125 /  2.0  * tempoMsBeat;
+                    break;
+            }
+            
             auto newTime = std::chrono::high_resolution_clock::now();
             int64 nano = std::chrono::duration_cast<std::chrono::nanoseconds>(newTime-last).count();
 
              if(newStart){
-                newStart = false;
+               newStart = false;
                last = newTime;
                isNoteOn = true;
-               player->startVoice(1,60, 0.9);
+               currentNote = 0;
+               runningNote = par[P_ARP_NOTE1] + par[P_ARP_TRANSPOSE];
+               player->startVoice(1,runningNote, 0.9);
                continue;
            }
            
-          int64 timePassed = nano / 1000000;
+            float timePassed = nano / 1000000.0f;
             
           if (!isNoteOn && timePassed >= tempoMs){
               last = newTime;
               isNoteOn = true;
-              player->startVoice(1,60, 0.9);
+              int noteIndex = currentNote + P_ARP_NOTE1;
+              if(currentNote > 7){
+                  noteIndex  = (currentNote-8) + P_ARP_NOTE9;
+              }
+              if(par[P_ARP_LEGATO] == 0){ // not Legato
+                  player->endVoice(1,runningNote);;
+              }
+              runningNote = par[noteIndex];
+              runningNote += par[P_ARP_TRANSPOSE];
+              
+              player->startVoice(1,runningNote, par[P_ARP_VELOCITY] / 127.0f);
+              ++currentNote;
+              if(currentNote >= par[P_ARP_NOTECOUNT]){
+                  currentNote = 0;
+              }
               continue;
           }
-           
-          if (timePassed >= gateTimeMsec){
+            
+            float gate = tempoMs - 1.0f;
+            float gatePercent = par[P_ARP_GATE];
+            gate =  gatePercent / 100.0f * gateTimeMsec * 2.0f;
+            if(par[P_ARP_LEGATO] == 1){
+                continue;
+            }
+          if (timePassed >= gate){
               isNoteOn = false;
-              player->endVoice(1,60);
+              player->endVoice(1,runningNote);
           }
         }
     }
@@ -95,10 +171,9 @@ class Arp : public Thread {
         signalThreadShouldExit ();
     }
     
-    float bpm = 123;
     E_NoteType noteType = nEIGHT;
     bool isRunning;
-    float tempoMs = 250;
+    float tempoMs = 0.0f;
     bool newStart = false;
     
 private:
@@ -108,6 +183,8 @@ private:
     bool isNoteOn;
     int gateTimeMsec = 100;
      Player * player;
+    int currentNote;
+    int runningNote;
 };
 
 #endif /* Arp_hpp */

@@ -56,7 +56,7 @@ public:
     int version = 1;
     String name = "Default Bank";
     String author = "Flipotronics";
-    String www = "fliptoronics.com";
+    String www = "flipotronics.com";
     int noOfPatches = 5;
     PatchData patchData[256];
     String magicEnd = "FLOP";
