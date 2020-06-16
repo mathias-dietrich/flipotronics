@@ -19,6 +19,7 @@
 #include "Smooth.h"
 #include "Osc.h"
 #include "MultiModeLadderFilter.h"
+#include "Lfo.h"
 
 class Voice {
 
@@ -46,6 +47,11 @@ public:
     Adsr adsr1;
     Adsr adsr2;
     Adsr adsr3;
+    
+    Lfo lfo0;
+    Lfo lfo1;
+    Lfo lfo2;
+    Lfo lfo3;
     
     float adsr0Target;
     float adsr0Target1;

@@ -173,6 +173,26 @@
 #define P_LFO4_VOL 222
 #define P_LFO4_ 223
 
+
+#define P_ARP_BPM 768 // BPM
+#define P_ARP_DEVISION 769 //  1/1-Note, 1/2-Note, 1/4-Note, 1/8-Note, 1/16-Note, 1/32-Note, and 1/64-Note
+#define P_ARP_DURATION 770 //  1/1-Note, 1/2-Note, 1/4-Note, 1/8-Note, 1/16-Note, 1/32-Note, and 1/64-Note
+#define P_ARP_GATE 771 // +- %
+#define P_ARP_VELOCITY 772 // 0-127
+#define P_ARP_CHORD 773 // SINGLE QUINT QUART ROOT INV1 INV2
+#define P_ARP_SWING 774 // 50 - 71
+#define P_ARP_MODE 775  // SEQ - ARP
+
+#define P_ARP_NOTE1 776
+#define P_ARP_NOTE2 777
+#define P_ARP_NOTE3 778
+#define P_ARP_NOTE4 779
+#define P_ARP_NOTE5 780
+#define P_ARP_NOTE6 781
+#define P_ARP_NOTE7 782
+#define P_ARP_NOTE8 783
+
+
 #define P_PLAYMODE 1023
 
 class ParamBuilder {       // The class
@@ -1680,6 +1700,182 @@ class ParamBuilder {       // The class
             p.def = 1;
             params[P_PLAYMODE] = p;
             
+            p.pid = P_ARP_BPM;
+            p.name = "Arp BPM";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 40;
+            p.maxVal = 240;
+            p.stepVal = 0.1;
+            p.type = uFloat;
+            p.def = 120;
+            params[P_ARP_BPM] = p;
+            
+            p.pid = P_ARP_DEVISION;
+           p.name = "Arp Devision";
+           p.writeable = 1;
+           p.automate = 0;
+           p.minVal = 0;
+           p.maxVal = 12;
+           p.stepVal = 1;
+           p.type = uDevision;
+           p.def = 0;
+           params[P_ARP_DEVISION] = p;
+            
+            p.pid = P_ARP_DURATION;
+            p.name = "Arp Duration";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 12;
+            p.stepVal = 1;
+            p.type = uDevision;
+            p.def = 0;
+            params[P_ARP_DURATION] = p;
+            
+            p.pid = P_ARP_GATE;
+            p.name = "Arp Gate";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = -50;
+            p.maxVal = 50;
+            p.stepVal = 1;
+            p.type = uProcent;
+            p.def = 0;
+            params[P_ARP_GATE] = p;
+            
+            p.pid = P_ARP_VELOCITY;
+            p.name = "Arp Velocity";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 127;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 0;
+            params[P_ARP_VELOCITY] = p;
+            
+            p.pid = P_ARP_CHORD;
+            p.name = "Arp Chord";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 5;
+            p.stepVal = 1;
+            p.type = uChordMode;
+            p.def = 0;
+            params[P_ARP_CHORD] = p;
+            
+            p.pid = P_ARP_SWING;
+            p.name = "Arp Swing";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = -28;
+            p.maxVal = 71;
+            p.stepVal = 1;
+            p.type = uFloat;
+            p.def = 50;
+            params[P_ARP_SWING] = p;
+            
+            p.pid = P_ARP_MODE;
+            p.name = "Arp Mode";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 50;
+            params[P_ARP_MODE] = p;
+            
+            p.pid = P_ARP_NOTE1;
+            p.name = "Arp Note 1";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 127;
+            p.stepVal = 1;
+            p.type = uMidiNote;
+            p.def = 0;
+            params[P_ARP_NOTE1] = p;
+            
+            p.pid = P_ARP_NOTE2;
+            p.name = "Arp Note 2";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 127;
+            p.stepVal = 1;
+            p.type = uMidiNote;
+            p.def = 0;
+            params[P_ARP_NOTE2] = p;
+            
+            p.pid = P_ARP_NOTE3;
+            p.name = "Arp Note 3";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 127;
+            p.stepVal = 1;
+            p.type = uMidiNote;
+            p.def = 0;
+            params[P_ARP_NOTE3] = p;
+            
+            p.pid = P_ARP_NOTE4;
+            p.name = "Arp Note 4";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 127;
+            p.stepVal = 1;
+            p.type = uMidiNote;
+            p.def = 0;
+            params[P_ARP_NOTE4] = p;
+            
+            p.pid = P_ARP_NOTE5;
+            p.name = "Arp Note 5";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 127;
+            p.stepVal = 1;
+            p.type = uMidiNote;
+            p.def = 0;
+            params[P_ARP_NOTE5] = p;
+            
+            p.pid = P_ARP_NOTE6;
+            p.name = "Arp Note 6";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 127;
+            p.stepVal = 1;
+            p.type = uMidiNote;
+            p.def = 0;
+            params[P_ARP_NOTE6] = p;
+            
+            p.pid = P_ARP_NOTE7;
+            p.name = "Arp Note 7";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 127;
+            p.stepVal = 1;
+            p.type =  uMidiNote;
+            p.def = 0;
+            params[P_ARP_NOTE7] = p;
+            
+            p.pid = P_ARP_NOTE8;
+            p.name = "Arp Note 8";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 127;
+            p.stepVal = 1;
+            p.type = uMidiNote;
+            p.def = 0;
+            params[P_ARP_NOTE8] = p;
+            
             // Curvetest
             p.pid = 1022;
             p.name = "curve";
@@ -1688,7 +1884,7 @@ class ParamBuilder {       // The class
             p.minVal = -100;
             p.maxVal = 100;
             p.stepVal = 1;
-            p.type = uInt;
+            p.type = uMidiNote;
             p.def = 0;
             params[1022] = p;
         }

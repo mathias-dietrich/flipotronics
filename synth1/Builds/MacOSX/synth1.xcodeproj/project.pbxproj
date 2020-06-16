@@ -162,6 +162,7 @@
 		4BF21E3EA2D442079E920D85 /* synth1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = synth1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC000940015491524181C5E /* Info-VST3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-VST3.plist"; sourceTree = SOURCE_ROOT; };
 		4F097B6F249770D500566939 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Player.h; path = ../../Source/Player.h; sourceTree = "<group>"; };
+		4F0A84772498003600B2D8EB /* Lfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lfo.h; path = ../../Source/Lfo.h; sourceTree = "<group>"; };
 		4F0F15832493458E00031C20 /* Curve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Curve.h; path = ../../Source/Curve.h; sourceTree = "<group>"; };
 		4F0F15882493A20800031C20 /* stk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = stk; path = ../../../../JUCE/modules/stk_module/stk; sourceTree = "<group>"; };
 		4F0F158C2493A21200031C20 /* stk.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = stk.mm; path = ../../../../JUCE/modules/stk_module/stk.mm; sourceTree = "<group>"; };
@@ -399,6 +400,7 @@
 				4FC14FD6249748C700C259ED /* Smooth.h */,
 				4FC14FD724974ABB00C259ED /* Osc.h */,
 				4F097B6F249770D500566939 /* Player.h */,
+				4F0A84772498003600B2D8EB /* Lfo.h */,
 			);
 			name = core;
 			sourceTree = "<group>";

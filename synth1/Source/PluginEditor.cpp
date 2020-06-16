@@ -162,9 +162,13 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewMode.addItem ("ADSR 2", 3);
     viewMode.addItem ("ADSR 3", 4);
     viewMode.addItem ("ADSR 4", 5);
-    viewMode.addItem ("Curve 4", 6);
-    viewMode.addItem ("Matrix", 7);
-    viewMode.addItem ("Debug", 8);
+    viewMode.addItem ("LFO 1", 6);
+    viewMode.addItem ("LFO 2", 7);
+    viewMode.addItem ("LFO 3", 8);
+    viewMode.addItem ("LFO 4", 9);
+    viewMode.addItem ("Curve 4", 10);
+    viewMode.addItem ("Matrix", 11);
+    viewMode.addItem ("Debug", 12);
     viewMode.onChange = [this] { styleMenuChangedView(); };
     viewModeSetting = 2;
     viewMode.setSelectedId(viewModeSetting, NotificationType::dontSendNotification);
@@ -377,9 +381,30 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             drawAdsr(&adsr4, g,  width,  half);
             break;
         }
-        case 6:
+            
+        case 6:  // LFO 1
+        {
+            break;
+        }
+            
+        case 7:  // LFO 2
+        {
+            break;
+        }
+        
+        case 8:  // LFO 3
+        {
+            break;
+        }
+        
+        case 9:  // LFO 4
+        {
+            break;
+        }
+            
+        case 10:
             curve.set(par[1022]);
-             g.setColour (Colours::white);
+            g.setColour (Colours::white);
             int ylast = half + 150;
             int w = 300; // width
             int xOffset = 500;

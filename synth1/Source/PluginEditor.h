@@ -300,6 +300,42 @@ private:
                 dials[i].setTextValueSuffix(" %");
                 dials[i].setValue(par[pid], dontSendNotification);
             }
+            else if( params[pid].type == uMidiNote){
+               dials[i].setTextValueSuffix(" " + midiNote(par[pid]));
+               dials[i].setValue(par[pid], dontSendNotification);
+            }
+            else if( params[pid].type == uDevision){
+               dials[i].setTextValueSuffix(" " + devision(par[pid]));
+               dials[i].setValue(par[pid], dontSendNotification);
+            }
+            else if( params[pid].type == uChordMode){
+                switch(((int)par[pid])){
+                    case 0:
+                     dials[i].setTextValueSuffix("Singe ");
+                    break;
+                    
+                    case 1:
+                     dials[i].setTextValueSuffix("Quinte ");
+                    break;
+                        
+                    case 2:
+                     dials[i].setTextValueSuffix("Quarte ");
+                    break;
+                    
+                    case 3:
+                     dials[i].setTextValueSuffix("Root ");
+                    break;
+                        
+                    case 4:
+                     dials[i].setTextValueSuffix("Inv 1 ");
+                    break;
+                    
+                    case 5:
+                     dials[i].setTextValueSuffix("Inv 2 ");
+                    break;
+                }
+               dials[i].setValue(par[pid], dontSendNotification);
+            }
             else{
                 dials[i].setTextValueSuffix("");
                 dials[i].setValue(par[pid], dontSendNotification);

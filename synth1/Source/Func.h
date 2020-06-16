@@ -42,6 +42,45 @@ inline float LinearToDecibel(float linear)
      */
 }
 
+
+inline String midiNote(int midiNote){
+    String notes[] = {"C","C#","D","D#","E","F","F#","G","G#","A","Bb","B"};
+    int oct = midiNote / 12;
+    int n = midiNote - oct * 12;
+    return notes[n] + String(oct);
+}
+
+inline String devision(int devision){
+    switch(devision){
+        case 0:
+            return "0";
+        case 1:
+            return "1/2";
+        case 2:
+            return "1/2.";
+        case 3:
+            return "1/4";
+        case 4:
+            return "1/4.";
+        case 5:
+            return "1/8";
+        case 6:
+            return "1/8.";
+        case 7:
+            return "1/16";
+        case 8:
+            return "1/16.";
+        case 9:
+            return "1/32";
+        case 10:
+            return "1/32.";
+        case 11:
+            return "1/64";
+    }
+    return "";
+}
+
+
 inline float degToRad(float degrees){
     return degrees * M_PI / 180.0f;
 }
