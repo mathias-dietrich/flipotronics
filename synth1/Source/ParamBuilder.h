@@ -1782,9 +1782,9 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 0;
             p.minVal = 0;
-            p.maxVal = 1;
+            p.maxVal = 2;
             p.stepVal = 1;
-            p.type = uInt;
+            p.type = uArpMode;
             p.def = 50;
             params[P_ARP_MODE] = p;
             

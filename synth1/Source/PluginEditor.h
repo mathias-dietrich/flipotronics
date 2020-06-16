@@ -308,30 +308,41 @@ private:
                dials[i].setTextValueSuffix(" " + devision(par[pid]));
                dials[i].setValue(par[pid], dontSendNotification);
             }
+
+            else if( params[pid].type == uArpMode){
+                if(par[pid]==0){
+                     dials[i].setTextValueSuffix(" SEQ");
+                }else if (par[pid]==1){
+                     dials[i].setTextValueSuffix(" ARP");
+                }else{
+                    dials[i].setTextValueSuffix(" CHORD");
+                }
+                dials[i].setValue(par[pid], dontSendNotification);
+            }
             else if( params[pid].type == uChordMode){
                 switch(((int)par[pid])){
                     case 0:
-                     dials[i].setTextValueSuffix("Singe ");
+                     dials[i].setTextValueSuffix(" Singe ");
                     break;
                     
                     case 1:
-                     dials[i].setTextValueSuffix("Quinte ");
+                     dials[i].setTextValueSuffix(" Quinte ");
                     break;
                         
                     case 2:
-                     dials[i].setTextValueSuffix("Quarte ");
+                     dials[i].setTextValueSuffix(" Quarte ");
                     break;
                     
                     case 3:
-                     dials[i].setTextValueSuffix("Root ");
+                     dials[i].setTextValueSuffix(" Root ");
                     break;
                         
                     case 4:
-                     dials[i].setTextValueSuffix("Inv 1 ");
+                     dials[i].setTextValueSuffix(" Inv 1 ");
                     break;
                     
                     case 5:
-                     dials[i].setTextValueSuffix("Inv 2 ");
+                     dials[i].setTextValueSuffix(" Inv 2 ");
                     break;
                 }
                dials[i].setValue(par[pid], dontSendNotification);
