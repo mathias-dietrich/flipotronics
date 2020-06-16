@@ -9,7 +9,59 @@
 #ifndef Lfo_h
 #define Lfo_h
 
+#include <stdio.h>
+#include <JuceHeader.h>
+#include "WaveTable.h"
+#include "Enum.h"
+
 class Lfo{
 public:
+   
+   float * tables[20];
+    
+    int uid;
+   
+   // wSin, wSaw, wTriangle, wSquare, wShark, wWhite, wPink, wBrown, wTable
+   
+   Lfo(){
+       waveTable = new WaveTable();
+       tables[wSin] = waveTable->sinBuffer;
+       tables[wSaw] = waveTable->squareBuffer;
+       tables[wTriangle] = waveTable->sawBuffer;
+       tables[wSquare] = waveTable->triangleBuffer;
+   }
+   
+   ~Lfo(){
+       delete waveTable;
+   }
+   
+   inline float interpolate(int pos, float * buffer ){
+       int prevPos = checkPos(pos - 1);
+       int nextPos = checkPos(pos + 1);
+       return (buffer[prevPos] + buffer[pos] + buffer[nextPos]) / 3.0f;
+   }
+   
+   void init (double sampleRate, int samplesPerBlock){
+       this->sampleRate = sampleRate;
+       sr = sampleRate * OVERSAMPLING;
+       this->samplesPerBlock = samplesPerBlock;
+       waveTable->init(sampleRate, samplesPerBlock);
+   }
+
+   inline int checkPos(int pos){
+       while(pos < 0){
+           pos += sr;
+       }
+       while(pos >= sr){
+          pos -= sr;
+       }
+       return pos;
+   }
+   
+   private:
+       WaveTable * waveTable;
+       float sampleRate;
+       float samplesPerBlock;
+       float sr;
 };
 #endif /* Lfo_h */

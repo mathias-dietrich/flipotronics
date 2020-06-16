@@ -43,15 +43,23 @@ public:
     float lastF0 = 0;
     float lastF1 = 0;
     
-    Adsr adsr0;
+    float tablePosLfo1 = 0;
+    float tablePosLfo2 = 0;
+    float tablePosLfo3 = 0;
+    float tablePosLfo4 = 0;
+    
+    Osc osc1;
+    Osc osc2;
+    
     Adsr adsr1;
     Adsr adsr2;
     Adsr adsr3;
+    Adsr adsr4;
     
-    Lfo lfo0;
     Lfo lfo1;
     Lfo lfo2;
     Lfo lfo3;
+    Lfo lfo4;
     
     float adsr0Target;
     float adsr0Target1;
@@ -60,18 +68,21 @@ public:
     
     Smooth smoothMaster;
     
-    MultiModeLadderFilter filter0;
     MultiModeLadderFilter filter1;
+    MultiModeLadderFilter filter2;
     
     Voice(){
         
         // ADSR
-        adsr0.uid = 1;
-        adsr1.uid = 2;
-        adsr2.uid = 3;
-        adsr3.uid = 4;
+        adsr1.uid = 1;
+        adsr2.uid = 2;
+        adsr3.uid = 3;
+        adsr4.uid = 4;
         
-        
+        lfo1.uid = 1;
+        lfo2.uid = 2;
+        lfo3.uid = 3;
+        lfo4.uid = 4;
     }
     
     ~Voice(){
@@ -84,108 +95,113 @@ public:
         this->samplesPerBlock = samplesPerBlock;
 
         // OSC
-        osc0.init(sampleRate,samplesPerBlock);
         osc1.init(sampleRate,samplesPerBlock);
+        osc2.init(sampleRate,samplesPerBlock);
         
         
         // ADSR
-        adsr0.init(sampleRate,samplesPerBlock);
         adsr1.init(sampleRate,samplesPerBlock);
         adsr2.init(sampleRate,samplesPerBlock);
         adsr3.init(sampleRate,samplesPerBlock);
+        adsr4.init(sampleRate,samplesPerBlock);
         
         adsr0Target = 0;
+        
+        // LFO
+        lfo1.init(sampleRate,samplesPerBlock);
+        lfo2.init(sampleRate,samplesPerBlock);
+        lfo3.init(sampleRate,samplesPerBlock);
+        lfo4.init(sampleRate,samplesPerBlock);
         
         // Smooth
         smoothMaster.setup(1,sampleRate);
         
         // Filter
-        filter0.setSampleRate(sampleRate);
         filter1.setSampleRate(sampleRate);
+        filter2.setSampleRate(sampleRate);
         
         setParams();
     }
     
     void setParams(){
-        adsr0.attackTimeMsec = par[P_ADSR1_ATTACK];
-        adsr0.decayTimeMsec = par[P_ADSR1_DECAY];
-        adsr0.sustainLevel = par[P_ADSR1_SUSTAIN];
-        adsr0.releaseTimeMsec = par[P_ADSR1_RELEASE];
-        adsr0.setAttackCurve(par[P_ADSR1_ATTACK_CURVE]);
-        adsr0.setDecayCurve(par[P_ADSR1_DECAY_CURVE]);
-        adsr0.setSustainCurve(par[P_ADSR1_SUSTAIN_CURVE]);
-        adsr0.setReleaseCurve(par[P_ADSR1_RELEASE_CURVE]);
-        adsr0.filterTarget = par[P_ADSR1_FILTER];
-        adsr0.pitchTarget = par[P_ADSR1_PITCH];
-        adsr0.ampTarget = par[P_ADSR1_AMP];
-        adsr0.fxTarget = par[P_ADSR1_FX];
-        adsr0.holdTimeMsec = par[P_ADSR1_HOLD];
-        adsr0.delayTimeMsec = par[P_ADSR1_DELAY];
-        adsr0.trigger = par[P_ADSR1_TRIGGER];
-        adsr0.triggerTreshold = par[P_ADSR1_TRESHOLD];
+        adsr1.attackTimeMsec = par[P_ADSR1_ATTACK];
+        adsr1.decayTimeMsec = par[P_ADSR1_DECAY];
+        adsr1.sustainLevel = par[P_ADSR1_SUSTAIN];
+        adsr1.releaseTimeMsec = par[P_ADSR1_RELEASE];
+        adsr1.setAttackCurve(par[P_ADSR1_ATTACK_CURVE]);
+        adsr1.setDecayCurve(par[P_ADSR1_DECAY_CURVE]);
+        adsr1.setSustainCurve(par[P_ADSR1_SUSTAIN_CURVE]);
+        adsr1.setReleaseCurve(par[P_ADSR1_RELEASE_CURVE]);
+        adsr1.filterTarget = par[P_ADSR1_FILTER];
+        adsr1.pitchTarget = par[P_ADSR1_PITCH];
+        adsr1.ampTarget = par[P_ADSR1_AMP];
+        adsr1.fxTarget = par[P_ADSR1_FX];
+        adsr1.holdTimeMsec = par[P_ADSR1_HOLD];
+        adsr1.delayTimeMsec = par[P_ADSR1_DELAY];
+        adsr1.trigger = par[P_ADSR1_TRIGGER];
+        adsr1.triggerTreshold = par[P_ADSR1_TRESHOLD];
         
-        adsr1.attackTimeMsec = par[P_ADSR2_ATTACK];
-        adsr1.decayTimeMsec = par[P_ADSR2_DECAY];
-        adsr1.sustainLevel = par[P_ADSR2_SUSTAIN];
-        adsr1.releaseTimeMsec = par[P_ADSR2_RELEASE];
-        adsr1.setAttackCurve(par[P_ADSR2_ATTACK_CURVE]);
-        adsr1.setDecayCurve(par[P_ADSR2_DECAY_CURVE]);
-        adsr1.setSustainCurve(par[P_ADSR2_SUSTAIN_CURVE]);
-        adsr1.setReleaseCurve(par[P_ADSR2_RELEASE_CURVE]);
+        adsr2.attackTimeMsec = par[P_ADSR2_ATTACK];
+        adsr2.decayTimeMsec = par[P_ADSR2_DECAY];
+        adsr2.sustainLevel = par[P_ADSR2_SUSTAIN];
+        adsr2.releaseTimeMsec = par[P_ADSR2_RELEASE];
+        adsr2.setAttackCurve(par[P_ADSR2_ATTACK_CURVE]);
+        adsr2.setDecayCurve(par[P_ADSR2_DECAY_CURVE]);
+        adsr2.setSustainCurve(par[P_ADSR2_SUSTAIN_CURVE]);
+        adsr2.setReleaseCurve(par[P_ADSR2_RELEASE_CURVE]);
 
-        adsr1.filterTarget = par[P_ADSR2_FILTER];
-        adsr1.pitchTarget = par[P_ADSR2_PITCH];
-        adsr1.ampTarget = par[P_ADSR2_AMP];
-        adsr1.fxTarget = par[P_ADSR2_FX];
-        adsr1.holdTimeMsec = par[P_ADSR2_HOLD];
-        adsr1.delayTimeMsec = par[P_ADSR2_DELAY];
-        adsr1.trigger = par[P_ADSR2_TRIGGER];
-        adsr1.triggerTreshold = par[P_ADSR2_TRESHOLD];
+        adsr2.filterTarget = par[P_ADSR2_FILTER];
+        adsr2.pitchTarget = par[P_ADSR2_PITCH];
+        adsr2.ampTarget = par[P_ADSR2_AMP];
+        adsr2.fxTarget = par[P_ADSR2_FX];
+        adsr2.holdTimeMsec = par[P_ADSR2_HOLD];
+        adsr2.delayTimeMsec = par[P_ADSR2_DELAY];
+        adsr2.trigger = par[P_ADSR2_TRIGGER];
+        adsr2.triggerTreshold = par[P_ADSR2_TRESHOLD];
         
-        adsr2.attackTimeMsec = par[P_ADSR3_ATTACK];
-        adsr2.decayTimeMsec = par[P_ADSR3_DECAY];
-        adsr2.sustainLevel = par[P_ADSR3_SUSTAIN];
-        adsr2.releaseTimeMsec = par[P_ADSR3_RELEASE];
-        adsr2.setAttackCurve(par[P_ADSR3_ATTACK_CURVE]);
-        adsr2.setDecayCurve(par[P_ADSR3_DECAY_CURVE]);
-        adsr2.setSustainCurve(par[P_ADSR3_SUSTAIN_CURVE]);
-        adsr2.setReleaseCurve(par[P_ADSR3_RELEASE_CURVE]);
+        adsr3.attackTimeMsec = par[P_ADSR3_ATTACK];
+        adsr3.decayTimeMsec = par[P_ADSR3_DECAY];
+        adsr3.sustainLevel = par[P_ADSR3_SUSTAIN];
+        adsr3.releaseTimeMsec = par[P_ADSR3_RELEASE];
+        adsr3.setAttackCurve(par[P_ADSR3_ATTACK_CURVE]);
+        adsr3.setDecayCurve(par[P_ADSR3_DECAY_CURVE]);
+        adsr3.setSustainCurve(par[P_ADSR3_SUSTAIN_CURVE]);
+        adsr3.setReleaseCurve(par[P_ADSR3_RELEASE_CURVE]);
 
-        adsr2.filterTarget = par[P_ADSR3_FILTER];
-        adsr2.pitchTarget = par[P_ADSR3_PITCH];
-        adsr2.ampTarget = par[P_ADSR3_AMP];
-        adsr2.fxTarget = par[P_ADSR3_FX];
-        adsr2.holdTimeMsec = par[P_ADSR3_HOLD];
-        adsr2.delayTimeMsec = par[P_ADSR3_DELAY];
-        adsr2.trigger = par[P_ADSR3_TRIGGER];
-        adsr2.triggerTreshold = par[P_ADSR3_TRESHOLD];
+        adsr3.filterTarget = par[P_ADSR3_FILTER];
+        adsr3.pitchTarget = par[P_ADSR3_PITCH];
+        adsr3.ampTarget = par[P_ADSR3_AMP];
+        adsr3.fxTarget = par[P_ADSR3_FX];
+        adsr3.holdTimeMsec = par[P_ADSR3_HOLD];
+        adsr3.delayTimeMsec = par[P_ADSR3_DELAY];
+        adsr3.trigger = par[P_ADSR3_TRIGGER];
+        adsr3.triggerTreshold = par[P_ADSR3_TRESHOLD];
 
-        adsr3.attackTimeMsec = par[P_ADSR4_ATTACK];
-        adsr3.decayTimeMsec = par[P_ADSR4_DECAY];
-        adsr3.sustainLevel = par[P_ADSR4_SUSTAIN];
-        adsr3.releaseTimeMsec = par[P_ADSR4_RELEASE];
-        adsr3.setAttackCurve(par[P_ADSR4_ATTACK_CURVE]);
-        adsr3.setDecayCurve(par[P_ADSR4_DECAY_CURVE]);
-        adsr3.setSustainCurve(par[P_ADSR4_SUSTAIN_CURVE]);
-        adsr3.setReleaseCurve(par[P_ADSR4_RELEASE_CURVE]);
+        adsr4.attackTimeMsec = par[P_ADSR4_ATTACK];
+        adsr4.decayTimeMsec = par[P_ADSR4_DECAY];
+        adsr4.sustainLevel = par[P_ADSR4_SUSTAIN];
+        adsr4.releaseTimeMsec = par[P_ADSR4_RELEASE];
+        adsr4.setAttackCurve(par[P_ADSR4_ATTACK_CURVE]);
+        adsr4.setDecayCurve(par[P_ADSR4_DECAY_CURVE]);
+        adsr4.setSustainCurve(par[P_ADSR4_SUSTAIN_CURVE]);
+        adsr4.setReleaseCurve(par[P_ADSR4_RELEASE_CURVE]);
 
-        adsr3.filterTarget = par[P_ADSR4_FILTER];
-        adsr3.pitchTarget = par[P_ADSR4_PITCH];
-        adsr3.ampTarget = par[P_ADSR4_AMP];
-        adsr3.fxTarget = par[P_ADSR4_FX];
-        adsr3.holdTimeMsec = par[P_ADSR4_HOLD];
-        adsr3.delayTimeMsec = par[P_ADSR4_DELAY];
-        adsr3.trigger = par[P_ADSR4_TRIGGER];
-        adsr3.triggerTreshold = par[P_ADSR4_TRESHOLD];
+        adsr4.filterTarget = par[P_ADSR4_FILTER];
+        adsr4.pitchTarget = par[P_ADSR4_PITCH];
+        adsr4.ampTarget = par[P_ADSR4_AMP];
+        adsr4.fxTarget = par[P_ADSR4_FX];
+        adsr4.holdTimeMsec = par[P_ADSR4_HOLD];
+        adsr4.delayTimeMsec = par[P_ADSR4_DELAY];
+        adsr4.trigger = par[P_ADSR4_TRIGGER];
+        adsr4.triggerTreshold = par[P_ADSR4_TRESHOLD];
         
-        filter0.setFilterType(par[P_FILTER1_TYPE]);
-        filter0.setCutoff(par[P_FILTER1_FREQ]);
-        filter0.setResonance(par[P_FILTER1_RES] / 100.0f);
-        filter0.setFilterType(LPF1);
-        
-        filter1.setFilterType(par[P_FILTER2_TYPE]);
-        filter1.setCutoff(par[P_FILTER2_FREQ]);
-        filter1.setResonance(par[P_FILTER2_RES] / 100.0f);
+        filter1.setFilterType(par[P_FILTER1_TYPE]);
+        filter1.setCutoff(par[P_FILTER1_FREQ]);
+        filter1.setResonance(par[P_FILTER1_RES] / 100.0f);
+
+        filter2.setFilterType(par[P_FILTER2_TYPE]);
+        filter2.setCutoff(par[P_FILTER2_FREQ]);
+        filter2.setResonance(par[P_FILTER2_RES] / 100.0f);
     }
     
     void reset(){
@@ -196,36 +212,36 @@ public:
         setParams();
         
         active = true;
-        adsr0.start();
         adsr1.start();
         adsr2.start();
         adsr3.start();
+        adsr4.start();
         
         lastPos0 = 1;
         
-        filter0.reset();
-        filter0.setBoost(true);
-        
         filter1.reset();
         filter1.setBoost(true);
+        
+        filter2.reset();
+        filter2.setBoost(true);
     }
     
     void kill(){
         active = false;
-        adsr0.state = Adsr::ADSR_OFF;
         adsr1.state = Adsr::ADSR_OFF;
         adsr2.state = Adsr::ADSR_OFF;
         adsr3.state = Adsr::ADSR_OFF;
+        adsr4.state = Adsr::ADSR_OFF;
      }
     void retrigger(){
         reset();
     }
     
     void noteOff(){
-        adsr0.release();
         adsr1.release();
         adsr2.release();
         adsr3.release();
+        adsr4.release();
     }
     
     void update(int clock){
@@ -244,9 +260,15 @@ public:
         auto* channelDataR = buffer.getWritePointer (1);
 
         // Tables
-        float * table0 = osc0.tables[(int)par[P_OSC1_WAV]];
-        float * table1 = osc0.tables[(int)par[P_OSC2_WAV]];
-        float * table2 = osc0.tables[wSin];
+        float * table0 = osc1.tables[(int)par[P_OSC1_WAV]];
+        float * table1 = osc2.tables[(int)par[P_OSC2_WAV]];
+        float * table2 = osc2.tables[wSin];
+        
+        float * tableLfo1 = lfo1.tables[(int)par[P_LFO1_WAV]];
+        float * tableLfo2 = lfo2.tables[(int)par[P_LFO2_WAV]];
+        float * tableLfo3 = lfo3.tables[(int)par[P_LFO3_WAV]];
+        float * tableLfo4 = lfo4.tables[(int)par[P_LFO4_WAV]];
+        
         
         // Prepare
         float volVelo = velocity / par[P_NOVOICES];
@@ -257,9 +279,9 @@ public:
             int p1 = tablePos1;
             p0 = p0 / (1.0f + par[P_OSC1_PULSE] * 0.01f);
             p1 = p1 / (1.0f + par[P_OSC2_PULSE] * 0.01f);
-            float v0 = osc0.interpolate(osc0.checkPos(p0 + par[P_OSC1_PHASE] / 360.0f * sr), table0);
-            float v1 = osc0.interpolate(osc0.checkPos(p1 + par[P_OSC2_PHASE] / 360.0f * sr), table1);
-            float vSub = osc0.interpolate(osc0.checkPos(tablePosSub), table2);
+            float v0 = osc1.interpolate(osc1.checkPos(p0 + par[P_OSC1_PHASE] / 360.0f * sr), table0);
+            float v1 = osc1.interpolate(osc1.checkPos(p1 + par[P_OSC2_PHASE] / 360.0f * sr), table1);
+            float vSub = osc1.interpolate(osc1.checkPos(tablePosSub), table2);
 
             v0 *= volVelo;
             v0 *=  DecibelToLinear(par[P_OSC1_VOL]);
@@ -267,17 +289,26 @@ public:
             v1 *= volVelo;
             v1 *=  DecibelToLinear(par[P_OSC2_VOL]);
             
-            vSub = vSub * adsr0.output * par[P_OSC1_SUB];
+            vSub = vSub * adsr1.output * par[P_OSC1_SUB];
             float vol = DecibelToLinear(par[P_VOLUME]);
             
             // Mono
             float mono = (v0 + v1 + vSub)  * vol / 3.0f;
             
+            
+            float lfo0Output = tableLfo1[((int)tablePosLfo1)];
+            
             // Filter
-            mono = filter0.process(mono);
+            float cutoff = par[P_FILTER1_FREQ];
+            cutoff *= 1.0 - par[P_LFO1_FILTER] * (1.0 + lfo0Output) * 0.5;
+            filter1.setCutoff(cutoff);
+            mono = filter1.process(mono);
+            
+            // LFO Amp
+            mono *= 1.0 - par[P_LFO1_VOL] * lfo0Output;
             
             // ADSR
-            mono *= smoothMaster.processLP(adsr0.output);
+            mono *= smoothMaster.processLP(adsr1.output);
             
             // Pan
             float vSumL = mono * (1.0f - par[P_PAN]);
@@ -301,7 +332,8 @@ public:
             channelDataL[i] += vSumL;
             channelDataR[i] += vSumR;
             
-            // Move the Osc
+// Move the Osc forward  =======================================================================
+           
             int midiNote0 = noteNumber + par[P_OSC1_SEMI] + 12 * par[P_OSC1_OCT];
             float freq0 = tuneTable[midiNote0] * tuneMulti[midiNote0 % 12];
             
@@ -313,6 +345,9 @@ public:
             // fine tune
             freq0 = freq0 + freq0 *  par[P_OSC1_FINE] * 0.01f;
             freq1 = freq1 + freq1 *  par[P_OSC2_FINE] * 0.01f;
+            
+            freq0 *= 1.0 - par[P_LFO1_PITCH] *  lfo0Output;
+            freq1 *= 1.0 - par[P_LFO1_PITCH] *  lfo0Output;
             
             // move pos
             tablePos0 += OVERSAMPLING * freq0  * t ;
@@ -333,17 +368,23 @@ public:
             
             tablePosSub += OVERSAMPLING * freq0 / 3.0f * t;
             
-            // bounds check
-            tablePos0 = osc0.checkPos(tablePos0);
-            tablePos1 = osc0.checkPos(tablePos1);
-            tablePosSub = osc0.checkPos(tablePosSub);
+            float freqLfo1 = par[P_LFO1_FREQ];
+            tablePosLfo1 += OVERSAMPLING * freqLfo1;
+            
+            // bounds check OSC
+            tablePos0 = osc1.checkPos(tablePos0);
+            tablePos1 = osc2.checkPos(tablePos1);
+            tablePosSub = osc2.checkPos(tablePosSub);
+            
+             // bounds check LFO
+            tablePosLfo1 = lfo1.checkPos(tablePosLfo1);
         }
 
         // General - once per Block
         clock += samplesPerBlock;
-        adsr0.tick(samplesPerBlock);
-        if(adsr0.state == Adsr::ADSR_DONE){
-            adsr0.state = Adsr::ADSR_OFF;
+        adsr1.tick(samplesPerBlock);
+        if(adsr1.state == Adsr::ADSR_DONE){
+            adsr1.state = Adsr::ADSR_OFF;
            // std::cout << "End of  voice "  << vid << std::endl;
             active = false;
         }
@@ -356,8 +397,6 @@ private:
     int adsr;
     int sampleId = 0;
     int lastBeat = -1;
-    Osc osc0;
-    Osc osc1;
 };
     
 #endif /* Voice_h */

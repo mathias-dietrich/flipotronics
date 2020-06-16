@@ -1405,7 +1405,7 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
-            p.maxVal = 5;
+            p.maxVal = 3;
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
@@ -1483,7 +1483,7 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 0;
-            p.maxVal = 5;
+            p.maxVal = 3;
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
@@ -1561,7 +1561,7 @@ class ParamBuilder {       // The class
              p.writeable = 1;
              p.automate = 1;
              p.minVal = 0;
-             p.maxVal = 5;
+             p.maxVal = 3;
              p.stepVal = 1;
              p.type = uInt;
              p.def = 0;
@@ -1639,7 +1639,7 @@ class ParamBuilder {       // The class
              p.writeable = 1;
              p.automate = 1;
              p.minVal = 0;
-             p.maxVal = 5;
+             p.maxVal = 3;
              p.stepVal = 1;
              p.type = uInt;
              p.def = 0;
