@@ -20,6 +20,11 @@
 #include "Osc.h"
 #include "MultiModeLadderFilter.h"
 #include "Lfo.h"
+#include "FilterExtern/ModulationMatrix.h"
+#include "FilterExtern/MoogLadderFilter.h"
+#include "FilterExtern/SEMFilter.h"
+
+#include "ReleasePool.h"
 
 class Voice {
 
@@ -71,6 +76,10 @@ public:
     MultiModeLadderFilter filter1;
     MultiModeLadderFilter filter2;
     
+    CMoogLadderFilter  filter3;
+    CSEMFilter filter4;
+    ReleasePool pool;
+    
     Voice(){
         
         // ADSR
@@ -83,6 +92,10 @@ public:
         lfo2.uid = 2;
         lfo3.uid = 3;
         lfo4.uid = 4;
+        
+        filter3.reset();
+        filter4.reset();
+
     }
     
     ~Voice(){
@@ -119,7 +132,7 @@ public:
         // Filter
         filter1.setSampleRate(sampleRate);
         filter2.setSampleRate(sampleRate);
-        
+        isUpdateParams = true;
         setParams();
     }
     
@@ -245,7 +258,10 @@ public:
     }
     
     void update(int clock){
-        setParams();
+        if(isUpdateParams){
+            setParams();
+        }
+        isUpdateParams = false;
     }
     
     // ===============================================================================================
@@ -268,7 +284,6 @@ public:
         float * tableLfo2 = lfo2.tables[(int)par[P_LFO2_WAV]];
         float * tableLfo3 = lfo3.tables[(int)par[P_LFO3_WAV]];
         float * tableLfo4 = lfo4.tables[(int)par[P_LFO4_WAV]];
-        
         
         // Prepare
         float volVelo = velocity / par[P_NOVOICES];

@@ -72,7 +72,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
             if(params[i].smoothTime > 0){
                 if(abs(par[i]) < abs(par[i] + parTargetDelta[i]) - 0.001){
                     float delta =  parTargetDelta[i] /  (params[i].smoothTime *c);
-                    par[i] += delta;
+                    par[i] = par[i] + delta;
                 }
             }
         }

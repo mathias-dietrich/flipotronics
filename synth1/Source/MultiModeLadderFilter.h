@@ -5,6 +5,7 @@
 //  Created by Mathias Dietrich on 15.06.20.
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
+// http://www.willpirkle.com/Downloads/
 
 #ifndef MultiModeLadderFilter_h
 #define MultiModeLadderFilter_h

@@ -19,18 +19,26 @@
 #include "PatchLoader.h"
 #include "Player.h"
 #include "Func.h"
+#include "AudioSampleFifo.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 
 class Core : public Player{
     
   public:
+    
+
+    AbstractFifo test { 1024 };
+    AudioSampleFifo<float> fifo;
+    
     Core() : Player(){
         patchLoader = new PatchLoader();
         paramBuilder = new ParamBuilder();
         paramBuilder->build();
         arp = new Arp();
         arp->setPlayer(this);
+        
+        fifo.
     }
     
     ~Core(){

@@ -61,10 +61,12 @@ public:
     
     void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override {
         core->startVoice( midiChannel,  midiNoteNumber,  velocity);
+        isUpdateParams = true;
     }
      
     void handleNoteOff (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override {
          core->endVoice( midiChannel,  midiNoteNumber);
+        isUpdateParams = true;
     }
     
     void panic(){

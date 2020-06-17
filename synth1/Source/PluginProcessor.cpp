@@ -13,7 +13,7 @@
 #include "img.h"
 
 // Global Variables
-double par[MAXPARAM];
+std::atomic<float> par[MAXPARAM];
 double parTargetDelta[MAXPARAM];
 double paramsUndo[MAXPARAM];
 double tuneTable[256];
@@ -27,7 +27,8 @@ String patchNameCurrent = "Init";
 String patchNameCurrentUndo;
 bool compareMode = false;
 BankData bankData;
-float scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
+std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
+std::atomic<bool> isUpdateParams;
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()

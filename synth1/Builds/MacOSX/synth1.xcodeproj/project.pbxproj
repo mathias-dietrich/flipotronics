@@ -83,6 +83,30 @@
 		4F712E03248ADA9800EBC733 /* img.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F712E00248ADA9800EBC733 /* img.cpp */; };
 		4F712E04248ADA9800EBC733 /* img.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F712E00248ADA9800EBC733 /* img.cpp */; };
 		4F712E05248ADA9800EBC733 /* img.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F712E00248ADA9800EBC733 /* img.cpp */; };
+		4FAB8544249A20ED0039E051 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8539249A20EC0039E051 /* Filter.cpp */; };
+		4FAB8545249A20ED0039E051 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8539249A20EC0039E051 /* Filter.cpp */; };
+		4FAB8546249A20ED0039E051 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8539249A20EC0039E051 /* Filter.cpp */; };
+		4FAB8547249A20ED0039E051 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8539249A20EC0039E051 /* Filter.cpp */; };
+		4FAB8548249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB853B249A20EC0039E051 /* MoogLadderFilter.cpp */; };
+		4FAB8549249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB853B249A20EC0039E051 /* MoogLadderFilter.cpp */; };
+		4FAB854A249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB853B249A20EC0039E051 /* MoogLadderFilter.cpp */; };
+		4FAB854B249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB853B249A20EC0039E051 /* MoogLadderFilter.cpp */; };
+		4FAB854C249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB853E249A20ED0039E051 /* VAOnePoleFilter.cpp */; };
+		4FAB854D249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB853E249A20ED0039E051 /* VAOnePoleFilter.cpp */; };
+		4FAB854E249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB853E249A20ED0039E051 /* VAOnePoleFilter.cpp */; };
+		4FAB854F249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB853E249A20ED0039E051 /* VAOnePoleFilter.cpp */; };
+		4FAB8550249A20ED0039E051 /* pluginobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8542249A20ED0039E051 /* pluginobjects.cpp */; };
+		4FAB8551249A20ED0039E051 /* pluginobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8542249A20ED0039E051 /* pluginobjects.cpp */; };
+		4FAB8552249A20ED0039E051 /* pluginobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8542249A20ED0039E051 /* pluginobjects.cpp */; };
+		4FAB8553249A20ED0039E051 /* pluginobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8542249A20ED0039E051 /* pluginobjects.cpp */; };
+		4FAB8554249A20ED0039E051 /* ModulationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8543249A20ED0039E051 /* ModulationMatrix.cpp */; };
+		4FAB8555249A20ED0039E051 /* ModulationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8543249A20ED0039E051 /* ModulationMatrix.cpp */; };
+		4FAB8556249A20ED0039E051 /* ModulationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8543249A20ED0039E051 /* ModulationMatrix.cpp */; };
+		4FAB8557249A20ED0039E051 /* ModulationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8543249A20ED0039E051 /* ModulationMatrix.cpp */; };
+		4FAB855A249A28620039E051 /* SEMFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8558249A28620039E051 /* SEMFilter.cpp */; };
+		4FAB855B249A28620039E051 /* SEMFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8558249A28620039E051 /* SEMFilter.cpp */; };
+		4FAB855C249A28620039E051 /* SEMFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8558249A28620039E051 /* SEMFilter.cpp */; };
+		4FAB855D249A28620039E051 /* SEMFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB8558249A28620039E051 /* SEMFilter.cpp */; };
 		4FC4C0BD248395E700CBE568 /* Arp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4C0BB248395E700CBE568 /* Arp.cpp */; };
 		4FC4C0BE248395E700CBE568 /* Arp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4C0BB248395E700CBE568 /* Arp.cpp */; };
 		4FC4C0BF248395E700CBE568 /* Arp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4C0BB248395E700CBE568 /* Arp.cpp */; };
@@ -188,6 +212,22 @@
 		4F93CA3E24865921005588D2 /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../../Source/Model.h; sourceTree = "<group>"; };
 		4F93CA3F24867C7C005588D2 /* FileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FileManager.h; path = ../../Source/FileManager.h; sourceTree = "<group>"; };
 		4FA53D032487E84E0056C32E /* ParamBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParamBuilder.h; path = ../../Source/ParamBuilder.h; sourceTree = "<group>"; };
+		4FAB8538249A20EC0039E051 /* synthfunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synthfunctions.h; sourceTree = "<group>"; };
+		4FAB8539249A20EC0039E051 /* Filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Filter.cpp; sourceTree = "<group>"; };
+		4FAB853A249A20EC0039E051 /* lookuptables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lookuptables.h; sourceTree = "<group>"; };
+		4FAB853B249A20EC0039E051 /* MoogLadderFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoogLadderFilter.cpp; sourceTree = "<group>"; };
+		4FAB853C249A20EC0039E051 /* VAOnePoleFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAOnePoleFilter.h; sourceTree = "<group>"; };
+		4FAB853D249A20EC0039E051 /* ModulationMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModulationMatrix.h; sourceTree = "<group>"; };
+		4FAB853E249A20ED0039E051 /* VAOnePoleFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VAOnePoleFilter.cpp; sourceTree = "<group>"; };
+		4FAB853F249A20ED0039E051 /* MoogLadderFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogLadderFilter.h; sourceTree = "<group>"; };
+		4FAB8540249A20ED0039E051 /* pluginconstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pluginconstants.h; sourceTree = "<group>"; };
+		4FAB8541249A20ED0039E051 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		4FAB8542249A20ED0039E051 /* pluginobjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pluginobjects.cpp; sourceTree = "<group>"; };
+		4FAB8543249A20ED0039E051 /* ModulationMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModulationMatrix.cpp; sourceTree = "<group>"; };
+		4FAB8558249A28620039E051 /* SEMFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SEMFilter.cpp; path = ../../Source/FilterExtern/SEMFilter.cpp; sourceTree = "<group>"; };
+		4FAB8559249A28620039E051 /* SEMFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEMFilter.h; path = ../../Source/FilterExtern/SEMFilter.h; sourceTree = "<group>"; };
+		4FAB855E249A39120039E051 /* ReleasePool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReleasePool.h; path = ../../Source/ReleasePool.h; sourceTree = "<group>"; };
+		4FAB855F249A466C0039E051 /* AudioSampleFifo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AudioSampleFifo.h; path = ../../Source/AudioSampleFifo.h; sourceTree = "<group>"; };
 		4FC14FD6249748C700C259ED /* Smooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Smooth.h; path = ../../Source/Smooth.h; sourceTree = "<group>"; };
 		4FC14FD724974ABB00C259ED /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Osc.h; path = ../../Source/Osc.h; sourceTree = "<group>"; };
 		4FC4C0BB248395E700CBE568 /* Arp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Arp.cpp; path = ../../Source/Arp.cpp; sourceTree = "<group>"; };
@@ -401,6 +441,8 @@
 				4FC14FD724974ABB00C259ED /* Osc.h */,
 				4F097B6F249770D500566939 /* Player.h */,
 				4F0A84772498003600B2D8EB /* Lfo.h */,
+				4FAB855E249A39120039E051 /* ReleasePool.h */,
+				4FAB855F249A466C0039E051 /* AudioSampleFifo.h */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -412,6 +454,27 @@
 				4F795D802497E94E00076DE0 /* Lowpass1.h */,
 			);
 			name = filter;
+			sourceTree = "<group>";
+		};
+		4FAB8537249A20DA0039E051 /* ExternFilter */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB8558249A28620039E051 /* SEMFilter.cpp */,
+				4FAB8559249A28620039E051 /* SEMFilter.h */,
+				4FAB8539249A20EC0039E051 /* Filter.cpp */,
+				4FAB8541249A20ED0039E051 /* Filter.h */,
+				4FAB853A249A20EC0039E051 /* lookuptables.h */,
+				4FAB8543249A20ED0039E051 /* ModulationMatrix.cpp */,
+				4FAB853D249A20EC0039E051 /* ModulationMatrix.h */,
+				4FAB853B249A20EC0039E051 /* MoogLadderFilter.cpp */,
+				4FAB853F249A20ED0039E051 /* MoogLadderFilter.h */,
+				4FAB8540249A20ED0039E051 /* pluginconstants.h */,
+				4FAB8542249A20ED0039E051 /* pluginobjects.cpp */,
+				4FAB8538249A20EC0039E051 /* synthfunctions.h */,
+				4FAB853E249A20ED0039E051 /* VAOnePoleFilter.cpp */,
+				4FAB853C249A20EC0039E051 /* VAOnePoleFilter.h */,
+			);
+			name = ExternFilter;
 			sourceTree = "<group>";
 		};
 		931ED08E764265044F035ABD /* Products */ = {
@@ -439,6 +502,7 @@
 		9C6B7E2C03EC63CCDDD66A19 /* synth1 */ = {
 			isa = PBXGroup;
 			children = (
+				4FAB8537249A20DA0039E051 /* ExternFilter */,
 				4F795D7E2497E83300076DE0 /* filter */,
 				4F53E619248302A10080F061 /* core */,
 				95F74BFB3FC0F6D93448F117 /* Source */,
@@ -744,8 +808,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F0F158F2493A21200031C20 /* stk.mm in Sources */,
+				4FAB855C249A28620039E051 /* SEMFilter.cpp in Sources */,
+				4FAB8552249A20ED0039E051 /* pluginobjects.cpp in Sources */,
+				4FAB854A249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */,
 				4F53E62424836C1E0080F061 /* WaveTable.cpp in Sources */,
+				4FAB8556249A20ED0039E051 /* ModulationMatrix.cpp in Sources */,
+				4FAB854E249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */,
 				4F53E61E248302B60080F061 /* Core.cpp in Sources */,
+				4FAB8546249A20ED0039E051 /* Filter.cpp in Sources */,
 				616628D7E62260836548CA06 /* include_juce_audio_plugin_client_Standalone.cpp in Sources */,
 				4FC4C0BF248395E700CBE568 /* Arp.cpp in Sources */,
 				4F712E04248ADA9800EBC733 /* img.cpp in Sources */,
@@ -757,8 +827,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F53E61F248302B60080F061 /* Core.cpp in Sources */,
+				4FAB854B249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */,
 				FCF81CA15C2579501330AE33 /* PluginProcessor.cpp in Sources */,
 				04BE989D5BFEEAA16970A529 /* PluginEditor.cpp in Sources */,
+				4FAB8547249A20ED0039E051 /* Filter.cpp in Sources */,
 				4F712E05248ADA9800EBC733 /* img.cpp in Sources */,
 				BCABE1A5EB0C5145457F0C85 /* include_juce_audio_basics.mm in Sources */,
 				943FF09B371A5A1B03C6004C /* include_juce_audio_devices.mm in Sources */,
@@ -766,9 +838,12 @@
 				D85183133874573BE50B5B97 /* include_juce_audio_plugin_client_utils.cpp in Sources */,
 				3448725CC159F337C5C6C747 /* include_juce_audio_plugin_client_VST_utils.mm in Sources */,
 				4599B1A168D7EF3F6D163426 /* include_juce_audio_processors.mm in Sources */,
+				4FAB8557249A20ED0039E051 /* ModulationMatrix.cpp in Sources */,
 				3F8A1B974A6BF35671B2412B /* include_juce_audio_utils.mm in Sources */,
 				84B769F530B9EFEBA4CCCB06 /* include_juce_core.mm in Sources */,
 				7EFB39E594B1DEAC20D58578 /* include_juce_cryptography.mm in Sources */,
+				4FAB8553249A20ED0039E051 /* pluginobjects.cpp in Sources */,
+				4FAB855D249A28620039E051 /* SEMFilter.cpp in Sources */,
 				666B1028AE2D33C4D10F370B /* include_juce_data_structures.mm in Sources */,
 				E2FC9DCA6283C875BFD8DFC5 /* include_juce_events.mm in Sources */,
 				E5597E1C1821911D8649595D /* include_juce_graphics.mm in Sources */,
@@ -776,6 +851,7 @@
 				34FC54731171BACA7992E7AA /* include_juce_gui_basics.mm in Sources */,
 				4F0F15902493A21200031C20 /* stk.mm in Sources */,
 				4D6253CEBB7715A7C964F1E4 /* include_juce_gui_extra.mm in Sources */,
+				4FAB854F249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */,
 				4F53E62524836C1E0080F061 /* WaveTable.cpp in Sources */,
 				9CAB859822C3D850CEAE1F47 /* include_juce_opengl.mm in Sources */,
 			);
@@ -786,12 +862,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F0F158E2493A21200031C20 /* stk.mm in Sources */,
+				4FAB8545249A20ED0039E051 /* Filter.cpp in Sources */,
 				4FC4C0BE248395E700CBE568 /* Arp.cpp in Sources */,
 				4F53E61D248302B60080F061 /* Core.cpp in Sources */,
 				4F53E62324836C1E0080F061 /* WaveTable.cpp in Sources */,
 				4F712E03248ADA9800EBC733 /* img.cpp in Sources */,
+				4FAB8555249A20ED0039E051 /* ModulationMatrix.cpp in Sources */,
 				01981BBE567F71B239E6A4A2 /* include_juce_audio_plugin_client_AU_1.mm in Sources */,
+				4FAB854D249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */,
+				4FAB8549249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */,
 				7283C727B177798C458B4D39 /* include_juce_audio_plugin_client_AU_2.mm in Sources */,
+				4FAB8551249A20ED0039E051 /* pluginobjects.cpp in Sources */,
+				4FAB855B249A28620039E051 /* SEMFilter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,8 +882,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F0F158D2493A21200031C20 /* stk.mm in Sources */,
+				4FAB855A249A28620039E051 /* SEMFilter.cpp in Sources */,
+				4FAB8550249A20ED0039E051 /* pluginobjects.cpp in Sources */,
+				4FAB8548249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */,
 				4F53E62224836C1E0080F061 /* WaveTable.cpp in Sources */,
+				4FAB8554249A20ED0039E051 /* ModulationMatrix.cpp in Sources */,
+				4FAB854C249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */,
 				4F53E61C248302B60080F061 /* Core.cpp in Sources */,
+				4FAB8544249A20ED0039E051 /* Filter.cpp in Sources */,
 				2304AE940287AE405DED4AD7 /* include_juce_audio_plugin_client_VST3.cpp in Sources */,
 				4FC4C0BD248395E700CBE568 /* Arp.cpp in Sources */,
 				4F712E02248ADA9800EBC733 /* img.cpp in Sources */,

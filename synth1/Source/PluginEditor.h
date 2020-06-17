@@ -89,7 +89,7 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
     
-    void drawPlot(Graphics& g, int half, int width, float * buf ){
+    void drawPlot(Graphics& g, int half, int width, std::atomic<float> * buf ){
         
         // search positive zero crossing
         int offset =0;
@@ -408,6 +408,7 @@ private:
                 btnLabel[7].setText("", NotificationType::dontSendNotification);
                 break;
         }
+         isUpdateParams = true;
     }
     
     void sliderValueChanged(Slider *  slider) override {

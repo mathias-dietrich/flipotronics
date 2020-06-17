@@ -64,7 +64,7 @@ public:
 
 extern int samplesperblock;
 extern int samplerate;
-extern double par[MAXPARAM];
+extern std::atomic<float> par[MAXPARAM];
 extern double parTargetDelta[MAXPARAM];
 extern double paramsUndo[MAXPARAM];
 
@@ -79,7 +79,9 @@ extern String patchNameCurrent;
 extern String patchNameCurrentUndo;
 extern bool compareMode;
 extern BankData bankData;
-extern float scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
+extern std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
+
+extern std::atomic<bool> isUpdateParams;
 
 class Model {
     
