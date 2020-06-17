@@ -14,6 +14,9 @@ using namespace std;
 void Core::init (double sampleRate, int samplesPerBlock){
     this->sampleRate = sampleRate;
     this->samplesPerBlock = samplesPerBlock;
+    this->blocksPerSeccond = sampleRate / samplesPerBlock;
+    WaveTable::of()->init(sampleRate,samplesPerBlock );
+
     
     patchCurrent = 1;
     
@@ -63,11 +66,11 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
         }
     }
     
-    // Update
+    // Update Parameter
     if(updateCounter % UPDATEDEVIDER == 0){
         
         // handle Smoothing
-        float c = sampleRate / 1000.0f * UPDATEDEVIDER;
+        float c = sampleRate * 0.001f * UPDATEDEVIDER;
         for(int i =0; i < MAXPARAM;++i){
             if(params[i].smoothTime > 0){
                 if(abs(par[i]) < abs(par[i] + parTargetDelta[i]) - 0.001){
@@ -85,14 +88,12 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     }
     ++updateCounter;
     
-    // Clear buffer
+    // Prepare audio uffer
     auto* channelDataL = buffer.getWritePointer (0);
     auto* channelDataR = buffer.getWritePointer (1);
-    for (int i=0; i<samplesPerBlock; ++i) {
-        channelDataL[i] =  0;
-        channelDataR[i] =  0;
-    }
-    
+    std::fill(channelDataL, channelDataL + samplesPerBlock, 0);
+    std::fill(channelDataR, channelDataR + samplesPerBlock, 0);
+
     // Render Voices
     for(int i=0; i < MAXVOICE;++i){
            if(voices[i].active){
@@ -100,20 +101,21 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
            }
      }
     
+    // Set SCope Buffer for the Ouput UI
     for (int i=0; i<samplesPerBlock; ++i) {
-        scopeBuffer[i + scopeCounter * samplesPerBlock] =  (channelDataL[i] + channelDataR[i]) / 2.0f;
+        scopeBuffer[i + scopeCounter * samplesPerBlock] =  (channelDataL[i] + channelDataR[i]) *0.5f;
     }
     
     ++scopeCounter;
-    if (scopeCounter >= sampleRate / samplesPerBlock){
+    if (scopeCounter >= blocksPerSeccond){
         scopeCounter = 0;
     }
     
     // Move Clock
     clock += samplesPerBlock;
     
+    // Measure time taken
     auto end = std::chrono::high_resolution_clock::now();
-    
     int64 nanoSec = std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count();
-    timeTaken = (timeTaken+nanoSec) / 2;
+    timeTaken = (timeTaken+nanoSec) * 0.5;
 }

@@ -28,10 +28,9 @@ void WaveTable::init (double sampleRate, int samplesPerBlock){
     }
     
     this->sampleRate = sampleRate;
-    sr = sampleRate * OVERSAMPLING;
+    this->sr = sampleRate * OVERSAMPLING;
     this->samplesPerBlock = samplesPerBlock;
-
-     int sr = OVERSAMPLING * sampleRate;
+    
     m_time = 0.0;
     m_deltaTime = 1.0 / (float)sr;
     

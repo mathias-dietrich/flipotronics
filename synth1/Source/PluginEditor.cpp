@@ -26,7 +26,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     undoModel.set();
     compareMode = false;
     
-    
     adsr1.uid = -1;
     adsr2.uid = -1;
     adsr3.uid = -1;
@@ -127,8 +126,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnArp.addListener (this);
     btnArp.setRadioGroupId(27);
     addAndMakeVisible (btnArp);
-    
-    
     
     addAndMakeVisible (timeLabel);
     timeLabel.setColour (Label::backgroundColourId, Colours::black);
@@ -244,23 +241,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     progNumber.setFont(f);
     addAndMakeVisible(progNumber);
     
-    // Plot
-    WaveTable *w = WaveTable::of();
-    w->init(samplerate, samplesperblock);
-    int sr = OVERSAMPLING * samplerate;
-    float pos = 0;
-    for(int i= 0; i < sr;++i){
-        pos += 440  ;
-        if(pos >= sr){
-            pos -= sr;
-        }
-        int p = pos;
-        scopeBuffer[i] = w->sinBuffer[p];
-    }
-    delete w;
-    
     startTimer(1000 / SCOPEFRAMES);
-    
     setSize (1400, 780);
 }
 
@@ -288,6 +269,20 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     g.setFont (17.0f);
     g.drawFittedText (PRODUCTNAME, rv, Justification::topRight, 1);
     
+    // Debug speed of render
+    rv.setY(17);
+    g.setFont (11.0f);
+  
+    // Time taken in the Render Loop
+    float taken = timeTaken * 0.000001f;
+    if(taken > processor.maxTimeMsec){
+        g.setColour (Colours::red);
+    }else{
+        g.setColour (Colours::yellow);
+    }
+    g.drawFittedText (String(taken) + " - " + String(processor.maxTimeMsec), rv, Justification::topRight, 1);
+    
+    // VU Meter
     g.setColour (Colours::black);
     r.setHeight(380);
     r.setY(315);
@@ -295,7 +290,8 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
 
     g.drawImageWithin(vumeter, 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
     g.drawImageWithin(vumeter, 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
-
+    
+    // Display Graph
     switch(viewModeSetting){
         case 1:
             // Plot

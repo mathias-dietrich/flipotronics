@@ -27,7 +27,6 @@ class Core : public Player{
     
   public:
     
-
     AbstractFifo test { 1024 };
     AudioSampleFifo<float> fifo;
     
@@ -37,7 +36,6 @@ class Core : public Player{
         paramBuilder->build();
         arp = new Arp();
         arp->setPlayer(this);
-
     }
     
     ~Core(){
@@ -135,10 +133,10 @@ private:
     double clock = 0;
     int sampleRate;
     int samplesPerBlock;
+    int blocksPerSeccond;
     double m_frequency = 440;
     ParamBuilder *paramBuilder;
     stk::Filter * filter;
-    int64 timeTaken;
     int timeAllowedMsec;
 };
 

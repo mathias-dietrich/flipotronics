@@ -51,6 +51,8 @@ public:
     
     Core *core;
     
+    bool isArpOn;
+    
     void reset() override{
         
     }
@@ -79,11 +81,14 @@ public:
     
     void setArp(bool running){
         core->setArp(running);
+   
     }
     
     void loadPatch(int p){
         core->loadPatch(p);
     }
+    
+    float maxTimeMsec;
 
 private:
     //==============================================================================

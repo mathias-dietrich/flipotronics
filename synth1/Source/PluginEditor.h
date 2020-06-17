@@ -80,11 +80,10 @@ public:
     
     Model undoModel;
     
-    bool arpOn;
+    int maxTime;
 
 private:
     Synth1AudioProcessor& processor;
-    
     Image vumeter = ImageCache::getFromMemory (img::meter_png, img::meter_pngSize);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
@@ -245,17 +244,17 @@ private:
         
         // ARP
         if(button->getRadioGroupId()==27) {
-            if(arpOn){
+            if(processor.isArpOn){
                 btnArp.setButtonText ("Arp");
                 btnArp.setToggleState(false, NotificationType::dontSendNotification);
-                arpOn = false;
+                processor.isArpOn = false;
                 processor.panic();
             }else{
                 btnArp.setButtonText ("Arp");
                 btnArp.setToggleState(true, NotificationType::dontSendNotification);
-                arpOn = true;
+                processor.isArpOn = true;
             }
-            processor.setArp(arpOn);
+            processor.setArp(processor.isArpOn);
             return;
         }
         paramRange = button->getRadioGroupId();
@@ -408,7 +407,9 @@ private:
                 btnLabel[7].setText("", NotificationType::dontSendNotification);
                 break;
         }
+        btnArp.setToggleState(processor.isArpOn, NotificationType::dontSendNotification);
          isUpdateParams = true;
+        
     }
     
     void sliderValueChanged(Slider *  slider) override {
@@ -527,6 +528,7 @@ private:
     
     void timerCallback() override{
         repaint();
+        setDials();
     }
     
     void startEdit(){

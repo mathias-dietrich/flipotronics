@@ -29,6 +29,7 @@ bool compareMode = false;
 BankData bankData;
 std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
 std::atomic<bool> isUpdateParams;
+std::atomic<int64> timeTaken;
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()
@@ -115,6 +116,9 @@ void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
 {
     samplerate = sampleRate;
     samplesperblock = samplesPerBlock;
+    maxTimeMsec = 1000 * samplesPerBlock / sampleRate;
+    setArp(false);
+     isArpOn = false;
     core->init( sampleRate,  samplesPerBlock);
 }
 

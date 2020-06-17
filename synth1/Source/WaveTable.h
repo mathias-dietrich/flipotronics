@@ -21,7 +21,7 @@ class WaveTable {// The class
     static WaveTable* of();
     
     ~WaveTable(){
-        
+
     }
     
     inline int checkPos(int pos){
@@ -37,11 +37,11 @@ class WaveTable {// The class
     int sr;
     void init (double sampleRate, int samplesPerBlock);
     
-    float *sinBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
-    float *sawBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
-    float *squareBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
-    float *triangleBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
-    float *whiteBuffer = new float[SAMPLERATEMAX * OVERSAMPLING];
+    float  sinBuffer[SAMPLERATEMAX * OVERSAMPLING];
+    float  sawBuffer[SAMPLERATEMAX * OVERSAMPLING];
+    float  squareBuffer[SAMPLERATEMAX * OVERSAMPLING];
+    float  triangleBuffer[SAMPLERATEMAX * OVERSAMPLING];
+    float  whiteBuffer[SAMPLERATEMAX * OVERSAMPLING];
     
 private:
     int sampleRate;
@@ -55,9 +55,11 @@ private:
     double m_deltaTime;
     
     static WaveTable* instance;
+    bool tablesExist;
+
     
     WaveTable(){
-        
+        tablesExist = false;
     }
    
 };

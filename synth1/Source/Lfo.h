@@ -18,17 +18,10 @@ class Lfo{
 public:
    
    float * tables[20];
-    
-    int uid;
-   
-   // wSin, wSaw, wTriangle, wSquare, wShark, wWhite, wPink, wBrown, wTable
-   
+   int uid;
+
    Lfo(){
-       waveTable =  WaveTable::of();
-       tables[wSin] = waveTable->sinBuffer;
-       tables[wSaw] = waveTable->squareBuffer;
-       tables[wTriangle] = waveTable->sawBuffer;
-       tables[wSquare] = waveTable->triangleBuffer;
+
    }
    
    ~Lfo(){
@@ -45,7 +38,17 @@ public:
        this->sampleRate = sampleRate;
        sr = sampleRate * OVERSAMPLING;
        this->samplesPerBlock = samplesPerBlock;
-       waveTable->init(sampleRate, samplesPerBlock);
+       
+       waveTable = WaveTable::of();
+       tables[wSin] = waveTable->sinBuffer;
+       tables[wSaw] = waveTable->squareBuffer;
+       tables[wTriangle] = waveTable->sawBuffer;
+       tables[wSquare] = waveTable->triangleBuffer;
+       tables[wShark] = waveTable->whiteBuffer;
+       tables[wWhite] = waveTable->whiteBuffer;
+       tables[wPink] = waveTable->whiteBuffer;
+       tables[wBrown] = waveTable->whiteBuffer;
+       tables[wTable] = waveTable->whiteBuffer;
    }
 
    inline int checkPos(int pos){

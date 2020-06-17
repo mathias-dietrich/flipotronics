@@ -104,7 +104,7 @@ public:
 
     void init (double sampleRate, int samplesPerBlock){
         this->sampleRate = sampleRate;
-        sr = sampleRate * OVERSAMPLING;
+        this->sr = sampleRate * OVERSAMPLING;
         this->samplesPerBlock = samplesPerBlock;
 
         // OSC

@@ -83,6 +83,8 @@ extern std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
 
 extern std::atomic<bool> isUpdateParams;
 
+extern std::atomic<int64> timeTaken;
+
 class Model {
     
 public:
