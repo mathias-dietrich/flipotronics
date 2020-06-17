@@ -24,7 +24,7 @@ public:
    // wSin, wSaw, wTriangle, wSquare, wShark, wWhite, wPink, wBrown, wTable
    
    Lfo(){
-       waveTable = new WaveTable();
+       waveTable =  WaveTable::of();
        tables[wSin] = waveTable->sinBuffer;
        tables[wSaw] = waveTable->squareBuffer;
        tables[wTriangle] = waveTable->sawBuffer;
@@ -32,7 +32,7 @@ public:
    }
    
    ~Lfo(){
-       delete waveTable;
+       
    }
    
    inline float interpolate(int pos, float * buffer ){

@@ -11,16 +11,14 @@
 
 #include <stdio.h>
 
-
 #include <JuceHeader.h>
 #include "Const.h"
 
 
 class WaveTable {// The class
-  public:             // Access specifier
-    WaveTable(){
-        
-    }
+  public:
+    
+    static WaveTable* of();
     
     ~WaveTable(){
         
@@ -55,6 +53,12 @@ private:
     float m_phase;
     float m_time;
     double m_deltaTime;
+    
+    static WaveTable* instance;
+    
+    WaveTable(){
+        
+    }
    
 };
 #endif /* WaveTable_hpp */

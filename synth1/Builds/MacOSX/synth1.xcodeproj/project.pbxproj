@@ -414,35 +414,14 @@
 		4F53E619248302A10080F061 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				4F712E00248ADA9800EBC733 /* img.cpp */,
-				4F712E01248ADA9800EBC733 /* img.h */,
-				4F88DBC824859F33006ABA7A /* Func.h */,
-				4FC4C0C3248396B500CBE568 /* Note.h */,
+				4FC4C0C424839DE200CBE568 /* Voice.h */,
 				4F53E61A248302B60080F061 /* Core.cpp */,
 				4F53E61B248302B60080F061 /* Core.h */,
-				4F53E62024836C1E0080F061 /* WaveTable.cpp */,
-				4F53E62124836C1E0080F061 /* WaveTable.h */,
-				4FC4C0BB248395E700CBE568 /* Arp.cpp */,
-				4FC4C0BC248395E700CBE568 /* Arp.h */,
-				4FC4C0C424839DE200CBE568 /* Voice.h */,
-				4F88DBC92485A52F006ABA7A /* Enum.h */,
-				4F88DBCA2485A7AD006ABA7A /* Const.h */,
 				4F88DBCC2485B450006ABA7A /* SynthAudioSource.h */,
-				4F88DBCD24862341006ABA7A /* Param.h */,
-				4F93CA3E24865921005588D2 /* Model.h */,
-				4F93CA3F24867C7C005588D2 /* FileManager.h */,
-				4FA53D032487E84E0056C32E /* ParamBuilder.h */,
 				4F919949248918EF004D76B7 /* PatchLoader.h */,
 				4F60EF7D248A05B800E349AD /* BankLoader.h */,
-				4F712E06248ADE3B00EBC733 /* Color.h */,
-				4FE13226248D081600B67233 /* Adsr.h */,
 				4F0F15832493458E00031C20 /* Curve.h */,
-				4FC14FD6249748C700C259ED /* Smooth.h */,
-				4FC14FD724974ABB00C259ED /* Osc.h */,
 				4F097B6F249770D500566939 /* Player.h */,
-				4F0A84772498003600B2D8EB /* Lfo.h */,
-				4FAB855E249A39120039E051 /* ReleasePool.h */,
-				4FAB855F249A466C0039E051 /* AudioSampleFifo.h */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -477,6 +456,69 @@
 			name = ExternFilter;
 			sourceTree = "<group>";
 		};
+		4FAB8560249A48EF0039E051 /* osc */ = {
+			isa = PBXGroup;
+			children = (
+				4F53E62024836C1E0080F061 /* WaveTable.cpp */,
+				4F53E62124836C1E0080F061 /* WaveTable.h */,
+				4FC14FD724974ABB00C259ED /* Osc.h */,
+			);
+			name = osc;
+			sourceTree = "<group>";
+		};
+		4FAB8561249A48FD0039E051 /* lfo */ = {
+			isa = PBXGroup;
+			children = (
+				4F0A84772498003600B2D8EB /* Lfo.h */,
+			);
+			name = lfo;
+			sourceTree = "<group>";
+		};
+		4FAB8562249A49180039E051 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				4FC14FD6249748C700C259ED /* Smooth.h */,
+				4F93CA3F24867C7C005588D2 /* FileManager.h */,
+				4FAB855E249A39120039E051 /* ReleasePool.h */,
+				4FAB855F249A466C0039E051 /* AudioSampleFifo.h */,
+				4F712E01248ADA9800EBC733 /* img.h */,
+				4F712E00248ADA9800EBC733 /* img.cpp */,
+				4F88DBC824859F33006ABA7A /* Func.h */,
+			);
+			name = util;
+			sourceTree = "<group>";
+		};
+		4FAB8563249A49440039E051 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				4F712E06248ADE3B00EBC733 /* Color.h */,
+				4F93CA3E24865921005588D2 /* Model.h */,
+				4F88DBCD24862341006ABA7A /* Param.h */,
+				4FC4C0C3248396B500CBE568 /* Note.h */,
+				4FA53D032487E84E0056C32E /* ParamBuilder.h */,
+				4F88DBCA2485A7AD006ABA7A /* Const.h */,
+				4F88DBC92485A52F006ABA7A /* Enum.h */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		4FAB8564249A49960039E051 /* arp */ = {
+			isa = PBXGroup;
+			children = (
+				4FC4C0BB248395E700CBE568 /* Arp.cpp */,
+				4FC4C0BC248395E700CBE568 /* Arp.h */,
+			);
+			name = arp;
+			sourceTree = "<group>";
+		};
+		4FAB8565249A49A60039E051 /* adsr */ = {
+			isa = PBXGroup;
+			children = (
+				4FE13226248D081600B67233 /* Adsr.h */,
+			);
+			name = adsr;
+			sourceTree = "<group>";
+		};
 		931ED08E764265044F035ABD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +544,12 @@
 		9C6B7E2C03EC63CCDDD66A19 /* synth1 */ = {
 			isa = PBXGroup;
 			children = (
+				4FAB8565249A49A60039E051 /* adsr */,
+				4FAB8564249A49960039E051 /* arp */,
+				4FAB8563249A49440039E051 /* model */,
+				4FAB8562249A49180039E051 /* util */,
+				4FAB8561249A48FD0039E051 /* lfo */,
+				4FAB8560249A48EF0039E051 /* osc */,
 				4FAB8537249A20DA0039E051 /* ExternFilter */,
 				4F795D7E2497E83300076DE0 /* filter */,
 				4F53E619248302A10080F061 /* core */,

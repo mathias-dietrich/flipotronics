@@ -245,7 +245,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(progNumber);
     
     // Plot
-    WaveTable *w = new WaveTable();
+    WaveTable *w = WaveTable::of();
     w->init(samplerate, samplesperblock);
     int sr = OVERSAMPLING * samplerate;
     float pos = 0;

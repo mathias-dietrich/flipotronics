@@ -37,8 +37,7 @@ class Core : public Player{
         paramBuilder->build();
         arp = new Arp();
         arp->setPlayer(this);
-        
-        fifo.
+
     }
     
     ~Core(){

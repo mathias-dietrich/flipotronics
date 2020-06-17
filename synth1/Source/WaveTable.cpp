@@ -9,7 +9,24 @@
 #include "WaveTable.h"
 #include "Const.h"
 
+WaveTable* WaveTable::instance = 0;
+
+WaveTable* WaveTable::of()
+{
+    if (instance == 0)
+    {
+        instance = new WaveTable();
+    }
+    return instance;
+}
+
 void WaveTable::init (double sampleRate, int samplesPerBlock){
+    
+    // Avoid double inits
+    if(this->sampleRate == sampleRate && this->samplesPerBlock == samplesPerBlock){
+        return;
+    }
+    
     this->sampleRate = sampleRate;
     sr = sampleRate * OVERSAMPLING;
     this->samplesPerBlock = samplesPerBlock;
