@@ -17,7 +17,6 @@ void Core::init (double sampleRate, int samplesPerBlock){
     this->blocksPerSeccond = sampleRate / samplesPerBlock;
     WaveTable::of()->init(sampleRate,samplesPerBlock );
 
-    
     patchCurrent = 1;
     
     // ARP
@@ -38,6 +37,9 @@ void Core::init (double sampleRate, int samplesPerBlock){
     for (int i=0; i<12; ++i) {
         tuneMulti[i] = 1.0;
     }
+    
+    // FX
+    delay.init( sampleRate, samplesPerBlock);
     
     timeAllowedMsec =  samplesPerBlock / sampleRate * 1000 ;
 }
@@ -100,6 +102,9 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
                voices[i].render(clock, buffer);
            }
      }
+    
+    // Render FX
+    delay.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels);
     
     // Set SCope Buffer for the Ouput UI
     for (int i=0; i<samplesPerBlock; ++i) {

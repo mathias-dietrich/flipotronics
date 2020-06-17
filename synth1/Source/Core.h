@@ -20,6 +20,7 @@
 #include "Player.h"
 #include "Func.h"
 #include "AudioSampleFifo.h"
+#include "Delay.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 
@@ -36,6 +37,7 @@ class Core : public Player{
         paramBuilder->build();
         arp = new Arp();
         arp->setPlayer(this);
+        
     }
     
     ~Core(){
@@ -115,11 +117,6 @@ class Core : public Player{
         return -1;
     }
     
-    int updateCounter = 0;
-    int scopeCounter = 0;
-    PatchLoader *patchLoader;
-    Voice voices[32] ;
-    
     void setArp(bool running){
         if(running){
              arp->start();
@@ -127,6 +124,12 @@ class Core : public Player{
              arp->stop();
         }
     }
+    
+    int updateCounter = 0;
+    int scopeCounter = 0;
+    PatchLoader *patchLoader;
+    Voice voices[32] ;
+    Delay delay;
     
 private:
     Arp *arp;

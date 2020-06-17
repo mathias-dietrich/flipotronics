@@ -173,6 +173,14 @@
 #define P_LFO4_VOL 222
 #define P_LFO4_ 223
 
+#define P_FX_DELAYL_TIME 512
+#define P_FX_DELAYL_FEEDBACK 513
+#define P_FX_DELAYL_MIX 514
+
+#define P_FX_DELAYR_TIME 515
+#define P_FX_DELAYR_FEEDBACK 516
+#define P_FX_DELAYR_MIX 517
+
 
 #define P_ARP_BPM 768 // BPM
 #define P_ARP_DEVISION 769 //  1/1-Note, 1/2-Note, 1/4-Note, 1/8-Note, 1/16-Note, 1/32-Note, and 1/64-Note
@@ -1699,6 +1707,74 @@ class ParamBuilder {       // The class
              p.type = uFloat;
              p.def = 0;
              params[P_LFO4_VOL] = p;
+            
+            // FX
+            p.pid = P_FX_DELAYL_TIME;
+            p.name = "FX Del L Time";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 1;
+            p.maxVal = 5000;
+            p.stepVal = 1;
+            p.type = uInt;
+            p.def = 1;
+            params[P_FX_DELAYL_TIME] = p;
+            
+            p.pid = P_FX_DELAYL_FEEDBACK;
+            p.name = "FX Del L Feedback";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 1;
+            params[P_FX_DELAYL_FEEDBACK] = p;
+            
+            p.pid = P_FX_DELAYL_MIX;
+            p.name = "FX Del L Mix";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 1;
+            params[P_FX_DELAYL_MIX] = p;
+            
+            p.pid = P_FX_DELAYR_TIME;
+            p.name = "FX Del R Time";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 1;
+            p.maxVal = 5000;
+            p.stepVal = 1;
+            p.type = uFloat;
+            p.def = 1;
+            params[P_FX_DELAYR_TIME] = p;
+            
+            p.pid = P_FX_DELAYR_FEEDBACK;
+            p.name = "FX Del R Feedback";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 1;
+            params[P_FX_DELAYR_FEEDBACK] = p;
+            
+            p.pid = P_FX_DELAYR_MIX;
+            p.name = "FX Del R Mix";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uInt;
+            p.def = 1;
+            params[P_FX_DELAYR_MIX] = p;
+            
 
             p.pid = P_PLAYMODE;
             p.name = "PlayMode";

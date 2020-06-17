@@ -228,6 +228,7 @@
 		4FAB8559249A28620039E051 /* SEMFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEMFilter.h; path = ../../Source/FilterExtern/SEMFilter.h; sourceTree = "<group>"; };
 		4FAB855E249A39120039E051 /* ReleasePool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReleasePool.h; path = ../../Source/ReleasePool.h; sourceTree = "<group>"; };
 		4FAB855F249A466C0039E051 /* AudioSampleFifo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AudioSampleFifo.h; path = ../../Source/AudioSampleFifo.h; sourceTree = "<group>"; };
+		4FAB8568249A77A10039E051 /* Delay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Delay.h; path = ../../Source/Delay.h; sourceTree = "<group>"; };
 		4FC14FD6249748C700C259ED /* Smooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Smooth.h; path = ../../Source/Smooth.h; sourceTree = "<group>"; };
 		4FC14FD724974ABB00C259ED /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Osc.h; path = ../../Source/Osc.h; sourceTree = "<group>"; };
 		4FC4C0BB248395E700CBE568 /* Arp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Arp.cpp; path = ../../Source/Arp.cpp; sourceTree = "<group>"; };
@@ -519,6 +520,14 @@
 			name = adsr;
 			sourceTree = "<group>";
 		};
+		4FAB8566249A76250039E051 /* fx */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB8568249A77A10039E051 /* Delay.h */,
+			);
+			name = fx;
+			sourceTree = "<group>";
+		};
 		931ED08E764265044F035ABD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -544,6 +553,7 @@
 		9C6B7E2C03EC63CCDDD66A19 /* synth1 */ = {
 			isa = PBXGroup;
 			children = (
+				4FAB8566249A76250039E051 /* fx */,
 				4FAB8565249A49A60039E051 /* adsr */,
 				4FAB8564249A49960039E051 /* arp */,
 				4FAB8563249A49440039E051 /* model */,
