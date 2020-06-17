@@ -85,6 +85,9 @@ extern std::atomic<bool> isUpdateParams;
 
 extern std::atomic<int64> timeTaken;
 
+extern std::atomic<float> sumPeak;
+extern std::atomic<float> sumRMS;
+
 class Model {
     
 public:

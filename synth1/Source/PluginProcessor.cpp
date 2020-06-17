@@ -30,6 +30,8 @@ BankData bankData;
 std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
 std::atomic<bool> isUpdateParams;
 std::atomic<int64> timeTaken;
+std::atomic<float> sumPeak;
+std::atomic<float> sumRMS;
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()

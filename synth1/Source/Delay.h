@@ -57,7 +57,6 @@ class Delay {
             
             ++bufPos;
         }
-        
         if(bufPos >= BUFSIZE) {
             bufPos -= BUFSIZE;
         }
@@ -72,8 +71,8 @@ class Delay {
 private:
     float sampleRate;
     int samplesPerBlock;
-    float  bufL[SAMPLERATEMAX * OVERSAMPLING];
-    float  bufR[SAMPLERATEMAX * OVERSAMPLING];
+    float  bufL[BUFSIZE];
+    float  bufR[BUFSIZE];
     
     int bufPos;
     

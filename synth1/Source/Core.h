@@ -21,6 +21,7 @@
 #include "Func.h"
 #include "AudioSampleFifo.h"
 #include "Delay.h"
+#include "Detector.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 
@@ -30,6 +31,8 @@ class Core : public Player{
     
     AbstractFifo test { 1024 };
     AudioSampleFifo<float> fifo;
+    
+    Detector detector;
     
     Core() : Player(){
         patchLoader = new PatchLoader();

@@ -41,6 +41,11 @@ void Core::init (double sampleRate, int samplesPerBlock){
     // FX
     delay.init( sampleRate, samplesPerBlock);
     
+    // Detector
+    detector.init( sampleRate, samplesPerBlock);
+    detector.setAttack(20);
+    detector.setRelease(200);
+    
     timeAllowedMsec =  samplesPerBlock / sampleRate * 1000 ;
 }
 
@@ -110,6 +115,9 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     for (int i=0; i<samplesPerBlock; ++i) {
         scopeBuffer[i + scopeCounter * samplesPerBlock] =  (channelDataL[i] + channelDataR[i]) *0.5f;
     }
+    
+    // Detector
+    detector.handle(buffer, totalNumInputChannels, totalNumOutputChannels);
     
     ++scopeCounter;
     if (scopeCounter >= blocksPerSeccond){

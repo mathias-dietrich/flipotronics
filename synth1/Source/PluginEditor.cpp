@@ -282,6 +282,12 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     }
     g.drawFittedText (String(taken) + " - " + String(processor.maxTimeMsec), rv, Justification::topRight, 1);
     
+    g.setColour (Colours::white);
+    rv.setY(67);
+    rv.setWidth(rv.getWidth()-50);
+    g.setFont (15.0f);
+    g.drawFittedText ("RMS: " + String(sumRMS), rv, Justification::topRight, 1);
+    
     // VU Meter
     g.setColour (Colours::black);
     r.setHeight(380);
@@ -487,5 +493,3 @@ void Synth1AudioProcessorEditor::resized()
     progName.setBounds(840, 137, 260,  60);
     progNumber.setBounds(930, 205, 80,  30);
 }
-
-
