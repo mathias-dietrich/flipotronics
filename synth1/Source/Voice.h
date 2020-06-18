@@ -317,6 +317,7 @@ public:
             float cutoff = par[P_FILTER1_FREQ];
             cutoff *= 1.0 - par[P_LFO1_FILTER] * (1.0 + lfo0Output) * 0.5;
             filter1.setCutoff(cutoff);
+            filter1.setDrive(par[P_FILTER1_DRIVE]);
             mono = filter1.process(mono);
             
             // LFO Amp

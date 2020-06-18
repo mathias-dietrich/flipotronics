@@ -284,9 +284,13 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     
     g.setColour (Colours::white);
     rv.setY(67);
-    rv.setWidth(rv.getWidth()-50);
+    rv.setX(width-250);
+    rv.setWidth(200);
     g.setFont (15.0f);
-    g.drawFittedText ("RMS: " + String(sumRMS), rv, Justification::topRight, 1);
+    g.drawFittedText ("Peak: " + String(sumPeak), rv, Justification::topLeft, 1);
+    
+    rv.setY(85);
+    g.drawFittedText ("RMS: " + String(sumRMS), rv, Justification::topLeft, 1);
     
     // VU Meter
     g.setColour (Colours::black);

@@ -408,8 +408,7 @@ private:
                 break;
         }
         btnArp.setToggleState(processor.isArpOn, NotificationType::dontSendNotification);
-         isUpdateParams = true;
-        
+        isUpdateParams = true;
     }
     
     void sliderValueChanged(Slider *  slider) override {

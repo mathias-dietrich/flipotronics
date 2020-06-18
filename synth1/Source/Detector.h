@@ -21,26 +21,49 @@ public:
         auto* channelDataR = buffer.getWritePointer (1);
         
         for(int i=0; i < samplesPerBlock;++i){
+            float p = fabs(channelDataL[i]);
             float v = (channelDataL[i] + channelDataR[i]) * 0.5;
             v = fabs(v);
             v *= v;
+            
+            
             if(v > last){
                 current = attack * (last-v) + v;
             }else{
                  current = release * (last-v) + v;
             }
             
+            if(p > lastPeak){
+                currentPeak = attack * (lastPeak-v) + v;
+            }else{
+                 currentPeak = release * (lastPeak-v) + v;
+            }
+            
             current = fmin(current, 1.0f);
             current = fmax(current, 0.0f);
             last = current;
             current = pow(current, 0.5f);
+            
+            lastPeak = currentPeak;
         }
         
-        float level = -96.0;
+        float level = -96.0f;
         if(current > 0.0f){
             level = 20.0f * log10(current);
+            if(level < -96.0f){
+                level = -96.0f;
+            }
         }
         sumRMS = level;
+        
+        level = -96.0f;
+           if(currentPeak > 0.0f){
+               level = 20.0f * log10(currentPeak);
+               if(level < -96.0f){
+                   level = -96.0f;
+            }
+         }
+        sumPeak = level;
     }
     
     void init (float sampleRate, int samplesPerBlock){
@@ -58,7 +81,9 @@ public:
     }
         
     float last;
+    float lastPeak;
     float current;
+    float currentPeak;
     
     private:
     double TC = -0.99967234081320612457819304641019;

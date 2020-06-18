@@ -626,8 +626,8 @@ class ParamBuilder {       // The class
             p.name = "Filter 1 Drive";
             p.writeable = 1;
             p.automate = 1;
-            p.minVal = 0;
-            p.maxVal = 1;
+            p.minVal = 1;
+            p.maxVal = 5;
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
@@ -681,8 +681,8 @@ class ParamBuilder {       // The class
             p.name = "Filter 2 Drive";
             p.writeable = 1;
             p.automate = 1;
-            p.minVal = 0;
-            p.maxVal = 1;
+            p.minVal = 1;
+            p.maxVal = 5;
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;

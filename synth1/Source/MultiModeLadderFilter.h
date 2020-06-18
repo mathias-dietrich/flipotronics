@@ -31,9 +31,17 @@ public:
         setBoost(false);
         setSampleRate(44100.0);
     }
+    
+    inline void setDrive(float drive){
+        this->drive = drive;
+    }
+    
     inline float process(float x){
         if(m_filterType==OFF) return x;
-        if(m_boost==true)x=x*(m_k+1.0);
+        x = x * drive;
+        
+       // if(m_boost==true)x=x*(m_k+1.0);
+        
         const float filterOutput = calculateCoefficients(x);
         return filterOutput;
     }
@@ -175,6 +183,8 @@ private:
     float m_beta4;
     
     float m_alpha;
+    
+    float drive;
     
     float m_a0;
     float m_a1;
