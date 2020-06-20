@@ -9,6 +9,9 @@
 #ifndef Detector_h
 #define Detector_h
 
+#include <stdio.h>
+#include <JuceHeader.h>
+
 class Detector{
 public:
     

@@ -155,17 +155,18 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     
     addAndMakeVisible(viewMode);
     viewMode.addItem ("Ouput", 1);
-    viewMode.addItem ("ADSR 1", 2);
-    viewMode.addItem ("ADSR 2", 3);
-    viewMode.addItem ("ADSR 3", 4);
-    viewMode.addItem ("ADSR 4", 5);
-    viewMode.addItem ("LFO 1", 6);
-    viewMode.addItem ("LFO 2", 7);
-    viewMode.addItem ("LFO 3", 8);
-    viewMode.addItem ("LFO 4", 9);
-    viewMode.addItem ("Curve 4", 10);
-    viewMode.addItem ("Matrix", 11);
-    viewMode.addItem ("Debug", 12);
+    viewMode.addItem ("Spectrum", 2);
+    viewMode.addItem ("ADSR 1", 3);
+    viewMode.addItem ("ADSR 2", 4);
+    viewMode.addItem ("ADSR 3", 5);
+    viewMode.addItem ("ADSR 4", 6);
+    viewMode.addItem ("LFO 1", 7);
+    viewMode.addItem ("LFO 2", 8);
+    viewMode.addItem ("LFO 3", 9);
+    viewMode.addItem ("LFO 4", 10);
+    viewMode.addItem ("Curve 4", 11);
+    viewMode.addItem ("Matrix", 12);
+    viewMode.addItem ("Debug", 13);
     viewMode.onChange = [this] { styleMenuChangedView(); };
     viewModeSetting = 2;
     viewMode.setSelectedId(viewModeSetting, NotificationType::dontSendNotification);
@@ -241,6 +242,11 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     progNumber.setFont(f);
     addAndMakeVisible(progNumber);
     
+    spectrumComponent.setVisible(false);
+    addAndMakeVisible(spectrumComponent);
+    
+    processor.spectrum = &spectrumComponent;
+    
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
 }
@@ -311,8 +317,13 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             g.setColour (Colours::red);
             drawPlot( g, half, width, scopeBuffer );
             break;
+        case 2: //Spectrum
+        {
             
-        case 2: //ADSR 1
+        }
+                       
+            
+        case 3: //ADSR 1
         {
             adsr1.init(samplerate,  samplesperblock);
             adsr1.delayTimeMsec = par[P_ADSR1_DELAY];
@@ -331,7 +342,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             break;
         }
 
-        case 3: //ADSR 2
+        case 4: //ADSR 2
         {
             adsr2.init(samplerate,  samplesperblock);
             adsr2.delayTimeMsec = par[P_ADSR2_DELAY];
@@ -350,7 +361,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             break;
         }
         
-        case 4: //ADSR 3
+        case 5: //ADSR 3
         {
             adsr3.init(samplerate,  samplesperblock);
             adsr3.delayTimeMsec = par[P_ADSR3_DELAY];
@@ -369,7 +380,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             break;
         }
         
-        case 5: //ADSR 4
+        case 6: //ADSR 4
         {
             adsr4.init(samplerate,  samplesperblock);
             adsr4.delayTimeMsec = par[P_ADSR4_DELAY];
@@ -388,27 +399,27 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             break;
         }
             
-        case 6:  // LFO 1
+        case 7:  // LFO 1
         {
             break;
         }
             
-        case 7:  // LFO 2
+        case 8:  // LFO 2
         {
             break;
         }
         
-        case 8:  // LFO 3
+        case 9:  // LFO 3
         {
             break;
         }
         
-        case 9:  // LFO 4
+        case 10:  // LFO 4
         {
             break;
         }
             
-        case 10:
+        case 11:
             curve.set(par[1022]);
             g.setColour (Colours::white);
             int ylast = half + 150;
@@ -496,4 +507,7 @@ void Synth1AudioProcessorEditor::resized()
     // Labels
     progName.setBounds(840, 137, 260,  60);
     progNumber.setBounds(930, 205, 80,  30);
+    
+    // Spectrum
+     spectrumComponent.setBounds(0, 320, width,  400);
 }

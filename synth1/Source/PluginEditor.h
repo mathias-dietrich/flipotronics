@@ -10,6 +10,8 @@
 #include "img.h"
 #include "Color.h"
 #include "Curve.h"
+#include "SpectrumComponent.h"
+
 //==============================================================================
 /**
 */
@@ -26,6 +28,9 @@ public:
     
     float zoom =440;
     float zoomY = 1;
+   //  FFTWrapper<float> fftCalc;
+    
+    SpectrumComponent spectrumComponent;
     
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
@@ -485,6 +490,11 @@ private:
     
     void styleMenuChangedView(){
         viewModeSetting = viewMode.getSelectedId();
+        if(viewModeSetting==2){
+            spectrumComponent.setVisible(true);
+        }else{
+            spectrumComponent.setVisible(false);
+        }
         repaint();
     }
           

@@ -4,6 +4,7 @@
 #include "Core.h"
 #include "Param.h"
 #include "Const.h"
+#include "SpectrumComponent.h"
 
 //  https://github.com/ffAudio/ff_meters
 //==============================================================================
@@ -15,6 +16,9 @@ public:
     //==============================================================================
     Synth1AudioProcessor();
     ~Synth1AudioProcessor();
+    
+    
+    SpectrumComponent *spectrum;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
