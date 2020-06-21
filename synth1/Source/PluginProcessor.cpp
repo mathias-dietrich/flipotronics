@@ -12,12 +12,19 @@
 #include "PluginEditor.h"
 #include "img.h"
 
-// Global Variables
+// Global Variables Engine
 std::atomic<float> par[MAXPARAM];
-double parTargetDelta[MAXPARAM];
-double paramsUndo[MAXPARAM];
-double tuneTable[256];
-double tuneMulti[12];
+std::atomic<float> parTargetDelta[MAXPARAM];
+std::atomic<float> paramsUndo[MAXPARAM];
+std::atomic<float> tuneTable[256];
+std::atomic<float> tuneMulti[12];
+std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
+std::atomic<bool> isUpdateParams;
+std::atomic<int64> timeTaken;
+std::atomic<float> sumPeak;
+std::atomic<float> sumRMS;
+
+// Global Engine not Atomic
 Param params[MAXPARAM];
 int samplerate;
 int samplesperblock;
@@ -27,11 +34,7 @@ String patchNameCurrent = "Init";
 String patchNameCurrentUndo;
 bool compareMode = false;
 BankData bankData;
-std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
-std::atomic<bool> isUpdateParams;
-std::atomic<int64> timeTaken;
-std::atomic<float> sumPeak;
-std::atomic<float> sumRMS;
+
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()
@@ -159,7 +162,7 @@ void Synth1AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer&
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     core->handle(buffer, midiMessages, totalNumInputChannels, totalNumOutputChannels);
     
-    if(spectrum)spectrum->setNextAudioBlock(buffer);
+    if(spectrum != nullptr)spectrum->setNextAudioBlock(buffer);
     
 }
 

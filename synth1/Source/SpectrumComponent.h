@@ -25,6 +25,39 @@ class SpectrumComponent : public Component , private Timer{
         setOpaque (true);
         startTimerHz (10);
         isInit = true;
+        
+        freqTable[0] = 16.0f;
+        freqTable[1] = 20.0f;
+        freqTable[2] = 25.0f;
+        freqTable[3] = 31.5f;
+        freqTable[4] = 40.0f;
+        freqTable[5] = 50.0f;
+        freqTable[6] = 63.0f;
+        freqTable[7] = 80.0f;
+        freqTable[8] = 100.0f;
+        freqTable[9] = 125.0f;
+        freqTable[10] = 160.0f;
+        freqTable[11] = 200.0f;
+        freqTable[12] = 250.0f;
+        freqTable[13] = 315.0f;
+        freqTable[14] = 400.0f;
+        freqTable[15] = 500.0f;
+        freqTable[16] = 630.0f;
+        freqTable[17] = 800.0f;
+        freqTable[18] = 1000.0f;
+        freqTable[19] = 1250.0f;
+        freqTable[20] = 1600.0f;
+        freqTable[21] = 2000.0f;
+        freqTable[22] = 2500.0f;
+        freqTable[23] = 3150.0f;
+        freqTable[24] = 4000.0f;
+        freqTable[25] = 5000.0f;
+        freqTable[26] = 6300.0f;
+        freqTable[27] = 8000.0f;
+        freqTable[28] = 10000.0f;
+        freqTable[29] = 12500.0f;
+        freqTable[30] = 1600.0f;
+        freqTable[31] = 20000.0f;
     }
 
     ~SpectrumComponent () {}
@@ -34,6 +67,27 @@ class SpectrumComponent : public Component , private Timer{
         g.setOpacity (1.0f);
         g.setColour (Colours::lightgreen);
         drawFrame(g);
+        
+        g.setColour (Colours::white);
+        Rectangle<int> r = getLocalBounds();
+        auto width  = getLocalBounds().getWidth();
+        float baseFreq = samplerate / fftSize;
+        int steps = width / scopeSize;
+        int x = 0;
+        
+       ;
+        
+        for (int i = 0; i < scopeSize; ++i){
+            r.setX(x);
+            int binNumber =  (fftSize/2) * i / scopeSize ;
+            float fr = freqTable[i];
+            if(fr>999){
+                g.drawFittedText (String( fr / 1000.0f, 1) + "K", r, Justification::bottomLeft, 1);
+            }else{
+                g.drawFittedText (String(fr, 0), r, Justification::bottomLeft, 1);
+            }
+            x += steps;
+        }
     }
     
     void pushNextSampleIntoFifo (float sample) noexcept
@@ -73,13 +127,14 @@ class SpectrumComponent : public Component , private Timer{
                float toY =  jmap (scopeData[i], 0.0f, 1.0f, (float) height, 0.0f);
               // g.drawLine (fromX,fromY,toX,toY);
 
-               Rectangle<float> r;
+               Rectangle<int> r;
                r.setX(fromX);
                r.setY(fromY);
                r.setWidth(toX-fromX);
                r.setHeight(height-fromY);
                
                g.fillRect(r);
+
            }
     }
     
@@ -96,14 +151,9 @@ class SpectrumComponent : public Component , private Timer{
    void drawNextFrameOfSpectrum()
     {
         window.multiplyWithWindowingTable (fftData, fftSize);      // [1]
-     
         forwardFFT.performFrequencyOnlyForwardTransform (fftData); // [2]
-     
         auto mindB = -100.0f;
         auto maxdB =    0.0f;
-        
-        //std:: cout << fftSize << std::endl;
-     
         for (int i = 0; i < scopeSize; ++i)                        // [3]
         {
             auto skewedProportionX = 1.0f - std::exp (std::log (1.0f - i / (float) scopeSize) * 0.2f);
@@ -115,22 +165,12 @@ class SpectrumComponent : public Component , private Timer{
             scopeData[i] = level;                                  // [4]
         }
     }
-  
-    void setFFTSize (size_t N)
-    {
-
-    }
-    
-    void setNumberOfSpectrums (size_t N)
-    {
-
-    }
 
     enum
     {
-        fftOrder  = 11,            // 11
-        fftSize   = 1 << fftOrder, // 1
-        scopeSize = 128            // 256
+        fftOrder  = 12,            // 10
+        fftSize   = 1 << fftOrder, // 1024
+        scopeSize = 32            // 256
     };
     
  private:
@@ -145,6 +185,8 @@ class SpectrumComponent : public Component , private Timer{
     float scopeData [scopeSize];          // [10]
     Colour freshLineColour;
     bool isInit = false;
+    
+    float freqTable[32];
 };
 
 #endif  // spectrumComponent_H_INCLUDED

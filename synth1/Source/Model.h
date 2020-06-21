@@ -62,31 +62,28 @@ public:
     String magicEnd = "FLOP";
 };
 
+
+extern std::atomic<float> par[MAXPARAM];
+extern std::atomic<float> parTargetDelta[MAXPARAM];
+extern std::atomic<float> paramsUndo[MAXPARAM];
+extern std::atomic<float> tuneTable[256];
+extern std::atomic<float> tuneMulti[12];
+extern std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
+extern std::atomic<bool> isUpdateParams;
+extern std::atomic<int64> timeTaken;
+extern std::atomic<float> sumPeak;
+extern std::atomic<float> sumRMS;
+
 extern int samplesperblock;
 extern int samplerate;
-extern std::atomic<float> par[MAXPARAM];
-extern double parTargetDelta[MAXPARAM];
-extern double paramsUndo[MAXPARAM];
 
 extern Param params[MAXPARAM];
-
-extern double tuneTable[256];
-extern double tuneMulti[12];
-
 extern int viewModeSetting;
 extern int patchCurrent;
 extern String patchNameCurrent;
 extern String patchNameCurrentUndo;
 extern bool compareMode;
 extern BankData bankData;
-extern std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
-
-extern std::atomic<bool> isUpdateParams;
-
-extern std::atomic<int64> timeTaken;
-
-extern std::atomic<float> sumPeak;
-extern std::atomic<float> sumRMS;
 
 class Model {
     
@@ -94,14 +91,14 @@ public:
 
    void set(){
         for(int i=0;i<MAXPARAM;i++ ){
-           paramsUndo[i] = par[i];
+           paramsUndo[i] = (float)par[i];
         }
         patchNameCurrentUndo = patchNameCurrent;
     }
     
     void recall(){
         for(int i=0;i<MAXPARAM;i++ ){
-            par[i] = paramsUndo[i];
+            par[i] = (float)paramsUndo[i];
         }
         patchNameCurrent = patchNameCurrentUndo;
     }
@@ -113,7 +110,7 @@ public:
 
         for(int i=0;i<MAXPARAM;i++ ){
             float t = par[i];
-            par[i] = paramsUndo[i];
+            par[i] =  (float)paramsUndo[i];
             paramsUndo[i] = t;
         }
     }

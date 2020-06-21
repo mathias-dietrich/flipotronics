@@ -255,7 +255,9 @@ Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
     delete bankLoader;
 }
 
-//==============================================================================
+// ==================================================================================================
+// paint
+// ==================================================================================================
 void Synth1AudioProcessorEditor::paint (Graphics& g)
 {
     Rectangle<int> r = getLocalBounds();
@@ -296,7 +298,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     g.drawFittedText ("Peak: " + String(sumPeak), rv, Justification::topLeft, 1);
     
     rv.setY(85);
-    g.drawFittedText ("RMS: " + String(sumRMS), rv, Justification::topLeft, 1);
+    g.drawFittedText ("RMS: " + String(sumRMS,2), rv, Justification::topLeft, 1);
     
     // VU Meter
     g.setColour (Colours::black);
@@ -434,6 +436,9 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     }
 }
 
+// ==================================================================================================
+// Resize
+// ==================================================================================================
 void Synth1AudioProcessorEditor::resized()
 {
     Rectangle<int> r = getLocalBounds();
