@@ -35,6 +35,9 @@ String patchNameCurrentUndo;
 bool compareMode = false;
 BankData bankData;
 
+AudioBuffer<float> fileBuffer;
+int noOfSamplesToPlay;
+bool hasPlayed;
 
 //==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()
@@ -125,6 +128,7 @@ void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     setArp(false);
      isArpOn = false;
     core->init( sampleRate,  samplesPerBlock);
+    waveComponent.init(sampleRate, samplesPerBlock);
 }
 
 void Synth1AudioProcessor::releaseResources()

@@ -144,6 +144,8 @@ private:
     ParamBuilder *paramBuilder;
     stk::Filter * filter;
     int timeAllowedMsec;
+    
+    int samplePlayerPos;
 };
 
 #endif /* Core_hpp */

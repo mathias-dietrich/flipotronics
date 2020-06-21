@@ -222,6 +222,7 @@
 		4F9839CE249DCEA00007CD5C /* CircularBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CircularBuffer.h; path = ../../Source/CircularBuffer.h; sourceTree = "<group>"; };
 		4F9839CF249DD4B10007CD5C /* include_juce_dsp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_dsp.mm; path = ../../JuceLibraryCode/include_juce_dsp.mm; sourceTree = "<group>"; };
 		4F9839D4249DD5040007CD5C /* juce_dsp */ = {isa = PBXFileReference; lastKnownFileType = folder; path = juce_dsp; sourceTree = "<group>"; };
+		4F9839D8249F98FB0007CD5C /* WaveComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WaveComponent.h; path = ../../Source/WaveComponent.h; sourceTree = "<group>"; };
 		4FA53D032487E84E0056C32E /* ParamBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParamBuilder.h; path = ../../Source/ParamBuilder.h; sourceTree = "<group>"; };
 		4FAB8538249A20EC0039E051 /* synthfunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synthfunctions.h; sourceTree = "<group>"; };
 		4FAB8539249A20EC0039E051 /* Filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Filter.cpp; sourceTree = "<group>"; };
@@ -439,6 +440,7 @@
 				4FAB8569249A95590039E051 /* Detector.h */,
 				4F9839CD249DCDA00007CD5C /* SpectrumComponent.h */,
 				4F9839CE249DCEA00007CD5C /* CircularBuffer.h */,
+				4F9839D8249F98FB0007CD5C /* WaveComponent.h */,
 			);
 			name = core;
 			sourceTree = "<group>";

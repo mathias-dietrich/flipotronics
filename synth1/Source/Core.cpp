@@ -124,6 +124,23 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
         scopeCounter = 0;
     }
     
+    if(noOfSamplesToPlay > 0){
+        for (int i=0; i<samplesPerBlock; ++i) {
+            
+            auto* buf = fileBuffer.getReadPointer (0);
+            channelDataL[i] += buf[samplePlayerPos];
+            channelDataR[i] += buf[samplePlayerPos];
+            ++samplePlayerPos;
+            
+            if(samplePlayerPos >= noOfSamplesToPlay){
+                noOfSamplesToPlay =0;
+                samplePlayerPos = 0;
+                hasPlayed = true;
+                break;
+            }
+        }
+    }
+    
     // Move Clock
     clock += samplesPerBlock;
     

@@ -85,6 +85,10 @@ extern String patchNameCurrentUndo;
 extern bool compareMode;
 extern BankData bankData;
 
+extern AudioBuffer<float> fileBuffer;
+extern int noOfSamplesToPlay;
+extern bool hasPlayed;
+
 class Model {
     
 public:

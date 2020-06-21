@@ -145,42 +145,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     
     setDials();
     
-    addAndMakeVisible(playMode);
-    playMode.addItem ("Poly", 1);
-    playMode.addItem ("Unisono", 2);
-    playMode.addItem ("Mono", 3);
-    playMode.addItem ("Legato", 4);
-    playMode.onChange = [this] { styleMenuChanged(); };
-    playMode.setSelectedId(par[1023], NotificationType::dontSendNotification);
-    
-    addAndMakeVisible(viewMode);
-    viewMode.addItem ("Ouput", 1);
-    viewMode.addItem ("Spectrum", 2);
-    viewMode.addItem ("ADSR 1", 3);
-    viewMode.addItem ("ADSR 2", 4);
-    viewMode.addItem ("ADSR 3", 5);
-    viewMode.addItem ("ADSR 4", 6);
-    viewMode.addItem ("LFO 1", 7);
-    viewMode.addItem ("LFO 2", 8);
-    viewMode.addItem ("LFO 3", 9);
-    viewMode.addItem ("LFO 4", 10);
-    viewMode.addItem ("Curve 4", 11);
-    viewMode.addItem ("Matrix", 12);
-    viewMode.addItem ("Debug", 13);
-    viewMode.onChange = [this] { styleMenuChangedView(); };
-    viewModeSetting = 2;
-    viewMode.setSelectedId(viewModeSetting, NotificationType::dontSendNotification);
-
-    addAndMakeVisible(viewZoom);
-    viewZoom.addItem ("50%", 1);
-    viewZoom.addItem ("75%", 2);
-    viewZoom.addItem ("100%", 3);
-    viewZoom.addItem ("125%", 4);
-    viewZoom.addItem ("150%", 5);
-    viewZoom.addItem ("200%", 6);
-    viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
-    viewZoom.setSelectedId(3,  NotificationType::dontSendNotification);
-    
     pitchWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
     pitchWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
     pitchWheel.setNumDecimalPlacesToDisplay(2);
@@ -242,9 +206,47 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     progNumber.setFont(f);
     addAndMakeVisible(progNumber);
     
-    processor.spectrum.setVisible(false);
-    addAndMakeVisible(processor.spectrum);
+    // Dropdowns
+    addAndMakeVisible(playMode);
+    playMode.addItem ("Poly", 1);
+    playMode.addItem ("Unisono", 2);
+    playMode.addItem ("Mono", 3);
+    playMode.addItem ("Legato", 4);
+    playMode.onChange = [this] { styleMenuChanged(); };
+    playMode.setSelectedId(par[1023], NotificationType::dontSendNotification);
+
+    addAndMakeVisible(viewMode);
+    viewMode.addItem ("Ouput", vPlot);
+    viewMode.addItem ("Spectrum", vSpectrum);
+    viewMode.addItem ("ADSR 1", vADSR1);
+    viewMode.addItem ("ADSR 2", vADSR2);
+    viewMode.addItem ("ADSR 3", vADSR3);
+    viewMode.addItem ("ADSR 4", vADSR4);
+    viewMode.addItem ("LFO 1", vLFO1);
+    viewMode.addItem ("LFO 2", vLFO2);
+    viewMode.addItem ("LFO 3", vLFO3);
+    viewMode.addItem ("LFO 4", vLFO4);
+    viewMode.addItem ("Curve 4", vCurve);
+    viewMode.addItem ("Wave", vWave);
+    viewMode.addItem ("Debug", vDebug);
+    viewMode.onChange = [this] { styleMenuChangedView(); };
+    viewModeSetting = vWave;
+    viewMode.setSelectedId(viewModeSetting, NotificationType::dontSendNotification);
+
+    addAndMakeVisible(viewZoom);
+    viewZoom.addItem ("50%", 1);
+    viewZoom.addItem ("75%", 2);
+    viewZoom.addItem ("100%", 3);
+    viewZoom.addItem ("125%", 4);
+    viewZoom.addItem ("150%", 5);
+    viewZoom.addItem ("200%", 6);
+    viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
     
+    viewZoom.setSelectedId(3,  NotificationType::dontSendNotification);
+    
+    // Components
+    addChildComponent(processor.spectrum);
+    addAndMakeVisible(processor.waveComponent);
 
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
@@ -310,7 +312,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     
     // Display Graph
     switch(viewModeSetting){
-        case 1:
+        case vPlot:
             // Plot
             g.setColour (Colours::white);
             g.drawLine (0, half, width, half, 0.5f);
@@ -318,13 +320,13 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             g.setColour (Colours::red);
             drawPlot( g, half, width, scopeBuffer );
             break;
-        case 2: //Spectrum
+        case vSpectrum: //Spectrum
         {
             
         }
                        
             
-        case 3: //ADSR 1
+        case vADSR1: //ADSR 1
         {
             adsr1.init(samplerate,  samplesperblock);
             adsr1.delayTimeMsec = par[P_ADSR1_DELAY];
@@ -343,7 +345,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             break;
         }
 
-        case 4: //ADSR 2
+        case vADSR2: //ADSR 2
         {
             adsr2.init(samplerate,  samplesperblock);
             adsr2.delayTimeMsec = par[P_ADSR2_DELAY];
@@ -362,7 +364,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             break;
         }
         
-        case 5: //ADSR 3
+        case vADSR3: //ADSR 3
         {
             adsr3.init(samplerate,  samplesperblock);
             adsr3.delayTimeMsec = par[P_ADSR3_DELAY];
@@ -381,7 +383,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             break;
         }
         
-        case 6: //ADSR 4
+        case vADSR4: //ADSR 4
         {
             adsr4.init(samplerate,  samplesperblock);
             adsr4.delayTimeMsec = par[P_ADSR4_DELAY];
@@ -400,27 +402,28 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
             break;
         }
             
-        case 7:  // LFO 1
+        case vLFO1:  // LFO 1
         {
             break;
         }
             
-        case 8:  // LFO 2
+        case vLFO2:  // LFO 2
         {
             break;
         }
         
-        case 9:  // LFO 3
+        case vLFO3:  // LFO 3
         {
             break;
         }
         
-        case 10:  // LFO 4
+        case vLFO4:  // LFO 4
         {
             break;
         }
             
-        case 11:
+        case vCurve:
+        {
             curve.set(par[1022]);
             g.setColour (Colours::white);
             int ylast = half + 150;
@@ -432,6 +435,15 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
                 ylast = y;
             }
             break;
+        }
+        case vWave:
+        {
+             break;
+        }
+        case vDebug:
+       {
+           break;
+       }
     }
 }
 
@@ -502,7 +514,6 @@ void Synth1AudioProcessorEditor::resized()
     modWheel.setBounds (1200, 60, 80, 250);
     expWheel.setBounds (1300, 60, 80, 250);
     
-   
     // Drop Downs
     playMode.setBounds (820, 290, 80, 20);
     viewMode.setBounds (910, 290, 80, 20);
@@ -513,5 +524,6 @@ void Synth1AudioProcessorEditor::resized()
     progNumber.setBounds(930, 205, 80,  30);
     
     // Spectrum
-     processor.spectrum.setBounds(0, 320, width,  400);
+    processor.spectrum.setBounds(0, 320, width,  400);
+    processor.waveComponent.setBounds(0, 320, width,  400);
 }

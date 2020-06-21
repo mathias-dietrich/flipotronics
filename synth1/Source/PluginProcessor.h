@@ -5,6 +5,7 @@
 #include "Param.h"
 #include "Const.h"
 #include "SpectrumComponent.h"
+#include "WaveComponent.h";
 
 //  https://github.com/ffAudio/ff_meters
 //==============================================================================
@@ -19,7 +20,7 @@ public:
     
     
     SpectrumComponent spectrum;
-
+    WaveComponent waveComponent;
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;

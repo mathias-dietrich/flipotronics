@@ -10,7 +10,6 @@
 #include "img.h"
 #include "Color.h"
 #include "Curve.h"
-#include "SpectrumComponent.h"
 
 //==============================================================================
 /**
@@ -26,7 +25,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    float zoom =440;
+    float zoom = 440;
     float zoomY = 1;
     
     MidiKeyboardState keyboardState;
@@ -81,7 +80,7 @@ public:
     Label progNumber;
     
     Model undoModel;
-    
+
     int maxTime;
 
 private:
@@ -492,10 +491,17 @@ private:
     
     void styleMenuChangedView(){
         viewModeSetting = viewMode.getSelectedId();
-        if(viewModeSetting==2){
-            processor.spectrum.setVisible(true);
-        }else{
-            processor.spectrum.setVisible(false);
+         processor.spectrum.setVisible(false);
+        processor.waveComponent.setVisible(false);
+
+        switch(viewModeSetting){
+            case vSpectrum:
+                processor.spectrum.setVisible(true);
+                break;
+            
+           case vWave:
+                processor.waveComponent.setVisible(true);
+                break;
         }
         repaint();
     }
