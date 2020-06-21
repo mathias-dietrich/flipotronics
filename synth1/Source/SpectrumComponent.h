@@ -2,19 +2,16 @@
   /*
   ==============================================================================
     spectrumComponent.h
-    Created: 25 Apr 2017 8:22:32pm
-    Author:  Christofero Pollano
+    Author:  Flipflop
   ==============================================================================
 */
-
 #ifndef spectrumComponent_H_INCLUDED
 #define spectrumComponent_H_INCLUDED
 
 #include <stdio.h>
 #include <JuceHeader.h>
-
 #include "CircularBuffer.h"
-
+#include "Func.h"
 //==============================================================================
 /*
 */
@@ -23,9 +20,8 @@ class SpectrumComponent : public Component , private Timer{
  public:
     SpectrumComponent (): forwardFFT (fftOrder), window (fftSize, dsp::WindowingFunction<float>::hann) {
         setOpaque (true);
-        startTimerHz (10);
-        isInit = true;
         
+        // Frequencies taken From Klark Analyzer
         freqTable[0] = 16.0f;
         freqTable[1] = 20.0f;
         freqTable[2] = 25.0f;
@@ -58,19 +54,39 @@ class SpectrumComponent : public Component , private Timer{
         freqTable[29] = 12500.0f;
         freqTable[30] = 1600.0f;
         freqTable[31] = 20000.0f;
+        sumLevel = 0.0f;
+        startTimerHz (30);
     }
 
     ~SpectrumComponent () {}
     
     void paint (Graphics& g) override {
+        Rectangle<int> r = getLocalBounds();
+        auto width  = getLocalBounds().getWidth();
+        auto height  = getLocalBounds().getHeight();
+        
         g.fillAll (Colours::black);
         g.setOpacity (1.0f);
         g.setColour (Colours::lightgreen);
         drawFrame(g);
         
+        // draw Sum
+        Rectangle<int> rs;
+        rs.setX(width-10);
+        rs.setWidth(10);
+        
+        
+        float level = linearToDecibles (sumLevel);
+        float lin = 1.0f - level / -96;
+        //float lin = sumLevel;
+        float scaled =   height * lin;
+        rs.setY(height);
+        rs.setHeight(-scaled);
+        g.setColour (Colours::red);
+        g.fillRect(rs);
+        
         g.setColour (Colours::white);
-        Rectangle<int> r = getLocalBounds();
-        auto width  = getLocalBounds().getWidth();
+     
         int steps = width / scopeSize;
         int x = 0;
         for (int i = 0; i < scopeSize; ++i){
@@ -87,11 +103,8 @@ class SpectrumComponent : public Component , private Timer{
     
     void pushNextSampleIntoFifo (float sample) noexcept
     {
-        if(!isInit) return;
-        if (fifoIndex == fftSize)    // [11]
-        {
-            if (! nextFFTBlockReady) // [12]
-            {
+        if (fifoIndex == fftSize){
+            if (! nextFFTBlockReady) {
                 zeromem (fftData, sizeof (fftData));
                 memcpy (fftData, fifo, sizeof (fifo));
                 nextFFTBlockReady = true;
@@ -111,28 +124,19 @@ class SpectrumComponent : public Component , private Timer{
     
     void drawFrame (Graphics& g)
     {
-         for (int i = 1; i < scopeSize; ++i)
-           {
-               auto width  = getLocalBounds().getWidth();
-               auto height = getLocalBounds().getHeight();
-               
-               float freq = freqTable[i];
-               
-               float fromX = (float) jmap (i - 1, 0, scopeSize - 1, 0, width);
-               float fromY = (float) jmap (scopeData[i - 1], 0.0f, 1.0f, (float) height, 0.0f);
-               float toX =  (float) jmap (i, 0, scopeSize - 1, 0, width);
-               float toY =  jmap (scopeData[i], 0.0f, 1.0f, (float) height, 0.0f);
-              // g.drawLine (fromX,fromY,toX,toY);
-
-               Rectangle<int> r;
-               r.setX(fromX);
-               r.setY(fromY);
-               r.setWidth(toX-fromX);
-               r.setHeight(height-fromY);
-               
-               g.fillRect(r);
-
-           }
+        auto width  = getLocalBounds().getWidth();
+        auto height = getLocalBounds().getHeight();
+        for (int i = 1; i < scopeSize; ++i){
+            float fromX = (float) jmap (i - 1, 0, scopeSize - 1, 0, width);
+            float fromY = (float) jmap (scopeData[i - 1], 0.0f, 1.0f, (float) height, 0.0f);
+            float toX =  (float) jmap (i, 0, scopeSize - 1, 0, width);
+            Rectangle<int> r;
+            r.setX(fromX + 2);
+            r.setY(fromY);
+            r.setWidth(toX - fromX - 4);
+            r.setHeight(height-fromY);
+            g.fillRect(r);
+        }
     }
     
     void timerCallback() override
@@ -147,35 +151,32 @@ class SpectrumComponent : public Component , private Timer{
     
    void drawNextFrameOfSpectrum()
     {
-        window.multiplyWithWindowingTable (fftData, fftSize);      // [1]
-        forwardFFT.performFrequencyOnlyForwardTransform (fftData); // [2]
-        auto mindB = -100.0f;
-        auto maxdB =    0.0f;
-        for (int i = 0; i < scopeSize; ++i)                        // [3]
+        window.multiplyWithWindowingTable (fftData, fftSize);
+        forwardFFT.performFrequencyOnlyForwardTransform (fftData);
+        auto mindB = -96.0f;
+        auto maxdB =   0.0f;
+        float levelTotal = 0;
+        for (int i = 0; i < scopeSize; ++i)
         {
-            //auto skewedProportionX = 1.0f - std::exp (std::log (1.0f - i / (float) scopeSize) * 0.2f);
-            
             float df = samplerate / fftSize;
             float freq = freqTable[i];
+            int fftDataIndex = freq/df + 6 ; // Why do we need to add 6 here ?? to make 440 look right
+            float v = fftData[fftDataIndex] ;
+            if(v > 0){
+                levelTotal += v;
+            }
+            auto level = jmap (jlimit (mindB, maxdB, Decibels::gainToDecibels (v)
+                 - Decibels::gainToDecibels ((float) fftSize)), mindB, maxdB, 0.0f, 1.0f);
+            scopeData[i] = level;
             
-            int fftDataIndex = freq/df;
-            
-            // auto fftDataIndex = jlimit (0, fftSize / 2, (int) (skewedProportionX * fftSize / 2));
-            
-            
-            
-            auto level = jmap (jlimit (mindB, maxdB, Decibels::gainToDecibels (fftData[fftDataIndex])
-                                                   - Decibels::gainToDecibels ((float) fftSize)),
-                               mindB, maxdB, 0.0f, 1.0f);
-     
-            scopeData[i] = level;                                  // [4]
         }
+        sumLevel = levelTotal / scopeSize;
     }
 
     enum
     {
-        fftOrder  = 12,            // 10
-        fftSize   = 1 << fftOrder, // 1024
+        fftOrder  = 12,            // 12
+        fftSize   = 1 << fftOrder, // 4096
         scopeSize = 32            // 256
     };
     
@@ -190,9 +191,8 @@ class SpectrumComponent : public Component , private Timer{
     bool nextFFTBlockReady = false;       // [9]
     float scopeData [scopeSize];          // [10]
     Colour freshLineColour;
-    bool isInit = false;
-    
     float freqTable[32];
+    std::atomic<float> sumLevel;
 };
 
 #endif  // spectrumComponent_H_INCLUDED

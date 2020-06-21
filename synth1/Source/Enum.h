@@ -11,7 +11,7 @@
 
 enum E_WaveType { wSin, wSaw, wTriangle, wSquare, wShark, wWhite, wPink, wBrown, wTable };
 
-enum E_UnitType { uFloat, uDouble, uInt, uBool, uTertiar, uString, uHZ, uDb, uColorCode, uWaveType, uTimeMsec, uPhase, uCurve, uMidiNote, uDevision, uProcent, uChordMode, uArpMode, uUnknown};
+enum E_UnitType { uFloat, uDouble, uInt, uBool, uTertiar, uString, uHZ, uDb, uColorCode, uWaveType, uTimeMsec, uPhase, uCurve, uMidiNote, uDevision, uProcent, uChordMode, uArpMode, uFilterType, uUnknown};
 
 enum E_ParamType { pVol, pBalance, pFreq, pDelay, pTime, pTimeSpan, pMidiNote, pAngle, pText, pImageUrl, pUrl, pLocation, pSize, pColo, pControl, pSysex };
 
@@ -36,7 +36,10 @@ enum MultiModeLadderFilterTypes
     NF4,
     PF2,
     PF4,
+    OFF2,
     NumberOfFilterTypes
 };
+
+
 
 #endif /* Enum_h */

@@ -61,7 +61,7 @@ public:
         m_boost = boost;
     }
     void setFilterType(const int filterType){
-        m_filterType = filterType;
+        m_filterType = filterType ;
         switch (m_filterType) {
             case LPF1:
                 m_a0 = 0.0;m_a1 = 1.0;m_a2 = 0.0;m_a3 = 0.0;m_a4 = 0.0;
@@ -145,6 +145,10 @@ public:
         m_f2.reset();
         m_f3.reset();
         m_f4.reset();
+    }
+    
+    int getFilterType(){
+        return m_filterType ;
     }
     
 private:

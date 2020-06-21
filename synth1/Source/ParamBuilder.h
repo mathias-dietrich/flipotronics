@@ -616,9 +616,9 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 1;
-            p.maxVal = 14;
+            p.maxVal = 15;
             p.stepVal = 1;
-            p.type = uInt;
+            p.type = uFilterType;
             p.def = 1;
             params[P_FILTER1_TYPE] = p;
             
@@ -671,9 +671,9 @@ class ParamBuilder {       // The class
             p.writeable = 1;
             p.automate = 1;
             p.minVal = 1;
-            p.maxVal = 14;
+            p.maxVal = 15;
             p.stepVal = 1;
-            p.type = uInt;
+            p.type = uFilterType;
             p.def = 0;
             params[P_FILTER2_TYPE] = p;
             

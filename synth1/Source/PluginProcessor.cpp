@@ -162,7 +162,7 @@ void Synth1AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer&
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     core->handle(buffer, midiMessages, totalNumInputChannels, totalNumOutputChannels);
     
-    if(spectrum != nullptr)spectrum->setNextAudioBlock(buffer);
+    spectrum.setNextAudioBlock(buffer);
     
 }
 

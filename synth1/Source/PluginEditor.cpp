@@ -242,11 +242,10 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     progNumber.setFont(f);
     addAndMakeVisible(progNumber);
     
-    spectrumComponent.setVisible(false);
-    addAndMakeVisible(spectrumComponent);
+    processor.spectrum.setVisible(false);
+    addAndMakeVisible(processor.spectrum);
     
-    processor.spectrum = &spectrumComponent;
-    
+
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
 }
@@ -514,5 +513,5 @@ void Synth1AudioProcessorEditor::resized()
     progNumber.setBounds(930, 205, 80,  30);
     
     // Spectrum
-     spectrumComponent.setBounds(0, 320, width,  400);
+     processor.spectrum.setBounds(0, 320, width,  400);
 }

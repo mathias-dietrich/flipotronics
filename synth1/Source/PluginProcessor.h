@@ -18,7 +18,7 @@ public:
     ~Synth1AudioProcessor();
     
     
-    SpectrumComponent *spectrum;
+    SpectrumComponent spectrum;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;

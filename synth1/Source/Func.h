@@ -80,6 +80,54 @@ inline String devision(int devision){
     return "";
 }
 
+inline String getFilterTypeString(MultiModeLadderFilterTypes type){
+      switch (type) {
+           case LPF1:
+              return "LPF1";
+              
+           case LPF2:
+              return "LPF2";
+
+           case LPF3:
+                return "LPF3";
+              
+           case LPF4:
+                return "LPF4";
+              
+           case HPF1:
+                return "HPF1";
+              
+           case HPF2:
+                return "HPF2";
+              
+           case HPF3:
+                return "HPF3";
+              
+           case HPF4:
+               return "HPF4";
+              
+           case BPF2:
+               return "BPF2";
+              
+           case BPF4:
+               return "BPF4";
+              
+           case NF2:
+               return "NF2";
+              
+           case NF4:
+               return "NF4";
+              
+           case PF2:
+              return "PF2";
+              
+           case PF4:
+               return "PF4";
+              
+           default:
+              return "Off";
+       }
+}
 
 inline float degToRad(float degrees){
     return degrees * M_PI / 180.0f;
@@ -92,7 +140,11 @@ inline float radToDeg(float radians){
 inline float DecibelToLinear(float db)
 {
     return Decibels::decibelsToGain(db, -96.0f);
-  // return  exp(db/20.0f);
+}
+
+inline float linearToDecibles(float lin)
+{
+    return Decibels::gainToDecibels(lin, -96.0f);
 }
 
 inline float MidiToLinear(int midi)
@@ -117,6 +169,7 @@ inline int FreqToMidi(float freq, float tuning)
 
 inline String getWaveType(E_WaveType type){
     switch(type){
+            
         case wSin:
             return "Sin";
             

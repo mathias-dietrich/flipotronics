@@ -190,8 +190,8 @@
             filePath = "../../Source/Func.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "DecibelToLinear(db)"
             landmarkType = "9">
          </BreakpointContent>
@@ -423,32 +423,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7700B26A-A824-49A2-8042-87690508D83D"
+            uuid = "AC489612-02DE-4CB7-BBC2-F5D683125321"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/SpectrumComponent.h"
+            filePath = "../../Source/Voice.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "drawNextFrameOfSpectrum()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C1DFCE43-C0F3-47AD-A77D-A1647108E608"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/SpectrumComponent.h"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "drawNextFrameOfSpectrum()"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "render(clock, buffer)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

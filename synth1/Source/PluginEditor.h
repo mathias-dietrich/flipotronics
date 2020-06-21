@@ -28,9 +28,6 @@ public:
     
     float zoom =440;
     float zoomY = 1;
-   //  FFTWrapper<float> fftCalc;
-    
-    SpectrumComponent spectrumComponent;
     
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
@@ -274,7 +271,12 @@ private:
             if( params[pid].type == uWaveType){
                 dials[i].setTextValueSuffix(" " + getWaveType(E_WaveType(int(par[pid]))));
                 dials[i].setValue(par[pid], dontSendNotification);
-            }
+            }else if( params[pid].type == uFilterType){
+                   dials[i].setTextValueSuffix(" " + getFilterTypeString(MultiModeLadderFilterTypes(int(par[pid]))));
+                   dials[i].setValue(par[pid], dontSendNotification);
+             }
+            
+            
             else if( params[pid].type == uPhase){
                 dials[i].setTextValueSuffix(" degrees");
                 dials[i].setValue(par[pid], dontSendNotification);
@@ -491,9 +493,9 @@ private:
     void styleMenuChangedView(){
         viewModeSetting = viewMode.getSelectedId();
         if(viewModeSetting==2){
-            spectrumComponent.setVisible(true);
+            processor.spectrum.setVisible(true);
         }else{
-            spectrumComponent.setVisible(false);
+            processor.spectrum.setVisible(false);
         }
         repaint();
     }

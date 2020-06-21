@@ -208,11 +208,11 @@ public:
         adsr4.trigger = par[P_ADSR4_TRIGGER];
         adsr4.triggerTreshold = par[P_ADSR4_TRESHOLD];
         
-        filter1.setFilterType(par[P_FILTER1_TYPE]);
+        filter1.setFilterType(par[P_FILTER1_TYPE] );
         filter1.setCutoff(par[P_FILTER1_FREQ]);
         filter1.setResonance(par[P_FILTER1_RES] / 100.0f);
 
-        filter2.setFilterType(par[P_FILTER2_TYPE]);
+        filter2.setFilterType(par[P_FILTER2_TYPE] );
         filter2.setCutoff(par[P_FILTER2_FREQ]);
         filter2.setResonance(par[P_FILTER2_RES] / 100.0f);
     }
@@ -313,12 +313,14 @@ public:
             
             float lfo0Output = tableLfo1[((int)tablePosLfo1)];
             
-            // Filter
-            float cutoff = par[P_FILTER1_FREQ];
-            cutoff *= 1.0 - par[P_LFO1_FILTER] * (1.0 + lfo0Output) * 0.5;
-            filter1.setCutoff(cutoff);
-            filter1.setDrive(par[P_FILTER1_DRIVE]);
-            mono = filter1.process(mono);
+             // Filter
+            if(filter1.getFilterType() != OFF2){
+                float cutoff = par[P_FILTER1_FREQ];
+                cutoff *= 1.0 - par[P_LFO1_FILTER] * (1.0 + lfo0Output) * 0.5;
+                filter1.setCutoff(cutoff);
+                filter1.setDrive(par[P_FILTER1_DRIVE]);
+                mono = filter1.process(mono);
+            }
             
             // LFO Amp
             mono *= 1.0 - par[P_LFO1_VOL] * lfo0Output;
