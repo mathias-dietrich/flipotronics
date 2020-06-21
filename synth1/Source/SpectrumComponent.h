@@ -71,15 +71,10 @@ class SpectrumComponent : public Component , private Timer{
         g.setColour (Colours::white);
         Rectangle<int> r = getLocalBounds();
         auto width  = getLocalBounds().getWidth();
-        float baseFreq = samplerate / fftSize;
         int steps = width / scopeSize;
         int x = 0;
-        
-       ;
-        
         for (int i = 0; i < scopeSize; ++i){
             r.setX(x);
-            int binNumber =  (fftSize/2) * i / scopeSize ;
             float fr = freqTable[i];
             if(fr>999){
                 g.drawFittedText (String( fr / 1000.0f, 1) + "K", r, Justification::bottomLeft, 1);
@@ -121,6 +116,8 @@ class SpectrumComponent : public Component , private Timer{
                auto width  = getLocalBounds().getWidth();
                auto height = getLocalBounds().getHeight();
                
+               float freq = freqTable[i];
+               
                float fromX = (float) jmap (i - 1, 0, scopeSize - 1, 0, width);
                float fromY = (float) jmap (scopeData[i - 1], 0.0f, 1.0f, (float) height, 0.0f);
                float toX =  (float) jmap (i, 0, scopeSize - 1, 0, width);
@@ -156,8 +153,17 @@ class SpectrumComponent : public Component , private Timer{
         auto maxdB =    0.0f;
         for (int i = 0; i < scopeSize; ++i)                        // [3]
         {
-            auto skewedProportionX = 1.0f - std::exp (std::log (1.0f - i / (float) scopeSize) * 0.2f);
-            auto fftDataIndex = jlimit (0, fftSize / 2, (int) (skewedProportionX * fftSize / 2));
+            //auto skewedProportionX = 1.0f - std::exp (std::log (1.0f - i / (float) scopeSize) * 0.2f);
+            
+            float df = samplerate / fftSize;
+            float freq = freqTable[i];
+            
+            int fftDataIndex = freq/df;
+            
+            // auto fftDataIndex = jlimit (0, fftSize / 2, (int) (skewedProportionX * fftSize / 2));
+            
+            
+            
             auto level = jmap (jlimit (mindB, maxdB, Decibels::gainToDecibels (fftData[fftDataIndex])
                                                    - Decibels::gainToDecibels ((float) fftSize)),
                                mindB, maxdB, 0.0f, 1.0f);

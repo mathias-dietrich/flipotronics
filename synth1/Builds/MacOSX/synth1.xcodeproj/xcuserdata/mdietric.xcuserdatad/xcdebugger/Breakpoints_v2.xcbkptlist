@@ -430,8 +430,8 @@
             filePath = "../../Source/SpectrumComponent.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "drawNextFrameOfSpectrum()"
             landmarkType = "7">
          </BreakpointContent>
@@ -439,16 +439,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6135B0C2-F972-46BC-88FA-FB6EDC2C6069"
+            uuid = "C1DFCE43-C0F3-47AD-A77D-A1647108E608"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../Source/SpectrumComponent.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "paint(g)"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "drawNextFrameOfSpectrum()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
