@@ -25,12 +25,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     processor.loadPatch(0);
     undoModel.set();
     compareMode = false;
-    
-    adsr1.uid = -1;
-    adsr2.uid = -1;
-    adsr3.uid = -1;
-    adsr4.uid = -1;
-    
+
     int from = 0;
     int to = 15;
     for(int i=0; i < 16; ++i){
@@ -170,21 +165,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     expWheel.setRange(0, 127,1);
     addAndMakeVisible(expWheel);
     
-    graphZoom.setSliderStyle(Slider::SliderStyle::LinearHorizontal );
-    graphZoom.setName("103");
-    graphZoom.addListener (this);
-    graphZoom.setRange(5, 4000,1);
-    graphZoom.setValue(zoom);
-    addAndMakeVisible(graphZoom);
-    
-    graphZoomY.setSliderStyle(Slider::SliderStyle::LinearVertical );
-    graphZoomY.setName("104");
-    graphZoomY.addListener (this);
-    graphZoomY.setRange(0.5, 4,0.01);
-    graphZoomY.setValue(zoomY);
-    graphZoomY.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
-    addAndMakeVisible(graphZoomY);
-    
     progName.setColour (Label::backgroundColourId, C_DARKGREY);
     progName.setColour (Label::textColourId, Colours::white);
     progName.setJustificationType (Justification::centred);
@@ -246,7 +226,10 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     
     // Components
     addChildComponent(processor.spectrum);
+    addChildComponent(processor.outputComponent);
+    addChildComponent(processor.adsrComponent);
     addAndMakeVisible(processor.waveComponent);
+    addChildComponent(processor.lfoComponent);
 
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
@@ -311,139 +294,17 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     g.drawImageWithin(vumeter, 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
     
     // Display Graph
-    switch(viewModeSetting){
-        case vPlot:
-            // Plot
-            g.setColour (Colours::white);
-            g.drawLine (0, half, width, half, 0.5f);
-
-            g.setColour (Colours::red);
-            drawPlot( g, half, width, scopeBuffer );
-            break;
-        case vSpectrum: //Spectrum
-        {
-            
+    if(viewModeSetting == vCurve){
+        curve.set(par[1022]);
+        g.setColour (Colours::white);
+        int ylast = half + 150;
+        int w = 300; // width
+        int xOffset = 500;
+        for(int i=0;i<w;++i){
+            int y = 150 + half - 300.0f * curve.getScaled(i , w) ;
+             g.drawLine (xOffset + i, ylast, i + xOffset+1, y, 1.0f);
+            ylast = y;
         }
-                       
-            
-        case vADSR1: //ADSR 1
-        {
-            adsr1.init(samplerate,  samplesperblock);
-            adsr1.delayTimeMsec = par[P_ADSR1_DELAY];
-            adsr1.attackTimeMsec = par[P_ADSR1_ATTACK];
-            adsr1.holdTimeMsec = par[P_ADSR1_HOLD];
-            adsr1.decayTimeMsec = par[P_ADSR1_DECAY];
-            adsr1.sustainLevel = par[P_ADSR1_SUSTAIN];
-            adsr1.releaseTimeMsec = par[P_ADSR1_RELEASE];
-            
-            // Curves
-            adsr1.setAttackCurve( par[P_ADSR1_ATTACK_CURVE]);
-            adsr1.setDecayCurve( par[P_ADSR1_DECAY_CURVE]);
-            adsr1.setSustainCurve( par[P_ADSR1_SUSTAIN_CURVE]);
-            adsr1.setReleaseCurve( par[P_ADSR1_RELEASE_CURVE]);
-            drawAdsr(&adsr1, g,  width,  half);
-            break;
-        }
-
-        case vADSR2: //ADSR 2
-        {
-            adsr2.init(samplerate,  samplesperblock);
-            adsr2.delayTimeMsec = par[P_ADSR2_DELAY];
-            adsr2.attackTimeMsec = par[P_ADSR2_ATTACK];
-            adsr2.holdTimeMsec = par[P_ADSR2_HOLD];
-            adsr2.decayTimeMsec = par[P_ADSR2_DECAY];
-            adsr2.sustainLevel = par[P_ADSR2_SUSTAIN];
-            adsr2.releaseTimeMsec = par[P_ADSR2_RELEASE];
-            
-            // Curves
-            adsr2.setAttackCurve( par[P_ADSR2_ATTACK_CURVE]);
-            adsr2.setDecayCurve( par[P_ADSR2_DECAY_CURVE]);
-            adsr2.setSustainCurve( par[P_ADSR2_SUSTAIN_CURVE]);
-            adsr2.setReleaseCurve( par[P_ADSR2_RELEASE_CURVE]);
-            drawAdsr(&adsr2, g,  width,  half);
-            break;
-        }
-        
-        case vADSR3: //ADSR 3
-        {
-            adsr3.init(samplerate,  samplesperblock);
-            adsr3.delayTimeMsec = par[P_ADSR3_DELAY];
-            adsr3.attackTimeMsec = par[P_ADSR3_ATTACK];
-            adsr3.holdTimeMsec = par[P_ADSR3_HOLD];
-            adsr3.decayTimeMsec = par[P_ADSR3_DECAY];
-            adsr3.sustainLevel = par[P_ADSR3_SUSTAIN];
-            adsr3.releaseTimeMsec = par[P_ADSR3_RELEASE];
-            
-            // Curves
-            adsr3.setAttackCurve( par[P_ADSR3_ATTACK_CURVE]);
-            adsr3.setDecayCurve( par[P_ADSR3_DECAY_CURVE]);
-            adsr3.setSustainCurve( par[P_ADSR3_SUSTAIN_CURVE]);
-            adsr3.setReleaseCurve( par[P_ADSR3_RELEASE_CURVE]);
-            drawAdsr(&adsr3, g,  width,  half);
-            break;
-        }
-        
-        case vADSR4: //ADSR 4
-        {
-            adsr4.init(samplerate,  samplesperblock);
-            adsr4.delayTimeMsec = par[P_ADSR4_DELAY];
-            adsr4.attackTimeMsec = par[P_ADSR4_ATTACK];
-            adsr4.holdTimeMsec = par[P_ADSR4_HOLD];
-            adsr4.decayTimeMsec = par[P_ADSR4_DECAY];
-            adsr4.sustainLevel = par[P_ADSR4_SUSTAIN];
-            adsr4.releaseTimeMsec = par[P_ADSR4_RELEASE];
-            
-            // Curves
-            adsr4.setAttackCurve( par[P_ADSR4_ATTACK_CURVE]);
-            adsr4.setDecayCurve( par[P_ADSR4_DECAY_CURVE]);
-            adsr4.setSustainCurve( par[P_ADSR4_SUSTAIN_CURVE]);
-            adsr4.setReleaseCurve( par[P_ADSR4_RELEASE_CURVE]);
-            drawAdsr(&adsr4, g,  width,  half);
-            break;
-        }
-            
-        case vLFO1:  // LFO 1
-        {
-            break;
-        }
-            
-        case vLFO2:  // LFO 2
-        {
-            break;
-        }
-        
-        case vLFO3:  // LFO 3
-        {
-            break;
-        }
-        
-        case vLFO4:  // LFO 4
-        {
-            break;
-        }
-            
-        case vCurve:
-        {
-            curve.set(par[1022]);
-            g.setColour (Colours::white);
-            int ylast = half + 150;
-            int w = 300; // width
-            int xOffset = 500;
-            for(int i=0;i<w;++i){
-                int y = 150 + half - 300.0f * curve.getScaled(i , w) ;
-                 g.drawLine (xOffset + i, ylast, i + xOffset+1, y, 1.0f);
-                ylast = y;
-            }
-            break;
-        }
-        case vWave:
-        {
-             break;
-        }
-        case vDebug:
-       {
-           break;
-       }
     }
 }
 
@@ -506,9 +367,6 @@ void Synth1AudioProcessorEditor::resized()
             dials[i+8].setBounds (10  + i * 100,  dialY+20, 100,  100);
     }
     
-    graphZoom.setBounds (0 ,  700, width-10,  20);
-    graphZoomY.setBounds (0 ,  312, 20,  385);
-    
     // Live Controller
     pitchWheel.setBounds(1100, 60, 80, 250);
     modWheel.setBounds (1200, 60, 80, 250);
@@ -526,4 +384,7 @@ void Synth1AudioProcessorEditor::resized()
     // Spectrum
     processor.spectrum.setBounds(0, 320, width,  400);
     processor.waveComponent.setBounds(0, 320, width,  400);
+    processor.outputComponent.setBounds(0, 320, width,  400);
+    processor.adsrComponent.setBounds(0, 320, width,  400);
+    processor.lfoComponent.setBounds(0, 320, width,  400);
 }

@@ -5,7 +5,10 @@
 #include "Param.h"
 #include "Const.h"
 #include "SpectrumComponent.h"
-#include "WaveComponent.h";
+#include "WaveComponent.h"
+#include "OutputComponent.h"
+#include "AdsrComponent.h"
+#include "LfoComponent.h"
 
 //  https://github.com/ffAudio/ff_meters
 //==============================================================================
@@ -18,9 +21,12 @@ public:
     Synth1AudioProcessor();
     ~Synth1AudioProcessor();
     
-    
     SpectrumComponent spectrum;
     WaveComponent waveComponent;
+    OutputComponent outputComponent;
+    AdsrComponent adsrComponent;
+    LfoComponent lfoComponent;
+    
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;

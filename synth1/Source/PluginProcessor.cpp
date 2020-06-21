@@ -129,6 +129,8 @@ void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
      isArpOn = false;
     core->init( sampleRate,  samplesPerBlock);
     waveComponent.init(sampleRate, samplesPerBlock);
+    adsrComponent.init(sampleRate, samplesPerBlock);
+    lfoComponent.init(sampleRate, samplesPerBlock);
 }
 
 void Synth1AudioProcessor::releaseResources()
@@ -165,9 +167,7 @@ void Synth1AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer&
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     core->handle(buffer, midiMessages, totalNumInputChannels, totalNumOutputChannels);
-    
     spectrum.setNextAudioBlock(buffer);
-    
 }
 
 //==============================================================================

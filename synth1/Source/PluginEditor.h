@@ -25,18 +25,11 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    float zoom = 440;
-    float zoomY = 1;
-    
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
     
     Curve curve;
-    Adsr adsr1;
-    Adsr adsr2;
-    Adsr adsr3;
-    Adsr adsr4;
-    
+
     TextButton btnParam[16];
     Label btnLabel[8];
     Label rootLabel[4];
@@ -73,9 +66,6 @@ public:
     Slider modWheel;
     Slider expWheel;
     
-    Slider graphZoom;
-    Slider graphZoomY;
-    
     Label progName;
     Label progNumber;
     
@@ -88,41 +78,6 @@ private:
     Image vumeter = ImageCache::getFromMemory (img::meter_png, img::meter_pngSize);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
-    
-    void drawPlot(Graphics& g, int half, int width, std::atomic<float> * buf ){
-        
-        // search positive zero crossing
-        int offset =0;
-        while(buf[offset] > 0){
-            ++offset;
-        }
-        
-        while(offset < width){
-            if(buf[offset] <0 && buf[offset+1] >=0){
-                break;
-            }
-            ++offset;
-        }
-        
-        int lastX = 0;
-        int lastY = half;
-        int sr = samplerate * OVERSAMPLING;
-        
-        for(int i=0; i< width;++i){
-            int p = offset + i;
-          
-            int pos = p  * sr / zoom  / width;
-            if(pos >= width){
-                pos -= width;
-            }
-            
-            float a = tanh(3.0f * buf[pos]);
-            int v = half - a * 180 * zoomY;
-             g.drawLine (lastX, lastY, i, v, 1.0f);
-            lastX = i;
-            lastY = v;
-        }
-    }
     
     void handleNoteOn (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override
     {
@@ -273,9 +228,7 @@ private:
             }else if( params[pid].type == uFilterType){
                    dials[i].setTextValueSuffix(" " + getFilterTypeString(MultiModeLadderFilterTypes(int(par[pid]))));
                    dials[i].setValue(par[pid], dontSendNotification);
-             }
-            
-            
+            }
             else if( params[pid].type == uPhase){
                 dials[i].setTextValueSuffix(" degrees");
                 dials[i].setValue(par[pid], dontSendNotification);
@@ -436,18 +389,7 @@ private:
         if(sid==102){
             return;
         }
-        
-        // Zoom
-        if(sid==103){
-            zoom = slider->getValue();
-            return;
-        }
-        // Zoom Y
-        if(sid==104){
-            zoomY = slider->getValue();
-            return;
-        }
-        
+
         // Edits Mode ================================================================
         startEdit();
         int pid = paramRoot * 256 + paramRange * 16 + sid;
@@ -491,16 +433,37 @@ private:
     
     void styleMenuChangedView(){
         viewModeSetting = viewMode.getSelectedId();
-         processor.spectrum.setVisible(false);
+        processor.spectrum.setVisible(false);
         processor.waveComponent.setVisible(false);
+        processor.outputComponent.setVisible(false);
+        processor.adsrComponent.setVisible(false);
+        processor.lfoComponent.setVisible(false);
 
         switch(viewModeSetting){
             case vSpectrum:
                 processor.spectrum.setVisible(true);
                 break;
+                
+            case vADSR1:
+            case vADSR2:
+            case vADSR3:
+            case vADSR4:
+                processor.adsrComponent.setVisible(true);
+                break;
             
            case vWave:
                 processor.waveComponent.setVisible(true);
+                break;
+                
+            case vPlot:
+                processor.outputComponent.setVisible(true);
+                break;
+                
+            case vLFO1:
+            case vLFO2:
+            case vLFO3:
+            case vLFO4:
+                processor.lfoComponent.setVisible(true);
                 break;
         }
         repaint();
@@ -550,51 +513,5 @@ private:
     
     void startEdit(){
         compareMode = true;
-    }
-    
-    void drawAdsr(Adsr * adsr, Graphics& g, int width, int half){
-
-       adsr->start();
-       
-       float length = adsr->delayTimeMsec + adsr->attackTimeMsec + adsr->holdTimeMsec + adsr->decayTimeMsec + adsr->releaseTimeMsec;
-      
-       int SustainTime = length * 5 / 24;
-       int releaseSample =  adsr->samplesPerMillisecond * (adsr->delayTimeMsec + adsr->attackTimeMsec + adsr->holdTimeMsec + adsr->decayTimeMsec + SustainTime);
-       adsr->releaseTimeStart = releaseSample;
-       
-       length += SustainTime;
-       float ticks = length / width * adsr->samplesPerMillisecond;
-       
-       int bottom = half + 150;
-       int ylast = bottom;
-       g.setColour (Colours::red);
-       g.drawLine (0, half,width, half, 2.0f);
-       
-       for(int i=0;i<width;++i){
-           int y = 150 + half - 300.0f * adsr->output;
-           g.setColour (Colours::yellow);
-           g.drawLine (i, ylast, i+1, y, 2.0f);
-           if(adsr->state == Adsr::ADSR_RELEASE){
-                g.setColour (Colours::blue);
-           }else if(adsr->state == Adsr::ADSR_HOLD){
-               g.setColour (Colours::yellow);
-           }else if(adsr->state == Adsr::ADSR_ATTACK){
-               g.setColour (Colours::red);
-           }
-           else if(adsr->state == Adsr::ADSR_SUSTAIN){
-               g.setColour (Colours::grey);
-           }
-           else{
-               g.setColour (Colours::green);
-           }
-               
-           g.drawLine (i, y, i, bottom   , 0.4f);
-
-           adsr->tick(ticks);
-           if(adsr->timeLapse >= releaseSample && adsr->state == Adsr::ADSR_SUSTAIN){
-               adsr->release();
-           }
-           ylast = y;
-       }
     }
 };

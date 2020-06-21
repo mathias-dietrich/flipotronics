@@ -198,6 +198,9 @@
 		4F0F15882493A20800031C20 /* stk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = stk; path = ../../../../JUCE/modules/stk_module/stk; sourceTree = "<group>"; };
 		4F0F158C2493A21200031C20 /* stk.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = stk.mm; path = ../../../../JUCE/modules/stk_module/stk.mm; sourceTree = "<group>"; };
 		4F0F15912493A21D00031C20 /* stk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stk.h; path = ../../../../JUCE/modules/stk_module/stk.h; sourceTree = "<group>"; };
+		4F2DA37F249FE0F600E8873D /* OutputComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OutputComponent.h; path = ../../Source/OutputComponent.h; sourceTree = "<group>"; };
+		4F2DA380249FEAA300E8873D /* AdsrComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AdsrComponent.h; path = ../../Source/AdsrComponent.h; sourceTree = "<group>"; };
+		4F2DA382249FF13000E8873D /* LfoComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LfoComponent.h; path = ../../Source/LfoComponent.h; sourceTree = "<group>"; };
 		4F315158248AD76800AC1A6C /* meter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meter.png; sourceTree = "<group>"; };
 		4F53E61A248302B60080F061 /* Core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Core.cpp; path = ../../Source/Core.cpp; sourceTree = "<group>"; };
 		4F53E61B248302B60080F061 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Core.h; path = ../../Source/Core.h; sourceTree = "<group>"; };
@@ -429,6 +432,7 @@
 		4F53E619248302A10080F061 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				4F2DA382249FF13000E8873D /* LfoComponent.h */,
 				4FC4C0C424839DE200CBE568 /* Voice.h */,
 				4F53E61A248302B60080F061 /* Core.cpp */,
 				4F53E61B248302B60080F061 /* Core.h */,
@@ -441,6 +445,8 @@
 				4F9839CD249DCDA00007CD5C /* SpectrumComponent.h */,
 				4F9839CE249DCEA00007CD5C /* CircularBuffer.h */,
 				4F9839D8249F98FB0007CD5C /* WaveComponent.h */,
+				4F2DA37F249FE0F600E8873D /* OutputComponent.h */,
+				4F2DA380249FEAA300E8873D /* AdsrComponent.h */,
 			);
 			name = core;
 			sourceTree = "<group>";
