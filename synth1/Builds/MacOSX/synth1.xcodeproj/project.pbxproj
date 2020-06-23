@@ -252,6 +252,7 @@
 		4FC4C0C3248396B500CBE568 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = ../../Source/Note.h; sourceTree = "<group>"; };
 		4FC4C0C424839DE200CBE568 /* Voice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Voice.h; path = ../../Source/Voice.h; sourceTree = "<group>"; };
 		4FE13226248D081600B67233 /* Adsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Adsr.h; path = ../../Source/Adsr.h; sourceTree = "<group>"; };
+		4FF9C27824A23DCF00A08BEB /* PitchWheel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PitchWheel.h; path = ../../Source/PitchWheel.h; sourceTree = "<group>"; };
 		53C3F00C4E40FB17A6C3315E /* juce_audio_formats */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_formats; path = "~/JUCE/modules/juce_audio_formats"; sourceTree = "<absolute>"; };
 		587EA1A23256BEBF498EB891 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		5C8451858BCEA378E6332BF5 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppConfig.h; path = ../../JuceLibraryCode/AppConfig.h; sourceTree = SOURCE_ROOT; };
@@ -552,6 +553,14 @@
 			name = fx;
 			sourceTree = "<group>";
 		};
+		4FF9C27724A23DAA00A08BEB /* widget */ = {
+			isa = PBXGroup;
+			children = (
+				4FF9C27824A23DCF00A08BEB /* PitchWheel.h */,
+			);
+			name = widget;
+			sourceTree = "<group>";
+		};
 		931ED08E764265044F035ABD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,6 +586,7 @@
 		9C6B7E2C03EC63CCDDD66A19 /* synth1 */ = {
 			isa = PBXGroup;
 			children = (
+				4FF9C27724A23DAA00A08BEB /* widget */,
 				4FAB8566249A76250039E051 /* fx */,
 				4FAB8565249A49A60039E051 /* adsr */,
 				4FAB8564249A49960039E051 /* arp */,

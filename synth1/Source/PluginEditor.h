@@ -10,8 +10,8 @@
 #include "img.h"
 #include "Color.h"
 #include "Curve.h"
-
-//==============================================================================
+#include "PitchWheel.h"
+//============Poti==================================================================
 /**
 */
 class Synth1AudioProcessorEditor  : public AudioProcessorEditor,MidiKeyboardStateListener,
@@ -62,7 +62,7 @@ public:
     ComboBox viewMode;
     ComboBox viewZoom;
     
-    Slider pitchWheel;
+    PitchWheel pitchWheel;
     Slider modWheel;
     Slider expWheel;
     

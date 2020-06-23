@@ -368,9 +368,9 @@ void Synth1AudioProcessorEditor::resized()
     }
     
     // Live Controller
-    pitchWheel.setBounds(1100, 60, 80, 250);
-    modWheel.setBounds (1200, 60, 80, 250);
-    expWheel.setBounds (1300, 60, 80, 250);
+    pitchWheel.setBounds(1230, 60, 50, 250);
+    modWheel.setBounds (1290, 60, 50, 250);
+    expWheel.setBounds (1350, 60, 50, 250);
     
     // Drop Downs
     playMode.setBounds (820, 290, 80, 20);
