@@ -29,10 +29,25 @@ class Osc{
 
     }
     
-    inline float interpolate(int pos, float * buffer ){
-        int prevPos = checkPos(pos - 1);
-        int nextPos = checkPos(pos + 1);
-        return (buffer[prevPos] + buffer[pos] + buffer[nextPos]) / 3.0f;
+    /*
+    forcedinline float interpolateSample(int currentIndex, int tableSize, float * table) noexcept
+    {
+        auto index0 = (unsigned int) currentIndex;
+        auto index1 = index0 == (tableSize - 1) ? (unsigned int) 0 : index0 + 1;
+        auto frac = currentIndex - (float) index0;
+        auto value0 = table[index0];
+        auto value1 = table[index1];
+        return value0 + frac * (value1 - value0);
+    }
+     */
+    
+    forcedinline float interpolate(int currentIndex, float * table ) noexcept{
+        auto index0 = (unsigned int) currentIndex;
+        auto index1 = index0 == (waveTable->sr - 1) ? (unsigned int) 0 : index0 + 1;
+        auto frac = currentIndex - (float) index0;
+        auto value0 = table[index0];
+        auto value1 = table[index1];
+        return value0 + frac * (value1 - value0);
     }
     
     void init (double sampleRate, int samplesPerBlock){

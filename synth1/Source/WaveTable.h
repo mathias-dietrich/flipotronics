@@ -57,7 +57,6 @@ private:
     static WaveTable* instance;
     bool tablesExist;
 
-    
     WaveTable(){
         tablesExist = false;
     }
