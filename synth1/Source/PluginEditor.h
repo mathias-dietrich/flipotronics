@@ -11,6 +11,9 @@
 #include "Color.h"
 #include "Curve.h"
 #include "PitchWheel.h"
+#include "ImageFactory.h"
+
+
 //============Poti==================================================================
 /**
 */
@@ -24,6 +27,8 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+    
+    ImageFactory imgFac;
     
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
@@ -75,7 +80,7 @@ public:
 
 private:
     Synth1AudioProcessor& processor;
-    Image vumeter = ImageCache::getFromMemory (img::meter_png, img::meter_pngSize);
+   // Image vumeter; // = ImageCache::getFromMemory (img::meter_png, img::meter_pngSize);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
     

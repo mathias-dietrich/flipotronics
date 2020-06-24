@@ -17,6 +17,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     patchCurrent = 0;
     viewModeSetting = 1;
     
+    imgFac.init();
+    
     curve.set(0);
     
     //fileManager = new FileManager();
@@ -239,74 +241,7 @@ Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
     delete bankLoader;
 }
 
-// ==================================================================================================
-// paint
-// ==================================================================================================
-void Synth1AudioProcessorEditor::paint (Graphics& g)
-{
-    Rectangle<int> r = getLocalBounds();
-    int width = r.getWidth();
-    int height = r.getHeight() ;
-    int half = height / 2 + 120;
-    
-    // BG
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 
-    // Version
-    Rectangle<int> rv = getLocalBounds();
-  
-    rv.setWidth(rv.getWidth()-120);
-    rv.setHeight(40);
-    g.setColour (Colours::white);
-    g.setFont (17.0f);
-    g.drawFittedText (PRODUCTNAME, rv, Justification::topRight, 1);
-    
-    // Debug speed of render
-    rv.setY(17);
-    g.setFont (11.0f);
-  
-    // Time taken in the Render Loop
-    float taken = timeTaken * 0.000001f;
-    if(taken > processor.maxTimeMsec){
-        g.setColour (Colours::red);
-    }else{
-        g.setColour (Colours::yellow);
-    }
-    g.drawFittedText (String(taken) + " - " + String(processor.maxTimeMsec), rv, Justification::topRight, 1);
-    
-    g.setColour (Colours::white);
-    rv.setY(67);
-    rv.setX(width-250);
-    rv.setWidth(200);
-    g.setFont (15.0f);
-    g.drawFittedText ("Peak: " + String(sumPeak), rv, Justification::topLeft, 1);
-    
-    rv.setY(85);
-    g.drawFittedText ("RMS: " + String(sumRMS,2), rv, Justification::topLeft, 1);
-    
-    // VU Meter
-    g.setColour (Colours::black);
-    r.setHeight(380);
-    r.setY(315);
-    g.fillRect(r);
-
-    g.drawImageWithin(vumeter, 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
-    g.drawImageWithin(vumeter, 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
-    
-    // Display Graph
-    if(viewModeSetting == vCurve){
-        curve.set(par[1022]);
-        g.setColour (Colours::white);
-        int ylast = half + 150;
-        int w = 300; // width
-        int xOffset = 500;
-        for(int i=0;i<w;++i){
-            int y = 150 + half - 300.0f * curve.getScaled(i , w) ;
-             g.drawLine (xOffset + i, ylast, i + xOffset+1, y, 1.0f);
-            ylast = y;
-        }
-    }
-}
 
 // ==================================================================================================
 // Resize
@@ -387,4 +322,73 @@ void Synth1AudioProcessorEditor::resized()
     processor.outputComponent.setBounds(0, 320, width,  400);
     processor.adsrComponent.setBounds(0, 320, width,  400);
     processor.lfoComponent.setBounds(0, 320, width,  400);
+}
+
+// ==================================================================================================
+// paint
+// ==================================================================================================
+void Synth1AudioProcessorEditor::paint (Graphics& g)
+{
+    Rectangle<int> r = getLocalBounds();
+    int width = r.getWidth();
+    int height = r.getHeight() ;
+    int half = height / 2 + 120;
+    
+    // BG
+    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+
+    // Version
+    Rectangle<int> rv = getLocalBounds();
+  
+    rv.setWidth(rv.getWidth()-120);
+    rv.setHeight(40);
+    g.setColour (Colours::white);
+    g.setFont (17.0f);
+    g.drawFittedText (PRODUCTNAME, rv, Justification::topRight, 1);
+    
+    // Debug speed of render
+    rv.setY(17);
+    g.setFont (11.0f);
+  
+    // Time taken in the Render Loop
+    float taken = timeTaken * 0.000001f;
+    if(taken > processor.maxTimeMsec){
+        g.setColour (Colours::red);
+    }else{
+        g.setColour (Colours::yellow);
+    }
+    g.drawFittedText (String(taken) + " - " + String(processor.maxTimeMsec), rv, Justification::topRight, 1);
+    
+    g.setColour (Colours::white);
+    rv.setY(67);
+    rv.setX(width-280);
+    rv.setWidth(200);
+    g.setFont (15.0f);
+    g.drawFittedText ("Peak: " + String(sumPeak), rv, Justification::topLeft, 1);
+    
+    rv.setY(85);
+    g.drawFittedText ("RMS: " + String(sumRMS,2), rv, Justification::topLeft, 1);
+    
+    // VU Meter
+    g.setColour (Colours::black);
+    r.setHeight(380);
+    r.setY(315);
+    g.fillRect(r);
+
+    g.drawImageWithin(imgFac.png[eMeter], 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
+    g.drawImageWithin(imgFac.png[eMeter], 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
+    
+    // Display Graph
+    if(viewModeSetting == vCurve){
+        curve.set(par[1022]);
+        g.setColour (Colours::white);
+        int ylast = half + 150;
+        int w = 300; // width
+        int xOffset = 500;
+        for(int i=0;i<w;++i){
+            int y = 150 + half - 300.0f * curve.getScaled(i , w) ;
+             g.drawLine (xOffset + i, ylast, i + xOffset+1, y, 1.0f);
+            ylast = y;
+        }
+    }
 }
