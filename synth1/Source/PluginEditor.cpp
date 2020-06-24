@@ -238,10 +238,9 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
+    ImageFactory::of().close();
     delete bankLoader;
 }
-
-
 
 // ==================================================================================================
 // Resize

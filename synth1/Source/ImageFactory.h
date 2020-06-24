@@ -38,6 +38,10 @@ public:
     ImageFactory(ImageFactory const&) = delete;
     void operator=(ImageFactory const&)  = delete;
     
+    void close(){
+         png.clear();
+    }
+    
     void init(){
         map_init(imgEnumMap)
             (eMeter, "meter.png")
@@ -63,6 +67,10 @@ public:
     
     private:
     ImageFactory(){}
+    
+    ~ImageFactory(){
+       
+    }
     std::map<E_Image, const char*> imgEnumMap;
 };
 
