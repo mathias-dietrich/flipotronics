@@ -6,24 +6,18 @@
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef Poti_h
-#define Poti_h
+#ifndef PitchWheel_h
+#define PitchWheel_h
 
 #include <JuceHeader.h>
 
 
-class PotiLookAndFeel : public  LookAndFeel_V4{
+class PitchWheelLookAndFeel : public  LookAndFeel_V4{
     public:
     
-     PotiLookAndFeel() {
+     PitchWheelLookAndFeel() {
           
      }
-    
-    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
-                              const float rotaryStartAngle, const float rotaryEndAngle, Slider& slider) {
-
-    }
-    
 
     void drawLinearSlider (Graphics& g, int x, int y, int width, int height,float sliderPos, float minSliderPos, float maxSliderPos, const Slider::SliderStyle style, Slider& slider){
         g.setColour(juce::Colours::black);
@@ -45,7 +39,7 @@ class PitchWheel : public Slider{
     
 public:
     
-    PotiLookAndFeel potiLookAndFeel;
+    PitchWheelLookAndFeel potiLookAndFeel;
     
      PitchWheel() {
         potiLookAndFeel.setColour (Slider::thumbColourId, Colours::blue);
@@ -56,14 +50,8 @@ public:
         setLookAndFeel (nullptr);
      }
     
-    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
-                           const float rotaryStartAngle, const float rotaryEndAngle, Slider& slider) {
-
-    }
-    
-
-    
 private:
+    
 };
 
 #endif /* Poti_h */

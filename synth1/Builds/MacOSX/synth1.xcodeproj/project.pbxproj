@@ -246,6 +246,7 @@
 		4FAB8569249A95590039E051 /* Detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Detector.h; path = ../../Source/Detector.h; sourceTree = "<group>"; };
 		4FAC348E24A331B600FB51D7 /* ImageFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ImageFactory.h; path = ../../Source/ImageFactory.h; sourceTree = "<group>"; };
 		4FAC348F24A33A0100FB51D7 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = build/Debug/images; sourceTree = "<group>"; };
+		4FAC349024A3686200FB51D7 /* Poti.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Poti.h; path = ../../Source/Poti.h; sourceTree = "<group>"; };
 		4FC14FD6249748C700C259ED /* Smooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Smooth.h; path = ../../Source/Smooth.h; sourceTree = "<group>"; };
 		4FC14FD724974ABB00C259ED /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Osc.h; path = ../../Source/Osc.h; sourceTree = "<group>"; };
 		4FC4C0BB248395E700CBE568 /* Arp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Arp.cpp; path = ../../Source/Arp.cpp; sourceTree = "<group>"; };
@@ -551,6 +552,7 @@
 			isa = PBXGroup;
 			children = (
 				4FF9C27824A23DCF00A08BEB /* PitchWheel.h */,
+				4FAC349024A3686200FB51D7 /* Poti.h */,
 			);
 			name = widget;
 			sourceTree = "<group>";

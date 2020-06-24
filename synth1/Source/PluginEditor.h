@@ -12,7 +12,7 @@
 #include "Curve.h"
 #include "PitchWheel.h"
 #include "ImageFactory.h"
-
+#include "Poti.h"
 
 //============Poti==================================================================
 /**
@@ -53,8 +53,8 @@ public:
     
     Label timeLabel;
     
-    TextEditor boxes[16];
-    Slider dials[16] ;
+   // TextEditor boxes[16];
+    Poti dials[16] ;
     
     BankLoader *bankLoader;
     
@@ -66,8 +66,8 @@ public:
     ComboBox viewZoom;
     
     PitchWheel pitchWheel;
-    Slider modWheel;
-    Slider expWheel;
+    PitchWheel modWheel;
+    PitchWheel expWheel;
     
     Label progName;
     Label progNumber;
@@ -222,7 +222,8 @@ private:
         for(int i=0; i < 16; ++i){
             int pid = paramRoot * 256 + paramRange * 16 + i;
             dials[i].setRange(params[pid].minVal,params[pid].maxVal,params[pid].stepVal);
-            boxes[i].setText(params[pid].name);
+            dials[i].setTitle(params[pid].name);
+           // boxes[i].setText(params[pid].name);
             if( params[pid].type == uWaveType){
                 dials[i].setTextValueSuffix(" " + getWaveType(E_WaveType(int(par[pid]))));
                 dials[i].setValue(par[pid], dontSendNotification);

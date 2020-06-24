@@ -136,8 +136,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
         dials[i].setNumDecimalPlacesToDisplay(2);
         dials[i].setName(toString(i));
         dials[i].addListener (this);
-        addAndMakeVisible (boxes[i]);
-        boxes[i].setJustification(Justification::horizontallyCentred);
+        //addAndMakeVisible (boxes[i]);
+        //boxes[i].setJustification(Justification::horizontallyCentred);
     }
     
     setDials();
@@ -290,15 +290,15 @@ void Synth1AudioProcessorEditor::resized()
     // Sliders
     int dialY = 60;
     for(int i=0; i < 8; ++i){
-         boxes[i].setBounds (10  + i * 100,  dialY, 100,  20);
-         dials[i].setBounds (10  + i * 100,  dialY+20, 100,  100);
+        // boxes[i].setBounds (10  + i * 100,  dialY, 100,  20);
+         dials[i].setBounds (10  + i * 100,  dialY, 100,  120);
     }
    
     dialY += 130;
     
     for(int i=0; i < 8; ++i){
-            boxes[i+8].setBounds (10  + i * 100,  dialY, 100,  20);
-            dials[i+8].setBounds (10  + i * 100,  dialY+20, 100,  100);
+           // boxes[i+8].setBounds (10  + i * 100,  dialY, 100,  20);
+            dials[i+8].setBounds (10  + i * 100,  dialY, 100,  120);
     }
     
     // Live Controller
