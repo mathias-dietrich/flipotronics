@@ -51,6 +51,8 @@ public:
     TextButton btnBrowse;
     TextButton btnArp;
     
+    TextButton btnLatch;
+    
     Label timeLabel;
     
    // TextEditor boxes[16];

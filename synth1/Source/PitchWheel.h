@@ -18,8 +18,15 @@ class PitchWheelLookAndFeel : public  LookAndFeel_V4{
      PitchWheelLookAndFeel() {
           
      }
+    
+    Label* createSliderTextBox(Slider& slider) override
+    {
+        Label* l = LookAndFeel_V2::createSliderTextBox(slider);
+        l->setColour(Label::textColourId, Colours::black);
+        return l;
+    }
 
-    void drawLinearSlider (Graphics& g, int x, int y, int width, int height,float sliderPos, float minSliderPos, float maxSliderPos, const Slider::SliderStyle style, Slider& slider){
+    void drawLinearSlider (Graphics& g, int x, int y, int width, int height,float sliderPos, float minSliderPos, float maxSliderPos, const Slider::SliderStyle style, Slider& slider) override{
         g.setColour(juce::Colours::black);
         g.fillRect(x,y,width,height);
         g.setColour(juce::Colours::lightgrey);

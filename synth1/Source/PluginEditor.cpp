@@ -41,7 +41,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     }
     for(int i=0; i < 8; ++i){
        addAndMakeVisible (btnLabel[i]);
-       btnLabel[i].setColour (Label::textColourId, Colours::yellow);
+       btnLabel[i].setColour (Label::textColourId, Colours::green);
        btnLabel[i].setJustificationType (Justification::centred);
        auto f2 =  btnLabel[i].getFont();
        f2.setSizeAndStyle(15, 0, 0.4, 0.4);
@@ -50,7 +50,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     
     for(int i=0; i < 4; ++i){
           addAndMakeVisible (rootLabel[i]);
-          rootLabel[i].setColour (Label::textColourId, Colours::yellow);
+          rootLabel[i].setColour (Label::textColourId, Colours::green);
           rootLabel[i].setJustificationType (Justification::centred);
           auto f2 =  btnLabel[i].getFont();
           f2.setSizeAndStyle(17, 0, 0.4, 0.4);
@@ -123,6 +123,12 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnArp.addListener (this);
     btnArp.setRadioGroupId(27);
     addAndMakeVisible (btnArp);
+    
+    btnLatch.setButtonText ("Latch");
+    btnLatch.addListener (this);
+    btnLatch.setRadioGroupId(28);
+    addAndMakeVisible (btnLatch);
+    
     
     addAndMakeVisible (timeLabel);
     timeLabel.setColour (Label::backgroundColourId, Colours::black);
@@ -252,7 +258,7 @@ void Synth1AudioProcessorEditor::resized()
     int height = r.getHeight();
     
     // Keyboard
-    keyboardComponent.setBounds (100,  height - 50, 1200,  50);
+    keyboardComponent.setBounds (100,  height - 53, 1200,  50);
     
     // Buttons
     for(int i=0; i < 8; ++i){
@@ -269,24 +275,25 @@ void Synth1AudioProcessorEditor::resized()
     btnCompare.setBounds (width-270, hButtons, 80, 20);
     btnSave.setBounds (width-180, hButtons, 80, 20);
     btnLoad.setBounds (width-90, hButtons, 80, 20);
+    btnLatch.setBounds (10, height-25, 80, 20);
+    btnPanic.setBounds (width-90, height-25, 80, 20);
     
     int xVal = 835;
-       btnRange0.setBounds (xVal, 5, 60, 20);
-       btnRange1.setBounds (xVal+70, 5, 60, 20);
-       btnRange2.setBounds (xVal+140, 5, 60, 20);
-       btnRange3.setBounds (xVal+210, 5, 60, 20);
-       
-       rootLabel[0].setBounds (xVal, 25, 60, 20);
-       rootLabel[1].setBounds (xVal+70, 25, 60, 20);
-       rootLabel[2].setBounds (xVal+140, 25, 60, 20);
-       rootLabel[3].setBounds (xVal+210, 25, 60, 20);
-       
-       btnProgDown.setBounds (840, 205, 80, 20);
-       btnProgUp.setBounds (1020, 205, 80, 20);
-       btnPanic.setBounds (1000, 290, 80, 20);
-       btnBrowse.setBounds (922, 245, 90, 30);
-       btnArp.setBounds (820, 245, 90, 30);
-    
+   btnRange0.setBounds (xVal, 5, 60, 20);
+   btnRange1.setBounds (xVal+70, 5, 60, 20);
+   btnRange2.setBounds (xVal+140, 5, 60, 20);
+   btnRange3.setBounds (xVal+210, 5, 60, 20);
+   
+   rootLabel[0].setBounds (xVal, 25, 60, 20);
+   rootLabel[1].setBounds (xVal+70, 25, 60, 20);
+   rootLabel[2].setBounds (xVal+140, 25, 60, 20);
+   rootLabel[3].setBounds (xVal+210, 25, 60, 20);
+   
+   btnProgDown.setBounds (840, 205, 80, 20);
+   btnProgUp.setBounds (1020, 205, 80, 20);
+   btnBrowse.setBounds (922, 245, 90, 30);
+   btnArp.setBounds (820, 245, 90, 30);
+
     // Sliders
     int dialY = 60;
     for(int i=0; i < 8; ++i){
@@ -334,14 +341,26 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     int half = height / 2 + 120;
     
     // BG
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
+    g.fillAll (C_BACKGROUND);
+    
+    // Cover the keyboard area
     // Version
+    int keyZoneHeight = 74;
     Rectangle<int> rv = getLocalBounds();
+    g.setColour (C_KEABORDAREA);
+    rv.setY(height-keyZoneHeight);
+    rv.setHeight(keyZoneHeight);
+    g.fillRect(rv);
+    
+    g.setColour (C_BACKGROUND);
+    rv.setY(height-keyZoneHeight-1);
+    rv.setHeight(2);
+    g.fillRect(rv);
   
-    rv.setWidth(rv.getWidth()-120);
+    rv.setWidth(width-120);
     rv.setHeight(40);
-    g.setColour (Colours::white);
+    rv.setY(height-keyZoneHeight);
+    g.setColour (C_BRANDTITLE);
     g.setFont (17.0f);
     g.drawFittedText (PRODUCTNAME, rv, Justification::topRight, 1);
     
@@ -354,11 +373,11 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     if(taken > processor.maxTimeMsec){
         g.setColour (Colours::red);
     }else{
-        g.setColour (Colours::yellow);
+        g.setColour (Colours::green);
     }
     g.drawFittedText (String(taken) + " - " + String(processor.maxTimeMsec), rv, Justification::topRight, 1);
     
-    g.setColour (Colours::white);
+    g.setColour (Colours::black);
     rv.setY(67);
     rv.setX(width-280);
     rv.setWidth(200);

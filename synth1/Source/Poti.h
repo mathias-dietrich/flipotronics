@@ -19,10 +19,7 @@ class PotiLookAndFeel : public  LookAndFeel_V4{
     Label* createSliderTextBox(Slider& slider) override
     {
         Label* l = LookAndFeel_V2::createSliderTextBox(slider);
-        //l->setFont(labelFont);
-
-         l->setColour(Label::textColourId, Colours::black);
-
+        l->setColour(Label::textColourId, Colours::black);
         return l;
     }
     
