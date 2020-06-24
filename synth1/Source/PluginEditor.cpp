@@ -17,7 +17,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     patchCurrent = 0;
     viewModeSetting = 1;
     
-    imgFac.init();
+    ImageFactory::of().init();
     
     curve.set(0);
     
@@ -25,7 +25,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     bankLoader = new BankLoader();
     bankLoader->load();
     processor.loadPatch(0);
-    undoModel.set();
+    Model::of().set();
     compareMode = false;
 
     int from = 0;
@@ -375,8 +375,8 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     r.setY(315);
     g.fillRect(r);
 
-    g.drawImageWithin(imgFac.png[eMeter], 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
-    g.drawImageWithin(imgFac.png[eMeter], 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
+    g.drawImageWithin(ImageFactory::of().png[eMeter], 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
+    g.drawImageWithin(ImageFactory::of().png[eMeter], 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
     
     // Display Graph
     if(viewModeSetting == vCurve){

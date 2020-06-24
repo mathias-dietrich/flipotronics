@@ -92,7 +92,14 @@ extern bool hasPlayed;
 class Model {
     
 public:
-
+    static Model& of()
+    {
+        static Model   instance;
+        return instance;
+    }
+    Model(Model const&) = delete;
+    void operator=(Model const&)  = delete;
+    
    void set(){
         for(int i=0;i<MAXPARAM;i++ ){
            paramsUndo[i] = (float)par[i];
@@ -120,7 +127,7 @@ public:
     }
     
 private:
-
+    Model() {}
 };
 
 #endif /* Model_h */

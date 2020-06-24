@@ -30,6 +30,14 @@ enum E_Image {eMeter, ePoti, eFader,eModWheel, ePitchWheel, eExpressionWheel};
 class ImageFactory{
 public:
     
+    static ImageFactory& of()
+    {
+        static ImageFactory   instance;
+        return instance;
+    }
+    ImageFactory(ImageFactory const&) = delete;
+    void operator=(ImageFactory const&)  = delete;
+    
     void init(){
         map_init(imgEnumMap)
             (eMeter, "meter.png")
@@ -54,6 +62,7 @@ public:
     std::map<E_Image, Image > png;
     
     private:
+    ImageFactory(){}
     std::map<E_Image, const char*> imgEnumMap;
 };
 

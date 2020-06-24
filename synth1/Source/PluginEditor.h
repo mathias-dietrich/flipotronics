@@ -28,8 +28,6 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    ImageFactory imgFac;
-    
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
     
@@ -73,8 +71,6 @@ public:
     
     Label progName;
     Label progNumber;
-    
-    Model undoModel;
 
     int maxTime;
 
@@ -99,7 +95,7 @@ private:
         // Save
         if(button->getRadioGroupId()==16) {
             bankLoader->save();
-            undoModel.set();
+            Model::of().set();
             compareMode = false;
             setDials();
            return;
@@ -109,7 +105,7 @@ private:
         if(button->getRadioGroupId()==17) {
             bankLoader->load();
             processor.loadPatch(patchCurrent);
-            undoModel.set();
+            Model::of().set();
             compareMode = false;
             setDials();
             return;
@@ -163,7 +159,7 @@ private:
             }
             processor.loadPatch(patchCurrent);
             compareMode = false;
-            undoModel.set();
+            Model::of().set();
             setDials();
             return;
         }
@@ -177,7 +173,7 @@ private:
             
             processor.loadPatch(patchCurrent);
             compareMode = false;
-            undoModel.set();
+            Model::of().set();
             
             setDials();
             return;
@@ -186,7 +182,7 @@ private:
         // Compare
         if(button->getRadioGroupId()==24) {
             compareMode = !compareMode;
-            undoModel.swap();
+            Model::of().swap();
             setDials();
             return;
         }
