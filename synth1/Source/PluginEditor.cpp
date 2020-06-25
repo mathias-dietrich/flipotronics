@@ -18,8 +18,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
 
     ImageFactory::of().init();
     
-    curve.set(0);
-    
     //fileManager = new FileManager();
     bankLoader = new BankLoader();
     bankLoader->load();
@@ -128,7 +126,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnLatch.setRadioGroupId(28);
     addAndMakeVisible (btnLatch);
     
-    
     addAndMakeVisible (timeLabel);
     timeLabel.setColour (Label::backgroundColourId, Colours::black);
     timeLabel.setColour (Label::textColourId, Colours::white);
@@ -148,7 +145,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     setDials();
     
     pitchWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
-    pitchWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
+    pitchWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 20);
     pitchWheel.setNumDecimalPlacesToDisplay(2);
     pitchWheel.setName("100");
     pitchWheel.addListener (this);
@@ -157,7 +154,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(pitchWheel);
     
     modWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
-    modWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
+    modWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 20);
     modWheel.setNumDecimalPlacesToDisplay(2);
     modWheel.setName("101");
     modWheel.addListener (this);
@@ -165,17 +162,17 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(modWheel);
     
     expWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
-    expWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
+    expWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 20);
     expWheel.setNumDecimalPlacesToDisplay(2);
     expWheel.setName("102");
     expWheel.addListener (this);
     expWheel.setRange(0, 127,1);
     addAndMakeVisible(expWheel);
     
-    progName.setColour (Label::backgroundColourId, C_DARKGREY);
     progName.setColour (Label::textColourId, Colours::white);
     progName.setJustificationType (Justification::centred);
     progName.setText("Flipotronics", NotificationType::dontSendNotification);
+
     auto f2 =  progName.getFont();
     f2.setSizeAndStyle(50, 0, 0.5, 0.5);
     f2.setBold(true);
@@ -193,14 +190,14 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(progNumber);
     
     // Dropdowns
-    addAndMakeVisible(playMode);
     playMode.addItem ("Poly", 1);
     playMode.addItem ("Unisono", 2);
     playMode.addItem ("Mono", 3);
     playMode.addItem ("Legato", 4);
     playMode.onChange = [this] { styleMenuChanged(); };
     playMode.setSelectedId(Model::of().par[1023], NotificationType::dontSendNotification);
-
+    addAndMakeVisible(playMode);
+    
     addAndMakeVisible(viewMode);
     viewMode.addItem ("Ouput", vPlot);
     viewMode.addItem ("Spectrum", vSpectrum);
@@ -212,7 +209,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewMode.addItem ("LFO 2", vLFO2);
     viewMode.addItem ("LFO 3", vLFO3);
     viewMode.addItem ("LFO 4", vLFO4);
-    viewMode.addItem ("Curve 4", vCurve);
+    viewMode.addItem ("Curve", vCurve);
     viewMode.addItem ("Wave", vWave);
     viewMode.addItem ("Debug", vDebug);
     viewMode.onChange = [this] { styleMenuChangedView(); };
@@ -236,6 +233,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addChildComponent(processor.adsrComponent);
     addAndMakeVisible(processor.waveComponent);
     addChildComponent(processor.lfoComponent);
+    addChildComponent(processor.curveComponent);
 
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
@@ -249,14 +247,15 @@ Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
 // ==================================================================================================
 // Resize
 // ==================================================================================================
-void Synth1AudioProcessorEditor::resized()
-{
+void Synth1AudioProcessorEditor::resized() {
     Rectangle<int> r = getLocalBounds();
     int width = r.getWidth();
     int height = r.getHeight();
     
     // Keyboard
-    keyboardComponent.setBounds (100,  height - 53, 1200,  50);
+    keyboardComponent.setBounds (112, height - 82, 1187,  80);
+    keyboardComponent.setKeyWidth(26.5);
+    keyboardComponent.setAvailableRange(33, 108);
     
     // Buttons
     for(int i=0; i < 8; ++i){
@@ -273,8 +272,8 @@ void Synth1AudioProcessorEditor::resized()
     btnCompare.setBounds (width-270, hButtons, 80, 20);
     btnSave.setBounds (width-180, hButtons, 80, 20);
     btnLoad.setBounds (width-90, hButtons, 80, 20);
-    btnLatch.setBounds (10, height-25, 80, 20);
-    btnPanic.setBounds (width-90, height-25, 80, 20);
+    btnLatch.setBounds (width-90, height-82, 80, 22);
+    btnPanic.setBounds (width-90, height-26, 80, 22);
     
     int xVal = 835;
     btnRange0.setBounds (xVal, 5, 60, 20);
@@ -302,14 +301,15 @@ void Synth1AudioProcessorEditor::resized()
     }
     
     // Live Controller
-    pitchWheel.setBounds(1230, 60, 50, 250);
-    modWheel.setBounds (1290, 60, 50, 250);
-    expWheel.setBounds (1350, 60, 50, 250);
+    pitchWheel.setBounds(5, height-93, 30, 97);
+    modWheel.setBounds (40, height-93, 30, 97);
+    expWheel.setBounds (75, height-93, 30, 97);
     
     // Drop Downs
-    playMode.setBounds (width-90, height-50, 80, 20);
+    playMode.setBounds (width-90, height-53, 80, 21);
+    playMode.setEditableText(false);
     viewMode.setBounds (840, 290, 120, 20);
-    viewZoom.setBounds (width-90, 0, 80, 20);
+    viewZoom.setBounds (width-90, 5, 80, 20);
     
     // Labels
     progName.setBounds(840, 137, 260,  60);
@@ -320,11 +320,13 @@ void Synth1AudioProcessorEditor::resized()
     rootLabel[3].setBounds (xVal+210, 25, 60, 20);
     
     // Spectrum
-    processor.spectrum.setBounds(0, 320, width,  400);
-    processor.waveComponent.setBounds(0, 320, width,  400);
-    processor.outputComponent.setBounds(0, 320, width,  400);
-    processor.adsrComponent.setBounds(0, 320, width,  400);
-    processor.lfoComponent.setBounds(0, 320, width,  400);
+    int componentHeight = 360;
+    processor.spectrum.setBounds(0, 320, width,  componentHeight);
+    processor.waveComponent.setBounds(0, 320, width,  componentHeight);
+    processor.outputComponent.setBounds(0, 320, width,  componentHeight);
+    processor.adsrComponent.setBounds(0, 320, width,  componentHeight);
+    processor.lfoComponent.setBounds(0, 320, width,  componentHeight);
+    processor.curveComponent.setBounds(0, 320, width,  componentHeight);
 }
 
 // ==================================================================================================
@@ -340,20 +342,19 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     // BG
     g.fillAll (C_BACKGROUND);
     
+    // Progname
+    g.setColour (C_PROGNAME);
+    g.fillRoundedRectangle(840, 137, 260,  60, 7);
+ 
     // Cover the keyboard area
     // Version
-    int keyZoneHeight = 74;
+    int keyZoneHeight = 90;
     Rectangle<int> rv = getLocalBounds();
     g.setColour (C_KEYBORDAREA);
     rv.setY(height-keyZoneHeight);
     rv.setHeight(keyZoneHeight);
     g.fillRect(rv);
-    
-    g.setColour (C_BACKGROUND);
-    rv.setY(height-keyZoneHeight-1);
-    rv.setHeight(2);
-    g.fillRect(rv);
-  
+
     rv.setWidth(200);
     rv.setHeight(20);
     rv.setX(width - 280);
@@ -372,13 +373,13 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     if(taken > processor.maxTimeMsec){
         g.setColour (Colours::red);
     }else{
-        g.setColour (Colours::green);
+        g.setColour (C_GREENTEXT);
     }
     float cpu = taken / processor.maxTimeMsec * 100.0f;
     g.drawFittedText ("CPU: " +  String(cpu,2) + "%  Taken: " + String(taken,3) + " msec  Max: " + String(processor.maxTimeMsec,3) + " msec", rv, Justification::topLeft, 1);
     
     // Volumes
-    g.setColour (Colours::black);
+    g.setColour (C_GREENTEXT);
     rv.setY(67);
     rv.setX(width-280);
     rv.setWidth(200);
@@ -395,21 +396,6 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     r.setHeight(380);
     r.setY(315);
     g.fillRect(r);
-
     g.drawImageWithin(ImageFactory::of().png[eMeter], 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
     g.drawImageWithin(ImageFactory::of().png[eMeter], 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
-    
-    // Display Graph
-    if(Model::of().viewModeSetting == vCurve){
-        curve.set(Model::of().par[1022]);
-        g.setColour (Colours::white);
-        int ylast = half + 150;
-        int w = 300; // width
-        int xOffset = 500;
-        for(int i=0;i<w;++i){
-            int y = 150 + half - 300.0f * curve.getScaled(i , w) ;
-             g.drawLine (xOffset + i, ylast, i + xOffset+1, y, 1.0f);
-            ylast = y;
-        }
-    }
 }

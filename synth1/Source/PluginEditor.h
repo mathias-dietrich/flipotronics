@@ -30,8 +30,6 @@ public:
     
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
-    
-    Curve curve;
 
     TextButton btnParam[16];
     Label btnLabel[8];
@@ -50,7 +48,6 @@ public:
     TextButton btnPanic;
     TextButton btnBrowse;
     TextButton btnArp;
-    
     TextButton btnLatch;
     
     Label timeLabel;
@@ -82,18 +79,15 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
     
-    void handleNoteOn (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override
-    {
+    void handleNoteOn (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override {
         processor.handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
     }
      
-    void handleNoteOff (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override
-    {
+    void handleNoteOff (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override {
         processor.handleNoteOff(state, midiChannel, midiNoteNumber, velocity);
     }
     
-    void buttonClicked (Button* button)  override // [2]
-    {
+    void buttonClicked (Button* button)  override {
         // Save
         if(button->getRadioGroupId()==16) {
             bankLoader->save();
@@ -113,7 +107,7 @@ private:
             return;
         }
         
-         if(button->getRadioGroupId()==18) {
+        if(button->getRadioGroupId()==18) {
              paramRoot = 0;
              btnRange0.setToggleState(true, NotificationType::dontSendNotification);
              btnRange1.setToggleState(false, NotificationType::dontSendNotification);
@@ -121,7 +115,7 @@ private:
              btnRange3.setToggleState(false, NotificationType::dontSendNotification);
              setButtonRanges();
              return;
-         }
+        }
         
         if(button->getRadioGroupId()==19) {
             paramRoot = 1;
@@ -220,8 +214,7 @@ private:
         setDials();
     }
     
-    void setDials(){
-        
+    void setDials() {
         float par[MAXPARAM];
         for(int i =0; i < MAXPARAM;++i){
             par[i] = Model::of().par[i] ;
@@ -449,7 +442,7 @@ private:
         processor.outputComponent.setVisible(false);
         processor.adsrComponent.setVisible(false);
         processor.lfoComponent.setVisible(false);
-
+        processor.curveComponent.setVisible(false);
         switch(Model::of().viewModeSetting){
             case vSpectrum:
                 processor.spectrum.setVisible(true);
@@ -475,6 +468,10 @@ private:
             case vLFO3:
             case vLFO4:
                 processor.lfoComponent.setVisible(true);
+                break;
+              
+            case vCurve:
+                processor.curveComponent.setVisible(true);
                 break;
         }
         repaint();

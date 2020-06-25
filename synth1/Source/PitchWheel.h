@@ -19,21 +19,14 @@ class PitchWheelLookAndFeel : public  LookAndFeel_V4{
           
      }
     
-    Label* createSliderTextBox(Slider& slider) override
-    {
-        Label* l = LookAndFeel_V2::createSliderTextBox(slider);
-        l->setColour(Label::textColourId, Colours::black);
-        return l;
-    }
-
     void drawLinearSlider (Graphics& g, int x, int y, int width, int height,float sliderPos, float minSliderPos, float maxSliderPos, const Slider::SliderStyle style, Slider& slider) override{
-        g.setColour(juce::Colours::black);
+        g.setColour(juce::Colours::darkgrey);
         g.fillRect(x,y,width,height);
         g.setColour(juce::Colours::lightgrey);
         for(int i =0; i < height; i=i+5){
             g.drawLine(x, y + i,x + width, y + i, 0.2);
         }
-        g.setColour(juce::Colours::lightblue);
+        g.setColour(juce::Colours::mintcream);
         g.fillRect(x,int(sliderPos-5),width,10);
         g.setColour(juce::Colours::darkgrey);
         g.drawLine(x,int(sliderPos),width,int(sliderPos),1.2);
@@ -46,11 +39,15 @@ class PitchWheel : public Slider{
     
 public:
     
-    PitchWheelLookAndFeel potiLookAndFeel;
+    PitchWheelLookAndFeel pitchWheelLookAndFeel;
     
      PitchWheel() {
-        potiLookAndFeel.setColour (Slider::thumbColourId, Colours::blue);
-        this->setLookAndFeel (&potiLookAndFeel);
+        pitchWheelLookAndFeel.setColour (Slider::thumbColourId, Colours::blue);
+        
+         
+       setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
+        hideTextBox (true)    ;
+       this->setLookAndFeel (&pitchWheelLookAndFeel);
     }
     
     ~PitchWheel() {

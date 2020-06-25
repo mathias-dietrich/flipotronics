@@ -2080,7 +2080,7 @@ class ParamBuilder {       // The class
             p.minVal = -100;
             p.maxVal = 100;
             p.stepVal = 1;
-            p.type = uMidiNote;
+            p.type = uFloat;
             p.def = 0;
             Model::of().params[1022] = p;
         }

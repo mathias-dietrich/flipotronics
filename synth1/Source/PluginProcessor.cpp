@@ -87,6 +87,7 @@ void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     lfoComponent.init(sampleRate, samplesPerBlock);
     outputComponent.init(sampleRate, samplesPerBlock);
     spectrum.init(sampleRate, samplesPerBlock);
+    curveComponent.init(sampleRate, samplesPerBlock);
 }
 
 void Synth1AudioProcessor::releaseResources(){

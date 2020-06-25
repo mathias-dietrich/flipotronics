@@ -9,6 +9,7 @@
 #include "OutputComponent.h"
 #include "AdsrComponent.h"
 #include "LfoComponent.h"
+#include "CurveComponent.h"
 
 //  https://github.com/ffAudio/ff_meters
 //==============================================================================
@@ -26,6 +27,7 @@ public:
     OutputComponent outputComponent;
     AdsrComponent adsrComponent;
     LfoComponent lfoComponent;
+    CurveComponent curveComponent;
     
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;

@@ -11,9 +11,11 @@
 
 #define C_DARKGREY  Colour(33, 33, 33)
 #define C_BACKGROUND  Colour(239, 239, 239)
-#define C_BRANDTITLE  Colour(30, 30, 30)
-#define C_KEYBORDAREA  Colour(20, 20, 20)
-
+#define C_BRANDTITLE  Colour(33, 33, 33)
+#define C_KEYBORDAREA  Colour(33, 66, 33)
 #define C_PROGNUMBER  Colour(20, 20, 20)
+#define C_PROGNAME  Colour(33, 33, 33)
+
+#define C_GREENTEXT  Colour(33, 66, 33)
 
 #endif /* Color_h */

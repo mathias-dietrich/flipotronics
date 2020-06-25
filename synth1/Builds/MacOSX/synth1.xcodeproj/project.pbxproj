@@ -248,6 +248,7 @@
 		4FAC348F24A33A0100FB51D7 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = build/Debug/images; sourceTree = "<group>"; };
 		4FAC349024A3686200FB51D7 /* Poti.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Poti.h; path = ../../Source/Poti.h; sourceTree = "<group>"; };
 		4FB9214924A4A41D00204531 /* AbstractComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AbstractComponent.h; path = ../../Source/AbstractComponent.h; sourceTree = "<group>"; };
+		4FB9214A24A4DA6800204531 /* CurveComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CurveComponent.h; path = ../../Source/CurveComponent.h; sourceTree = "<group>"; };
 		4FC14FD6249748C700C259ED /* Smooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Smooth.h; path = ../../Source/Smooth.h; sourceTree = "<group>"; };
 		4FC14FD724974ABB00C259ED /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Osc.h; path = ../../Source/Osc.h; sourceTree = "<group>"; };
 		4FC4C0BB248395E700CBE568 /* Arp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Arp.cpp; path = ../../Source/Arp.cpp; sourceTree = "<group>"; };
@@ -553,6 +554,7 @@
 				4F2DA380249FEAA300E8873D /* AdsrComponent.h */,
 				4F9839CD249DCDA00007CD5C /* SpectrumComponent.h */,
 				4FB9214924A4A41D00204531 /* AbstractComponent.h */,
+				4FB9214A24A4DA6800204531 /* CurveComponent.h */,
 			);
 			name = component;
 			sourceTree = "<group>";
