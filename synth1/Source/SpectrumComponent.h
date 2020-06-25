@@ -12,10 +12,10 @@
 #include <JuceHeader.h>
 #include "CircularBuffer.h"
 #include "Func.h"
+#include "AbstractComponent.h"
 //==============================================================================
-/*
-*/
-class SpectrumComponent : public Component , private Timer{
+
+class SpectrumComponent : public AbstractComponent , private Timer{
     
  public:
     SpectrumComponent (): forwardFFT (fftOrder), window (fftSize, dsp::WindowingFunction<float>::hann) {
@@ -117,7 +117,7 @@ class SpectrumComponent : public Component , private Timer{
     void setNextAudioBlock (AudioBuffer<float>& buffer)
     {
         auto* channelDataL = buffer.getReadPointer (0);
-        for (auto i = 0; i < samplesperblock; ++i){
+        for (auto i = 0; i < samplesPerBlock; ++i){
             pushNextSampleIntoFifo (channelDataL[i]);
         }
     }
@@ -158,7 +158,7 @@ class SpectrumComponent : public Component , private Timer{
         float levelTotal = 0;
         for (int i = 0; i < scopeSize; ++i)
         {
-            float df = samplerate / fftSize;
+            float df = sampleRate / fftSize;
             float freq = freqTable[i];
             int fftDataIndex = freq/df + 6 ; // Why do we need to add 6 here ?? to make 440 look right
             float v = fftData[fftDataIndex] ;

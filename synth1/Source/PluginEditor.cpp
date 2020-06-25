@@ -14,9 +14,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible (keyboardComponent);
  
     keyboardState.addListener (this);
-    patchCurrent = 0;
-    viewModeSetting = 1;
-    
+    Model::of().patchCurrent = 0;
+
     ImageFactory::of().init();
     
     curve.set(0);
@@ -26,7 +25,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     bankLoader->load();
     processor.loadPatch(0);
     Model::of().set();
-    compareMode = false;
+    Model::of().compareMode = false;
 
     int from = 0;
     int to = 15;
@@ -183,8 +182,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     progName.setFont(f2);
     addAndMakeVisible(progName);
    
-   // progNumber.setColour (Label::backgroundColourId, C_DARKGREY);
-    progNumber.setColour (Label::textColourId, Colours::white);
+    progNumber.setColour (Label::textColourId, C_PROGNUMBER);
     progNumber.setJustificationType (Justification::centred);
     progNumber.setText("1", NotificationType::dontSendNotification);
     
@@ -201,7 +199,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     playMode.addItem ("Mono", 3);
     playMode.addItem ("Legato", 4);
     playMode.onChange = [this] { styleMenuChanged(); };
-    playMode.setSelectedId(par[1023], NotificationType::dontSendNotification);
+    playMode.setSelectedId(Model::of().par[1023], NotificationType::dontSendNotification);
 
     addAndMakeVisible(viewMode);
     viewMode.addItem ("Ouput", vPlot);
@@ -218,8 +216,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewMode.addItem ("Wave", vWave);
     viewMode.addItem ("Debug", vDebug);
     viewMode.onChange = [this] { styleMenuChangedView(); };
-    viewModeSetting = vWave;
-    viewMode.setSelectedId(viewModeSetting, NotificationType::dontSendNotification);
+    Model::of().viewModeSetting = vWave;
+    viewMode.setSelectedId(Model::of().viewModeSetting, NotificationType::dontSendNotification);
 
     addAndMakeVisible(viewZoom);
     viewZoom.addItem ("50%", 1);
@@ -279,21 +277,16 @@ void Synth1AudioProcessorEditor::resized()
     btnPanic.setBounds (width-90, height-25, 80, 20);
     
     int xVal = 835;
-   btnRange0.setBounds (xVal, 5, 60, 20);
-   btnRange1.setBounds (xVal+70, 5, 60, 20);
-   btnRange2.setBounds (xVal+140, 5, 60, 20);
-   btnRange3.setBounds (xVal+210, 5, 60, 20);
+    btnRange0.setBounds (xVal, 5, 60, 20);
+    btnRange1.setBounds (xVal+70, 5, 60, 20);
+    btnRange2.setBounds (xVal+140, 5, 60, 20);
+    btnRange3.setBounds (xVal+210, 5, 60, 20);
    
-   rootLabel[0].setBounds (xVal, 25, 60, 20);
-   rootLabel[1].setBounds (xVal+70, 25, 60, 20);
-   rootLabel[2].setBounds (xVal+140, 25, 60, 20);
-   rootLabel[3].setBounds (xVal+210, 25, 60, 20);
-   
-   btnProgDown.setBounds (840, 205, 80, 20);
-   btnProgUp.setBounds (1020, 205, 80, 20);
-   btnBrowse.setBounds (922, 245, 90, 30);
-   btnArp.setBounds (820, 245, 90, 30);
-
+    btnProgDown.setBounds (840, 205, 80, 20);
+    btnProgUp.setBounds (1020, 205, 80, 20);
+    btnBrowse.setBounds (922, 245, 90, 30);
+    btnArp.setBounds (820, 245, 90, 30);
+    
     // Sliders
     int dialY = 60;
     for(int i=0; i < 8; ++i){
@@ -314,13 +307,17 @@ void Synth1AudioProcessorEditor::resized()
     expWheel.setBounds (1350, 60, 50, 250);
     
     // Drop Downs
-    playMode.setBounds (820, 290, 80, 20);
-    viewMode.setBounds (910, 290, 80, 20);
+    playMode.setBounds (width-90, height-50, 80, 20);
+    viewMode.setBounds (840, 290, 120, 20);
     viewZoom.setBounds (width-90, 0, 80, 20);
     
     // Labels
     progName.setBounds(840, 137, 260,  60);
     progNumber.setBounds(930, 205, 80,  30);
+    rootLabel[0].setBounds (xVal, 25, 60, 20);
+    rootLabel[1].setBounds (xVal+70, 25, 60, 20);
+    rootLabel[2].setBounds (xVal+140, 25, 60, 20);
+    rootLabel[3].setBounds (xVal+210, 25, 60, 20);
     
     // Spectrum
     processor.spectrum.setBounds(0, 320, width,  400);
@@ -347,7 +344,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     // Version
     int keyZoneHeight = 74;
     Rectangle<int> rv = getLocalBounds();
-    g.setColour (C_KEABORDAREA);
+    g.setColour (C_KEYBORDAREA);
     rv.setY(height-keyZoneHeight);
     rv.setHeight(keyZoneHeight);
     g.fillRect(rv);
@@ -357,35 +354,41 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     rv.setHeight(2);
     g.fillRect(rv);
   
-    rv.setWidth(width-120);
-    rv.setHeight(40);
-    rv.setY(height-keyZoneHeight);
+    rv.setWidth(200);
+    rv.setHeight(20);
+    rv.setX(width - 280);
+    rv.setY(5);
     g.setColour (C_BRANDTITLE);
     g.setFont (17.0f);
-    g.drawFittedText (PRODUCTNAME, rv, Justification::topRight, 1);
+    g.drawFittedText (PRODUCTNAME, rv, Justification::topLeft, 1);
     
     // Debug speed of render
-    rv.setY(17);
+    rv.setY(53);
+    rv.setX(width - 280);
     g.setFont (11.0f);
   
     // Time taken in the Render Loop
-    float taken = timeTaken * 0.000001f;
+    float taken = Model::of().timeTaken * 0.000001f;
     if(taken > processor.maxTimeMsec){
         g.setColour (Colours::red);
     }else{
         g.setColour (Colours::green);
     }
-    g.drawFittedText (String(taken) + " - " + String(processor.maxTimeMsec), rv, Justification::topRight, 1);
+    float cpu = taken / processor.maxTimeMsec * 100.0f;
+    g.drawFittedText ("CPU: " +  String(cpu,2) + "%  Taken: " + String(taken,3) + " msec  Max: " + String(processor.maxTimeMsec,3) + " msec", rv, Justification::topLeft, 1);
     
+    // Volumes
     g.setColour (Colours::black);
     rv.setY(67);
     rv.setX(width-280);
     rv.setWidth(200);
     g.setFont (15.0f);
-    g.drawFittedText ("Peak: " + String(sumPeak), rv, Justification::topLeft, 1);
+
+    rv.setY(67);
+    g.drawFittedText ("Peak: " + String(Model::of().sumPeak), rv, Justification::topLeft, 1);
     
     rv.setY(85);
-    g.drawFittedText ("RMS: " + String(sumRMS,2), rv, Justification::topLeft, 1);
+    g.drawFittedText ("RMS: " + String(Model::of().sumRMS,2), rv, Justification::topLeft, 1);
     
     // VU Meter
     g.setColour (Colours::black);
@@ -397,8 +400,8 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     g.drawImageWithin(ImageFactory::of().png[eMeter], 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
     
     // Display Graph
-    if(viewModeSetting == vCurve){
-        curve.set(par[1022]);
+    if(Model::of().viewModeSetting == vCurve){
+        curve.set(Model::of().par[1022]);
         g.setColour (Colours::white);
         int ylast = half + 150;
         int w = 300; // width

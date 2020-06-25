@@ -57,7 +57,7 @@ public:
                 level = -96.0f;
             }
         }
-        sumRMS = level;
+        Model::of().sumRMS = level;
         
         level = -96.0f;
            if(currentPeak > 0.0f){
@@ -66,7 +66,7 @@ public:
                    level = -96.0f;
             }
          }
-        sumPeak = level;
+         Model::of().sumPeak = level;
     }
     
     void init (float sampleRate, int samplesPerBlock){

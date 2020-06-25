@@ -247,6 +247,7 @@
 		4FAC348E24A331B600FB51D7 /* ImageFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ImageFactory.h; path = ../../Source/ImageFactory.h; sourceTree = "<group>"; };
 		4FAC348F24A33A0100FB51D7 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = build/Debug/images; sourceTree = "<group>"; };
 		4FAC349024A3686200FB51D7 /* Poti.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Poti.h; path = ../../Source/Poti.h; sourceTree = "<group>"; };
+		4FB9214924A4A41D00204531 /* AbstractComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AbstractComponent.h; path = ../../Source/AbstractComponent.h; sourceTree = "<group>"; };
 		4FC14FD6249748C700C259ED /* Smooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Smooth.h; path = ../../Source/Smooth.h; sourceTree = "<group>"; };
 		4FC14FD724974ABB00C259ED /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Osc.h; path = ../../Source/Osc.h; sourceTree = "<group>"; };
 		4FC4C0BB248395E700CBE568 /* Arp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Arp.cpp; path = ../../Source/Arp.cpp; sourceTree = "<group>"; };
@@ -427,7 +428,6 @@
 		4F53E619248302A10080F061 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				4F2DA382249FF13000E8873D /* LfoComponent.h */,
 				4FC4C0C424839DE200CBE568 /* Voice.h */,
 				4F53E61A248302B60080F061 /* Core.cpp */,
 				4F53E61B248302B60080F061 /* Core.h */,
@@ -437,11 +437,7 @@
 				4F0F15832493458E00031C20 /* Curve.h */,
 				4F097B6F249770D500566939 /* Player.h */,
 				4FAB8569249A95590039E051 /* Detector.h */,
-				4F9839CD249DCDA00007CD5C /* SpectrumComponent.h */,
 				4F9839CE249DCEA00007CD5C /* CircularBuffer.h */,
-				4F9839D8249F98FB0007CD5C /* WaveComponent.h */,
-				4F2DA37F249FE0F600E8873D /* OutputComponent.h */,
-				4F2DA380249FEAA300E8873D /* AdsrComponent.h */,
 				4FAC348E24A331B600FB51D7 /* ImageFactory.h */,
 			);
 			name = core;
@@ -548,6 +544,19 @@
 			name = fx;
 			sourceTree = "<group>";
 		};
+		4FB9214824A4A3EA00204531 /* component */ = {
+			isa = PBXGroup;
+			children = (
+				4F2DA382249FF13000E8873D /* LfoComponent.h */,
+				4F9839D8249F98FB0007CD5C /* WaveComponent.h */,
+				4F2DA37F249FE0F600E8873D /* OutputComponent.h */,
+				4F2DA380249FEAA300E8873D /* AdsrComponent.h */,
+				4F9839CD249DCDA00007CD5C /* SpectrumComponent.h */,
+				4FB9214924A4A41D00204531 /* AbstractComponent.h */,
+			);
+			name = component;
+			sourceTree = "<group>";
+		};
 		4FF9C27724A23DAA00A08BEB /* widget */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +591,7 @@
 		9C6B7E2C03EC63CCDDD66A19 /* synth1 */ = {
 			isa = PBXGroup;
 			children = (
+				4FB9214824A4A3EA00204531 /* component */,
 				4FF9C27724A23DAA00A08BEB /* widget */,
 				4FAB8566249A76250039E051 /* fx */,
 				4FAB8565249A49A60039E051 /* adsr */,

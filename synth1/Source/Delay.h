@@ -36,7 +36,7 @@ class Delay {
         return pos;
     }
     
-    void handle(AudioBuffer<float>& buffer, int totalNumInputChannels, int totalNumOutputChannels) {
+    void handle(AudioBuffer<float>& buffer, int totalNumInputChannels, int totalNumOutputChannels, float * par) {
         auto* channelDataL = buffer.getWritePointer (0);
         auto* channelDataR = buffer.getWritePointer (1);
         

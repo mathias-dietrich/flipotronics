@@ -9,7 +9,9 @@
 #ifndef WaveComponent_h
 #define WaveComponent_h
 
-class WaveComponent : public Component, public ChangeListener, public Timer {
+#include "AbstractComponent.h"
+
+class WaveComponent : public AbstractComponent, public ChangeListener, public Timer {
    
 public:
     enum TransportState
@@ -81,8 +83,8 @@ public:
     
     void timerCallback() override
     {
-        if(hasPlayed){
-            hasPlayed = false;
+        if(Model::of().hasPlayed){
+            Model::of().hasPlayed = false;
             changeState(Stopped);
         }
         repaint();
@@ -120,12 +122,12 @@ public:
     
     void playButtonClicked()
     {
-        noOfSamplesToPlay = noOfSamples;
+        Model::of().noOfSamplesToPlay = noOfSamples;
     }
     
     void stopButtonClicked()
     {
-         noOfSamplesToPlay = 0;
+         Model::of().noOfSamplesToPlay = 0;
         if (state == Paused)
             changeState (Stopped);
         else
@@ -198,8 +200,8 @@ public:
         
                    if (duration < 2)
                    {
-                       fileBuffer.setSize (reader2->numChannels, (int) reader2->lengthInSamples);  // [4]
-                       reader2->read (&fileBuffer,                                                // [5]
+                       Model::of().fileBuffer.setSize (reader2->numChannels, (int) reader2->lengthInSamples);  // [4]
+                       reader2->read (&Model::of().fileBuffer,                                                // [5]
                                      0,                                                          //  [5.1]
                                      (int) reader->lengthInSamples,                              //  [5.2]
                                      0,                                                          //  [5.3]

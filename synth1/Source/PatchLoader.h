@@ -17,12 +17,12 @@ class PatchLoader {       // The class
 
 public:
     void load(int pNo){
-        PatchData p = bankData.patchData[pNo];
-        patchNameCurrent = p.name;
+        PatchData p = Model::of().bankData.patchData[pNo];
+        Model::of().patchNameCurrent = p.name;
         for(int i=0; i < p.floatCount;++i){
-            par[i] = p.floatNumbers[i];
+            Model::of().par[i] = p.floatNumbers[i];
         }
-        patchCurrent = pNo;
+        Model::of().patchCurrent = pNo;
     }
 };
 

@@ -218,11 +218,13 @@
 class ParamBuilder {       // The class
     public:
         void build(){
+
+            
             for(int i=0; i < 1024; ++i){
                 Param p;
                 p.pid = i;
                 p.name = toString(i);
-                params[i] = p;
+                Model::of().params[i] = p;
                 p.minVal = 0;
                 p.maxVal = 1;
                 p.stepVal = 0.01;
@@ -241,7 +243,7 @@ class ParamBuilder {       // The class
             p0.stepVal = 0.1;
             p0.def = 440.0;
             p0.smoothTime = 0;
-            params[P_TUNING] = p0;
+            Model::of().params[P_TUNING] = p0;
             
             Param p;
             p.pid = P_NOVOICES;
@@ -253,7 +255,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 8;
-            params[P_NOVOICES] = p;
+            Model::of().params[P_NOVOICES] = p;
             
             p.pid = P_EXP_FILTER1;
             p.name = "Exp Filter 1";
@@ -264,7 +266,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_EXP_FILTER1] = p;
+            Model::of().params[P_EXP_FILTER1] = p;
             
             p.pid = P_EXP_FILTER2;
             p.name = "Exp Filter 2";
@@ -275,7 +277,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_EXP_FILTER2] = p;
+            Model::of().params[P_EXP_FILTER2] = p;
             
             p.pid = P_EXP_RES1;
             p.name = "Exp Res 1";
@@ -286,7 +288,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_EXP_RES1] = p;
+            Model::of().params[P_EXP_RES1] = p;
             
             p.pid = P_EXP_LFO1;
             p.name = "Exp Lfo 1";
@@ -297,7 +299,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_EXP_LFO1] = p;
+            Model::of().params[P_EXP_LFO1] = p;
             
             p.pid = P_EXP_PORTAMENTO;
             p.name = "Portamento";
@@ -308,7 +310,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_EXP_PORTAMENTO] = p;
+            Model::of().params[P_EXP_PORTAMENTO] = p;
             
             p.pid = P_VOLUME;
             p.name = "Volume";
@@ -319,8 +321,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uDb;
             p.def = 0;
-           
-            params[P_VOLUME] = p;
+            Model::of().params[P_VOLUME] = p;
             
             p.pid = P_PAN;
             p.name = "Pan";
@@ -331,7 +332,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0.5;
-            params[P_PAN] = p;
+            Model::of().params[P_PAN] = p;
             
             p.pid = P_PITCHWHEELMIN;
             p.name = "PitchWheel Min";
@@ -342,7 +343,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 5;
-            params[P_PITCHWHEELMIN] = p;
+            Model::of().params[P_PITCHWHEELMIN] = p;
             
             p.pid = P_PITCHWHEELMAX;
             p.name = "PitchWheel Max";
@@ -353,7 +354,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 7;
-            params[P_PITCHWHEELMAX] = p;
+            Model::of().params[P_PITCHWHEELMAX] = p;
             
             p.pid = P_MOD_FILTER;
             p.name = "Mod Filter";
@@ -364,7 +365,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 0;
-            params[P_MOD_FILTER] = p;
+            Model::of().params[P_MOD_FILTER] = p;
             
             p.pid = P_MOD_LFO1;
             p.name = "Mod LFO 1";
@@ -375,7 +376,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 0;
-            params[P_MOD_LFO1] = p;
+            Model::of().params[P_MOD_LFO1] = p;
             
             p.pid = P_MOD_LFO2;
             p.name = "Mod LFO 2";
@@ -386,7 +387,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 0;
-            params[P_MOD_LFO2] = p;
+            Model::of().params[P_MOD_LFO2] = p;
             
             p.pid = P_NOISE_LEVEL;
             p.name = "Noise Level";
@@ -397,7 +398,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_NOISE_LEVEL] = p;
+            Model::of().params[P_NOISE_LEVEL] = p;
             
             p.pid = P_NOISE_TYPE;
             p.name = "Noise Type";
@@ -408,7 +409,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uInt;
             p.def = 0;
-            params[P_NOISE_TYPE] = p;
+            Model::of().params[P_NOISE_TYPE] = p;
 
             // OSC 1
             p.pid = P_OSC1_OCT;
@@ -420,7 +421,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uFloat;
             p.def = 0;
-            params[P_OSC1_OCT] = p;
+            Model::of().params[P_OSC1_OCT] = p;
             
             p.pid = P_OSC1_SEMI;
             p.name = "Osc1 Semi";
@@ -431,7 +432,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uFloat;
             p.def = 0;
-            params[P_OSC1_SEMI] = p;
+            Model::of().params[P_OSC1_SEMI] = p;
             
             p.pid = P_OSC1_FINE;
             p.name = "Osc1 Fine";
@@ -442,7 +443,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 0;
-            params[P_OSC1_FINE] = p;
+            Model::of().params[P_OSC1_FINE] = p;
             
             p.pid = P_OSC1_VOL;
             p.name = "Osc1 Vol";
@@ -453,7 +454,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uDb;
             p.def = 0;
-            params[P_OSC1_VOL] = p;
+            Model::of().params[P_OSC1_VOL] = p;
             
             p.pid = P_OSC1_WAV;
             p.name = "Osc1 Wav";
@@ -464,7 +465,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type =  uWaveType;
             p.def = 0;
-            params[P_OSC1_WAV] = p;
+            Model::of().params[P_OSC1_WAV] = p;
             
             p.pid = P_OSC1_PULSE;
             p.name = "Osc1 Pulse W";
@@ -475,7 +476,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 0;
-            params[P_OSC1_PULSE] = p;
+            Model::of().params[P_OSC1_PULSE] = p;
             
             p.pid = P_OSC1_PHASE;
             p.name = "Osc1 Phase";
@@ -486,7 +487,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uPhase;
             p.def = 0.0;
-            params[P_OSC1_PHASE] = p;
+            Model::of().params[P_OSC1_PHASE] = p;
             
             p.pid = P_OSC1_SUB;
             p.name = "Osc1 Sub";
@@ -497,7 +498,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_OSC1_SUB] = p;
+            Model::of().params[P_OSC1_SUB] = p;
             
             p.pid = P_OSC2_OCT;
             p.name = "Osc2 Octave";
@@ -508,7 +509,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uFloat;
             p.def = 0;
-            params[P_OSC2_OCT] = p;
+            Model::of().params[P_OSC2_OCT] = p;
             
             p.pid = P_OSC2_SEMI;
             p.name = "Osc2 Semi";
@@ -519,7 +520,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uFloat;
             p.def = 0;
-            params[P_OSC2_SEMI] = p;
+            Model::of().params[P_OSC2_SEMI] = p;
             
             p.pid = P_OSC2_FINE;
             p.name = "Osc2 Fine";
@@ -530,7 +531,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 0;
-            params[P_OSC2_FINE] = p;
+            Model::of().params[P_OSC2_FINE] = p;
             
             p.pid = P_OSC2_VOL;
             p.name = "Osc2 Vol";
@@ -541,7 +542,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uDb;
             p.def = 0;
-            params[P_OSC2_VOL] = p;
+            Model::of().params[P_OSC2_VOL] = p;
             
             p.pid = P_OSC2_WAV;
             p.name = "Osc2 Wav";
@@ -552,7 +553,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type =  uWaveType;
             p.def = 0;
-            params[P_OSC2_WAV] = p;
+            Model::of().params[P_OSC2_WAV] = p;
             
             p.pid = P_OSC2_PULSE;
             p.name = "Osc2 Pulse W";
@@ -563,7 +564,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 0;
-            params[P_OSC2_PULSE] = p;
+            Model::of().params[P_OSC2_PULSE] = p;
             
             p.pid = P_OSC2_PHASE;
             p.name = "Osc2 Phase";
@@ -574,7 +575,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uPhase;
             p.def = 0.0;
-            params[P_OSC2_PHASE] = p;
+            Model::of().params[P_OSC2_PHASE] = p;
             
             p.pid = P_OSC2_SYNC;
             p.name = "Osc2 Sync";
@@ -585,7 +586,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uBool;
             p.def = 0;
-            params[P_OSC2_SYNC] = p;
+            Model::of().params[P_OSC2_SYNC] = p;
             
             // Filter
             p.pid = P_FILTER1_FREQ;
@@ -597,8 +598,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uHZ;
             p.def = 0;
-            
-            params[P_FILTER1_FREQ] = p;
+            Model::of().params[P_FILTER1_FREQ] = p;
             
             p.pid = P_FILTER1_RES;
             p.name = "Filter 1 Res";
@@ -609,7 +609,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_FILTER1_RES] = p;
+            Model::of().params[P_FILTER1_RES] = p;
             
             p.pid = P_FILTER1_TYPE;
             p.name = "Filter 1 Type";
@@ -620,7 +620,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uFilterType;
             p.def = 1;
-            params[P_FILTER1_TYPE] = p;
+            Model::of().params[P_FILTER1_TYPE] = p;
             
             p.pid = P_FILTER1_DRIVE;
             p.name = "Filter 1 Drive";
@@ -631,7 +631,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_FILTER1_DRIVE] = p;
+            Model::of().params[P_FILTER1_DRIVE] = p;
             
             p.pid = P_FILTER_ARCHITECTURE;
             p.name = "F Architecture";
@@ -642,7 +642,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
-            params[P_FILTER_ARCHITECTURE] = p;
+            Model::of().params[P_FILTER_ARCHITECTURE] = p;
              
             p.pid = P_FILTER2_FREQ;
             p.name = "Filter 2 Freq";
@@ -653,7 +653,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1.0f;
             p.type = uHZ;
             p.def = 0;
-            params[P_FILTER2_FREQ] = p;
+            Model::of().params[P_FILTER2_FREQ] = p;
             
             p.pid = P_FILTER2_RES;
             p.name = "Filter 2 Res";
@@ -664,7 +664,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 7000;
-            params[P_FILTER2_RES] = p;
+            Model::of().params[P_FILTER2_RES] = p;
             
             p.pid = P_FILTER2_TYPE;
             p.name = "Filter 2 Type";
@@ -675,7 +675,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uFilterType;
             p.def = 0;
-            params[P_FILTER2_TYPE] = p;
+            Model::of().params[P_FILTER2_TYPE] = p;
             
             p.pid = P_FILTER2_DRIVE;
             p.name = "Filter 2 Drive";
@@ -686,7 +686,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_FILTER2_DRIVE] = p;
+            Model::of().params[P_FILTER2_DRIVE] = p;
             
             // ADSR
             p.pid = P_ADSR1_ATTACK;
@@ -698,7 +698,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR1_ATTACK] = p;
+            Model::of().params[P_ADSR1_ATTACK] = p;
             
             p.pid = P_ADSR1_DECAY;
             p.name = "ADSR 1 Decay";
@@ -709,7 +709,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR1_DECAY] = p;
+            Model::of().params[P_ADSR1_DECAY] = p;
             
             p.pid = P_ADSR1_SUSTAIN;
             p.name = "ADSR 1 Sustain";
@@ -720,7 +720,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR1_SUSTAIN] = p;
+            Model::of().params[P_ADSR1_SUSTAIN] = p;
             
             p.pid = P_ADSR1_RELEASE;
             p.name = "ADSR 1 Release";
@@ -731,7 +731,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR1_RELEASE] = p;
+            Model::of().params[P_ADSR1_RELEASE] = p;
             
             p.pid = P_ADSR1_PITCH;
             p.name = "ADSR 1 Pitch";
@@ -742,7 +742,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR1_PITCH] = p;
+            Model::of().params[P_ADSR1_PITCH] = p;
             
             p.pid = P_ADSR1_FILTER;
             p.name = "ADSR 1 Filter";
@@ -753,7 +753,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR1_FILTER] = p;
+            Model::of().params[P_ADSR1_FILTER] = p;
 
             p.pid = P_ADSR1_AMP;
             p.name = "ADSR 1 Amp";
@@ -764,7 +764,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR1_AMP] = p;
+            Model::of().params[P_ADSR1_AMP] = p;
             
             p.pid = P_ADSR1_FX;
             p.name = "ADSR 1 FX";
@@ -775,7 +775,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR1_FX] = p;
+            Model::of().params[P_ADSR1_FX] = p;
 
             p.pid = P_ADSR1_ATTACK_CURVE;
             p.name = "ADSR 1 Att C";
@@ -786,7 +786,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR1_ATTACK_CURVE] = p;
+            Model::of().params[P_ADSR1_ATTACK_CURVE] = p;
             
             p.pid = P_ADSR1_DECAY_CURVE;
             p.name = "ADSR 1 Dec C";
@@ -797,7 +797,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR1_DECAY_CURVE] = p;
+            Model::of().params[P_ADSR1_DECAY_CURVE] = p;
             
             p.pid = P_ADSR1_SUSTAIN_CURVE;
             p.name = "ADSR 1 Sus C";
@@ -808,7 +808,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR1_SUSTAIN_CURVE] = p;
+            Model::of().params[P_ADSR1_SUSTAIN_CURVE] = p;
 
             p.pid = P_ADSR1_RELEASE_CURVE;
             p.name = "ADSR 1 Rel C";
@@ -819,7 +819,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR1_RELEASE_CURVE] = p;
+            Model::of().params[P_ADSR1_RELEASE_CURVE] = p;
             
             p.pid = P_ADSR1_DELAY;
             p.name = "ADSR 1 Delay";
@@ -830,7 +830,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR1_DELAY] = p;
+            Model::of().params[P_ADSR1_DELAY] = p;
             
             p.pid = P_ADSR1_HOLD;
             p.name = "ADSR 1 Hold";
@@ -841,7 +841,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR1_HOLD] = p;
+            Model::of().params[P_ADSR1_HOLD] = p;
 
             p.pid = P_ADSR1_TRIGGER;
             p.name = "ADSR 1 Trigger";
@@ -852,7 +852,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR1_TRIGGER] = p;
+            Model::of().params[P_ADSR1_TRIGGER] = p;
             
             p.pid = P_ADSR1_TRESHOLD;
             p.name = "ADSR 1 Tresh";
@@ -863,7 +863,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[ P_ADSR1_TRESHOLD] = p;
+            Model::of().params[ P_ADSR1_TRESHOLD] = p;
             
             // ADSR 2
             p.pid = P_ADSR2_ATTACK;
@@ -875,7 +875,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR2_ATTACK] = p;
+            Model::of().params[P_ADSR2_ATTACK] = p;
             
             p.pid = P_ADSR2_DECAY;
             p.name = "ADSR 2 Decay";
@@ -886,7 +886,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR2_DECAY] = p;
+            Model::of().params[P_ADSR2_DECAY] = p;
             
             p.pid = P_ADSR2_SUSTAIN;
             p.name = "ADSR 2 Sustain";
@@ -897,7 +897,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR2_SUSTAIN] = p;
+            Model::of().params[P_ADSR2_SUSTAIN] = p;
             
             p.pid = P_ADSR2_RELEASE;
             p.name = "ADSR 2 Release";
@@ -908,7 +908,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR2_RELEASE] = p;
+            Model::of().params[P_ADSR2_RELEASE] = p;
             
             p.pid = P_ADSR2_PITCH;
             p.name = "ADSR 2 Pitch";
@@ -919,7 +919,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR2_PITCH] = p;
+            Model::of().params[P_ADSR2_PITCH] = p;
             
             p.pid = P_ADSR2_FILTER;
             p.name = "ADSR 2 Filter";
@@ -930,7 +930,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR2_FILTER] = p;
+            Model::of().params[P_ADSR2_FILTER] = p;
 
             p.pid = P_ADSR2_AMP;
             p.name = "ADSR 2 Amp";
@@ -941,7 +941,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR2_AMP] = p;
+            Model::of().params[P_ADSR2_AMP] = p;
             
             p.pid = P_ADSR2_FX;
             p.name = "ADSR 2 FX";
@@ -952,7 +952,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR2_FX] = p;
+            Model::of().params[P_ADSR2_FX] = p;
 
             p.pid = P_ADSR2_ATTACK_CURVE;
             p.name = "ADSR 2 Att C";
@@ -963,7 +963,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR2_ATTACK_CURVE] = p;
+            Model::of().params[P_ADSR2_ATTACK_CURVE] = p;
             
             p.pid = P_ADSR2_DECAY_CURVE;
             p.name = "ADSR 2 Dec C";
@@ -974,7 +974,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR2_DECAY_CURVE] = p;
+            Model::of().params[P_ADSR2_DECAY_CURVE] = p;
             
             p.pid = P_ADSR2_SUSTAIN_CURVE;
             p.name = "ADSR 2 Sus C";
@@ -985,7 +985,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR2_SUSTAIN_CURVE] = p;
+            Model::of().params[P_ADSR2_SUSTAIN_CURVE] = p;
 
             p.pid = P_ADSR2_RELEASE_CURVE;
             p.name = "ADSR 2 Rel C";
@@ -996,7 +996,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR2_RELEASE_CURVE] = p;
+            Model::of().params[P_ADSR2_RELEASE_CURVE] = p;
             
             p.pid = P_ADSR2_DELAY;
             p.name = "ADSR 2 Delay";
@@ -1007,7 +1007,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR2_DELAY] = p;
+            Model::of().params[P_ADSR2_DELAY] = p;
             
             p.pid = P_ADSR2_HOLD;
             p.name = "ADSR 2 Hold";
@@ -1018,7 +1018,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR2_HOLD] = p;
+            Model::of().params[P_ADSR2_HOLD] = p;
 
             p.pid = P_ADSR2_TRIGGER;
             p.name = "ADSR 2 Trigger";
@@ -1029,7 +1029,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR2_TRIGGER] = p;
+            Model::of().params[P_ADSR2_TRIGGER] = p;
             
             p.pid = P_ADSR2_TRESHOLD;
             p.name = "ADSR 2 Tresh";
@@ -1040,7 +1040,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[ P_ADSR2_TRESHOLD] = p;
+            Model::of().params[ P_ADSR2_TRESHOLD] = p;
             
             // ADSR 3
             p.pid = P_ADSR3_ATTACK;
@@ -1052,7 +1052,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR3_ATTACK] = p;
+            Model::of().params[P_ADSR3_ATTACK] = p;
             
             p.pid = P_ADSR3_DECAY;
             p.name = "ADSR 3 Decay";
@@ -1063,7 +1063,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR3_DECAY] = p;
+            Model::of().params[P_ADSR3_DECAY] = p;
             
             p.pid = P_ADSR3_SUSTAIN;
             p.name = "ADSR 3 Sustain";
@@ -1074,7 +1074,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR3_SUSTAIN] = p;
+            Model::of().params[P_ADSR3_SUSTAIN] = p;
             
             p.pid = P_ADSR3_RELEASE;
             p.name = "ADSR 3 Release";
@@ -1085,7 +1085,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR3_RELEASE] = p;
+            Model::of().params[P_ADSR3_RELEASE] = p;
             
             p.pid = P_ADSR3_PITCH;
             p.name = "ADSR 3 Pitch";
@@ -1096,7 +1096,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR3_PITCH] = p;
+            Model::of().params[P_ADSR3_PITCH] = p;
             
             p.pid = P_ADSR3_FILTER;
             p.name = "ADSR 3 Filter";
@@ -1107,7 +1107,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR3_FILTER] = p;
+            Model::of().params[P_ADSR3_FILTER] = p;
 
             p.pid = P_ADSR3_AMP;
             p.name = "ADSR 3 Amp";
@@ -1118,7 +1118,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR3_AMP] = p;
+            Model::of().params[P_ADSR3_AMP] = p;
             
             p.pid = P_ADSR3_FX;
             p.name = "ADSR 3 FX";
@@ -1129,7 +1129,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR3_FX] = p;
+            Model::of().params[P_ADSR3_FX] = p;
 
             p.pid = P_ADSR3_ATTACK_CURVE;
             p.name = "ADSR 3 Att C";
@@ -1140,7 +1140,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR3_ATTACK_CURVE] = p;
+            Model::of().params[P_ADSR3_ATTACK_CURVE] = p;
             
             p.pid = P_ADSR3_DECAY_CURVE;
             p.name = "ADSR 3 Dec C";
@@ -1151,7 +1151,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR3_DECAY_CURVE] = p;
+            Model::of().params[P_ADSR3_DECAY_CURVE] = p;
             
             p.pid = P_ADSR3_SUSTAIN_CURVE;
             p.name = "ADSR 3 Sus C";
@@ -1162,7 +1162,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR3_SUSTAIN_CURVE] = p;
+            Model::of().params[P_ADSR3_SUSTAIN_CURVE] = p;
 
             p.pid = P_ADSR3_RELEASE_CURVE;
             p.name = "ADSR 3 Rel C";
@@ -1173,7 +1173,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR3_RELEASE_CURVE] = p;
+            Model::of().params[P_ADSR3_RELEASE_CURVE] = p;
             
             p.pid = P_ADSR3_DELAY;
             p.name = "ADSR 3 Delay";
@@ -1184,7 +1184,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR3_DELAY] = p;
+            Model::of().params[P_ADSR3_DELAY] = p;
             
             p.pid = P_ADSR3_HOLD;
             p.name = "ADSR 3 Hold";
@@ -1195,7 +1195,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR3_HOLD] = p;
+            Model::of().params[P_ADSR3_HOLD] = p;
 
             p.pid = P_ADSR3_TRIGGER;
             p.name = "ADSR 3 Trigger";
@@ -1206,7 +1206,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR3_TRIGGER] = p;
+            Model::of().params[P_ADSR3_TRIGGER] = p;
             
             p.pid = P_ADSR3_TRESHOLD;
             p.name = "ADSR 3 Tresh";
@@ -1217,7 +1217,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[ P_ADSR3_TRESHOLD] = p;
+            Model::of().params[ P_ADSR3_TRESHOLD] = p;
             
             // ADSR 4
             p.pid = P_ADSR4_ATTACK;
@@ -1229,7 +1229,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR4_ATTACK] = p;
+            Model::of().params[P_ADSR4_ATTACK] = p;
             
             p.pid = P_ADSR2_DECAY;
             p.name = "ADSR 4 Decay";
@@ -1240,7 +1240,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR4_DECAY] = p;
+            Model::of().params[P_ADSR4_DECAY] = p;
             
             p.pid = P_ADSR4_SUSTAIN;
             p.name = "ADSR 4 Sustain";
@@ -1251,7 +1251,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR4_SUSTAIN] = p;
+            Model::of().params[P_ADSR4_SUSTAIN] = p;
             
             p.pid = P_ADSR4_RELEASE;
             p.name = "ADSR 4 Release";
@@ -1262,7 +1262,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR4_RELEASE] = p;
+            Model::of().params[P_ADSR4_RELEASE] = p;
             
             p.pid = P_ADSR4_PITCH;
             p.name = "ADSR 4 Pitch";
@@ -1273,7 +1273,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR4_PITCH] = p;
+            Model::of().params[P_ADSR4_PITCH] = p;
             
             p.pid = P_ADSR4_FILTER;
             p.name = "ADSR 4 Filter";
@@ -1284,7 +1284,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR4_FILTER] = p;
+            Model::of().params[P_ADSR4_FILTER] = p;
 
             p.pid = P_ADSR4_AMP;
             p.name = "ADSR 4 Amp";
@@ -1295,7 +1295,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR4_AMP] = p;
+            Model::of().params[P_ADSR4_AMP] = p;
             
             p.pid = P_ADSR4_FX;
             p.name = "ADSR 4 FX";
@@ -1306,7 +1306,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR4_FX] = p;
+            Model::of().params[P_ADSR4_FX] = p;
 
             p.pid = P_ADSR4_ATTACK_CURVE;
             p.name = "ADSR 4 Att C";
@@ -1317,7 +1317,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR4_ATTACK_CURVE] = p;
+            Model::of().params[P_ADSR4_ATTACK_CURVE] = p;
             
             p.pid = P_ADSR4_DECAY_CURVE;
             p.name = "ADSR 4 Dec C";
@@ -1328,7 +1328,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR4_DECAY_CURVE] = p;
+            Model::of().params[P_ADSR4_DECAY_CURVE] = p;
             
             p.pid = P_ADSR4_SUSTAIN_CURVE;
             p.name = "ADSR 4 Sus C";
@@ -1339,7 +1339,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR4_SUSTAIN_CURVE] = p;
+            Model::of().params[P_ADSR4_SUSTAIN_CURVE] = p;
 
             p.pid = P_ADSR4_RELEASE_CURVE;
             p.name = "ADSR 4 Rel C";
@@ -1350,7 +1350,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uCurve;
             p.def = 0;
-            params[P_ADSR4_RELEASE_CURVE] = p;
+            Model::of().params[P_ADSR4_RELEASE_CURVE] = p;
             
             p.pid = P_ADSR4_DELAY;
             p.name = "ADSR 4 Delay";
@@ -1361,7 +1361,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR4_DELAY] = p;
+            Model::of().params[P_ADSR4_DELAY] = p;
             
             p.pid = P_ADSR4_HOLD;
             p.name = "ADSR 4 Hold";
@@ -1372,7 +1372,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uTimeMsec;
             p.def = 0;
-            params[P_ADSR4_HOLD] = p;
+            Model::of().params[P_ADSR4_HOLD] = p;
 
             p.pid = P_ADSR4_TRIGGER;
             p.name = "ADSR 4 Trigger";
@@ -1383,7 +1383,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_ADSR4_TRIGGER] = p;
+            Model::of().params[P_ADSR4_TRIGGER] = p;
             
             p.pid = P_ADSR4_TRESHOLD;
             p.name = "ADSR 4 Tresh";
@@ -1394,7 +1394,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[ P_ADSR4_TRESHOLD] = p;
+            Model::of().params[ P_ADSR4_TRESHOLD] = p;
             
             // LFO
             p.pid = P_LFO1_FREQ;
@@ -1406,7 +1406,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_LFO1_FREQ] = p;
+            Model::of().params[P_LFO1_FREQ] = p;
             
             p.pid = P_LFO1_WAV;
             p.name = "LFO 1 Wave";
@@ -1417,7 +1417,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
-            params[P_LFO1_WAV] = p;
+            Model::of().params[P_LFO1_WAV] = p;
    
             p.pid = P_LFO1_DELAY;
             p.name = "LFO 1 Delay";
@@ -1428,7 +1428,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uInt;
             p.def = 0;
-            params[P_LFO1_DELAY] = p;
+            Model::of().params[P_LFO1_DELAY] = p;
 
             p.pid = P_LFO1_SYNC;
             p.name = "LFO 1 Sync";
@@ -1439,7 +1439,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
-            params[P_LFO1_SYNC] = p;
+            Model::of().params[P_LFO1_SYNC] = p;
 
             p.pid = P_LFO1_PITCH;
             p.name = "LFO 1 Pitch";
@@ -1450,7 +1450,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_LFO1_PITCH] = p;
+            Model::of().params[P_LFO1_PITCH] = p;
             
             p.pid = P_LFO1_FILTER;
             p.name = "LFO 1 Filter";
@@ -1461,7 +1461,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_LFO1_FILTER] = p;
+            Model::of().params[P_LFO1_FILTER] = p;
             
             p.pid = P_LFO1_VOL;
             p.name = "LFO 1 Vol";
@@ -1472,7 +1472,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_LFO1_VOL] = p;
+            Model::of().params[P_LFO1_VOL] = p;
             
             // LFO2
             p.pid = P_LFO2_FREQ;
@@ -1484,7 +1484,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_LFO2_FREQ] = p;
+            Model::of().params[P_LFO2_FREQ] = p;
 
             p.pid = P_LFO1_WAV;
             p.name = "LFO 2 Wave";
@@ -1495,7 +1495,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
-            params[P_LFO2_WAV] = p;
+            Model::of().params[P_LFO2_WAV] = p;
 
             p.pid = P_LFO1_DELAY;
             p.name = "LFO 2 Delay";
@@ -1506,7 +1506,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uInt;
             p.def = 0;
-            params[P_LFO2_DELAY] = p;
+            Model::of().params[P_LFO2_DELAY] = p;
 
             p.pid = P_LFO2_SYNC;
             p.name = "LFO 2 Sync";
@@ -1517,7 +1517,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
-            params[P_LFO2_SYNC] = p;
+            Model::of().params[P_LFO2_SYNC] = p;
 
             p.pid = P_LFO2_PITCH;
             p.name = "LFO 2 Pitch";
@@ -1528,7 +1528,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_LFO2_PITCH] = p;
+            Model::of().params[P_LFO2_PITCH] = p;
 
             p.pid = P_LFO2_FILTER;
             p.name = "LFO 2 Filter";
@@ -1539,7 +1539,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_LFO2_FILTER] = p;
+            Model::of().params[P_LFO2_FILTER] = p;
 
             p.pid = P_LFO2_VOL;
             p.name = "LFO 2 Vol";
@@ -1550,7 +1550,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 0;
-            params[P_LFO2_VOL] = p;
+            Model::of().params[P_LFO2_VOL] = p;
             
             // LFO 3
              p.pid = P_LFO3_FREQ;
@@ -1562,7 +1562,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.01;
              p.type = uFloat;
              p.def = 0;
-             params[P_LFO3_FREQ] = p;
+             Model::of().params[P_LFO3_FREQ] = p;
              
              p.pid = P_LFO3_WAV;
              p.name = "LFO 3 Wave";
@@ -1573,7 +1573,7 @@ class ParamBuilder {       // The class
              p.stepVal = 1;
              p.type = uInt;
              p.def = 0;
-             params[P_LFO3_WAV] = p;
+             Model::of().params[P_LFO3_WAV] = p;
     
              p.pid = P_LFO3_DELAY;
              p.name = "LFO 3 Delay";
@@ -1584,7 +1584,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.1;
              p.type = uInt;
              p.def = 0;
-             params[P_LFO3_DELAY] = p;
+             Model::of().params[P_LFO3_DELAY] = p;
 
              p.pid = P_LFO3_SYNC;
              p.name = "LFO 3 Sync";
@@ -1595,7 +1595,7 @@ class ParamBuilder {       // The class
              p.stepVal = 1;
              p.type = uInt;
              p.def = 0;
-             params[P_LFO3_SYNC] = p;
+             Model::of().params[P_LFO3_SYNC] = p;
 
              p.pid = P_LFO3_PITCH;
              p.name = "LFO 3 Pitch";
@@ -1606,7 +1606,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.01;
              p.type = uFloat;
              p.def = 0;
-             params[P_LFO3_PITCH] = p;
+             Model::of().params[P_LFO3_PITCH] = p;
              
              p.pid = P_LFO3_FILTER;
              p.name = "LFO 3 Filter";
@@ -1617,7 +1617,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.01;
              p.type = uFloat;
              p.def = 0;
-             params[P_LFO3_FILTER] = p;
+             Model::of().params[P_LFO3_FILTER] = p;
              
              p.pid = P_LFO3_VOL;
              p.name = "LFO 3 Vol";
@@ -1628,7 +1628,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.01;
              p.type = uFloat;
              p.def = 0;
-             params[P_LFO3_VOL] = p;
+             Model::of().params[P_LFO3_VOL] = p;
              
              // LFO4
              p.pid = P_LFO4_FREQ;
@@ -1640,7 +1640,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.01;
              p.type = uFloat;
              p.def = 0;
-             params[P_LFO4_FREQ] = p;
+             Model::of().params[P_LFO4_FREQ] = p;
 
              p.pid = P_LFO4_WAV;
              p.name = "LFO 4 Wave";
@@ -1651,7 +1651,7 @@ class ParamBuilder {       // The class
              p.stepVal = 1;
              p.type = uInt;
              p.def = 0;
-             params[P_LFO4_WAV] = p;
+             Model::of().params[P_LFO4_WAV] = p;
 
              p.pid = P_LFO4_DELAY;
              p.name = "LFO 4 Delay";
@@ -1662,7 +1662,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.1;
              p.type = uInt;
              p.def = 0;
-             params[P_LFO4_DELAY] = p;
+             Model::of().params[P_LFO4_DELAY] = p;
 
              p.pid = P_LFO4_SYNC;
              p.name = "LFO 4 Sync";
@@ -1673,7 +1673,7 @@ class ParamBuilder {       // The class
              p.stepVal = 1;
              p.type = uInt;
              p.def = 0;
-             params[P_LFO4_SYNC] = p;
+             Model::of().params[P_LFO4_SYNC] = p;
 
              p.pid = P_LFO4_PITCH;
              p.name = "LFO 4 Pitch";
@@ -1684,7 +1684,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.01;
              p.type = uFloat;
              p.def = 0;
-             params[P_LFO4_PITCH] = p;
+             Model::of().params[P_LFO4_PITCH] = p;
 
              p.pid = P_LFO4_FILTER;
              p.name = "LFO 4 Filter";
@@ -1695,7 +1695,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.01;
              p.type = uFloat;
              p.def = 0;
-             params[P_LFO4_FILTER] = p;
+             Model::of().params[P_LFO4_FILTER] = p;
 
              p.pid = P_LFO4_VOL;
              p.name = "LFO 4 Vol";
@@ -1706,7 +1706,7 @@ class ParamBuilder {       // The class
              p.stepVal = 0.01;
              p.type = uFloat;
              p.def = 0;
-             params[P_LFO4_VOL] = p;
+             Model::of().params[P_LFO4_VOL] = p;
             
             // FX
             p.pid = P_FX_DELAYL_TIME;
@@ -1718,7 +1718,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 1;
-            params[P_FX_DELAYL_TIME] = p;
+            Model::of().params[P_FX_DELAYL_TIME] = p;
             
             p.pid = P_FX_DELAYL_FEEDBACK;
             p.name = "FX Del L Feedback";
@@ -1729,7 +1729,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 1;
-            params[P_FX_DELAYL_FEEDBACK] = p;
+            Model::of().params[P_FX_DELAYL_FEEDBACK] = p;
             
             p.pid = P_FX_DELAYL_MIX;
             p.name = "FX Del L Mix";
@@ -1740,7 +1740,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 1;
-            params[P_FX_DELAYL_MIX] = p;
+            Model::of().params[P_FX_DELAYL_MIX] = p;
             
             p.pid = P_FX_DELAYR_TIME;
             p.name = "FX Del R Time";
@@ -1751,7 +1751,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uFloat;
             p.def = 1;
-            params[P_FX_DELAYR_TIME] = p;
+            Model::of().params[P_FX_DELAYR_TIME] = p;
             
             p.pid = P_FX_DELAYR_FEEDBACK;
             p.name = "FX Del R Feedback";
@@ -1762,7 +1762,7 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uFloat;
             p.def = 1;
-            params[P_FX_DELAYR_FEEDBACK] = p;
+            Model::of().params[P_FX_DELAYR_FEEDBACK] = p;
             
             p.pid = P_FX_DELAYR_MIX;
             p.name = "FX Del R Mix";
@@ -1773,9 +1773,8 @@ class ParamBuilder {       // The class
             p.stepVal = 0.01;
             p.type = uInt;
             p.def = 1;
-            params[P_FX_DELAYR_MIX] = p;
+            Model::of().params[P_FX_DELAYR_MIX] = p;
             
-
             p.pid = P_PLAYMODE;
             p.name = "PlayMode";
             p.writeable = 1;
@@ -1785,7 +1784,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 1;
-            params[P_PLAYMODE] = p;
+            Model::of().params[P_PLAYMODE] = p;
             
             p.pid = P_ARP_BPM;
             p.name = "Arp BPM";
@@ -1796,18 +1795,18 @@ class ParamBuilder {       // The class
             p.stepVal = 0.1;
             p.type = uFloat;
             p.def = 120;
-            params[P_ARP_BPM] = p;
+            Model::of().params[P_ARP_BPM] = p;
             
-          p.pid = P_ARP_DEVISION;
-           p.name = "Arp Devision";
-           p.writeable = 1;
-           p.automate = 0;
-           p.minVal = 0;
-           p.maxVal = 12;
-           p.stepVal = 1;
-           p.type = uDevision;
-           p.def = 0;
-           params[P_ARP_DEVISION] = p;
+            p.pid = P_ARP_DEVISION;
+            p.name = "Arp Devision";
+            p.writeable = 1;
+            p.automate = 0;
+            p.minVal = 0;
+            p.maxVal = 12;
+            p.stepVal = 1;
+            p.type = uDevision;
+            p.def = 0;
+            Model::of().params[P_ARP_DEVISION] = p;
             
             p.pid = P_ARP_LEGATO;
             p.name = "Arp Legato";
@@ -1818,7 +1817,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
-            params[P_ARP_LEGATO] = p;
+            Model::of().params[P_ARP_LEGATO] = p;
             
             p.pid = P_ARP_GATE;
             p.name = "Arp Gate";
@@ -1829,7 +1828,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uProcent;
             p.def = 100;
-            params[P_ARP_GATE] = p;
+            Model::of().params[P_ARP_GATE] = p;
             
             p.pid = P_ARP_VELOCITY;
             p.name = "Arp Velocity";
@@ -1840,7 +1839,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
-            params[P_ARP_VELOCITY] = p;
+            Model::of().params[P_ARP_VELOCITY] = p;
             
             p.pid = P_ARP_CHORD;
             p.name = "Arp Chord";
@@ -1851,7 +1850,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uChordMode;
             p.def = 0;
-            params[P_ARP_CHORD] = p;
+            Model::of().params[P_ARP_CHORD] = p;
             
             p.pid = P_ARP_SWING;
             p.name = "Arp Swing";
@@ -1862,7 +1861,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uFloat;
             p.def = 50;
-            params[P_ARP_SWING] = p;
+            Model::of().params[P_ARP_SWING] = p;
             
             p.pid = P_ARP_MODE;
             p.name = "Arp Mode";
@@ -1873,7 +1872,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uArpMode;
             p.def = 0;
-            params[P_ARP_MODE] = p;
+            Model::of().params[P_ARP_MODE] = p;
             
             p.pid = P_ARP_TRANSPOSE;
             p.name = "Arp Transpose";
@@ -1884,7 +1883,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
-            params[P_ARP_TRANSPOSE] = p;
+            Model::of().params[P_ARP_TRANSPOSE] = p;
             
             p.pid = P_ARP_NOTE1;
             p.name = "Arp Note 1";
@@ -1895,7 +1894,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE1] = p;
+            Model::of().params[P_ARP_NOTE1] = p;
             
             p.pid = P_ARP_NOTE2;
             p.name = "Arp Note 2";
@@ -1906,7 +1905,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE2] = p;
+            Model::of().params[P_ARP_NOTE2] = p;
             
             p.pid = P_ARP_NOTE3;
             p.name = "Arp Note 3";
@@ -1917,7 +1916,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE3] = p;
+            Model::of().params[P_ARP_NOTE3] = p;
             
             p.pid = P_ARP_NOTE4;
             p.name = "Arp Note 4";
@@ -1928,7 +1927,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE4] = p;
+            Model::of().params[P_ARP_NOTE4] = p;
             
             p.pid = P_ARP_NOTE5;
             p.name = "Arp Note 5";
@@ -1939,7 +1938,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE5] = p;
+            Model::of().params[P_ARP_NOTE5] = p;
             
             p.pid = P_ARP_NOTE6;
             p.name = "Arp Note 6";
@@ -1950,7 +1949,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE6] = p;
+            Model::of().params[P_ARP_NOTE6] = p;
             
             p.pid = P_ARP_NOTE7;
             p.name = "Arp Note 7";
@@ -1961,7 +1960,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type =  uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE7] = p;
+            Model::of().params[P_ARP_NOTE7] = p;
             
             p.pid = P_ARP_NOTE8;
             p.name = "Arp Note 8";
@@ -1972,7 +1971,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE8] = p;
+            Model::of().params[P_ARP_NOTE8] = p;
             
             p.pid = P_ARP_NOTECOUNT;
             p.name = "Arp Note Count";
@@ -1983,7 +1982,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uInt;
             p.def = 0;
-            params[P_ARP_NOTECOUNT] = p;
+            Model::of().params[P_ARP_NOTECOUNT] = p;
             
             p.pid = P_ARP_NOTE9;
             p.name = "Arp Note 9";
@@ -1994,7 +1993,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE9] = p;
+            Model::of().params[P_ARP_NOTE9] = p;
             
             p.pid = P_ARP_NOTE10;
             p.name = "Arp Note 10";
@@ -2005,7 +2004,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE10] = p;
+            Model::of().params[P_ARP_NOTE10] = p;
             
             p.pid = P_ARP_NOTE11;
             p.name = "Arp Note 11";
@@ -2016,7 +2015,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE11] = p;
+            Model::of().params[P_ARP_NOTE11] = p;
             
             p.pid = P_ARP_NOTE12;
             p.name = "Arp Note 12";
@@ -2027,7 +2026,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE12] = p;
+            Model::of().params[P_ARP_NOTE12] = p;
             
             p.pid = P_ARP_NOTE13;
             p.name = "Arp Note 13";
@@ -2038,7 +2037,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE13] = p;
+            Model::of().params[P_ARP_NOTE13] = p;
             
             p.pid = P_ARP_NOTE14;
             p.name = "Arp Note 14";
@@ -2049,7 +2048,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE14] = p;
+            Model::of().params[P_ARP_NOTE14] = p;
             
             p.pid = P_ARP_NOTE15;
             p.name = "Arp Note 15";
@@ -2060,7 +2059,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type =  uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE15] = p;
+            Model::of().params[P_ARP_NOTE15] = p;
             
             p.pid = P_ARP_NOTE16;
             p.name = "Arp Note 16";
@@ -2071,7 +2070,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[P_ARP_NOTE16] = p;
+            Model::of().params[P_ARP_NOTE16] = p;
             
             // Curvetest
             p.pid = 1022;
@@ -2083,7 +2082,7 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uMidiNote;
             p.def = 0;
-            params[1022] = p;
+            Model::of().params[1022] = p;
         }
 };
 

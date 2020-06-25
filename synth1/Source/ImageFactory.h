@@ -60,7 +60,7 @@ public:
             png[it->first ] = ImageFileFormat::loadFrom(dir.getChildFile(imgEnumMap[it->first ]));
         }
         
-        std::cout << " loaded images " <<  png.size() << std::endl;
+       // std::cout << " loaded images " <<  png.size() << std::endl;
     }
     
     std::map<E_Image, Image > png;

@@ -102,7 +102,7 @@ public:
 
     }
 
-    void init (double sampleRate, int samplesPerBlock){
+    void init (double sampleRate, int samplesPerBlock, float * par){
         this->sampleRate = sampleRate;
         this->sr = sampleRate * OVERSAMPLING;
         this->samplesPerBlock = samplesPerBlock;
@@ -132,11 +132,11 @@ public:
         // Filter
         filter1.setSampleRate(sampleRate);
         filter2.setSampleRate(sampleRate);
-        isUpdateParams = true;
-        setParams();
+        Model::of().isUpdateParams = true;
+        setParams(par);
     }
     
-    void setParams(){
+    void setParams(float * par){
         adsr1.attackTimeMsec = par[P_ADSR1_ATTACK];
         adsr1.decayTimeMsec = par[P_ADSR1_DECAY];
         adsr1.sustainLevel = par[P_ADSR1_SUSTAIN];
@@ -217,12 +217,12 @@ public:
         filter2.setResonance(par[P_FILTER2_RES] / 100.0f);
     }
     
-    void reset(){
+    void reset(float * par){
         tablePos0 = 0;
         tablePos1 = sampleRate/2;
         tablePos0_n1 = -1;
         
-        setParams();
+        setParams(par);
         
         active = true;
         adsr1.start();
@@ -246,8 +246,8 @@ public:
         adsr3.state = Adsr::ADSR_OFF;
         adsr4.state = Adsr::ADSR_OFF;
      }
-    void retrigger(){
-        reset();
+    void retrigger(float * par){
+        reset(par);
     }
     
     void noteOff(){
@@ -257,17 +257,19 @@ public:
         adsr4.release();
     }
     
-    void update(int clock){
-        if(isUpdateParams){
-            setParams();
+    void update(int clock, float * par){
+        if(Model::of().isUpdateParams){
+            setParams(par);
         }
-        isUpdateParams = false;
+        Model::of().isUpdateParams = false;
     }
     
     // ===============================================================================================
     //   RENDER
     // ===============================================================================================
-    void render(int clock, AudioBuffer<float>& buffer){
+    void render(int clock, AudioBuffer<float>& buffer, float (&p)[MAXPARAM]){
+        
+
         ScopedNoDenormals noDenormals;
         int sr = sampleRate * OVERSAMPLING;
         
@@ -276,36 +278,36 @@ public:
         auto* channelDataR = buffer.getWritePointer (1);
 
         // Tables
-        float * table0 = osc1.tables[(int)par[P_OSC1_WAV]];
-        float * table1 = osc2.tables[(int)par[P_OSC2_WAV]];
+        float * table0 = osc1.tables[(int)p[P_OSC1_WAV]];
+        float * table1 = osc2.tables[(int)p[P_OSC2_WAV]];
         float * table2 = osc2.tables[wSin];
         
-        float * tableLfo1 = lfo1.tables[(int)par[P_LFO1_WAV]];
-        float * tableLfo2 = lfo2.tables[(int)par[P_LFO2_WAV]];
-        float * tableLfo3 = lfo3.tables[(int)par[P_LFO3_WAV]];
-        float * tableLfo4 = lfo4.tables[(int)par[P_LFO4_WAV]];
+        float * tableLfo1 = lfo1.tables[(int)p[P_LFO1_WAV]];
+        float * tableLfo2 = lfo2.tables[(int)p[P_LFO2_WAV]];
+        float * tableLfo3 = lfo3.tables[(int)p[P_LFO3_WAV]];
+        float * tableLfo4 = lfo4.tables[(int)p[P_LFO4_WAV]];
         
         // Prepare
-        float volVelo = velocity / par[P_NOVOICES];
+        float volVelo = velocity / p[P_NOVOICES];
         
         // Calulate each Sample
         for (int i=0; i<samplesPerBlock; ++i) {
             int p0 = tablePos0;
             int p1 = tablePos1;
-            p0 = p0 / (1.0f + par[P_OSC1_PULSE] * 0.01f);
-            p1 = p1 / (1.0f + par[P_OSC2_PULSE] * 0.01f);
-            float v0 = osc1.interpolate(osc1.checkPos(p0 + par[P_OSC1_PHASE] / 360.0f * sr), table0);
-            float v1 = osc1.interpolate(osc1.checkPos(p1 + par[P_OSC2_PHASE] / 360.0f * sr), table1);
+            p0 = p0 / (1.0f + p[P_OSC1_PULSE] * 0.01f);
+            p1 = p1 / (1.0f + p[P_OSC2_PULSE] * 0.01f);
+            float v0 = osc1.interpolate(osc1.checkPos(p0 + p[P_OSC1_PHASE] / 360.0f * sr), table0);
+            float v1 = osc1.interpolate(osc1.checkPos(p1 + p[P_OSC2_PHASE] / 360.0f * sr), table1);
             float vSub = osc1.interpolate(osc1.checkPos(tablePosSub), table2);
 
             v0 *= volVelo;
-            v0 *=  DecibelToLinear(par[P_OSC1_VOL]);
+            v0 *=  DecibelToLinear(p[P_OSC1_VOL]);
             
             v1 *= volVelo;
-            v1 *=  DecibelToLinear(par[P_OSC2_VOL]);
+            v1 *=  DecibelToLinear(p[P_OSC2_VOL]);
             
-            vSub = vSub * adsr1.output * par[P_OSC1_SUB];
-            float vol = DecibelToLinear(par[P_VOLUME]);
+            vSub = vSub * adsr1.output * p[P_OSC1_SUB];
+            float vol = DecibelToLinear(p[P_VOLUME]);
             
             // Mono
             float mono = (v0 + v1 + vSub)  * vol / 3.0f;
@@ -315,22 +317,22 @@ public:
             
              // Filter
             if(filter1.getFilterType() != OFF2){
-                float cutoff = par[P_FILTER1_FREQ];
-                cutoff *= 1.0 - par[P_LFO1_FILTER] * (1.0 + lfo0Output) * 0.5;
+                float cutoff = p[P_FILTER1_FREQ];
+                cutoff *= 1.0 - p[P_LFO1_FILTER] * (1.0 + lfo0Output) * 0.5;
                 filter1.setCutoff(cutoff);
-                filter1.setDrive(par[P_FILTER1_DRIVE]);
+                filter1.setDrive(p[P_FILTER1_DRIVE]);
                 mono = filter1.process(mono);
             }
             
             // LFO Amp
-            mono *= 1.0 - par[P_LFO1_VOL] * lfo0Output;
+            mono *= 1.0 - p[P_LFO1_VOL] * lfo0Output;
             
             // ADSR
             mono *= smoothMaster.processLP(adsr1.output);
             
             // Pan
-            float vSumL = mono * (1.0f - par[P_PAN]);
-            float vSumR = mono * par[P_PAN];
+            float vSumL = mono * (1.0f - p[P_PAN]);
+            float vSumR = mono * p[P_PAN];
 
             // Bounds Check
             if(vSumL > 1.0f){
@@ -352,20 +354,20 @@ public:
             
 // Move the Osc forward  =======================================================================
            
-            int midiNote0 = noteNumber + par[P_OSC1_SEMI] + 12 * par[P_OSC1_OCT];
-            float freq0 = tuneTable[midiNote0] * tuneMulti[midiNote0 % 12];
+            int midiNote0 = noteNumber + p[P_OSC1_SEMI] + 12 * p[P_OSC1_OCT];
+            float freq0 = Model::of().tuneTable[midiNote0] * Model::of().tuneMulti[midiNote0 % 12];
             
-            int midiNote1 = noteNumber + par[P_OSC2_SEMI] + 12 * par[P_OSC2_OCT];
-            float freq1 = tuneTable[midiNote1] * tuneMulti[midiNote1 % 12];
+            int midiNote1 = noteNumber + p[P_OSC2_SEMI] + 12 * p[P_OSC2_OCT];
+            float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
             
-            float t = par[0] / 440.0f;
+            float t = p[0] / 440.0f;
             
             // fine tune
-            freq0 = freq0 + freq0 *  par[P_OSC1_FINE] * 0.01f;
-            freq1 = freq1 + freq1 *  par[P_OSC2_FINE] * 0.01f;
+            freq0 = freq0 + freq0 *  p[P_OSC1_FINE] * 0.01f;
+            freq1 = freq1 + freq1 *  p[P_OSC2_FINE] * 0.01f;
             
-            freq0 *= 1.0 - par[P_LFO1_PITCH] *  lfo0Output;
-            freq1 *= 1.0 - par[P_LFO1_PITCH] *  lfo0Output;
+            freq0 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
+            freq1 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
             
             // move pos
             tablePos0 += OVERSAMPLING * freq0  * t ;
@@ -375,7 +377,7 @@ public:
                 sync = true;
             }
             
-            if(sync && par[P_OSC2_SYNC] ){
+            if(sync && p[P_OSC2_SYNC] ){
                 tablePos1 = 0;
                 sync = false;
                 lastPos0 = 1;
@@ -386,7 +388,7 @@ public:
             
             tablePosSub += OVERSAMPLING * freq0 / 3.0f * t;
             
-            float freqLfo1 = par[P_LFO1_FREQ];
+            float freqLfo1 = p[P_LFO1_FREQ];
             tablePosLfo1 += OVERSAMPLING * freqLfo1;
             
             // bounds check OSC

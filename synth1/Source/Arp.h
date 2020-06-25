@@ -50,11 +50,11 @@ class Arp : public Thread {
             usleep(250);
             if(!isRunning)return;
             
-            float bps = par[P_ARP_BPM] / 60.0f;
+            float bps = Model::of().par[P_ARP_BPM] / 60.0f;
             float tempoMsBeat =  1000.0f / bps;
             
             // WHOLE, nHALF, nHALFD, qQuarter, qQuarterD, nEIGHT, nEIGHTD, nSIXTEEN, nSIXTEEND, nThirtyTwo, nThirtyTwoD, nSixtyFour}
-            switch(int(par[P_ARP_DEVISION])){
+            switch(int( Model::of().par[P_ARP_DEVISION])){
                 case nWHOLE:
                     tempoMs = 4.0 * tempoMsBeat;
                     break;
@@ -112,7 +112,7 @@ class Arp : public Thread {
                last = newTime;
                isNoteOn = true;
                currentNote = 0;
-               runningNote = par[P_ARP_NOTE1] + par[P_ARP_TRANSPOSE];
+               runningNote =  Model::of().par[P_ARP_NOTE1] +  Model::of().par[P_ARP_TRANSPOSE];
                player->startVoice(1,runningNote, 0.9);
                continue;
            }
@@ -126,24 +126,24 @@ class Arp : public Thread {
               if(currentNote > 7){
                   noteIndex  = (currentNote-8) + P_ARP_NOTE9;
               }
-              if(par[P_ARP_LEGATO] == 0){ // not Legato
+              if( Model::of().par[P_ARP_LEGATO] == 0){ // not Legato
                   player->endVoice(1,runningNote);;
               }
-              runningNote = par[noteIndex];
-              runningNote += par[P_ARP_TRANSPOSE];
+              runningNote =  Model::of().par[noteIndex];
+              runningNote +=  Model::of().par[P_ARP_TRANSPOSE];
               
-              player->startVoice(1,runningNote, par[P_ARP_VELOCITY] / 127.0f);
+              player->startVoice(1,runningNote,   Model::of().par[P_ARP_VELOCITY] / 127.0f);
               ++currentNote;
-              if(currentNote >= par[P_ARP_NOTECOUNT]){
+              if(currentNote >=  Model::of().par[P_ARP_NOTECOUNT]){
                   currentNote = 0;
               }
               continue;
           }
             
             float gate = tempoMs - 1.0f;
-            float gatePercent = par[P_ARP_GATE];
+            float gatePercent =  Model::of().par[P_ARP_GATE];
             gate =  gatePercent / 100.0f * gateTimeMsec * 2.0f;
-            if(par[P_ARP_LEGATO] == 1){
+            if( Model::of().par[P_ARP_LEGATO] == 1){
                 continue;
             }
           if (timePassed >= gate){

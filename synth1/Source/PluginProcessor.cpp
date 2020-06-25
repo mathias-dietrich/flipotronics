@@ -1,10 +1,6 @@
 /*
   ==============================================================================
 
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
   ==============================================================================
 */
 
@@ -12,34 +8,6 @@
 #include "PluginEditor.h"
 #include "img.h"
 
-// Global Variables Engine
-std::atomic<float> par[MAXPARAM];
-std::atomic<float> parTargetDelta[MAXPARAM];
-std::atomic<float> paramsUndo[MAXPARAM];
-std::atomic<float> tuneTable[256];
-std::atomic<float> tuneMulti[12];
-std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
-std::atomic<bool> isUpdateParams;
-std::atomic<int64> timeTaken;
-std::atomic<float> sumPeak;
-std::atomic<float> sumRMS;
-
-// Global Engine not Atomic
-Param params[MAXPARAM];
-int samplerate;
-int samplesperblock;
-int viewModeSetting = 1;
-int patchCurrent;
-String patchNameCurrent = "Init";
-String patchNameCurrentUndo;
-bool compareMode = false;
-BankData bankData;
-
-AudioBuffer<float> fileBuffer;
-int noOfSamplesToPlay;
-bool hasPlayed;
-
-//==============================================================================
 Synth1AudioProcessor::Synth1AudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
@@ -55,24 +23,20 @@ Synth1AudioProcessor::Synth1AudioProcessor()
     core = new Core();
 }
 
-Synth1AudioProcessor::~Synth1AudioProcessor()
-{
+Synth1AudioProcessor::~Synth1AudioProcessor(){
     delete core;
 }
 
 //==============================================================================
-const String Synth1AudioProcessor::getName() const
-{
+const String Synth1AudioProcessor::getName() const{
     return JucePlugin_Name;
 }
 
-bool Synth1AudioProcessor::acceptsMidi() const
-{
+bool Synth1AudioProcessor::acceptsMidi() const{
     return true;
 }
 
-bool Synth1AudioProcessor::producesMidi() const
-{
+bool Synth1AudioProcessor::producesMidi() const{
    #if JucePlugin_ProducesMidiOutput
     return true;
    #else
@@ -80,8 +44,7 @@ bool Synth1AudioProcessor::producesMidi() const
    #endif
 }
 
-bool Synth1AudioProcessor::isMidiEffect() const
-{
+bool Synth1AudioProcessor::isMidiEffect() const{
    #if JucePlugin_IsMidiEffect
     return true;
    #else
@@ -89,58 +52,49 @@ bool Synth1AudioProcessor::isMidiEffect() const
    #endif
 }
 
-double Synth1AudioProcessor::getTailLengthSeconds() const
-{
+double Synth1AudioProcessor::getTailLengthSeconds() const{
     return 0.0;
 }
 
-int Synth1AudioProcessor::getNumPrograms()
-{
+int Synth1AudioProcessor::getNumPrograms(){
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int Synth1AudioProcessor::getCurrentProgram()
-{
+int Synth1AudioProcessor::getCurrentProgram(){
     return 0;
 }
 
-void Synth1AudioProcessor::setCurrentProgram (int index)
-{
+void Synth1AudioProcessor::setCurrentProgram (int index){
 }
 
-const String Synth1AudioProcessor::getProgramName (int index)
-{
+const String Synth1AudioProcessor::getProgramName (int index){
     return {};
 }
 
-void Synth1AudioProcessor::changeProgramName (int index, const String& newName)
-{
+void Synth1AudioProcessor::changeProgramName (int index, const String& newName){
     
 }
 
 //==============================================================================
-void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
-{
-    samplerate = sampleRate;
-    samplesperblock = samplesPerBlock;
+void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock){
     maxTimeMsec = 1000 * samplesPerBlock / sampleRate;
     setArp(false);
-     isArpOn = false;
+    isArpOn = false;
     core->init( sampleRate,  samplesPerBlock);
     waveComponent.init(sampleRate, samplesPerBlock);
     adsrComponent.init(sampleRate, samplesPerBlock);
     lfoComponent.init(sampleRate, samplesPerBlock);
+    outputComponent.init(sampleRate, samplesPerBlock);
+    spectrum.init(sampleRate, samplesPerBlock);
 }
 
-void Synth1AudioProcessor::releaseResources()
-{
+void Synth1AudioProcessor::releaseResources(){
     core->close();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool Synth1AudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
-{
+bool Synth1AudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const{
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
     return true;
@@ -162,8 +116,7 @@ bool Synth1AudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) c
 }
 #endif
 
-void Synth1AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
-{
+void Synth1AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages){
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     core->handle(buffer, midiMessages, totalNumInputChannels, totalNumOutputChannels);
@@ -171,33 +124,28 @@ void Synth1AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer&
 }
 
 //==============================================================================
-bool Synth1AudioProcessor::hasEditor() const
-{
+bool Synth1AudioProcessor::hasEditor() const {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* Synth1AudioProcessor::createEditor()
-{
+AudioProcessorEditor* Synth1AudioProcessor::createEditor() {
     return new Synth1AudioProcessorEditor (*this);
 }
 
 //==============================================================================
-void Synth1AudioProcessor::getStateInformation (MemoryBlock& destData)
-{
+void Synth1AudioProcessor::getStateInformation (MemoryBlock& destData){
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void Synth1AudioProcessor::setStateInformation (const void* data, int sizeInBytes)
-{
+void Synth1AudioProcessor::setStateInformation (const void* data, int sizeInBytes){
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 }
 
 //==============================================================================
 // This creates new instances of the plugin..
-AudioProcessor* JUCE_CALLTYPE createPluginFilter()
-{
+AudioProcessor* JUCE_CALLTYPE createPluginFilter(){
     return new Synth1AudioProcessor();
 }

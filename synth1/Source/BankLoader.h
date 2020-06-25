@@ -27,14 +27,13 @@ class BankLoader {
 
             // copy the floats
             for(int i=0; i < MAXPARAM;i++){
-                p.floatNumbers[i] = par[i];
+                p.floatNumbers[i] = Model::of().par[i];
             }
             p.floatCount = MAXPARAM;
-            p.name = patchNameCurrent;
+            p.name = Model::of().patchNameCurrent;
             
-            bankData.patchData[patchCurrent] = p;
-            save("default.flip", &bankData);
-        
+            Model::of().bankData.patchData[Model::of().patchCurrent] = p;
+            save("default.flip", &Model::of().bankData);
         }
     
         void save(BankData * data ){
@@ -91,13 +90,12 @@ class BankLoader {
         
         void load( ){
                load("default.flip");
-              
         }
     
         void load(String name){
             File f = File::getCurrentWorkingDirectory().getChildFile (name);
             if (! f.existsAsFile()){
-                std::cout << "Bank File does not exist" << std::endl;
+                std::cout << "ERR: Bank File does not exist " << std::endl;
                 return;  // file doesn't exist
             }
             FileInputStream stream (f);
@@ -108,11 +106,11 @@ class BankLoader {
                 int patchId = 0;
                 while (! stream.isExhausted()) {
                     auto line = stream.readNextLine().trim();
-                    std::cout << line << std::endl;
+                   // std::cout << line << std::endl;
                     switch(lineId){
                         case 0:
                             if(line!="FLIP"){
-                                std::cout << "This is not a Flipotronics File" << std::endl;
+                               //  std::cout << "This is not a Flipotronics File" << std::endl;
                                 return;
                             }
                         case 1:
@@ -134,7 +132,7 @@ class BankLoader {
                               ++lineId;
                              continue;
                         case 7:
-                            bankData.noOfPatches = intFromString(line);
+                            Model::of().bankData.noOfPatches = intFromString(line);
                             ++lineId;
                             continue;
                             
@@ -155,7 +153,7 @@ class BankLoader {
                          continue;
                     }
                    
-                    PatchData pd = bankData.patchData[patchId];
+                    PatchData pd = Model::of().bankData.patchData[patchId];
                     int patchLineId = 0;
                     bool parsePatchHeader = true;
                     while(! stream.isExhausted() && parsePatchHeader){
@@ -208,12 +206,11 @@ class BankLoader {
                     for(int i=0; i < pd.binCount;++i){
                         auto line = stream.readNextLine().trim();
                     }
-                    bankData.patchData[patchId] = pd;
+                    Model::of().bankData.patchData[patchId] = pd;
                     ++patchId;
                     auto markerPatchEnd = stream.readNextLine().trim();
-                    std::cout << markerPatchEnd << std::endl;
+                  //   std::cout << markerPatchEnd << std::endl;
                 }
-                
             }
         }
     private:

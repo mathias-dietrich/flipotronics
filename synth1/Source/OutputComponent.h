@@ -8,7 +8,10 @@
 
 #ifndef OutputComponent_h
 #define OutputComponent_h
-class OutputComponent : public Component, public Slider::Listener{
+
+#include "AbstractComponent.h"
+
+class OutputComponent : public AbstractComponent, public Slider::Listener{
 
 public:
     
@@ -32,6 +35,12 @@ public:
      ~OutputComponent () {
          
      }
+    
+    void init (double sampleRate, int samplesPerBlock){
+        this->sampleRate = sampleRate;
+        this->sr = sampleRate * OVERSAMPLING;
+        this->samplesPerBlock = samplesPerBlock;
+    }
     
     void sliderValueChanged(Slider *  slider) override {
            int sid = slider->getName().getIntValue();
@@ -60,11 +69,15 @@ public:
         g.drawLine (0, half-180, width, half-180, 0.5f);
         g.drawLine (0, half+180, width, half+180, 0.5f);
 
-        g.setColour (Colours::blue);
-        drawPlot( g, half, width, scopeBuffer );
+        g.setColour (Colours::white);
+        float scope[SAMPLERATEMAX * OVERSAMPLING];
+        for(int i = 0; i < SAMPLERATEMAX * OVERSAMPLING;++i){
+            scope[i] = Model::of().scopeBuffer[i];
+        }
+        drawPlot( g, half, width, scope );
     }
     
-    void drawPlot(Graphics& g, int half, int width, std::atomic<float> * buf ){
+    void drawPlot(Graphics& g, int half, int width, float * buf ) {
         
         // search positive zero crossing
         int offset =0;
@@ -81,7 +94,7 @@ public:
         
         int lastX = 0;
         int lastY = half;
-        int sr = samplerate * OVERSAMPLING;
+        int sr = sampleRate * OVERSAMPLING;
         
         for(int i=0; i< width;++i){
             int p = offset + i;
@@ -91,9 +104,9 @@ public:
                 pos -= width;
             }
             
-            float a = tanh(3.0f * buf[pos]);
-            int v = half - a * 180 * zoomY;
-             g.drawLine (lastX, lastY, i, v, 1.0f);
+            float a = tanh(3.0f * interpolate(pos, buf));
+            int v = half - a * 180.0f * zoomY;
+            g.drawLine (lastX, lastY, i, v, 1.5f);
             lastX = i;
             lastY = v;
         }
@@ -112,6 +125,19 @@ private:
     float zoomY = 1;
     Slider graphZoom;
     Slider graphZoomY;
+    
+    float sampleRate;
+    float sr;
+    float samplesPerBlock;
+    
+    forcedinline float interpolate(int currentIndex, float * table ) noexcept{
+        auto index0 = (unsigned int) currentIndex;
+        auto index1 = index0 == (sr - 1) ? (unsigned int) 0 : index0 + 1;
+        auto frac = currentIndex - (float) index0;
+        auto value0 = table[index0];
+        auto value1 = table[index1];
+        return value0 + frac * (value1 - value0);
+    }
 };
 
 #endif /* OutputComponent_h */

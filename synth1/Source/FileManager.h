@@ -31,11 +31,10 @@ class FileManager {       // The class
             if (! inputStream.openedOk())
                    return;  // failed to open
         
-            for(int i=0; i < 1024;++i){
-               double v = inputStream.readDouble();
-               par[i] = v;
+            for(int i=0; i < MAXPARAM;++i){
+                Model::of().par[i] = inputStream.readDouble();
             }
-        std::cout << "loaded from  " << rp.getFullPathName() << std::endl;
+       // std::cout << "loaded from  " << rp.getFullPathName() << std::endl;
     }
     
     void save(){
@@ -49,10 +48,10 @@ class FileManager {       // The class
                return;  // failed to open
         
         for(int i=0; i < 1024;++i){
-            outputStream.writeDouble(par[i] );
+            outputStream.writeDouble(Model::of().par[i] );
         }
         outputStream.flush();
-        std::cout << "Saved to " << rp.getFullPathName()  << std::endl;
+        // std::cout << "Saved to " << rp.getFullPathName()  << std::endl;
     }
     
     private:

@@ -98,7 +98,7 @@ private:
         if(button->getRadioGroupId()==16) {
             bankLoader->save();
             Model::of().set();
-            compareMode = false;
+            Model::of().compareMode = false;
             setDials();
            return;
         }
@@ -106,9 +106,9 @@ private:
         // Load
         if(button->getRadioGroupId()==17) {
             bankLoader->load();
-            processor.loadPatch(patchCurrent);
+            processor.loadPatch(Model::of().patchCurrent);
             Model::of().set();
-            compareMode = false;
+            Model::of().compareMode = false;
             setDials();
             return;
         }
@@ -155,12 +155,12 @@ private:
         
         // Progr Up
         if(button->getRadioGroupId()==22) {
-            patchCurrent++;
-            if(patchCurrent >=127){
-                patchCurrent = 0;
+            Model::of().patchCurrent++;
+            if(Model::of().patchCurrent >=127){
+                Model::of().patchCurrent = 0;
             }
-            processor.loadPatch(patchCurrent);
-            compareMode = false;
+            processor.loadPatch(Model::of().patchCurrent);
+            Model::of().compareMode = false;
             Model::of().set();
             setDials();
             return;
@@ -168,13 +168,13 @@ private:
         
         // Progr Down
         if(button->getRadioGroupId()==23) {
-            patchCurrent--;
-            if(patchCurrent < 0){
-               patchCurrent = 127;
+            Model::of().patchCurrent--;
+            if(Model::of().patchCurrent < 0){
+               Model::of().patchCurrent = 127;
             }
             
-            processor.loadPatch(patchCurrent);
-            compareMode = false;
+            processor.loadPatch(Model::of().patchCurrent);
+            Model::of().compareMode = false;
             Model::of().set();
             
             setDials();
@@ -183,7 +183,7 @@ private:
         
         // Compare
         if(button->getRadioGroupId()==24) {
-            compareMode = !compareMode;
+            Model::of().compareMode = !Model::of().compareMode;
             Model::of().swap();
             setDials();
             return;
@@ -221,56 +221,61 @@ private:
     }
     
     void setDials(){
+        
+        float par[MAXPARAM];
+        for(int i =0; i < MAXPARAM;++i){
+            par[i] = Model::of().par[i] ;
+        }
         for(int i=0; i < 16; ++i){
             int pid = paramRoot * 256 + paramRange * 16 + i;
-            dials[i].setRange(params[pid].minVal,params[pid].maxVal,params[pid].stepVal);
-            dials[i].setTitle(params[pid].name);
+            dials[i].setRange(Model::of().params[pid].minVal,Model::of().params[pid].maxVal,Model::of().params[pid].stepVal);
+            dials[i].setTitle(Model::of().params[pid].name);
            // boxes[i].setText(params[pid].name);
-            if( params[pid].type == uWaveType){
+            if( Model::of().params[pid].type == uWaveType){
                 dials[i].setTextValueSuffix(" " + getWaveType(E_WaveType(int(par[pid]))));
                 dials[i].setValue(par[pid], dontSendNotification);
-            }else if( params[pid].type == uFilterType){
+            }else if( Model::of().params[pid].type == uFilterType){
                    dials[i].setTextValueSuffix(" " + getFilterTypeString(MultiModeLadderFilterTypes(int(par[pid]))));
                    dials[i].setValue(par[pid], dontSendNotification);
             }
-            else if( params[pid].type == uPhase){
+            else if( Model::of().params[pid].type == uPhase){
                 dials[i].setTextValueSuffix(" degrees");
                 dials[i].setValue(par[pid], dontSendNotification);
             }
-            else if( params[pid].type == uTimeMsec){
+            else if( Model::of().params[pid].type == uTimeMsec){
                 dials[i].setTextValueSuffix(" msec");
                 dials[i].setSkewFactor(0.5);
                 dials[i].setValue(par[pid], dontSendNotification);
             }
-            else if( params[pid].type == uDb){
+            else if( Model::of().params[pid].type == uDb){
                 dials[i].setSkewFactor (6);
                 dials[i].setTextValueSuffix(" dB");
                 dials[i].setValue(par[pid], dontSendNotification);
             }
-            else if( params[pid].type == uHZ){
+            else if( Model::of().params[pid].type == uHZ){
                 dials[i].setSkewFactor (0.3);
                 dials[i].setTextValueSuffix(" Hz");
                 dials[i].setValue(par[pid], dontSendNotification);
             }
-            else if( params[pid].type == uBool){
+            else if( Model::of().params[pid].type == uBool){
                 bool test = par[pid];
                 String text = test ? " on" : " off" ;
                 dials[i].setTextValueSuffix(text);
             }
-            else if( params[pid].type == uCurve){
+            else if( Model::of().params[pid].type == uCurve){
                 dials[i].setSkewFactor(1);
                 dials[i].setTextValueSuffix(" %");
                 dials[i].setValue(par[pid], dontSendNotification);
             }
-            else if( params[pid].type == uMidiNote){
+            else if( Model::of().params[pid].type == uMidiNote){
                dials[i].setTextValueSuffix(" " + midiNote(par[pid]));
                dials[i].setValue(par[pid], dontSendNotification);
             }
-            else if( params[pid].type == uDevision){
+            else if( Model::of().params[pid].type == uDevision){
                dials[i].setTextValueSuffix(" " + devision(par[pid]));
                dials[i].setValue(par[pid], dontSendNotification);
             }
-            else if( params[pid].type == uArpMode){
+            else if( Model::of().params[pid].type == uArpMode){
                 dials[i].setSkewFactor(1);
                 if(par[pid]==0){
                      dials[i].setTextValueSuffix(" SEQ");
@@ -281,7 +286,7 @@ private:
                 }
                 dials[i].setValue(par[pid], dontSendNotification);
             }
-            else if( params[pid].type == uChordMode){
+            else if( Model::of().params[pid].type == uChordMode){
                 switch(((int)par[pid])){
                     case 0:
                      dials[i].setTextValueSuffix(" Singe ");
@@ -321,9 +326,11 @@ private:
         if(paramRange<16){
             btnParam[paramRange].setToggleState(true, NotificationType::dontSendNotification);
         }
-        progNumber.setText(toString(patchCurrent+1), NotificationType::dontSendNotification);
-        progName.setText(patchNameCurrent, NotificationType::dontSendNotification);
-        btnCompare.setToggleState(compareMode, NotificationType::dontSendNotification);
+        
+        // Program Display
+        progNumber.setText(toString(Model::of().patchCurrent+1), NotificationType::dontSendNotification);
+        progName.setText(Model::of().patchNameCurrent, NotificationType::dontSendNotification);
+        btnCompare.setToggleState(Model::of().compareMode, NotificationType::dontSendNotification);
         
         switch(paramRoot){
             case 0:
@@ -371,7 +378,7 @@ private:
                 break;
         }
         btnArp.setToggleState(processor.isArpOn, NotificationType::dontSendNotification);
-        isUpdateParams = true;
+        Model::of().isUpdateParams = true;
     }
     
     void sliderValueChanged(Slider *  slider) override {
@@ -397,10 +404,10 @@ private:
         // Edits Mode ================================================================
         startEdit();
         int pid = paramRoot * 256 + paramRange * 16 + sid;
-        if(params[pid].smoothTime > 0){
-            parTargetDelta[pid] = par[pid] - slider->getValue();
+        if(Model::of().params[pid].smoothTime > 0){
+            Model::of().parTargetDelta[pid] = Model::of().par[pid] - slider->getValue();
         }else{
-            par[pid] = slider->getValue();
+            Model::of().par[pid] = slider->getValue();
         }
         setDials();
     }
@@ -420,30 +427,30 @@ private:
         switch (playMode.getSelectedId())
         {
             case 1: // Poly
-                par[1023] = 1;
+                Model::of().par[1023] = 1;
                 break;
             case 2: // Unisono
-                par[1023] = 2;
+                Model::of().par[1023] = 2;
                 break;
             case 3: // Mono
-                par[1023] = 3;
+                Model::of().par[1023] = 3;
                 break;
             case 4: // Legato
-                par[1023] = 4;
+                Model::of().par[1023] = 4;
                 break;
         }
         setDials();
     }
     
     void styleMenuChangedView(){
-        viewModeSetting = viewMode.getSelectedId();
+        Model::of().viewModeSetting = viewMode.getSelectedId();
         processor.spectrum.setVisible(false);
         processor.waveComponent.setVisible(false);
         processor.outputComponent.setVisible(false);
         processor.adsrComponent.setVisible(false);
         processor.lfoComponent.setVisible(false);
 
-        switch(viewModeSetting){
+        switch(Model::of().viewModeSetting){
             case vSpectrum:
                 processor.spectrum.setVisible(true);
                 break;
@@ -516,6 +523,6 @@ private:
     }
     
     void startEdit(){
-        compareMode = true;
+        Model::of().compareMode = true;
     }
 };

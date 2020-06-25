@@ -60,34 +60,9 @@ public:
     int noOfPatches = 5;
     PatchData patchData[256];
     String magicEnd = "FLOP";
+    
+    std::atomic<float> par[MAXPARAM];
 };
-
-
-extern std::atomic<float> par[MAXPARAM];
-extern std::atomic<float> parTargetDelta[MAXPARAM];
-extern std::atomic<float> paramsUndo[MAXPARAM];
-extern std::atomic<float> tuneTable[256];
-extern std::atomic<float> tuneMulti[12];
-extern std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
-extern std::atomic<bool> isUpdateParams;
-extern std::atomic<int64> timeTaken;
-extern std::atomic<float> sumPeak;
-extern std::atomic<float> sumRMS;
-
-extern int samplesperblock;
-extern int samplerate;
-
-extern Param params[MAXPARAM];
-extern int viewModeSetting;
-extern int patchCurrent;
-extern String patchNameCurrent;
-extern String patchNameCurrentUndo;
-extern bool compareMode;
-extern BankData bankData;
-
-extern AudioBuffer<float> fileBuffer;
-extern int noOfSamplesToPlay;
-extern bool hasPlayed;
 
 class Model {
     
@@ -126,6 +101,38 @@ public:
         }
     }
     
+    // boolean
+    std::atomic<bool> hasPlayed;
+    std::atomic<bool> compareMode;
+    std::atomic<bool> isUpdateParams;
+    
+    // ints
+    std::atomic<int64> timeTaken;
+    std::atomic<int> noOfSamplesToPlay;
+    std::atomic<int> patchCurrent;
+    std::atomic<int> viewModeSetting;
+    
+    // floats
+    std::atomic<float> par[MAXPARAM];
+    std::atomic<float> sumPeak;
+    std::atomic<float> sumRMS;
+    std::atomic<float> paramsUndo[MAXPARAM];
+    std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
+    std::atomic<float> parTargetDelta[MAXPARAM];
+    std::atomic<float> tuneTable[256];
+    std::atomic<float> tuneMulti[12];
+
+    // Strings
+    String patchNameCurrent;
+    String patchNameCurrentUndo;
+    
+    // buffer
+    AudioBuffer<float> fileBuffer;
+   
+    // objects
+    BankData bankData;
+    Param params[MAXPARAM];
+
 private:
     Model() {}
 };

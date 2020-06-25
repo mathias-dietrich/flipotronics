@@ -9,7 +9,9 @@
 #ifndef LfoComponent_h
 #define LfoComponent_h
 
-class LfoComponent: public Component{
+#include "AbstractComponent.h"
+
+class LfoComponent:  public AbstractComponent{
    public:
    
     LfoComponent () {

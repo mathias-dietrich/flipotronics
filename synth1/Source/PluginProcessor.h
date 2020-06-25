@@ -74,12 +74,12 @@ public:
     
     void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override {
         core->startVoice( midiChannel,  midiNoteNumber,  velocity);
-        isUpdateParams = true;
+        Model::of().isUpdateParams = true;
     }
      
     void handleNoteOff (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override {
          core->endVoice( midiChannel,  midiNoteNumber);
-        isUpdateParams = true;
+        Model::of().isUpdateParams = true;
     }
     
     void panic(){
@@ -92,7 +92,6 @@ public:
     
     void setArp(bool running){
         core->setArp(running);
-   
     }
     
     void loadPatch(int p){

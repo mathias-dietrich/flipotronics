@@ -8,7 +8,6 @@
 
 #include "Core.h"
 
-
 using namespace std;
 
 void Core::init (double sampleRate, int samplesPerBlock){
@@ -17,25 +16,30 @@ void Core::init (double sampleRate, int samplesPerBlock){
     this->blocksPerSeccond = sampleRate / samplesPerBlock;
     WaveTable::of()->init(sampleRate,samplesPerBlock );
 
-    patchCurrent = 1;
+    Model::of().patchCurrent = 1;
     
     // ARP
    // arp->init(sampleRate, samplesPerBlock);
     //arp->setPlayer(this);
+    
+    float p[MAXPARAM];
+    for(int i =0; i < MAXPARAM;++i){
+       p[i] = Model::of().par[i] ;
+    }
 
     // Voices
     for (int i=0; i<MAXVOICE; ++i) {
         voices[i].vid = i;
-        voices[i].init( sampleRate, samplesPerBlock);
+        voices[i].init( sampleRate, samplesPerBlock, p);
         voices[i].active = false;
     }
     
     // Tuning
     for (int i=0; i<256; ++i) {
-        tuneTable[i] = MidiToFreq(i,440);
+        Model::of().tuneTable[i] = MidiToFreq(i,440);
     }
     for (int i=0; i<12; ++i) {
-        tuneMulti[i] = 1.0;
+        Model::of().tuneMulti[i] = 1.0;
     }
     
     // FX
@@ -53,6 +57,12 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     ScopedNoDenormals noDenormals;
     
     auto begin = std::chrono::high_resolution_clock::now();
+    
+    // Copy PARAMS from the Heap
+    float p[MAXPARAM];
+    for(int i =0; i < MAXPARAM;++i){
+        p[i] = Model::of().par[i] ;
+    }
 
     // Handle Midi Messages
     MidiMessage result;
@@ -79,16 +89,16 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
         // handle Smoothing
         float c = sampleRate * 0.001f * UPDATEDEVIDER;
         for(int i =0; i < MAXPARAM;++i){
-            if(params[i].smoothTime > 0){
-                if(abs(par[i]) < abs(par[i] + parTargetDelta[i]) - 0.001){
-                    float delta =  parTargetDelta[i] /  (params[i].smoothTime *c);
-                    par[i] = par[i] + delta;
+            if(Model::of().params[i].smoothTime > 0){
+                if(abs(Model::of().par[i]) < abs(Model::of().par[i] + Model::of().parTargetDelta[i]) - 0.001){
+                    float delta =  Model::of().parTargetDelta[i] /  (Model::of().params[i].smoothTime *c);
+                    Model::of().par[i] = Model::of().par[i] + delta;
                 }
             }
         }
         for(int i=0; i < MAXVOICE;++i){
             if(voices[i].active){
-              voices[i].update(clock);
+              voices[i].update(clock,p);
             }
         }
        // cout << "timeTaken (msec): " << timeTaken / 1000.0f << " Blocksize: " << samplesPerBlock <<  " Allowed: " << timeAllowedMsec << endl;
@@ -104,16 +114,16 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     // Render Voices
     for(int i=0; i < MAXVOICE;++i){
            if(voices[i].active){
-               voices[i].render(clock, buffer);
+               voices[i].render(clock, buffer, p);
            }
      }
     
     // Render FX
-    delay.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels);
+    delay.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels, p);
     
     // Set SCope Buffer for the Ouput UI
     for (int i=0; i<samplesPerBlock; ++i) {
-        scopeBuffer[i + scopeCounter * samplesPerBlock] =  (channelDataL[i] + channelDataR[i]) *0.5f;
+        Model::of().scopeBuffer[i + scopeCounter * samplesPerBlock] =  (channelDataL[i] + channelDataR[i]) *0.5f;
     }
     
     // Detector
@@ -124,18 +134,18 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
         scopeCounter = 0;
     }
     
-    if(noOfSamplesToPlay > 0){
+    if(Model::of().noOfSamplesToPlay > 0){
         for (int i=0; i<samplesPerBlock; ++i) {
             
-            auto* buf = fileBuffer.getReadPointer (0);
+            auto* buf = Model::of().fileBuffer.getReadPointer (0);
             channelDataL[i] += buf[samplePlayerPos];
             channelDataR[i] += buf[samplePlayerPos];
             ++samplePlayerPos;
             
-            if(samplePlayerPos >= noOfSamplesToPlay){
-                noOfSamplesToPlay =0;
+            if(samplePlayerPos >= Model::of().noOfSamplesToPlay){
+                Model::of().noOfSamplesToPlay =0;
                 samplePlayerPos = 0;
-                hasPlayed = true;
+                Model::of().hasPlayed = true;
                 break;
             }
         }
@@ -147,5 +157,5 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     // Measure time taken
     auto end = std::chrono::high_resolution_clock::now();
     int64 nanoSec = std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count();
-    timeTaken = (timeTaken+nanoSec) * 0.5;
+    Model::of().timeTaken = (Model::of().timeTaken+nanoSec) * 0.5;
 }

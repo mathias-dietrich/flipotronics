@@ -9,7 +9,9 @@
 #ifndef AdsrComponent_h
 #define AdsrComponent_h
 
-class AdsrComponent : public Component{
+#include "AbstractComponent.h"
+
+class AdsrComponent : public AbstractComponent{
     public:
     
      AdsrComponent () {
@@ -23,22 +25,22 @@ class AdsrComponent : public Component{
          
      }
     
-    void init(float sampleRate, int samplesPerBlock){
-        this->samplesPerBlock = samplesPerBlock;
-        this->sampleRate = sampleRate;
-    }
-    
      void paint (Graphics& g) override{
          Rectangle<int> r = getLocalBounds();
          auto width  = getLocalBounds().getWidth();
          auto height  = getLocalBounds().getHeight();
          int half = height / 2;
          
-         switch(viewModeSetting){
+          float par[MAXPARAM];
+               for(int i =0; i < MAXPARAM;++i){
+                   par[i] = Model::of().par[i] ;
+          }
+         
+         switch(Model::of().viewModeSetting){
         
              case vADSR1: //ADSR 1
              {
-                 adsr1.init(samplerate,  samplesperblock);
+                 adsr1.init(sampleRate,  samplesPerBlock);
                  adsr1.delayTimeMsec = par[P_ADSR1_DELAY];
                  adsr1.attackTimeMsec = par[P_ADSR1_ATTACK];
                  adsr1.holdTimeMsec = par[P_ADSR1_HOLD];
@@ -57,7 +59,7 @@ class AdsrComponent : public Component{
 
              case vADSR2: //ADSR 2
              {
-                 adsr2.init(samplerate,  samplesperblock);
+                 adsr2.init(sampleRate,  samplesPerBlock);
                  adsr2.delayTimeMsec = par[P_ADSR2_DELAY];
                  adsr2.attackTimeMsec = par[P_ADSR2_ATTACK];
                  adsr2.holdTimeMsec = par[P_ADSR2_HOLD];
@@ -76,7 +78,7 @@ class AdsrComponent : public Component{
              
              case vADSR3: //ADSR 3
              {
-                 adsr3.init(samplerate,  samplesperblock);
+                 adsr3.init(sampleRate,  samplesPerBlock);
                  adsr3.delayTimeMsec = par[P_ADSR3_DELAY];
                  adsr3.attackTimeMsec = par[P_ADSR3_ATTACK];
                  adsr3.holdTimeMsec = par[P_ADSR3_HOLD];
@@ -95,7 +97,7 @@ class AdsrComponent : public Component{
              
              case vADSR4: //ADSR 4
              {
-                 adsr4.init(samplerate,  samplesperblock);
+                 adsr4.init(sampleRate,  samplesPerBlock);
                  adsr4.delayTimeMsec = par[P_ADSR4_DELAY];
                  adsr4.attackTimeMsec = par[P_ADSR4_ATTACK];
                  adsr4.holdTimeMsec = par[P_ADSR4_HOLD];
@@ -165,9 +167,7 @@ class AdsrComponent : public Component{
         }
     
 private:
-    float sampleRate;
-    int samplesPerBlock;
-    
+
     Adsr adsr1;
     Adsr adsr2;
     Adsr adsr3;
