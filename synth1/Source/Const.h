@@ -17,6 +17,6 @@
 #define SAMPLERATEMAX 192000
 #define UPDATEDEVIDER 10
 
-#define SCOPEFRAMES 12
+#define SCOPEFRAMES 25
 
 #endif /* Const_h */

@@ -332,13 +332,18 @@ void Synth1AudioProcessorEditor::resized() {
 // ==================================================================================================
 // paint
 // ==================================================================================================
+
+inline const char * const BoolToString(bool b)
+{
+  return b ? "true" : "false";
+}
+
 void Synth1AudioProcessorEditor::paint (Graphics& g)
 {
     Rectangle<int> r = getLocalBounds();
     int width = r.getWidth();
     int height = r.getHeight() ;
-    int half = height / 2 + 120;
-    
+
     // BG
     g.fillAll (C_BACKGROUND);
     
@@ -377,7 +382,7 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     }
     float cpu = taken / processor.maxTimeMsec * 100.0f;
     g.drawFittedText ("CPU: " +  String(cpu,2) + "%  Taken: " + String(taken,3) + " msec  Max: " + String(processor.maxTimeMsec,3) + " msec", rv, Justification::topLeft, 1);
-    
+
     // Volumes
     g.setColour (C_GREENTEXT);
     rv.setY(67);

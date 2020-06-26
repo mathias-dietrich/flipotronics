@@ -12,6 +12,10 @@
 #include "Param.h"
 #include "Const.h"
 
+struct Msg {
+    float blockBuffer[SAMPLERATEMAX];
+};
+
 class PatchData {
     public:
     PatchData(){
@@ -117,7 +121,7 @@ public:
     std::atomic<float> sumPeak;
     std::atomic<float> sumRMS;
     std::atomic<float> paramsUndo[MAXPARAM];
-    std::atomic<float> scopeBuffer[SAMPLERATEMAX * OVERSAMPLING];
+    
     std::atomic<float> parTargetDelta[MAXPARAM];
     std::atomic<float> tuneTable[256];
     std::atomic<float> tuneMulti[12];
@@ -133,7 +137,35 @@ public:
     BankData bankData;
     Param params[MAXPARAM];
 
+    bool flip;
+    void pushMsgToUi() noexcept{
+         flip = !flip;
+     }
+
+     ~Model() {
+         delete msg0;
+         delete msg1;
+     }
+    
+    Msg * getBack(){
+        if(flip){
+            return msg0;
+        }
+        return msg1;
+     }
+    
+    Msg * getFront(){
+       if(flip){
+           return msg1;
+       }
+       return msg0;
+    }
+                     
+    
 private:
+    Msg * msg0 = new Msg();
+    Msg * msg1 = new Msg();
+    
     Model() {}
 };
 

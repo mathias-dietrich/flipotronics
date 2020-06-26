@@ -11,6 +11,7 @@
 using namespace std;
 
 void Core::init (double sampleRate, int samplesPerBlock){
+
     this->sampleRate = sampleRate;
     this->samplesPerBlock = samplesPerBlock;
     this->blocksPerSeccond = sampleRate / samplesPerBlock;
@@ -121,19 +122,15 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     // Render FX
     delay.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels, p);
     
-    // Set SCope Buffer for the Ouput UI
+    // Set Scope Buffer for the Ouput UI
+    Msg *m = Model::of().getBack();
     for (int i=0; i<samplesPerBlock; ++i) {
-        Model::of().scopeBuffer[i + scopeCounter * samplesPerBlock] =  (channelDataL[i] + channelDataR[i]) *0.5f;
+       m->blockBuffer[i] =  (channelDataL[i] + channelDataR[i]) * 0.5f;
     }
-    
+
     // Detector
     detector.handle(buffer, totalNumInputChannels, totalNumOutputChannels);
-    
-    ++scopeCounter;
-    if (scopeCounter >= blocksPerSeccond){
-        scopeCounter = 0;
-    }
-    
+
     if(Model::of().noOfSamplesToPlay > 0){
         for (int i=0; i<samplesPerBlock; ++i) {
             
@@ -153,6 +150,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     
     // Move Clock
     clock += samplesPerBlock;
+    Model::of().pushMsgToUi();
     
     // Measure time taken
     auto end = std::chrono::high_resolution_clock::now();

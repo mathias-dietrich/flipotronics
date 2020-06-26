@@ -10,8 +10,9 @@
 #define OutputComponent_h
 
 #include "AbstractComponent.h"
+#include "Color.h"
 
-class OutputComponent : public AbstractComponent, public Slider::Listener{
+class OutputComponent : public AbstractComponent,  public Slider::Listener{
 
 public:
     
@@ -20,7 +21,7 @@ public:
         graphZoom.setName("103");
         graphZoom.addListener (this);
         graphZoom.setRange(5, 4000,1);
-        graphZoom.setValue(zoom);
+        graphZoom.setValue(zoomX);
         addAndMakeVisible(graphZoom);
 
         graphZoomY.setSliderStyle(Slider::SliderStyle::LinearVertical );
@@ -35,100 +36,94 @@ public:
      ~OutputComponent () {
          
      }
-    
-    void init (double sampleRate, int samplesPerBlock){
-        this->sampleRate = sampleRate;
-        this->sr = sampleRate * OVERSAMPLING;
-        this->samplesPerBlock = samplesPerBlock;
+
+    void sliderValueChanged(Slider *  slider) override {
+        int sid = slider->getName().getIntValue();
+
+        // Zoom
+        if(sid==103){
+           zoomX = slider->getValue();
+           return;
+        }
+        // Zoom Y
+        if(sid==104){
+           zoomY = slider->getValue();
+           return;
+        }
     }
     
-    void sliderValueChanged(Slider *  slider) override {
-           int sid = slider->getName().getIntValue();
-           
-           // Zoom
-           if(sid==103){
-               zoom = slider->getValue();
-               return;
-           }
-           // Zoom Y
-           if(sid==104){
-               zoomY = slider->getValue();
-               return;
-           }
-       }
+    void getNextAudioBlock() {
+        Msg * m = Model::of().getFront();
+        int offset = scopeOffset * samplesPerBlock;
+        for(int i = 0; i < samplesPerBlock; ++i){
+            scope[offset + i] = m->blockBuffer[i];
+        }
+        ++scopeOffset;
+        if(scopeOffset == blocksPerSecond){
+            scopeOffset = 0;
+        }
+    }
     
     void paint (Graphics& g) override{
         Rectangle<int> r = getLocalBounds();
         int width = r.getWidth();
         int height = r.getHeight() ;
-        int half = height / 2 -10;
-        
+        int half = height / 2 - 10;
+
          // Plot
         g.setColour (Colours::white);
         g.drawLine (0, half, width, half, 0.5f);
         g.drawLine (0, half-180, width, half-180, 0.5f);
         g.drawLine (0, half+180, width, half+180, 0.5f);
 
-        g.setColour (Colours::white);
-        float scope[SAMPLERATEMAX * OVERSAMPLING];
-        for(int i = 0; i < SAMPLERATEMAX * OVERSAMPLING;++i){
-            scope[i] = Model::of().scopeBuffer[i];
+        // search positive zero crossing ==========================================
+        int offset = 0;
+        while(scope[offset] > 0){
+           ++offset;
         }
-        drawPlot( g, half, width, scope );
-    }
-    
-    void drawPlot(Graphics& g, int half, int width, float * buf ) {
-        
-        // search positive zero crossing
-        int offset =0;
-        while(buf[offset] > 0){
-            ++offset;
-        }
-        
+
         while(offset < width){
-            if(buf[offset] <0 && buf[offset+1] >=0){
-                break;
-            }
-            ++offset;
+           if(scope[offset] <0 && scope[offset+1] >=0) {
+               break;
+           }
+           ++offset;
         }
+        // search positive zero crossing end  =====================================
         
-        int lastX = 0;
-        int lastY = half;
-        int sr = sampleRate * OVERSAMPLING;
-        
-        for(int i=0; i< width;++i){
-            int p = offset + i;
-          
-            int pos = p  * sr / zoom  / width;
-            if(pos >= width){
-                pos -= width;
-            }
-            
-            float a = tanh(3.0f * interpolate(pos, buf));
-            int v = half - a * 180.0f * zoomY;
-            g.drawLine (lastX, lastY, i, v, 1.5f);
-            lastX = i;
-            lastY = v;
-        }
+        float lastX = 0;
+        float lastY = half;
+        float z = 1.0f / ((float)zoomX)  / ((float) width);
+        g.setColour (C_WAVEDISPLAY);
+        for(float i=0; i < width; i += 0.1f) {
+           float pos = (offset + i)  * sampleRate * z;
+           if(pos >= width){
+               pos -= width;
+           }
+           float a = tanh(3.0f * interpolate(pos, scope));
+           //float a = tanh(3.0f * scope[(int)pos]);
+           float v = half - a * 180.0f * zoomY;
+           g.drawLine(lastX, lastY, i, v, 2.1f);
+           lastX = i;
+           lastY = v;
+       }
     }
     
     void resized() override{
         Rectangle<int> r = getLocalBounds();
         int width = r.getWidth();
         int height = r.getHeight();
-        graphZoom.setBounds (0 ,height-20, width-10,  20);
-        graphZoomY.setBounds (0 ,  0, 20,  385);
+        graphZoom.setBounds (5 , 0, width-10,  20);
+        graphZoomY.setBounds (5 , 15, 20,  height-20);
     }
     
 private:
-    float zoom = 440;
+    float zoomX = 220;
     float zoomY = 1;
     Slider graphZoom;
     Slider graphZoomY;
     
-    float sampleRate;
-    float sr;
-    float samplesPerBlock;
+    float scope[SAMPLERATEMAX];
+    int scopeOffset = 0;
     
     forcedinline float interpolate(int currentIndex, float * table ) noexcept{
         auto index0 = (unsigned int) currentIndex;

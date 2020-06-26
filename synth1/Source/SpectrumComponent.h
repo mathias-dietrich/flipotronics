@@ -75,10 +75,9 @@ class SpectrumComponent : public AbstractComponent , private Timer{
         rs.setX(width-10);
         rs.setWidth(10);
         
-        
         float level = linearToDecibles (sumLevel);
         float lin = 1.0f - level / -96;
-        //float lin = sumLevel;
+
         float scaled =   height * lin;
         rs.setY(height);
         rs.setHeight(-scaled);
@@ -100,25 +99,21 @@ class SpectrumComponent : public AbstractComponent , private Timer{
             x += steps;
         }
     }
-    
-    void pushNextSampleIntoFifo (float sample) noexcept
+
+    void getNextAudioBlock ()
     {
-        if (fifoIndex == fftSize){
-            if (! nextFFTBlockReady) {
-                zeromem (fftData, sizeof (fftData));
-                memcpy (fftData, fifo, sizeof (fifo));
-                nextFFTBlockReady = true;
-            }
-            fifoIndex = 0;
-        }
-        fifo[fifoIndex++] = sample;  // [12]
-    }
-    
-    void setNextAudioBlock (AudioBuffer<float>& buffer)
-    {
-        auto* channelDataL = buffer.getReadPointer (0);
+        float * blockBuffer = Model::of().getFront()->blockBuffer;
         for (auto i = 0; i < samplesPerBlock; ++i){
-            pushNextSampleIntoFifo (channelDataL[i]);
+            float sample = blockBuffer[i];
+            if (fifoIndex == fftSize){
+               if (! nextFFTBlockReady) {
+                   zeromem (fftData, sizeof (fftData));
+                   memcpy (fftData, fifo, sizeof (fifo));
+                   nextFFTBlockReady = true;
+               }
+               fifoIndex = 0;
+           }
+           fifo[fifoIndex++] = sample;  // [12]
         }
     }
     

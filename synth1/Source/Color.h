@@ -18,4 +18,6 @@
 
 #define C_GREENTEXT  Colour(33, 66, 33)
 
+#define C_WAVEDISPLAY  Colour(255, 255, 255)
+
 #endif /* Color_h */

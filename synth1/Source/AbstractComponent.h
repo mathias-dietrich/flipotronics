@@ -19,11 +19,13 @@ public:
         this->samplesPerBlock = samplesPerBlock;
         this->sampleRate = sampleRate;
         this->sr = sampleRate * OVERSAMPLING;
+        this->blocksPerSecond = sampleRate / samplesPerBlock;
     }
     
     float sampleRate;
     int samplesPerBlock;
     float sr;
+    int blocksPerSecond;
 };
 
 #endif /* AbstractComponent_h */

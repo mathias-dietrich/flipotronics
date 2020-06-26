@@ -121,7 +121,8 @@ void Synth1AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer&
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     core->handle(buffer, midiMessages, totalNumInputChannels, totalNumOutputChannels);
-    spectrum.setNextAudioBlock(buffer);
+    spectrum.getNextAudioBlock();
+    outputComponent.getNextAudioBlock();
 }
 
 //==============================================================================
