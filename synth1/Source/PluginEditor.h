@@ -13,10 +13,10 @@
 #include "PitchWheel.h"
 #include "ImageFactory.h"
 #include "Poti.h"
+#include "PotsComponent.h"
 
 //============Poti==================================================================
-/**
-*/
+
 class Synth1AudioProcessorEditor  : public AudioProcessorEditor,MidiKeyboardStateListener,
     public Button::Listener,  public Slider::Listener,public Timer
 {
@@ -51,9 +51,6 @@ public:
     TextButton btnLatch;
     
     Label timeLabel;
-    
-   // TextEditor boxes[16];
-    Poti dials[16] ;
     
     BankLoader *bankLoader;
     
@@ -219,99 +216,11 @@ private:
         for(int i =0; i < MAXPARAM;++i){
             par[i] = Model::of().par[i] ;
         }
-        for(int i=0; i < 16; ++i){
-            int pid = paramRoot * 256 + paramRange * 16 + i;
-            dials[i].setRange(Model::of().params[pid].minVal,Model::of().params[pid].maxVal,Model::of().params[pid].stepVal);
-            dials[i].setTitle(Model::of().params[pid].name);
-           // boxes[i].setText(params[pid].name);
-            if( Model::of().params[pid].type == uWaveType){
-                dials[i].setTextValueSuffix(" " + getWaveType(E_WaveType(int(par[pid]))));
-                dials[i].setValue(par[pid], dontSendNotification);
-            }else if( Model::of().params[pid].type == uFilterType){
-                   dials[i].setTextValueSuffix(" " + getFilterTypeString(MultiModeLadderFilterTypes(int(par[pid]))));
-                   dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uPhase){
-                dials[i].setTextValueSuffix(" degrees");
-                dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uTimeMsec){
-                dials[i].setTextValueSuffix(" msec");
-                dials[i].setSkewFactor(0.5);
-                dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uDb){
-                dials[i].setSkewFactor (6);
-                dials[i].setTextValueSuffix(" dB");
-                dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uHZ){
-                dials[i].setSkewFactor (0.3);
-                dials[i].setTextValueSuffix(" Hz");
-                dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uBool){
-                bool test = par[pid];
-                String text = test ? " on" : " off" ;
-                dials[i].setTextValueSuffix(text);
-            }
-            else if( Model::of().params[pid].type == uCurve){
-                dials[i].setSkewFactor(1);
-                dials[i].setTextValueSuffix(" %");
-                dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uMidiNote){
-               dials[i].setTextValueSuffix(" " + midiNote(par[pid]));
-               dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uDevision){
-               dials[i].setTextValueSuffix(" " + devision(par[pid]));
-               dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uArpMode){
-                dials[i].setSkewFactor(1);
-                if(par[pid]==0){
-                     dials[i].setTextValueSuffix(" SEQ");
-                }else if (par[pid]==1){
-                     dials[i].setTextValueSuffix(" ARP");
-                }else{
-                    dials[i].setTextValueSuffix(" CHORD");
-                }
-                dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uChordMode){
-                switch(((int)par[pid])){
-                    case 0:
-                     dials[i].setTextValueSuffix(" Singe ");
-                    break;
-                    
-                    case 1:
-                     dials[i].setTextValueSuffix(" Quinte ");
-                    break;
-                        
-                    case 2:
-                     dials[i].setTextValueSuffix(" Quarte ");
-                    break;
-                    
-                    case 3:
-                     dials[i].setTextValueSuffix(" Root ");
-                    break;
-                        
-                    case 4:
-                     dials[i].setTextValueSuffix(" Inv 1 ");
-                    break;
-                    
-                    case 5:
-                     dials[i].setTextValueSuffix(" Inv 2 ");
-                    break;
-                }
-               dials[i].setValue(par[pid], dontSendNotification);
-            }
-            else{
-                dials[i].setTextValueSuffix("");
-                dials[i].setValue(par[pid], dontSendNotification);
-            }
-        }
+        
+        potsComponent.paramRoot = paramRoot;
+        potsComponent.paramRange = paramRange;
+        potsComponent.setDials();
+        
         // Param Select
         for(int i=0; i < 16; ++i){
             btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
@@ -522,4 +431,6 @@ private:
     void startEdit(){
         Model::of().compareMode = true;
     }
+    
+    PotsComponent potsComponent;
 };

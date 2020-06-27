@@ -131,17 +131,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     timeLabel.setColour (Label::textColourId, Colours::white);
     timeLabel.setJustificationType (Justification::centred);
     
-    for(int i=0; i < 16; ++i){
-        addAndMakeVisible (dials[i]);
-        dials[i].setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
-        dials[i].setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
-        dials[i].setNumDecimalPlacesToDisplay(2);
-        dials[i].setName(toString(i));
-        dials[i].addListener (this);
-        //addAndMakeVisible (boxes[i]);
-        //boxes[i].setJustification(Justification::horizontallyCentred);
-    }
-    
     setDials();
     
     pitchWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
@@ -234,6 +223,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(processor.waveComponent);
     addChildComponent(processor.lfoComponent);
     addChildComponent(processor.curveComponent);
+    addAndMakeVisible(potsComponent);
 
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
@@ -285,21 +275,7 @@ void Synth1AudioProcessorEditor::resized() {
     btnProgUp.setBounds (1020, 205, 80, 20);
     btnBrowse.setBounds (922, 245, 90, 30);
     btnArp.setBounds (820, 245, 90, 30);
-    
-    // Sliders
-    int dialY = 60;
-    for(int i=0; i < 8; ++i){
-        // boxes[i].setBounds (10  + i * 100,  dialY, 100,  20);
-         dials[i].setBounds (10  + i * 100,  dialY, 100,  120);
-    }
-   
-    dialY += 130;
-    
-    for(int i=0; i < 8; ++i){
-           // boxes[i+8].setBounds (10  + i * 100,  dialY, 100,  20);
-            dials[i+8].setBounds (10  + i * 100,  dialY, 100,  120);
-    }
-    
+
     // Live Controller
     pitchWheel.setBounds(5, height-93, 30, 97);
     modWheel.setBounds (40, height-93, 30, 97);
@@ -327,6 +303,7 @@ void Synth1AudioProcessorEditor::resized() {
     processor.adsrComponent.setBounds(0, 320, width,  componentHeight);
     processor.lfoComponent.setBounds(0, 320, width,  componentHeight);
     processor.curveComponent.setBounds(0, 320, width,  componentHeight);
+    potsComponent.setBounds(0, 60, 830,  250);
 }
 
 // ==================================================================================================

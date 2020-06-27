@@ -78,25 +78,26 @@ public:
 
         // search positive zero crossing ==========================================
         int offset = 0;
-        while(scope[offset] > 0){
+        while(scope[offset] > 0 && offset < SAMPLERATEMAX){
            ++offset;
         }
 
-        while(offset < width){
-           if(scope[offset] <0 && scope[offset+1] >=0) {
+        while(offset < SAMPLERATEMAX){
+           if( scope[offset] >=0) {
                break;
            }
            ++offset;
         }
+        
         // search positive zero crossing end  =====================================
         
         float lastX = 0;
-        float lastY = half;
+        float lastY = scope[offset] ;
         float z = 1.0f / ((float)zoomX)  / ((float) width);
         g.setColour (C_WAVEDISPLAY);
         for(float i=0; i < width; i += 0.1f) {
            float pos = (offset + i)  * sampleRate * z;
-           if(pos >= width){
+           if(pos > width){
                pos -= width;
            }
            float a = tanh(3.0f * interpolate(pos, scope));
