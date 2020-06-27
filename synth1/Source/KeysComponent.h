@@ -71,7 +71,7 @@ class KeysComponent : public AbstractComponent, public MidiKeyboardStateListener
     }
     
     ~KeysComponent () {
-           
+
     }
     
     void buttonClicked (Button* button)  override {
@@ -83,7 +83,9 @@ class KeysComponent : public AbstractComponent, public MidiKeyboardStateListener
     }
        
     void paint (Graphics& g) override {
-        
+        Rectangle<int> r = getLocalBounds();
+        g.setColour (C_KEYBORDAREA);
+        g.fillRect(r);
     }
     
     void sliderDragEnded(Slider *) override{

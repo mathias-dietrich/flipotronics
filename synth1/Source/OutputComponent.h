@@ -70,6 +70,9 @@ public:
         int height = r.getHeight() ;
         int half = height / 2 - 10;
 
+        g.setColour (C_BLACK);
+        g.fillRect(r);
+
          // Plot
         g.setColour (Colours::white);
         g.drawLine (0, half, width, half, 0.5f);

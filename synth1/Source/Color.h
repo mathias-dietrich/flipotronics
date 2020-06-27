@@ -20,4 +20,6 @@
 
 #define C_WAVEDISPLAY  Colour(255, 255, 255)
 
+#define C_BLACK Colour(0, 0, 0)
+
 #endif /* Color_h */

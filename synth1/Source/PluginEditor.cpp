@@ -100,8 +100,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnProgDown.setRadioGroupId(23);
     addAndMakeVisible (btnProgDown);
     
-
-    
     btnBrowse.setButtonText ("Browse");
     btnBrowse.addListener (this);
     btnBrowse.setRadioGroupId(26);
@@ -140,8 +138,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(progNumber);
     
     // Dropdowns
-    
-    addAndMakeVisible(viewMode);
     viewMode.addItem ("Ouput", vPlot);
     viewMode.addItem ("Spectrum", vSpectrum);
     viewMode.addItem ("ADSR 1", vADSR1);
@@ -158,6 +154,9 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewMode.onChange = [this] { styleMenuChangedView(); };
     Model::of().viewModeSetting = vWave;
     viewMode.setSelectedId(Model::of().viewModeSetting, NotificationType::dontSendNotification);
+    addAndMakeVisible(viewMode);
+        
+        
 
     addAndMakeVisible(viewZoom);
     viewZoom.addItem ("50%", 1);
@@ -215,8 +214,6 @@ void Synth1AudioProcessorEditor::resized() {
     btnCompare.setBounds (width-270, hButtons, 80, 20);
     btnSave.setBounds (width-180, hButtons, 80, 20);
     btnLoad.setBounds (width-90, hButtons, 80, 20);
-
-
     
     int xVal = 835;
     btnRange0.setBounds (xVal, 5, 60, 20);
@@ -230,7 +227,6 @@ void Synth1AudioProcessorEditor::resized() {
     btnArp.setBounds (820, 245, 90, 30);
     
     // Drop Downs
-
     viewMode.setBounds (840, 290, 120, 20);
     viewZoom.setBounds (width-90, 5, 80, 20);
     
@@ -252,8 +248,6 @@ void Synth1AudioProcessorEditor::resized() {
     processor.curveComponent.setBounds(0, 320, width,  componentHeight);
     potsComponent.setBounds(0, 60, 830,  250);
     keysComponent->setBounds(0, height-90, width,  90);
-    
-
 }
 
 // ==================================================================================================
@@ -277,27 +271,18 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     // Progname
     g.setColour (C_PROGNAME);
     g.fillRoundedRectangle(840, 137, 260,  60, 7);
- 
-    // Cover the keyboard area
-    // Version
-    int keyZoneHeight = 90;
-    Rectangle<int> rv = getLocalBounds();
-    g.setColour (C_KEYBORDAREA);
-    rv.setY(height-keyZoneHeight);
-    rv.setHeight(keyZoneHeight);
-    g.fillRect(rv);
 
-    rv.setWidth(200);
-    rv.setHeight(20);
-    rv.setX(width - 280);
-    rv.setY(5);
+    r.setWidth(200);
+    r.setHeight(20);
+    r.setX(width - 280);
+    r.setY(5);
     g.setColour (C_BRANDTITLE);
     g.setFont (17.0f);
-    g.drawFittedText (PRODUCTNAME, rv, Justification::topLeft, 1);
+    g.drawFittedText (PRODUCTNAME, r, Justification::topLeft, 1);
     
     // Debug speed of render
-    rv.setY(53);
-    rv.setX(width - 280);
+    r.setY(53);
+    r.setX(width - 280);
     g.setFont (11.0f);
   
     // Time taken in the Render Loop
@@ -308,26 +293,23 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
         g.setColour (C_GREENTEXT);
     }
     float cpu = taken / processor.maxTimeMsec * 100.0f;
-    g.drawFittedText ("CPU: " +  String(cpu,2) + "%  Taken: " + String(taken,3) + " msec  Max: " + String(processor.maxTimeMsec,3) + " msec", rv, Justification::topLeft, 1);
+    g.drawFittedText ("CPU: " +  String(cpu,2) + "%  Taken: " + String(taken,3) + " msec  Max: " + String(processor.maxTimeMsec,3) + " msec", r, Justification::topLeft, 1);
 
     // Volumes
     g.setColour (C_GREENTEXT);
-    rv.setY(67);
-    rv.setX(width-280);
-    rv.setWidth(200);
+    r.setY(67);
+    r.setX(width-280);
+    r.setWidth(200);
     g.setFont (15.0f);
 
-    rv.setY(67);
-    g.drawFittedText ("Peak: " + String(Model::of().sumPeak), rv, Justification::topLeft, 1);
+    r.setY(67);
+    g.drawFittedText ("Peak: " + String(Model::of().sumPeak), r, Justification::topLeft, 1);
     
-    rv.setY(85);
-    g.drawFittedText ("RMS: " + String(Model::of().sumRMS,2), rv, Justification::topLeft, 1);
+    r.setY(85);
+    g.drawFittedText ("RMS: " + String(Model::of().sumRMS,2), r, Justification::topLeft, 1);
     
     // VU Meter
-    g.setColour (Colours::black);
-    r.setHeight(380);
-    r.setY(315);
-    g.fillRect(r);
     g.drawImageWithin(ImageFactory::of().png[eMeter], 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
     g.drawImageWithin(ImageFactory::of().png[eMeter], 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
 }
+
