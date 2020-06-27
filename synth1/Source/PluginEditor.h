@@ -14,11 +14,12 @@
 #include "ImageFactory.h"
 #include "Poti.h"
 #include "PotsComponent.h"
+#include "KeysComponent.h"
 
 //============Poti==================================================================
 
-class Synth1AudioProcessorEditor  : public AudioProcessorEditor,MidiKeyboardStateListener,
-    public Button::Listener,  public Slider::Listener,public Timer
+class Synth1AudioProcessorEditor  : public AudioProcessorEditor,
+    public Button::Listener,  public Slider::Listener, public Timer
 {
 public:
     Synth1AudioProcessorEditor (Synth1AudioProcessor&);
@@ -28,9 +29,6 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    MidiKeyboardState keyboardState;
-    MidiKeyboardComponent keyboardComponent;
-
     TextButton btnParam[16];
     Label btnLabel[8];
     Label rootLabel[4];
@@ -45,44 +43,30 @@ public:
     
     TextButton btnProgUp;
     TextButton btnProgDown;
-    TextButton btnPanic;
+
     TextButton btnBrowse;
     TextButton btnArp;
-    TextButton btnLatch;
-    
+
     Label timeLabel;
     
     BankLoader *bankLoader;
     
     int paramRange = 0;
     int paramRoot = 0;
-    
-    ComboBox playMode;
+
     ComboBox viewMode;
     ComboBox viewZoom;
-    
-    PitchWheel pitchWheel;
-    PitchWheel modWheel;
-    PitchWheel expWheel;
     
     Label progName;
     Label progNumber;
 
     int maxTime;
-
+    
 private:
     Synth1AudioProcessor& processor;
    // Image vumeter; // = ImageCache::getFromMemory (img::meter_png, img::meter_pngSize);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
-    
-    void handleNoteOn (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override {
-        processor.handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
-    }
-     
-    void handleNoteOff (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override {
-        processor.handleNoteOff(state, midiChannel, midiNoteNumber, velocity);
-    }
     
     void buttonClicked (Button* button)  override {
         // Save
@@ -177,12 +161,6 @@ private:
             Model::of().compareMode = !Model::of().compareMode;
             Model::of().swap();
             setDials();
-            return;
-        }
-        
-        // Panic
-        if(button->getRadioGroupId()==25) {
-            processor.panic();
             return;
         }
         
@@ -285,23 +263,6 @@ private:
     
     void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();
-        
-        // Performances
-        
-        // Pitch Wheel
-        if(sid==100){
-            return;
-        }
-        
-        // Mod Wheel
-        if(sid==101){
-            return;
-        }
-        
-        // Exp Wheel
-        if(sid==102){
-            return;
-        }
 
         // Edits Mode ================================================================
         startEdit();
@@ -323,25 +284,6 @@ private:
             to += 16;
         }
        setDials();
-    }
-    
-    void styleMenuChanged(){
-        switch (playMode.getSelectedId())
-        {
-            case 1: // Poly
-                Model::of().par[1023] = 1;
-                break;
-            case 2: // Unisono
-                Model::of().par[1023] = 2;
-                break;
-            case 3: // Mono
-                Model::of().par[1023] = 3;
-                break;
-            case 4: // Legato
-                Model::of().par[1023] = 4;
-                break;
-        }
-        setDials();
     }
     
     void styleMenuChangedView(){
@@ -419,10 +361,6 @@ private:
         repaint();
     }
     
-    void sliderDragEnded(Slider *) override{
-        pitchWheel.setValue(0);
-    }
-    
     void timerCallback() override{
         repaint();
         setDials();
@@ -433,4 +371,5 @@ private:
     }
     
     PotsComponent potsComponent;
+    KeysComponent * keysComponent;
 };

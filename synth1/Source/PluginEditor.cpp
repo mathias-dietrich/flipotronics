@@ -6,14 +6,8 @@
 
 //==============================================================================
 Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p) : 
-    AudioProcessorEditor (&p),
-    keyboardComponent (keyboardState, MidiKeyboardComponent::horizontalKeyboard),
-    processor (p)
-{
-    getLookAndFeel().setColour (Slider::thumbColourId, Colours::orange);
-    addAndMakeVisible (keyboardComponent);
- 
-    keyboardState.addListener (this);
+    AudioProcessorEditor (&p),processor (p){
+
     Model::of().patchCurrent = 0;
 
     ImageFactory::of().init();
@@ -106,10 +100,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnProgDown.setRadioGroupId(23);
     addAndMakeVisible (btnProgDown);
     
-    btnPanic.setButtonText ("Panic");
-    btnPanic.addListener (this);
-    btnPanic.setRadioGroupId(25);
-    addAndMakeVisible (btnPanic);
+
     
     btnBrowse.setButtonText ("Browse");
     btnBrowse.addListener (this);
@@ -121,42 +112,12 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnArp.setRadioGroupId(27);
     addAndMakeVisible (btnArp);
     
-    btnLatch.setButtonText ("Latch");
-    btnLatch.addListener (this);
-    btnLatch.setRadioGroupId(28);
-    addAndMakeVisible (btnLatch);
-    
     addAndMakeVisible (timeLabel);
     timeLabel.setColour (Label::backgroundColourId, Colours::black);
     timeLabel.setColour (Label::textColourId, Colours::white);
     timeLabel.setJustificationType (Justification::centred);
     
     setDials();
-    
-    pitchWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
-    pitchWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 20);
-    pitchWheel.setNumDecimalPlacesToDisplay(2);
-    pitchWheel.setName("100");
-    pitchWheel.addListener (this);
-    pitchWheel.setRange(-8192, 8192, 1);
-    pitchWheel.setValue(0);
-    addAndMakeVisible(pitchWheel);
-    
-    modWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
-    modWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 20);
-    modWheel.setNumDecimalPlacesToDisplay(2);
-    modWheel.setName("101");
-    modWheel.addListener (this);
-    modWheel.setRange(0, 127,1);
-    addAndMakeVisible(modWheel);
-    
-    expWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
-    expWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 20);
-    expWheel.setNumDecimalPlacesToDisplay(2);
-    expWheel.setName("102");
-    expWheel.addListener (this);
-    expWheel.setRange(0, 127,1);
-    addAndMakeVisible(expWheel);
     
     progName.setColour (Label::textColourId, Colours::white);
     progName.setJustificationType (Justification::centred);
@@ -179,13 +140,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(progNumber);
     
     // Dropdowns
-    playMode.addItem ("Poly", 1);
-    playMode.addItem ("Unisono", 2);
-    playMode.addItem ("Mono", 3);
-    playMode.addItem ("Legato", 4);
-    playMode.onChange = [this] { styleMenuChanged(); };
-    playMode.setSelectedId(Model::of().par[1023], NotificationType::dontSendNotification);
-    addAndMakeVisible(playMode);
     
     addAndMakeVisible(viewMode);
     viewMode.addItem ("Ouput", vPlot);
@@ -224,6 +178,9 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addChildComponent(processor.lfoComponent);
     addChildComponent(processor.curveComponent);
     addAndMakeVisible(potsComponent);
+        
+    keysComponent = new KeysComponent(p);
+    addAndMakeVisible(keysComponent);
 
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
@@ -232,6 +189,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
     ImageFactory::of().close();
     delete bankLoader;
+    delete keysComponent;
 }
 
 // ==================================================================================================
@@ -241,11 +199,6 @@ void Synth1AudioProcessorEditor::resized() {
     Rectangle<int> r = getLocalBounds();
     int width = r.getWidth();
     int height = r.getHeight();
-    
-    // Keyboard
-    keyboardComponent.setBounds (112, height - 82, 1187,  80);
-    keyboardComponent.setKeyWidth(26.5);
-    keyboardComponent.setAvailableRange(33, 108);
     
     // Buttons
     for(int i=0; i < 8; ++i){
@@ -262,8 +215,8 @@ void Synth1AudioProcessorEditor::resized() {
     btnCompare.setBounds (width-270, hButtons, 80, 20);
     btnSave.setBounds (width-180, hButtons, 80, 20);
     btnLoad.setBounds (width-90, hButtons, 80, 20);
-    btnLatch.setBounds (width-90, height-82, 80, 22);
-    btnPanic.setBounds (width-90, height-26, 80, 22);
+
+
     
     int xVal = 835;
     btnRange0.setBounds (xVal, 5, 60, 20);
@@ -275,15 +228,9 @@ void Synth1AudioProcessorEditor::resized() {
     btnProgUp.setBounds (1020, 205, 80, 20);
     btnBrowse.setBounds (922, 245, 90, 30);
     btnArp.setBounds (820, 245, 90, 30);
-
-    // Live Controller
-    pitchWheel.setBounds(5, height-93, 30, 97);
-    modWheel.setBounds (40, height-93, 30, 97);
-    expWheel.setBounds (75, height-93, 30, 97);
     
     // Drop Downs
-    playMode.setBounds (width-90, height-53, 80, 21);
-    playMode.setEditableText(false);
+
     viewMode.setBounds (840, 290, 120, 20);
     viewZoom.setBounds (width-90, 5, 80, 20);
     
@@ -304,6 +251,9 @@ void Synth1AudioProcessorEditor::resized() {
     processor.lfoComponent.setBounds(0, 320, width,  componentHeight);
     processor.curveComponent.setBounds(0, 320, width,  componentHeight);
     potsComponent.setBounds(0, 60, 830,  250);
+    keysComponent->setBounds(0, height-90, width,  90);
+    
+
 }
 
 // ==================================================================================================

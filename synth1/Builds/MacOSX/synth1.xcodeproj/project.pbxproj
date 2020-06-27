@@ -256,6 +256,7 @@
 		4FC4C0C3248396B500CBE568 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = ../../Source/Note.h; sourceTree = "<group>"; };
 		4FC4C0C424839DE200CBE568 /* Voice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Voice.h; path = ../../Source/Voice.h; sourceTree = "<group>"; };
 		4FD0B75924A798CD00B59290 /* PotsComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PotsComponent.h; path = ../../Source/PotsComponent.h; sourceTree = "<group>"; };
+		4FD0B75A24A7B60900B59290 /* KeysComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeysComponent.h; path = ../../Source/KeysComponent.h; sourceTree = "<group>"; };
 		4FE13226248D081600B67233 /* Adsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Adsr.h; path = ../../Source/Adsr.h; sourceTree = "<group>"; };
 		4FF9C27824A23DCF00A08BEB /* PitchWheel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PitchWheel.h; path = ../../Source/PitchWheel.h; sourceTree = "<group>"; };
 		53C3F00C4E40FB17A6C3315E /* juce_audio_formats */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_formats; path = "~/JUCE/modules/juce_audio_formats"; sourceTree = "<absolute>"; };
@@ -557,6 +558,7 @@
 				4FB9214924A4A41D00204531 /* AbstractComponent.h */,
 				4FB9214A24A4DA6800204531 /* CurveComponent.h */,
 				4FD0B75924A798CD00B59290 /* PotsComponent.h */,
+				4FD0B75A24A7B60900B59290 /* KeysComponent.h */,
 			);
 			name = component;
 			sourceTree = "<group>";
