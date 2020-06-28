@@ -112,9 +112,10 @@ void Synth1AudioProcessorEditor::resized() {
     processor.lfoComponent.setBounds(0, componentY, width,  componentHeight);
     processor.curveComponent.setBounds(0, componentY, width,  componentHeight);
     
-    potsComponent.setBounds(0, 110, 830,  250);
+    potsComponent.setBounds(0, 110, 830,  260);
+    
     keysComponent->setBounds(0, height-90, width,  90);
-    paramButtonComponent.setBounds(0, 50, 1230,  250);
+    paramButtonComponent.setBounds(0, 50, 1230,  60);
     paramButtonComponent.potsComponent = &potsComponent;
     paramButtonComponent.setDials();
     

@@ -9,31 +9,97 @@
 #ifndef OutputMeter_h
 #define OutputMeter_h
 
-class OutputMeter : public AbstractComponent{
+class OutputMeter : public AbstractComponent, public Timer{
     
 public:
+    OutputMeter(){
+        //startTimer(25);
+    }
     
-     void paint (Graphics& g){
+    void timerCallback() override{
+           repaint();
+    }
+
+     void paint (Graphics& g) override{
         Rectangle<int> r = getLocalBounds();
 
         // Volumes
         g.setColour (C_BLACK);
         g.fillRect (r);
          
-
-         drawChannel(g, 1.0f, 10);
-         drawChannel(g, 1.0f, 25);
+         drawChannel(g,Model::of().sumPeakL, 10);
+         drawChannel(g,Model::of().sumPeakR, 25);
      }
     
     void drawChannel(Graphics& g, float val, int x){
         for(int i=0;i < 8;i++){
-            g.setColour (juce::Colours::lightgreen);
-            if(i==0){
-                 g.setColour (juce::Colours::red);
+            switch(i){
+            case 0:
+                // > 0 Db
+                if(val>= 0){
+                     g.setColour (juce::Colours::red);
+                }else{
+                     g.setColour (juce::Colours::darkgreen);
+                }
+            break;
+            
+           case 1:
+                if(val> -10){
+                   g.setColour (juce::Colours::yellow);
+              }else{
+                   g.setColour (juce::Colours::darkgreen);
+              }
+            break;
+                   
+            case 2:
+                if(val> -20){
+                   g.setColour (juce::Colours::lightgreen);
+               }else{
+                   g.setColour (juce::Colours::darkgreen);
+               }
+                break;
+            
+            case 3:
+                if(val> -30){
+                        g.setColour (juce::Colours::lightgreen);
+                   }else{
+                       g.setColour (juce::Colours::darkgreen);
+                   }
+                break;
+            
+            case 4:
+                if( val> -40){
+                    g.setColour (juce::Colours::lightgreen);
+               }else{
+                   g.setColour (juce::Colours::darkgreen);
+               }
+                break;
+            
+            case 5:
+                if(val> -50){
+                    g.setColour (juce::Colours::lightgreen);
+               }else{
+                   g.setColour (juce::Colours::darkgreen);
+               }
+                break;
+            
+            case 6:
+                if(val> -60){
+                    g.setColour (juce::Colours::lightgreen);
+               }else{
+                   g.setColour (juce::Colours::darkgreen);
+               }
+                break;
+                    
+            case 7:
+                if(val> -70){
+                     g.setColour (juce::Colours::lightgreen);
+                }else{
+                    g.setColour (juce::Colours::darkgreen);
+                }
+                break;
             }
-            if(i==1){
-                 g.setColour (juce::Colours::yellow);
-            }
+
             Rectangle<int> r;
             r.setWidth(10);
             r.setHeight(4);

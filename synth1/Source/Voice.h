@@ -288,7 +288,7 @@ public:
         float * tableLfo4 = lfo4.tables[(int)p[P_LFO4_WAV]];
         
         // Prepare
-        float volVelo = velocity / p[P_NOVOICES];
+        float volVelo = velocity ;
         
         // Calulate each Sample
         for (int i=0; i<samplesPerBlock; ++i) {
@@ -310,7 +310,7 @@ public:
             float vol = DecibelToLinear(p[P_VOLUME]);
             
             // Mono
-            float mono = (v0 + v1 + vSub)  * vol / 3.0f;
+            float mono = (v0 + v1 + vSub)  * vol ;
             
             
             float lfo0Output = tableLfo1[((int)tablePosLfo1)];

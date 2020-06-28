@@ -24,7 +24,9 @@ public:
         auto* channelDataR = buffer.getWritePointer (1);
         
         for(int i=0; i < samplesPerBlock;++i){
-            float p = fabs(channelDataL[i]);
+            float pL = fabs(channelDataL[i]);
+            float pR = fabs(channelDataR[i]);
+            
             float v = (channelDataL[i] + channelDataR[i]) * 0.5;
             v = fabs(v);
             v *= v;
@@ -36,18 +38,25 @@ public:
                  current = release * (last-v) + v;
             }
             
-            if(p > lastPeak){
-                currentPeak = attack * (lastPeak-v) + v;
+            if(pL > lastPeakL){
+                currentPeakL = attack * (lastPeakL-v) + v;
             }else{
-                 currentPeak = release * (lastPeak-v) + v;
+                 currentPeakL = release * (lastPeakL-v) + v;
             }
+            
+            if(pR > lastPeakR){
+               currentPeakR = attack * (lastPeakR-v) + v;
+           }else{
+                currentPeakR = release * (lastPeakR-v) + v;
+           }
             
             current = fmin(current, 1.0f);
             current = fmax(current, 0.0f);
             last = current;
             current = pow(current, 0.5f);
             
-            lastPeak = currentPeak;
+            lastPeakL = currentPeakL;
+            lastPeakR = currentPeakR;
         }
         
         float level = -96.0f;
@@ -59,14 +68,22 @@ public:
         }
         Model::of().sumRMS = level;
         
-        level = -96.0f;
-           if(currentPeak > 0.0f){
-               level = 20.0f * log10(currentPeak);
-               if(level < -96.0f){
-                   level = -96.0f;
+        float levelL = -96.0f;
+        float levelR = -96.0f;
+        if(currentPeakL > 0.0f){
+           levelL = 20.0f * log10(currentPeakL);
+           if(levelL < -96.0f){
+               levelL = -96.0f;
             }
          }
-         Model::of().sumPeak = level;
+        if(currentPeakR > 0.0f){
+          levelR = 20.0f * log10(currentPeakR);
+          if(levelR < -96.0f){
+              levelR = -96.0f;
+           }
+        }
+         Model::of().sumPeakL = levelL;
+         Model::of().sumPeakR = levelR;
     }
     
     void init (float sampleRate, int samplesPerBlock){
@@ -84,9 +101,11 @@ public:
     }
         
     float last;
-    float lastPeak;
+    float lastPeakL;
+    float lastPeakR;
     float current;
-    float currentPeak;
+    float currentPeakL;
+    float currentPeakR;
     
     private:
     double TC = -0.99967234081320612457819304641019;

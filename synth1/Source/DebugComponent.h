@@ -34,7 +34,7 @@ public:
         g.setFont (15.0f);
 
         r.setY(20);
-        g.drawFittedText ("Peak: " + String(Model::of().sumPeak), r, Justification::topLeft, 1);
+        g.drawFittedText ("Peak: " + String(Model::of().sumPeakL), r, Justification::topLeft, 1);
 
         r.setY(40);
         g.drawFittedText ("RMS: " + String(Model::of().sumRMS,2), r, Justification::topLeft, 1);

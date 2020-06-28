@@ -118,7 +118,8 @@ public:
     
     // floats
     std::atomic<float> par[MAXPARAM];
-    std::atomic<float> sumPeak;
+    std::atomic<float> sumPeakL;
+    std::atomic<float> sumPeakR;
     std::atomic<float> sumRMS;
     std::atomic<float> paramsUndo[MAXPARAM];
     

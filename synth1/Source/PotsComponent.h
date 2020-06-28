@@ -52,8 +52,6 @@ class PotsComponent : public AbstractComponent, public Slider::Listener {
     
      void sliderValueChanged(Slider *  slider) override {
             int sid = slider->getName().getIntValue();
-
-            // Edits Mode ================================================================
             startEdit();
             int pid = paramRoot * 256 + paramRange * 16 + sid;
             if(Model::of().params[pid].smoothTime > 0){
@@ -66,7 +64,7 @@ class PotsComponent : public AbstractComponent, public Slider::Listener {
     
     void startEdit(){
            Model::of().compareMode = true;
-       }
+    }
     
     void setDials() {
         float par[MAXPARAM];
