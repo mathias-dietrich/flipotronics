@@ -268,6 +268,8 @@
 		4FD0B76024A8709700B59290 /* FontLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontLoader.h; path = ../../Source/FontLoader.h; sourceTree = "<group>"; };
 		4FD0B76124A8709700B59290 /* FontLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FontLoader.cpp; path = ../../Source/FontLoader.cpp; sourceTree = "<group>"; };
 		4FD0B76624A8759B00B59290 /* HeaderComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HeaderComponent.h; path = ../../Source/HeaderComponent.h; sourceTree = "<group>"; };
+		4FD0B76824A87CB500B59290 /* MasterPoti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MasterPoti.h; path = ../../Source/MasterPoti.h; sourceTree = "<group>"; };
+		4FD0B76924A881C600B59290 /* OutputMeter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OutputMeter.h; path = ../../Source/OutputMeter.h; sourceTree = "<group>"; };
 		4FE13226248D081600B67233 /* Adsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Adsr.h; path = ../../Source/Adsr.h; sourceTree = "<group>"; };
 		4FF9C27824A23DCF00A08BEB /* PitchWheel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PitchWheel.h; path = ../../Source/PitchWheel.h; sourceTree = "<group>"; };
 		53C3F00C4E40FB17A6C3315E /* juce_audio_formats */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_formats; path = "~/JUCE/modules/juce_audio_formats"; sourceTree = "<absolute>"; };
@@ -583,8 +585,10 @@
 		4FF9C27724A23DAA00A08BEB /* widget */ = {
 			isa = PBXGroup;
 			children = (
+				4FD0B76824A87CB500B59290 /* MasterPoti.h */,
 				4FF9C27824A23DCF00A08BEB /* PitchWheel.h */,
 				4FAC349024A3686200FB51D7 /* Poti.h */,
+				4FD0B76924A881C600B59290 /* OutputMeter.h */,
 			);
 			name = widget;
 			sourceTree = "<group>";

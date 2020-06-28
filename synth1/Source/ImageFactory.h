@@ -25,7 +25,7 @@ template<typename T> map_init_helper<T> map_init(T& item)
     return map_init_helper<T>(item);
 }
 
-enum E_Image {eMeter, ePoti, eFader,eModWheel, ePitchWheel, eExpressionWheel};
+enum E_Image {eMeter, ePoti, ePotiMaster, eFader,eModWheel, ePitchWheel, eExpressionWheel};
 
 class ImageFactory{
 public:
@@ -46,6 +46,7 @@ public:
         map_init(imgEnumMap)
             (eMeter, "meter.png")
             (ePoti, "poti.png")
+            (ePotiMaster, "potiMaster.png")
             (eFader, "fader.png")
             (eModWheel, "modwheel.png")
             (ePitchWheel, "pitchwheel.png")
