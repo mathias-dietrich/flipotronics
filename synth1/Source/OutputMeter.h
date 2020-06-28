@@ -9,27 +9,25 @@
 #ifndef OutputMeter_h
 #define OutputMeter_h
 
-class OutputMeter : public AbstractComponent, public Timer{
+class OutputMeter : public AbstractComponent {
     
 public:
     OutputMeter(){
-        //startTimer(25);
-    }
-    
-    void timerCallback() override{
-           repaint();
+
     }
 
-     void paint (Graphics& g) override{
+    void paint (Graphics& g) override{
         Rectangle<int> r = getLocalBounds();
 
         // Volumes
         g.setColour (C_BLACK);
         g.fillRect (r);
          
-         drawChannel(g,Model::of().sumPeakL, 10);
-         drawChannel(g,Model::of().sumPeakR, 25);
-     }
+        drawChannel(g,Model::of().sumPeakL, 10);
+        drawChannel(g,Model::of().sumPeakR, 25);
+        
+        
+    }
     
     void drawChannel(Graphics& g, float val, int x){
         for(int i=0;i < 8;i++){

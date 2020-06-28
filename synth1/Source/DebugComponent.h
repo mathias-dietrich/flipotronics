@@ -37,7 +37,7 @@ public:
         g.drawFittedText ("Peak: " + String(Model::of().sumPeakL), r, Justification::topLeft, 1);
 
         r.setY(40);
-        g.drawFittedText ("RMS: " + String(Model::of().sumRMS,2), r, Justification::topLeft, 1);
+        g.drawFittedText ("RMS: " + String(Model::of().sumRMSL,2), r, Justification::topLeft, 1);
      }
     
         Synth1AudioProcessor * processor;

@@ -27,49 +27,67 @@ public:
             float pL = fabs(channelDataL[i]);
             float pR = fabs(channelDataR[i]);
             
-            float v = (channelDataL[i] + channelDataR[i]) * 0.5;
-            v = fabs(v);
-            v *= v;
+            float vL = channelDataL[i];
+            vL = fabs(vL);
+            vL *= vL;
+            
+            float vR =  channelDataR[i];
+            vR = fabs(vR);
+            vR *= vR;
             
             
-            if(v > last){
-                current = attack * (last-v) + v;
+            if(vL > lastL){
+                currentL = attack * (lastL-vL) + vL;
             }else{
-                 current = release * (last-v) + v;
+                 currentL = release * (lastL-vL) + vL;
             }
             
             if(pL > lastPeakL){
-                currentPeakL = attack * (lastPeakL-v) + v;
+                currentPeakL = attack * (lastPeakL-vL) + vL;
             }else{
-                 currentPeakL = release * (lastPeakL-v) + v;
+                 currentPeakL = release * (lastPeakL-vL) + vL;
             }
             
             if(pR > lastPeakR){
-               currentPeakR = attack * (lastPeakR-v) + v;
+               currentPeakR = attack * (lastPeakR-vR) + vR;
            }else{
-                currentPeakR = release * (lastPeakR-v) + v;
+                currentPeakR = release * (lastPeakR-vR) + vR;
            }
             
-            current = fmin(current, 1.0f);
-            current = fmax(current, 0.0f);
-            last = current;
-            current = pow(current, 0.5f);
+            currentL = fmin(currentL, 1.0f);
+            currentL = fmax(currentL, 0.0f);
+            lastL = currentL;
+            currentL = pow(currentL, 0.5f);
+            
+            currentR = fmin(currentR, 1.0f);
+            currentR = fmax(currentR, 0.0f);
+            lastR = currentR;
+            currentR = pow(currentR, 0.5f);
             
             lastPeakL = currentPeakL;
             lastPeakR = currentPeakR;
         }
         
-        float level = -96.0f;
-        if(current > 0.0f){
-            level = 20.0f * log10(current);
-            if(level < -96.0f){
-                level = -96.0f;
+        float levelL = -96.0f;
+        if(currentL > 0.0f){
+            levelL = 20.0f * log10(currentL);
+            if(levelL < -96.0f){
+                levelL = -96.0f;
             }
         }
-        Model::of().sumRMS = level;
         
-        float levelL = -96.0f;
         float levelR = -96.0f;
+        if(currentR > 0.0f){
+            levelR = 20.0f * log10(currentR);
+            if(levelR < -96.0f){
+                levelR = -96.0f;
+            }
+        }
+        Model::of().sumRMSL = levelL;
+        Model::of().sumRMSR = levelR;
+        
+        levelL = -96.0f;
+        levelR = -96.0f;
         if(currentPeakL > 0.0f){
            levelL = 20.0f * log10(currentPeakL);
            if(levelL < -96.0f){
@@ -89,7 +107,8 @@ public:
     void init (float sampleRate, int samplesPerBlock){
         this->sampleRate = sampleRate;
         this->samplesPerBlock = samplesPerBlock;
-        last = 0;
+        lastL = 0;
+        lastR = 0;
     }
     
     void setAttack(int ms){
@@ -100,10 +119,12 @@ public:
         release = exp(TC / (ms * sampleRate * 0.001f));
     }
         
-    float last;
+    float lastL;
+    float lastR;
     float lastPeakL;
     float lastPeakR;
-    float current;
+    float currentL;
+    float currentR;
     float currentPeakL;
     float currentPeakR;
     

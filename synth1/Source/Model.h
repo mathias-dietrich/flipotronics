@@ -120,7 +120,9 @@ public:
     std::atomic<float> par[MAXPARAM];
     std::atomic<float> sumPeakL;
     std::atomic<float> sumPeakR;
-    std::atomic<float> sumRMS;
+    std::atomic<float> sumRMSL;
+    std::atomic<float> sumRMSR;
+    
     std::atomic<float> paramsUndo[MAXPARAM];
     
     std::atomic<float> parTargetDelta[MAXPARAM];
