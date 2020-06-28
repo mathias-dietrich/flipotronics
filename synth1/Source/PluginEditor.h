@@ -15,6 +15,11 @@
 #include "Poti.h"
 #include "PotsComponent.h"
 #include "KeysComponent.h"
+#include "ParamButtonComponent.h"
+#include "ViewMeterComponent.h"
+#include "DebugComponent.h"
+#include "FontLoader.h"
+#include "HeaderComponent.h"
 
 //============Poti==================================================================
 
@@ -29,17 +34,9 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    TextButton btnParam[16];
-    Label btnLabel[8];
-    Label rootLabel[4];
     TextButton btnSave;
     TextButton btnLoad;
     TextButton btnCompare;
-    
-    TextButton btnRange0;
-    TextButton btnRange1;
-    TextButton btnRange2;
-    TextButton btnRange3;
     
     TextButton btnProgUp;
     TextButton btnProgDown;
@@ -88,45 +85,6 @@ private:
             return;
         }
         
-        if(button->getRadioGroupId()==18) {
-             paramRoot = 0;
-             btnRange0.setToggleState(true, NotificationType::dontSendNotification);
-             btnRange1.setToggleState(false, NotificationType::dontSendNotification);
-             btnRange2.setToggleState(false, NotificationType::dontSendNotification);
-             btnRange3.setToggleState(false, NotificationType::dontSendNotification);
-             setButtonRanges();
-             return;
-        }
-        
-        if(button->getRadioGroupId()==19) {
-            paramRoot = 1;
-            btnRange0.setToggleState(false, NotificationType::dontSendNotification);
-            btnRange1.setToggleState(true, NotificationType::dontSendNotification);
-            btnRange2.setToggleState(false, NotificationType::dontSendNotification);
-            btnRange3.setToggleState(false, NotificationType::dontSendNotification);
-            setButtonRanges();
-            return;
-        }
-        
-        if(button->getRadioGroupId()==20) {
-            paramRoot = 2;
-            btnRange0.setToggleState(false, NotificationType::dontSendNotification);
-            btnRange1.setToggleState(false, NotificationType::dontSendNotification);
-            btnRange2.setToggleState(true, NotificationType::dontSendNotification);
-            btnRange3.setToggleState(false, NotificationType::dontSendNotification);
-            setButtonRanges();
-            return;
-        }
-        
-        if(button->getRadioGroupId()==21) {
-            paramRoot = 3;
-            btnRange0.setToggleState(false, NotificationType::dontSendNotification);
-            btnRange1.setToggleState(false, NotificationType::dontSendNotification);
-            btnRange2.setToggleState(false, NotificationType::dontSendNotification);
-            btnRange3.setToggleState(true, NotificationType::dontSendNotification);
-            setButtonRanges();
-            return;
-        }
         
         // Progr Up
         if(button->getRadioGroupId()==22) {
@@ -194,69 +152,12 @@ private:
         for(int i =0; i < MAXPARAM;++i){
             par[i] = Model::of().par[i] ;
         }
-        
-        potsComponent.paramRoot = paramRoot;
-        potsComponent.paramRange = paramRange;
-        potsComponent.setDials();
-        
-        // Param Select
-        for(int i=0; i < 16; ++i){
-            btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
-        }
-        if(paramRange<16){
-            btnParam[paramRange].setToggleState(true, NotificationType::dontSendNotification);
-        }
-        
+
         // Program Display
         progNumber.setText(toString(Model::of().patchCurrent+1), NotificationType::dontSendNotification);
         progName.setText(Model::of().patchNameCurrent, NotificationType::dontSendNotification);
         btnCompare.setToggleState(Model::of().compareMode, NotificationType::dontSendNotification);
-        
-        switch(paramRoot){
-            case 0:
-                btnLabel[0].setText("Master", NotificationType::dontSendNotification);
-                btnLabel[1].setText("Osci", NotificationType::dontSendNotification);
-                btnLabel[2].setText("Filter", NotificationType::dontSendNotification);
-                btnLabel[3].setText("Adsr 1", NotificationType::dontSendNotification);
-                btnLabel[4].setText("Adsr 3", NotificationType::dontSendNotification);
-                btnLabel[5].setText("LFO", NotificationType::dontSendNotification);
-                btnLabel[6].setText("", NotificationType::dontSendNotification);
-                btnLabel[7].setText("", NotificationType::dontSendNotification);
-                break;
-                
-            case 1:
-                btnLabel[0].setText("", NotificationType::dontSendNotification);
-                btnLabel[1].setText("", NotificationType::dontSendNotification);
-                btnLabel[2].setText("", NotificationType::dontSendNotification);
-                btnLabel[3].setText("", NotificationType::dontSendNotification);
-                btnLabel[4].setText("", NotificationType::dontSendNotification);
-                btnLabel[5].setText("", NotificationType::dontSendNotification);
-                btnLabel[6].setText("", NotificationType::dontSendNotification);
-                btnLabel[7].setText("", NotificationType::dontSendNotification);
-                break;
-                
-            case 2:
-                btnLabel[0].setText("", NotificationType::dontSendNotification);
-                btnLabel[1].setText("", NotificationType::dontSendNotification);
-                btnLabel[2].setText("", NotificationType::dontSendNotification);
-                btnLabel[3].setText("", NotificationType::dontSendNotification);
-                btnLabel[4].setText("", NotificationType::dontSendNotification);
-                btnLabel[5].setText("", NotificationType::dontSendNotification);
-                btnLabel[6].setText("", NotificationType::dontSendNotification);
-                btnLabel[7].setText("", NotificationType::dontSendNotification);
-                break;
-                
-            case 3:
-                btnLabel[0].setText("", NotificationType::dontSendNotification);
-                btnLabel[1].setText("", NotificationType::dontSendNotification);
-                btnLabel[2].setText("", NotificationType::dontSendNotification);
-                btnLabel[3].setText("", NotificationType::dontSendNotification);
-                btnLabel[4].setText("", NotificationType::dontSendNotification);
-                btnLabel[5].setText("", NotificationType::dontSendNotification);
-                btnLabel[6].setText("", NotificationType::dontSendNotification);
-                btnLabel[7].setText("", NotificationType::dontSendNotification);
-                break;
-        }
+       
         btnArp.setToggleState(processor.isArpOn, NotificationType::dontSendNotification);
         Model::of().isUpdateParams = true;
     }
@@ -273,17 +174,6 @@ private:
             Model::of().par[pid] = slider->getValue();
         }
         setDials();
-    }
-    
-    void setButtonRanges(){
-        int from = 0;
-        int to = 15;
-        for(int i=0; i < 16; ++i){
-            btnParam[i].setButtonText (toString(paramRoot * 256  + paramRange * 16 + from) + " - " + toString(paramRoot * 256 + paramRange * 16 + to));
-            from += 16;
-            to += 16;
-        }
-       setDials();
     }
     
     void styleMenuChangedView(){
@@ -371,5 +261,9 @@ private:
     }
     
     PotsComponent potsComponent;
+    ParamButtonComponent paramButtonComponent;
     KeysComponent * keysComponent;
+    ViewMeterComponent viewMeterComponent;
+    DebugComponent debugComponent;
+    HeaderComponent headerComponent;
 };

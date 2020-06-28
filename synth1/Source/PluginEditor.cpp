@@ -18,41 +18,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     processor.loadPatch(0);
     Model::of().set();
     Model::of().compareMode = false;
-
-    int from = 0;
-    int to = 15;
-    for(int i=0; i < 16; ++i){
-        addAndMakeVisible (btnParam[i]);
-        btnParam[i].setButtonText (toString(from) + " - " + toString(to));
-        btnParam[i].addListener (this);
-        btnParam[i].setRadioGroupId(i);
-        btnParam[i].setToggleState(false, NotificationType::dontSendNotification);
-        from += 16;
-        to += 16;
-    }
-    for(int i=0; i < 8; ++i){
-       addAndMakeVisible (btnLabel[i]);
-       btnLabel[i].setColour (Label::textColourId, Colours::green);
-       btnLabel[i].setJustificationType (Justification::centred);
-       auto f2 =  btnLabel[i].getFont();
-       f2.setSizeAndStyle(15, 0, 0.4, 0.4);
-       btnLabel[i].setFont(f2);
-    }
-    
-    for(int i=0; i < 4; ++i){
-          addAndMakeVisible (rootLabel[i]);
-          rootLabel[i].setColour (Label::textColourId, Colours::green);
-          rootLabel[i].setJustificationType (Justification::centred);
-          auto f2 =  btnLabel[i].getFont();
-          f2.setSizeAndStyle(17, 0, 0.4, 0.4);
-          rootLabel[i].setFont(f2);
-    }
-    rootLabel[0].setText("0 - 255", NotificationType::dontSendNotification);
-    rootLabel[1].setText("256 - 511", NotificationType::dontSendNotification);
-    rootLabel[2].setText("512 - 767", NotificationType::dontSendNotification);
-    rootLabel[3].setText("768 - 1023", NotificationType::dontSendNotification);
-    
-    btnParam[0].setToggleState(true, NotificationType::dontSendNotification);
     
     btnCompare.setButtonText ("Compare");
     btnCompare.addListener (this);
@@ -68,27 +33,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     btnLoad.addListener (this);
     btnLoad.setRadioGroupId(17);
     addAndMakeVisible (btnLoad);
-    
-    btnRange0.setButtonText ("Synth");
-    btnRange0.addListener (this);
-    btnRange0.setRadioGroupId(18);
-    btnRange0.setToggleState(true, NotificationType::dontSendNotification);
-    addAndMakeVisible (btnRange0);
-    
-    btnRange1.setButtonText ("Wave");
-    btnRange1.addListener (this);
-    btnRange1.setRadioGroupId(19);
-    addAndMakeVisible (btnRange1);
-    
-    btnRange2.setButtonText ("FX");
-    btnRange2.addListener (this);
-    btnRange2.setRadioGroupId(20);
-    addAndMakeVisible (btnRange2);
-    
-    btnRange3.setButtonText ("Control");
-    btnRange3.addListener (this);
-    btnRange3.setRadioGroupId(21);
-    addAndMakeVisible (btnRange3);
     
     btnProgUp.setButtonText (">");
     btnProgUp.addListener (this);
@@ -156,8 +100,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewMode.setSelectedId(Model::of().viewModeSetting, NotificationType::dontSendNotification);
     addAndMakeVisible(viewMode);
         
-        
-
     addAndMakeVisible(viewZoom);
     viewZoom.addItem ("50%", 1);
     viewZoom.addItem ("75%", 2);
@@ -170,6 +112,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewZoom.setSelectedId(3,  NotificationType::dontSendNotification);
     
     // Components
+    addAndMakeVisible(headerComponent);
     addChildComponent(processor.spectrum);
     addChildComponent(processor.outputComponent);
     addChildComponent(processor.adsrComponent);
@@ -180,6 +123,11 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
         
     keysComponent = new KeysComponent(p);
     addAndMakeVisible(keysComponent);
+        
+    addAndMakeVisible(paramButtonComponent);
+    addAndMakeVisible(viewMeterComponent);
+    addAndMakeVisible(debugComponent);
+    debugComponent.processor = &processor;
 
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
@@ -199,55 +147,51 @@ void Synth1AudioProcessorEditor::resized() {
     int width = r.getWidth();
     int height = r.getHeight();
     
-    // Buttons
-    for(int i=0; i < 8; ++i){
-         btnParam[i].setBounds (10 + i * 100,  5 , 100,  20);
-    }
-    for(int i=0; i < 8; ++i){
-        btnParam[i+8].setBounds (10 + i * 100,  25 , 100,  20);
-    }
-    for(int i=0; i < 8; ++i){
-        btnLabel[i].setBounds (10 + i * 100, 43, 100, 18);;
-    }
-    
-    int hButtons = 30;
+    int hButtons = 80;
     btnCompare.setBounds (width-270, hButtons, 80, 20);
     btnSave.setBounds (width-180, hButtons, 80, 20);
     btnLoad.setBounds (width-90, hButtons, 80, 20);
-    
-    int xVal = 835;
-    btnRange0.setBounds (xVal, 5, 60, 20);
-    btnRange1.setBounds (xVal+70, 5, 60, 20);
-    btnRange2.setBounds (xVal+140, 5, 60, 20);
-    btnRange3.setBounds (xVal+210, 5, 60, 20);
    
-    btnProgDown.setBounds (840, 205, 80, 20);
-    btnProgUp.setBounds (1020, 205, 80, 20);
-    btnBrowse.setBounds (922, 245, 90, 30);
-    btnArp.setBounds (820, 245, 90, 30);
+    btnProgDown.setBounds (840, 255, 80, 20);
+    btnProgUp.setBounds (1020, 255, 80, 20);
+    btnBrowse.setBounds (922, 295, 90, 30);
+    btnArp.setBounds (820, 295, 90, 30);
     
     // Drop Downs
-    viewMode.setBounds (840, 290, 120, 20);
-    viewZoom.setBounds (width-90, 5, 80, 20);
+    viewMode.setBounds (840, 3400, 120, 20);
+    viewZoom.setBounds (width-90, 55, 80, 20);
     
     // Labels
-    progName.setBounds(840, 137, 260,  60);
-    progNumber.setBounds(930, 205, 80,  30);
-    rootLabel[0].setBounds (xVal, 25, 60, 20);
-    rootLabel[1].setBounds (xVal+70, 25, 60, 20);
-    rootLabel[2].setBounds (xVal+140, 25, 60, 20);
-    rootLabel[3].setBounds (xVal+210, 25, 60, 20);
+    progName.setBounds(840, 187, 260,  60);
+    progNumber.setBounds(930, 255, 80,  30);
+
     
     // Spectrum
-    int componentHeight = 360;
-    processor.spectrum.setBounds(0, 320, width,  componentHeight);
-    processor.waveComponent.setBounds(0, 320, width,  componentHeight);
-    processor.outputComponent.setBounds(0, 320, width,  componentHeight);
-    processor.adsrComponent.setBounds(0, 320, width,  componentHeight);
-    processor.lfoComponent.setBounds(0, 320, width,  componentHeight);
-    processor.curveComponent.setBounds(0, 320, width,  componentHeight);
-    potsComponent.setBounds(0, 60, 830,  250);
+    int componentY = 370;
+    int componentHeight = 310;
+    processor.spectrum.setBounds(0, componentY, width,  componentHeight);
+    processor.waveComponent.setBounds(0, componentY, width,  componentHeight);
+    processor.outputComponent.setBounds(0, componentY, width,  componentHeight);
+    processor.adsrComponent.setBounds(0, componentY, width,  componentHeight);
+    processor.lfoComponent.setBounds(0, componentY, width,  componentHeight);
+    processor.curveComponent.setBounds(0, componentY, width,  componentHeight);
+    
+    potsComponent.setBounds(0, 110, 830,  250);
     keysComponent->setBounds(0, height-90, width,  90);
+    paramButtonComponent.setBounds(0, 50, 1230,  250);
+    paramButtonComponent.potsComponent = &potsComponent;
+    paramButtonComponent.setDials();
+    
+    viewMeterComponent.setBounds(840, 100, 260,  80);
+    debugComponent.setBounds(width-280, 110, 270,  250);
+    headerComponent.setBounds(0, 0, width,  50);
+    /*
+    debugComponent.setVisible(false);
+    viewMeterComponent.setVisible(false);
+    paramButtonComponent.setVisible(false);
+    keysComponent->setVisible(false);
+    potsComponent.setVisible(false);
+     */
 }
 
 // ==================================================================================================
@@ -270,46 +214,6 @@ void Synth1AudioProcessorEditor::paint (Graphics& g)
     
     // Progname
     g.setColour (C_PROGNAME);
-    g.fillRoundedRectangle(840, 137, 260,  60, 7);
-
-    r.setWidth(200);
-    r.setHeight(20);
-    r.setX(width - 280);
-    r.setY(5);
-    g.setColour (C_BRANDTITLE);
-    g.setFont (17.0f);
-    g.drawFittedText (PRODUCTNAME, r, Justification::topLeft, 1);
-    
-    // Debug speed of render
-    r.setY(53);
-    r.setX(width - 280);
-    g.setFont (11.0f);
-  
-    // Time taken in the Render Loop
-    float taken = Model::of().timeTaken * 0.000001f;
-    if(taken > processor.maxTimeMsec){
-        g.setColour (Colours::red);
-    }else{
-        g.setColour (C_GREENTEXT);
-    }
-    float cpu = taken / processor.maxTimeMsec * 100.0f;
-    g.drawFittedText ("CPU: " +  String(cpu,2) + "%  Taken: " + String(taken,3) + " msec  Max: " + String(processor.maxTimeMsec,3) + " msec", r, Justification::topLeft, 1);
-
-    // Volumes
-    g.setColour (C_GREENTEXT);
-    r.setY(67);
-    r.setX(width-280);
-    r.setWidth(200);
-    g.setFont (15.0f);
-
-    r.setY(67);
-    g.drawFittedText ("Peak: " + String(Model::of().sumPeak), r, Justification::topLeft, 1);
-    
-    r.setY(85);
-    g.drawFittedText ("RMS: " + String(Model::of().sumRMS,2), r, Justification::topLeft, 1);
-    
-    // VU Meter
-    g.drawImageWithin(ImageFactory::of().png[eMeter], 840, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
-    g.drawImageWithin(ImageFactory::of().png[eMeter], 980, 50, 120,80, juce::RectanglePlacement::stretchToFit, false);
+    g.fillRoundedRectangle(840, 187, 260,  60, 7);
 }
 

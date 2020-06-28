@@ -118,6 +118,10 @@
 		4FC4C0BE248395E700CBE568 /* Arp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4C0BB248395E700CBE568 /* Arp.cpp */; };
 		4FC4C0BF248395E700CBE568 /* Arp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4C0BB248395E700CBE568 /* Arp.cpp */; };
 		4FC4C0C0248395E700CBE568 /* Arp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4C0BB248395E700CBE568 /* Arp.cpp */; };
+		4FD0B76224A8709700B59290 /* FontLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD0B76124A8709700B59290 /* FontLoader.cpp */; };
+		4FD0B76324A8709700B59290 /* FontLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD0B76124A8709700B59290 /* FontLoader.cpp */; };
+		4FD0B76424A8709700B59290 /* FontLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD0B76124A8709700B59290 /* FontLoader.cpp */; };
+		4FD0B76524A8709700B59290 /* FontLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD0B76124A8709700B59290 /* FontLoader.cpp */; };
 		520C69AE4A9C51A8A400EF25 /* include_juce_audio_plugin_client_AU.r in Rez */ = {isa = PBXBuildFile; fileRef = B33C85D177048142E8D6FF2A /* include_juce_audio_plugin_client_AU.r */; };
 		5DBE6A3194BD4A986D73B6A0 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC578CBA48B2F927E29E4EDF /* Carbon.framework */; };
 		616628D7E62260836548CA06 /* include_juce_audio_plugin_client_Standalone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9854136E4437062584A8DDFC /* include_juce_audio_plugin_client_Standalone.cpp */; };
@@ -257,6 +261,13 @@
 		4FC4C0C424839DE200CBE568 /* Voice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Voice.h; path = ../../Source/Voice.h; sourceTree = "<group>"; };
 		4FD0B75924A798CD00B59290 /* PotsComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PotsComponent.h; path = ../../Source/PotsComponent.h; sourceTree = "<group>"; };
 		4FD0B75A24A7B60900B59290 /* KeysComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeysComponent.h; path = ../../Source/KeysComponent.h; sourceTree = "<group>"; };
+		4FD0B75B24A7D3A400B59290 /* ParamButtonComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParamButtonComponent.h; path = ../../Source/ParamButtonComponent.h; sourceTree = "<group>"; };
+		4FD0B75C24A7DBDD00B59290 /* ViewMeterComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewMeterComponent.h; path = ../../Source/ViewMeterComponent.h; sourceTree = "<group>"; };
+		4FD0B75D24A7DDFA00B59290 /* DebugComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DebugComponent.h; path = ../../Source/DebugComponent.h; sourceTree = "<group>"; };
+		4FD0B75F24A86FC300B59290 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
+		4FD0B76024A8709700B59290 /* FontLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontLoader.h; path = ../../Source/FontLoader.h; sourceTree = "<group>"; };
+		4FD0B76124A8709700B59290 /* FontLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FontLoader.cpp; path = ../../Source/FontLoader.cpp; sourceTree = "<group>"; };
+		4FD0B76624A8759B00B59290 /* HeaderComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HeaderComponent.h; path = ../../Source/HeaderComponent.h; sourceTree = "<group>"; };
 		4FE13226248D081600B67233 /* Adsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Adsr.h; path = ../../Source/Adsr.h; sourceTree = "<group>"; };
 		4FF9C27824A23DCF00A08BEB /* PitchWheel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PitchWheel.h; path = ../../Source/PitchWheel.h; sourceTree = "<group>"; };
 		53C3F00C4E40FB17A6C3315E /* juce_audio_formats */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_formats; path = "~/JUCE/modules/juce_audio_formats"; sourceTree = "<absolute>"; };
@@ -431,6 +442,8 @@
 		4F53E619248302A10080F061 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				4FD0B76124A8709700B59290 /* FontLoader.cpp */,
+				4FD0B76024A8709700B59290 /* FontLoader.h */,
 				4FC4C0C424839DE200CBE568 /* Voice.h */,
 				4F53E61A248302B60080F061 /* Core.cpp */,
 				4F53E61B248302B60080F061 /* Core.h */,
@@ -559,6 +572,10 @@
 				4FB9214A24A4DA6800204531 /* CurveComponent.h */,
 				4FD0B75924A798CD00B59290 /* PotsComponent.h */,
 				4FD0B75A24A7B60900B59290 /* KeysComponent.h */,
+				4FD0B75B24A7D3A400B59290 /* ParamButtonComponent.h */,
+				4FD0B75C24A7DBDD00B59290 /* ViewMeterComponent.h */,
+				4FD0B75D24A7DDFA00B59290 /* DebugComponent.h */,
+				4FD0B76624A8759B00B59290 /* HeaderComponent.h */,
 			);
 			name = component;
 			sourceTree = "<group>";
@@ -639,6 +656,7 @@
 		FA8B1015400F39E650751125 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4FD0B75F24A86FC300B59290 /* Fonts */,
 				4FAC348F24A33A0100FB51D7 /* images */,
 				4F88DBCB2485B19F006ABA7A /* TODO.txt */,
 				9C6B7E2C03EC63CCDDD66A19 /* synth1 */,
@@ -924,6 +942,7 @@
 				4FAB854E249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */,
 				4F53E61E248302B60080F061 /* Core.cpp in Sources */,
 				4FAB8546249A20ED0039E051 /* Filter.cpp in Sources */,
+				4FD0B76424A8709700B59290 /* FontLoader.cpp in Sources */,
 				4F9839D2249DD4B10007CD5C /* include_juce_dsp.mm in Sources */,
 				616628D7E62260836548CA06 /* include_juce_audio_plugin_client_Standalone.cpp in Sources */,
 				4FC4C0BF248395E700CBE568 /* Arp.cpp in Sources */,
@@ -946,6 +965,7 @@
 				4A8D2E8CC1BE5F98F4BB1670 /* include_juce_audio_formats.mm in Sources */,
 				D85183133874573BE50B5B97 /* include_juce_audio_plugin_client_utils.cpp in Sources */,
 				3448725CC159F337C5C6C747 /* include_juce_audio_plugin_client_VST_utils.mm in Sources */,
+				4FD0B76524A8709700B59290 /* FontLoader.cpp in Sources */,
 				4599B1A168D7EF3F6D163426 /* include_juce_audio_processors.mm in Sources */,
 				4FAB8557249A20ED0039E051 /* ModulationMatrix.cpp in Sources */,
 				3F8A1B974A6BF35671B2412B /* include_juce_audio_utils.mm in Sources */,
@@ -982,6 +1002,7 @@
 				4FAB854D249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */,
 				4FAB8549249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */,
 				7283C727B177798C458B4D39 /* include_juce_audio_plugin_client_AU_2.mm in Sources */,
+				4FD0B76324A8709700B59290 /* FontLoader.cpp in Sources */,
 				4FAB8551249A20ED0039E051 /* pluginobjects.cpp in Sources */,
 				4FAB855B249A28620039E051 /* SEMFilter.cpp in Sources */,
 				4F9839D1249DD4B10007CD5C /* include_juce_dsp.mm in Sources */,
@@ -1001,6 +1022,7 @@
 				4FAB854C249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */,
 				4F53E61C248302B60080F061 /* Core.cpp in Sources */,
 				4FAB8544249A20ED0039E051 /* Filter.cpp in Sources */,
+				4FD0B76224A8709700B59290 /* FontLoader.cpp in Sources */,
 				4F9839D0249DD4B10007CD5C /* include_juce_dsp.mm in Sources */,
 				2304AE940287AE405DED4AD7 /* include_juce_audio_plugin_client_VST3.cpp in Sources */,
 				4FC4C0BD248395E700CBE568 /* Arp.cpp in Sources */,
