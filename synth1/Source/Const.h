@@ -11,7 +11,7 @@
 
 #define VERSION "1.0.0"
 #define PRODUCTNAME "Atom"
-#define COMPANYNAME "by Flipotronics"
+#define COMPANYNAME "flipotronics.com"
 #define MAXPARAM 1024
 #define MAXVOICE 32
 #define OVERSAMPLING 4

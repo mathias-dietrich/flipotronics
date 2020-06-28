@@ -23,8 +23,7 @@
 
 //============Poti==================================================================
 
-class Synth1AudioProcessorEditor  : public AudioProcessorEditor,
-    public Button::Listener,  public Slider::Listener, public Timer
+class Synth1AudioProcessorEditor  : public AudioProcessorEditor, public Button::Listener,  public Timer
 {
 public:
     Synth1AudioProcessorEditor (Synth1AudioProcessor&);
@@ -34,28 +33,15 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    TextButton btnSave;
-    TextButton btnLoad;
-    TextButton btnCompare;
-    
-    TextButton btnProgUp;
-    TextButton btnProgDown;
-
-    TextButton btnBrowse;
     TextButton btnArp;
 
     Label timeLabel;
-    
-    BankLoader *bankLoader;
-    
+
     int paramRange = 0;
     int paramRoot = 0;
 
     ComboBox viewMode;
     ComboBox viewZoom;
-    
-    Label progName;
-    Label progNumber;
 
     int maxTime;
     
@@ -66,68 +52,7 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
     
     void buttonClicked (Button* button)  override {
-        // Save
-        if(button->getRadioGroupId()==16) {
-            bankLoader->save();
-            Model::of().set();
-            Model::of().compareMode = false;
-            setDials();
-           return;
-        }
-        
-        // Load
-        if(button->getRadioGroupId()==17) {
-            bankLoader->load();
-            processor.loadPatch(Model::of().patchCurrent);
-            Model::of().set();
-            Model::of().compareMode = false;
-            setDials();
-            return;
-        }
-        
-        
-        // Progr Up
-        if(button->getRadioGroupId()==22) {
-            Model::of().patchCurrent++;
-            if(Model::of().patchCurrent >=127){
-                Model::of().patchCurrent = 0;
-            }
-            processor.loadPatch(Model::of().patchCurrent);
-            Model::of().compareMode = false;
-            Model::of().set();
-            setDials();
-            return;
-        }
-        
-        // Progr Down
-        if(button->getRadioGroupId()==23) {
-            Model::of().patchCurrent--;
-            if(Model::of().patchCurrent < 0){
-               Model::of().patchCurrent = 127;
-            }
-            
-            processor.loadPatch(Model::of().patchCurrent);
-            Model::of().compareMode = false;
-            Model::of().set();
-            
-            setDials();
-            return;
-        }
-        
-        // Compare
-        if(button->getRadioGroupId()==24) {
-            Model::of().compareMode = !Model::of().compareMode;
-            Model::of().swap();
-            setDials();
-            return;
-        }
-        
-        // Browse
-        if(button->getRadioGroupId()==26) {
-            processor.browse();
-            return;
-        }
-        
+
         // ARP
         if(button->getRadioGroupId()==27) {
             if(processor.isArpOn){
@@ -144,7 +69,6 @@ private:
             return;
         }
         paramRange = button->getRadioGroupId();
-        setDials();
     }
     
     void setDials() {
@@ -153,15 +77,11 @@ private:
             par[i] = Model::of().par[i] ;
         }
 
-        // Program Display
-        progNumber.setText(toString(Model::of().patchCurrent+1), NotificationType::dontSendNotification);
-        progName.setText(Model::of().patchNameCurrent, NotificationType::dontSendNotification);
-        btnCompare.setToggleState(Model::of().compareMode, NotificationType::dontSendNotification);
-       
         btnArp.setToggleState(processor.isArpOn, NotificationType::dontSendNotification);
         Model::of().isUpdateParams = true;
     }
     
+    /*
     void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();
 
@@ -175,6 +95,7 @@ private:
         }
         setDials();
     }
+    */
     
     void styleMenuChangedView(){
         Model::of().viewModeSetting = viewMode.getSelectedId();

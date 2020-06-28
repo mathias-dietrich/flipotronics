@@ -22,6 +22,14 @@ class BankLoader {
 
     public:
 
+    static BankLoader& of()
+    {
+        static BankLoader   instance;
+        return instance;
+    }
+    BankLoader(BankLoader const&) = delete;
+    void operator=(BankLoader const&)  = delete;
+    
         void save(){
             PatchData p;
 
@@ -214,6 +222,8 @@ class BankLoader {
             }
         }
     private:
+    
+    BankLoader(){}
 };
 
 #endif /* BankLoader_h */
