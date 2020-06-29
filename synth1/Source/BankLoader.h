@@ -17,6 +17,7 @@
 #include "Model.h"
 // http://courses.cs.vt.edu/~cs2604/fall00/binio.html
 
+#include "tun/TUN_Scale.h"
 
 class BankLoader {
 
@@ -98,6 +99,31 @@ class BankLoader {
         
         void load( ){
                load("default.flip");
+        }
+    
+        void initTunfile(){
+            tunReader.InitEqual(69,440);
+        }
+    
+    // https://github.com/zardini123/AnaMark-Tuning-Library/blob/master/README.md
+        void loadTunfile(String path){
+            String filePath = (File::getCurrentWorkingDirectory().getFullPathName());
+            File  dir = File(filePath).getChildFile("tun");
+            String fullPath = dir.getFullPathName() + dir.getSeparatorString() + path;
+            long r = tunReader.Read(fullPath.toUTF8());
+            if(r!=1){
+                 std::cout << "Error loading Tun File " << path << std::endl;
+            }
+        }
+    
+        void saveTunfile(String path){
+            String filePath = (File::getCurrentWorkingDirectory().getFullPathName());
+            File  dir = File(filePath).getChildFile("tun");
+            String fullPath = dir.getFullPathName() + dir.getSeparatorString() + path;
+            long r = tunReader.Write(fullPath.toUTF8());
+            if(r!=1){
+                std::cout << "Error saving Tun File " << path << std::endl;
+            }
         }
     
         void load(String name){
@@ -221,9 +247,13 @@ class BankLoader {
                 }
             }
         }
+    
+    TUN::CSingleScale tunReader;
+    
     private:
     
     BankLoader(){}
+    
 };
 
 #endif /* BankLoader_h */

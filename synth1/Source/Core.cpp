@@ -15,8 +15,23 @@ void Core::init (double sampleRate, int samplesPerBlock){
     this->sampleRate = sampleRate;
     this->samplesPerBlock = samplesPerBlock;
     this->blocksPerSeccond = sampleRate / samplesPerBlock;
+    
+    // Tuning
+    BankLoader::of().initTunfile();
+    //BankLoader::of().loadTunfile("default.tun");
+    //BankLoader::of().loadTunfile("v-aa/aaron.tun");
+    BankLoader::of().saveTunfile("default.tun");
+    
+    for (int i=0; i<128; ++i) {
+       // Model::of().tuneTable[i] = MidiToFreq(i,440);
+        Model::of().tuneTable[i] = BankLoader::of().tunReader.GetMIDINoteFreqHz(i);
+    }
+    for (int i=0; i<12; ++i) {
+        Model::of().tuneMulti[i] = 1.0;
+    }
+    
+    // Wave Table
     WaveTable::of()->init(sampleRate,samplesPerBlock );
-
     Model::of().patchCurrent = 1;
     
     // ARP
@@ -33,14 +48,6 @@ void Core::init (double sampleRate, int samplesPerBlock){
         voices[i].vid = i;
         voices[i].init( sampleRate, samplesPerBlock, p);
         voices[i].active = false;
-    }
-    
-    // Tuning
-    for (int i=0; i<256; ++i) {
-        Model::of().tuneTable[i] = MidiToFreq(i,440);
-    }
-    for (int i=0; i<12; ++i) {
-        Model::of().tuneMulti[i] = 1.0;
     }
     
     // FX

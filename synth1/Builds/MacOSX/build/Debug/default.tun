@@ -1,0 +1,310 @@
+;
+; This is an AnaMark tuning map file V2.00
+;
+; Free .TUN file handling source code (C)2009 by Mark Henning, Germany
+;
+; Specifications and free source code see:
+;         http:\\www.mark-henning.de\eternity\tuningspecs.html
+;
+
+
+;
+; Begin of tuning file and format declaration
+;
+[Scale Begin]
+Format = "AnaMark-TUN"
+FormatVersion = 200
+FormatSpecs = "http:\\\\www.mark-henning.de\\eternity\\tuningspecs.html"
+
+
+;
+; Scale informations
+;
+[Info]
+
+
+;
+; Version 2:
+; Functional tunings
+;
+[Functional Tuning]
+InitEqual = (69, 440)
+
+
+;
+; Version 1:
+; AnaMark-specific section with exact tunings
+;
+[Exact Tuning]
+BaseFreq = 8.175798916
+Note 0 = 0
+Note 1 = 100
+Note 2 = 200
+Note 3 = 300
+Note 4 = 400
+Note 5 = 500
+Note 6 = 600
+Note 7 = 700
+Note 8 = 800
+Note 9 = 900
+Note 10 = 1000
+Note 11 = 1100
+Note 12 = 1200
+Note 13 = 1300
+Note 14 = 1400
+Note 15 = 1500
+Note 16 = 1600
+Note 17 = 1700
+Note 18 = 1800
+Note 19 = 1900
+Note 20 = 2000
+Note 21 = 2100
+Note 22 = 2200
+Note 23 = 2300
+Note 24 = 2400
+Note 25 = 2500
+Note 26 = 2600
+Note 27 = 2700
+Note 28 = 2800
+Note 29 = 2900
+Note 30 = 3000
+Note 31 = 3100
+Note 32 = 3200
+Note 33 = 3300
+Note 34 = 3400
+Note 35 = 3500
+Note 36 = 3600
+Note 37 = 3700
+Note 38 = 3800
+Note 39 = 3900
+Note 40 = 4000
+Note 41 = 4100
+Note 42 = 4200
+Note 43 = 4300
+Note 44 = 4400
+Note 45 = 4500
+Note 46 = 4600
+Note 47 = 4700
+Note 48 = 4800
+Note 49 = 4900
+Note 50 = 5000
+Note 51 = 5100
+Note 52 = 5200
+Note 53 = 5300
+Note 54 = 5400
+Note 55 = 5500
+Note 56 = 5600
+Note 57 = 5700
+Note 58 = 5800
+Note 59 = 5900
+Note 60 = 6000
+Note 61 = 6100
+Note 62 = 6200
+Note 63 = 6300
+Note 64 = 6400
+Note 65 = 6500
+Note 66 = 6600
+Note 67 = 6700
+Note 68 = 6800
+Note 69 = 6900
+Note 70 = 7000
+Note 71 = 7100
+Note 72 = 7200
+Note 73 = 7300
+Note 74 = 7400
+Note 75 = 7500
+Note 76 = 7600
+Note 77 = 7700
+Note 78 = 7800
+Note 79 = 7900
+Note 80 = 8000
+Note 81 = 8100
+Note 82 = 8200
+Note 83 = 8300
+Note 84 = 8400
+Note 85 = 8500
+Note 86 = 8600
+Note 87 = 8700
+Note 88 = 8800
+Note 89 = 8900
+Note 90 = 9000
+Note 91 = 9100
+Note 92 = 9200
+Note 93 = 9300
+Note 94 = 9400
+Note 95 = 9500
+Note 96 = 9600
+Note 97 = 9700
+Note 98 = 9800
+Note 99 = 9900
+Note 100 = 10000
+Note 101 = 10100
+Note 102 = 10200
+Note 103 = 10300
+Note 104 = 10400
+Note 105 = 10500
+Note 106 = 10600
+Note 107 = 10700
+Note 108 = 10800
+Note 109 = 10900
+Note 110 = 11000
+Note 111 = 11100
+Note 112 = 11200
+Note 113 = 11300
+Note 114 = 11400
+Note 115 = 11500
+Note 116 = 11600
+Note 117 = 11700
+Note 118 = 11800
+Note 119 = 11900
+Note 120 = 12000
+Note 121 = 12100
+Note 122 = 12200
+Note 123 = 12300
+Note 124 = 12400
+Note 125 = 12500
+Note 126 = 12600
+Note 127 = 12700
+
+
+;
+; Version 0:
+; VAZ-section with quantized tunings
+;
+[Tuning]
+Note 0 = 0
+Note 1 = 100
+Note 2 = 200
+Note 3 = 300
+Note 4 = 400
+Note 5 = 500
+Note 6 = 600
+Note 7 = 700
+Note 8 = 800
+Note 9 = 900
+Note 10 = 1000
+Note 11 = 1100
+Note 12 = 1200
+Note 13 = 1300
+Note 14 = 1400
+Note 15 = 1500
+Note 16 = 1600
+Note 17 = 1700
+Note 18 = 1800
+Note 19 = 1900
+Note 20 = 2000
+Note 21 = 2100
+Note 22 = 2200
+Note 23 = 2300
+Note 24 = 2400
+Note 25 = 2500
+Note 26 = 2600
+Note 27 = 2700
+Note 28 = 2800
+Note 29 = 2900
+Note 30 = 3000
+Note 31 = 3100
+Note 32 = 3200
+Note 33 = 3300
+Note 34 = 3400
+Note 35 = 3500
+Note 36 = 3600
+Note 37 = 3700
+Note 38 = 3800
+Note 39 = 3900
+Note 40 = 4000
+Note 41 = 4100
+Note 42 = 4200
+Note 43 = 4300
+Note 44 = 4400
+Note 45 = 4500
+Note 46 = 4600
+Note 47 = 4700
+Note 48 = 4800
+Note 49 = 4900
+Note 50 = 5000
+Note 51 = 5100
+Note 52 = 5200
+Note 53 = 5300
+Note 54 = 5400
+Note 55 = 5500
+Note 56 = 5600
+Note 57 = 5700
+Note 58 = 5800
+Note 59 = 5900
+Note 60 = 6000
+Note 61 = 6100
+Note 62 = 6200
+Note 63 = 6300
+Note 64 = 6400
+Note 65 = 6500
+Note 66 = 6600
+Note 67 = 6700
+Note 68 = 6800
+Note 69 = 6900
+Note 70 = 7000
+Note 71 = 7100
+Note 72 = 7200
+Note 73 = 7300
+Note 74 = 7400
+Note 75 = 7500
+Note 76 = 7600
+Note 77 = 7700
+Note 78 = 7800
+Note 79 = 7900
+Note 80 = 8000
+Note 81 = 8100
+Note 82 = 8200
+Note 83 = 8300
+Note 84 = 8400
+Note 85 = 8500
+Note 86 = 8600
+Note 87 = 8700
+Note 88 = 8800
+Note 89 = 8900
+Note 90 = 9000
+Note 91 = 9100
+Note 92 = 9200
+Note 93 = 9300
+Note 94 = 9400
+Note 95 = 9500
+Note 96 = 9600
+Note 97 = 9700
+Note 98 = 9800
+Note 99 = 9900
+Note 100 = 10000
+Note 101 = 10100
+Note 102 = 10200
+Note 103 = 10300
+Note 104 = 10400
+Note 105 = 10500
+Note 106 = 10600
+Note 107 = 10700
+Note 108 = 10800
+Note 109 = 10900
+Note 110 = 11000
+Note 111 = 11100
+Note 112 = 11200
+Note 113 = 11300
+Note 114 = 11400
+Note 115 = 11500
+Note 116 = 11600
+Note 117 = 11700
+Note 118 = 11800
+Note 119 = 11900
+Note 120 = 12000
+Note 121 = 12100
+Note 122 = 12200
+Note 123 = 12300
+Note 124 = 12400
+Note 125 = 12500
+Note 126 = 12600
+Note 127 = 12700
+
+
+;
+; End of tuning file
+;
+[Scale End]
+
+

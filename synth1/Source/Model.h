@@ -126,7 +126,7 @@ public:
     std::atomic<float> paramsUndo[MAXPARAM];
     
     std::atomic<float> parTargetDelta[MAXPARAM];
-    std::atomic<float> tuneTable[256];
+    std::atomic<float> tuneTable[128];
     std::atomic<float> tuneMulti[12];
 
     // Strings

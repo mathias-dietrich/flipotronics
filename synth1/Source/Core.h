@@ -22,6 +22,7 @@
 #include "AudioSampleFifo.h"
 #include "Delay.h"
 #include "Detector.h"
+#include "BankLoader.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 

@@ -45,6 +45,22 @@
 		4F0F158E2493A21200031C20 /* stk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F158C2493A21200031C20 /* stk.mm */; };
 		4F0F158F2493A21200031C20 /* stk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F158C2493A21200031C20 /* stk.mm */; };
 		4F0F15902493A21200031C20 /* stk.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F158C2493A21200031C20 /* stk.mm */; };
+		4F258C1724AA179600F476F4 /* TUN_EmbedHTML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C0E24AA179600F476F4 /* TUN_EmbedHTML.cpp */; };
+		4F258C1824AA179600F476F4 /* TUN_EmbedHTML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C0E24AA179600F476F4 /* TUN_EmbedHTML.cpp */; };
+		4F258C1924AA179600F476F4 /* TUN_EmbedHTML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C0E24AA179600F476F4 /* TUN_EmbedHTML.cpp */; };
+		4F258C1A24AA179600F476F4 /* TUN_EmbedHTML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C0E24AA179600F476F4 /* TUN_EmbedHTML.cpp */; };
+		4F258C1B24AA179600F476F4 /* TUN_StringTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1224AA179600F476F4 /* TUN_StringTools.cpp */; };
+		4F258C1C24AA179600F476F4 /* TUN_StringTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1224AA179600F476F4 /* TUN_StringTools.cpp */; };
+		4F258C1D24AA179600F476F4 /* TUN_StringTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1224AA179600F476F4 /* TUN_StringTools.cpp */; };
+		4F258C1E24AA179600F476F4 /* TUN_StringTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1224AA179600F476F4 /* TUN_StringTools.cpp */; };
+		4F258C1F24AA179600F476F4 /* SCL_Import.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1324AA179600F476F4 /* SCL_Import.cpp */; };
+		4F258C2024AA179600F476F4 /* SCL_Import.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1324AA179600F476F4 /* SCL_Import.cpp */; };
+		4F258C2124AA179600F476F4 /* SCL_Import.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1324AA179600F476F4 /* SCL_Import.cpp */; };
+		4F258C2224AA179600F476F4 /* SCL_Import.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1324AA179600F476F4 /* SCL_Import.cpp */; };
+		4F258C2324AA179600F476F4 /* TUN_Scale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1624AA179600F476F4 /* TUN_Scale.cpp */; };
+		4F258C2424AA179600F476F4 /* TUN_Scale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1624AA179600F476F4 /* TUN_Scale.cpp */; };
+		4F258C2524AA179600F476F4 /* TUN_Scale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1624AA179600F476F4 /* TUN_Scale.cpp */; };
+		4F258C2624AA179600F476F4 /* TUN_Scale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F258C1624AA179600F476F4 /* TUN_Scale.cpp */; };
 		4F53E5ED2482F8D90080F061 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = BD2605538DA3B41EE9407E59 /* RecentFilesMenuTemplate.nib */; };
 		4F53E5EE2482F8D90080F061 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587EA1A23256BEBF498EB891 /* Accelerate.framework */; };
 		4F53E5EF2482F8D90080F061 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096FB91132473A7A8CDB719A /* AudioToolbox.framework */; };
@@ -202,6 +218,18 @@
 		4F0F15882493A20800031C20 /* stk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = stk; path = ../../../../JUCE/modules/stk_module/stk; sourceTree = "<group>"; };
 		4F0F158C2493A21200031C20 /* stk.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = stk.mm; path = ../../../../JUCE/modules/stk_module/stk.mm; sourceTree = "<group>"; };
 		4F0F15912493A21D00031C20 /* stk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stk.h; path = ../../../../JUCE/modules/stk_module/stk.h; sourceTree = "<group>"; };
+		4F258C0B24AA179600F476F4 /* TUN_EmbedHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUN_EmbedHTML.h; path = ../../Source/tun/TUN_EmbedHTML.h; sourceTree = "<group>"; };
+		4F258C0C24AA179600F476F4 /* TUN_StringTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUN_StringTools.h; path = ../../Source/tun/TUN_StringTools.h; sourceTree = "<group>"; };
+		4F258C0D24AA179600F476F4 /* TUN_Error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUN_Error.h; path = ../../Source/tun/TUN_Error.h; sourceTree = "<group>"; };
+		4F258C0E24AA179600F476F4 /* TUN_EmbedHTML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TUN_EmbedHTML.cpp; path = ../../Source/tun/TUN_EmbedHTML.cpp; sourceTree = "<group>"; };
+		4F258C0F24AA179600F476F4 /* TUN_Formula.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUN_Formula.h; path = ../../Source/tun/TUN_Formula.h; sourceTree = "<group>"; };
+		4F258C1024AA179600F476F4 /* TUN_MultiScaleFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUN_MultiScaleFile.h; path = ../../Source/tun/TUN_MultiScaleFile.h; sourceTree = "<group>"; };
+		4F258C1124AA179600F476F4 /* TUN_Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUN_Scale.h; path = ../../Source/tun/TUN_Scale.h; sourceTree = "<group>"; };
+		4F258C1224AA179600F476F4 /* TUN_StringTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TUN_StringTools.cpp; path = ../../Source/tun/TUN_StringTools.cpp; sourceTree = "<group>"; };
+		4F258C1324AA179600F476F4 /* SCL_Import.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SCL_Import.cpp; path = ../../Source/tun/SCL_Import.cpp; sourceTree = "<group>"; };
+		4F258C1424AA179600F476F4 /* TUN_MIDIChannelRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUN_MIDIChannelRange.h; path = ../../Source/tun/TUN_MIDIChannelRange.h; sourceTree = "<group>"; };
+		4F258C1524AA179600F476F4 /* SCL_Import.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCL_Import.h; path = ../../Source/tun/SCL_Import.h; sourceTree = "<group>"; };
+		4F258C1624AA179600F476F4 /* TUN_Scale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TUN_Scale.cpp; path = ../../Source/tun/TUN_Scale.cpp; sourceTree = "<group>"; };
 		4F2DA37F249FE0F600E8873D /* OutputComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OutputComponent.h; path = ../../Source/OutputComponent.h; sourceTree = "<group>"; };
 		4F2DA380249FEAA300E8873D /* AdsrComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AdsrComponent.h; path = ../../Source/AdsrComponent.h; sourceTree = "<group>"; };
 		4F2DA382249FF13000E8873D /* LfoComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LfoComponent.h; path = ../../Source/LfoComponent.h; sourceTree = "<group>"; };
@@ -442,6 +470,25 @@
 			name = "JUCE Library Code";
 			sourceTree = "<group>";
 		};
+		4F258C0A24AA176D00F476F4 /* tun */ = {
+			isa = PBXGroup;
+			children = (
+				4F258C1324AA179600F476F4 /* SCL_Import.cpp */,
+				4F258C1524AA179600F476F4 /* SCL_Import.h */,
+				4F258C0E24AA179600F476F4 /* TUN_EmbedHTML.cpp */,
+				4F258C0B24AA179600F476F4 /* TUN_EmbedHTML.h */,
+				4F258C0D24AA179600F476F4 /* TUN_Error.h */,
+				4F258C0F24AA179600F476F4 /* TUN_Formula.h */,
+				4F258C1424AA179600F476F4 /* TUN_MIDIChannelRange.h */,
+				4F258C1024AA179600F476F4 /* TUN_MultiScaleFile.h */,
+				4F258C1624AA179600F476F4 /* TUN_Scale.cpp */,
+				4F258C1124AA179600F476F4 /* TUN_Scale.h */,
+				4F258C1224AA179600F476F4 /* TUN_StringTools.cpp */,
+				4F258C0C24AA179600F476F4 /* TUN_StringTools.h */,
+			);
+			name = tun;
+			sourceTree = "<group>";
+		};
 		4F53E619248302A10080F061 /* core */ = {
 			isa = PBXGroup;
 			children = (
@@ -620,6 +667,7 @@
 		9C6B7E2C03EC63CCDDD66A19 /* synth1 */ = {
 			isa = PBXGroup;
 			children = (
+				4F258C0A24AA176D00F476F4 /* tun */,
 				4FB9214824A4A3EA00204531 /* component */,
 				4FF9C27724A23DAA00A08BEB /* widget */,
 				4FAB8566249A76250039E051 /* fx */,
@@ -941,6 +989,7 @@
 			files = (
 				4F0F158F2493A21200031C20 /* stk.mm in Sources */,
 				4FAB855C249A28620039E051 /* SEMFilter.cpp in Sources */,
+				4F258C1D24AA179600F476F4 /* TUN_StringTools.cpp in Sources */,
 				4FAB8552249A20ED0039E051 /* pluginobjects.cpp in Sources */,
 				4FAB854A249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */,
 				4F53E62424836C1E0080F061 /* WaveTable.cpp in Sources */,
@@ -949,8 +998,11 @@
 				4F53E61E248302B60080F061 /* Core.cpp in Sources */,
 				4FAB8546249A20ED0039E051 /* Filter.cpp in Sources */,
 				4FD0B76424A8709700B59290 /* FontLoader.cpp in Sources */,
+				4F258C1924AA179600F476F4 /* TUN_EmbedHTML.cpp in Sources */,
+				4F258C2524AA179600F476F4 /* TUN_Scale.cpp in Sources */,
 				4F9839D2249DD4B10007CD5C /* include_juce_dsp.mm in Sources */,
 				616628D7E62260836548CA06 /* include_juce_audio_plugin_client_Standalone.cpp in Sources */,
+				4F258C2124AA179600F476F4 /* SCL_Import.cpp in Sources */,
 				4FC4C0BF248395E700CBE568 /* Arp.cpp in Sources */,
 				4F712E04248ADA9800EBC733 /* img.cpp in Sources */,
 			);
@@ -962,11 +1014,13 @@
 			files = (
 				4F53E61F248302B60080F061 /* Core.cpp in Sources */,
 				4FAB854B249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */,
+				4F258C1E24AA179600F476F4 /* TUN_StringTools.cpp in Sources */,
 				FCF81CA15C2579501330AE33 /* PluginProcessor.cpp in Sources */,
 				04BE989D5BFEEAA16970A529 /* PluginEditor.cpp in Sources */,
 				4FAB8547249A20ED0039E051 /* Filter.cpp in Sources */,
 				4F712E05248ADA9800EBC733 /* img.cpp in Sources */,
 				BCABE1A5EB0C5145457F0C85 /* include_juce_audio_basics.mm in Sources */,
+				4F258C2624AA179600F476F4 /* TUN_Scale.cpp in Sources */,
 				943FF09B371A5A1B03C6004C /* include_juce_audio_devices.mm in Sources */,
 				4A8D2E8CC1BE5F98F4BB1670 /* include_juce_audio_formats.mm in Sources */,
 				D85183133874573BE50B5B97 /* include_juce_audio_plugin_client_utils.cpp in Sources */,
@@ -978,11 +1032,13 @@
 				84B769F530B9EFEBA4CCCB06 /* include_juce_core.mm in Sources */,
 				7EFB39E594B1DEAC20D58578 /* include_juce_cryptography.mm in Sources */,
 				4FAB8553249A20ED0039E051 /* pluginobjects.cpp in Sources */,
+				4F258C1A24AA179600F476F4 /* TUN_EmbedHTML.cpp in Sources */,
 				4FAB855D249A28620039E051 /* SEMFilter.cpp in Sources */,
 				666B1028AE2D33C4D10F370B /* include_juce_data_structures.mm in Sources */,
 				E2FC9DCA6283C875BFD8DFC5 /* include_juce_events.mm in Sources */,
 				E5597E1C1821911D8649595D /* include_juce_graphics.mm in Sources */,
 				4FC4C0C0248395E700CBE568 /* Arp.cpp in Sources */,
+				4F258C2224AA179600F476F4 /* SCL_Import.cpp in Sources */,
 				34FC54731171BACA7992E7AA /* include_juce_gui_basics.mm in Sources */,
 				4F0F15902493A21200031C20 /* stk.mm in Sources */,
 				4F9839D3249DD4B10007CD5C /* include_juce_dsp.mm in Sources */,
@@ -997,7 +1053,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F258C2424AA179600F476F4 /* TUN_Scale.cpp in Sources */,
 				4F0F158E2493A21200031C20 /* stk.mm in Sources */,
+				4F258C1C24AA179600F476F4 /* TUN_StringTools.cpp in Sources */,
 				4FAB8545249A20ED0039E051 /* Filter.cpp in Sources */,
 				4FC4C0BE248395E700CBE568 /* Arp.cpp in Sources */,
 				4F53E61D248302B60080F061 /* Core.cpp in Sources */,
@@ -1007,7 +1065,9 @@
 				01981BBE567F71B239E6A4A2 /* include_juce_audio_plugin_client_AU_1.mm in Sources */,
 				4FAB854D249A20ED0039E051 /* VAOnePoleFilter.cpp in Sources */,
 				4FAB8549249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */,
+				4F258C1824AA179600F476F4 /* TUN_EmbedHTML.cpp in Sources */,
 				7283C727B177798C458B4D39 /* include_juce_audio_plugin_client_AU_2.mm in Sources */,
+				4F258C2024AA179600F476F4 /* SCL_Import.cpp in Sources */,
 				4FD0B76324A8709700B59290 /* FontLoader.cpp in Sources */,
 				4FAB8551249A20ED0039E051 /* pluginobjects.cpp in Sources */,
 				4FAB855B249A28620039E051 /* SEMFilter.cpp in Sources */,
@@ -1021,6 +1081,7 @@
 			files = (
 				4F0F158D2493A21200031C20 /* stk.mm in Sources */,
 				4FAB855A249A28620039E051 /* SEMFilter.cpp in Sources */,
+				4F258C1B24AA179600F476F4 /* TUN_StringTools.cpp in Sources */,
 				4FAB8550249A20ED0039E051 /* pluginobjects.cpp in Sources */,
 				4FAB8548249A20ED0039E051 /* MoogLadderFilter.cpp in Sources */,
 				4F53E62224836C1E0080F061 /* WaveTable.cpp in Sources */,
@@ -1029,8 +1090,11 @@
 				4F53E61C248302B60080F061 /* Core.cpp in Sources */,
 				4FAB8544249A20ED0039E051 /* Filter.cpp in Sources */,
 				4FD0B76224A8709700B59290 /* FontLoader.cpp in Sources */,
+				4F258C1724AA179600F476F4 /* TUN_EmbedHTML.cpp in Sources */,
+				4F258C2324AA179600F476F4 /* TUN_Scale.cpp in Sources */,
 				4F9839D0249DD4B10007CD5C /* include_juce_dsp.mm in Sources */,
 				2304AE940287AE405DED4AD7 /* include_juce_audio_plugin_client_VST3.cpp in Sources */,
+				4F258C1F24AA179600F476F4 /* SCL_Import.cpp in Sources */,
 				4FC4C0BD248395E700CBE568 /* Arp.cpp in Sources */,
 				4F712E02248ADA9800EBC733 /* img.cpp in Sources */,
 			);
