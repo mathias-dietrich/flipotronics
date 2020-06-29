@@ -137,7 +137,7 @@ public:
         setDials();
     }
     
-    void setDials() {
+    void setDials() override{
         float par[MAXPARAM];
         for(int i =0; i < MAXPARAM;++i){
             par[i] = Model::of().par[i] ;

@@ -98,20 +98,33 @@ class Core : public Player{
         //std::cout << "Kill All Voice midiNoteNumber:" << std::endl;
     }
     
+    // Voicepool - find next voice to uae
     int findNewVoice(int midiNoteNumber,int midiChannel){
+        
+        // E>xisting Voice?
         for(int i=0; i < MAXVOICE;i++){
             if(midiNoteNumber==voices[i].noteNumber && midiChannel==voices[i].midiChannel){
                 return i;
             }
         }
+        
+        // Innactive Voice available?
         for(int i=0; i < MAXVOICE;i++){
             if(!voices[i].active){
                 voices[i].now = Time::currentTimeMillis();
                 return voices[i].vid;
             }
         }
-        // TODO find oldest voice
-        return -1;
+        
+        // Find oldest Voice
+        int64 oldest = Time::currentTimeMillis();
+        int posFoundVoice;
+        for(int i=0; i < MAXVOICE;i++){
+            if(voices[i].now < oldest){
+                posFoundVoice = i;
+            }
+        }
+        return posFoundVoice;
     }
     
     int findExistingVoice(int midiChannel, int midiNoteNumber){

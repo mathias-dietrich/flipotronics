@@ -114,23 +114,12 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
 
     // Render Voices
     for(int i=0; i < MAXVOICE;++i){
-           if(voices[i].active){
-               voices[i].render(clock, buffer, p);
-           }
+       if(voices[i].active){
+           voices[i].render(clock, buffer, p);
+       }
      }
-    
-    // Render FX
-    delay.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels, p);
-    
-    // Set Scope Buffer for the Ouput UI
-    Msg *m = Model::of().getBack();
-    for (int i=0; i<samplesPerBlock; ++i) {
-       m->blockBuffer[i] =  (channelDataL[i] + channelDataR[i]) * 0.5f;
-    }
 
-    // Detector
-    detector.handle(buffer, totalNumInputChannels, totalNumOutputChannels);
-
+    // Sampler
     if(Model::of().noOfSamplesToPlay > 0){
         for (int i=0; i<samplesPerBlock; ++i) {
             
@@ -148,6 +137,25 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
         }
     }
     
+    // Render FX
+    delay.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels, p);
+    
+    // Set Scope Buffer for the Ouput UI
+    Msg *m = Model::of().getBack();
+    for (int i=0; i<samplesPerBlock; ++i) {
+       m->blockBuffer[i] =  (channelDataL[i] + channelDataR[i]) * 0.5f;
+    }
+    
+    // Master Volume
+    float linVolume = DecibelToLinear( Model::of().par[P_MASTERVOL]);
+    for (int i=0; i<samplesPerBlock; ++i){
+        channelDataL[i] *= linVolume;
+        channelDataR[i] *= linVolume;
+    }
+    
+    // Detector Peak and RMS Meter
+    detector.handle(buffer, totalNumInputChannels, totalNumOutputChannels);
+
     // Move Clock
     clock += samplesPerBlock;
     Model::of().pushMsgToUi();

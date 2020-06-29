@@ -13,7 +13,7 @@ class MasterSwitch : public AbstractComponent{
     
 public:
     
-     void paint (Graphics& g){
+     void paint (Graphics& g) override{
         Rectangle<int> r = getLocalBounds();
 
         // Volumes
@@ -27,6 +27,10 @@ public:
          g.setColour (C_BLACK);
          g.fillRect (r);
      }
+    
+    void setDials() override{
+        
+    }
     
     
 private:

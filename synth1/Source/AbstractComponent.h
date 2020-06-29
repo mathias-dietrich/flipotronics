@@ -22,10 +22,14 @@ public:
         this->blocksPerSecond = sampleRate / samplesPerBlock;
     }
     
+    virtual void setDials()=0;
+    
     float sampleRate;
     int samplesPerBlock;
     float sr;
     int blocksPerSecond;
+    
+private:
 };
 
 #endif /* AbstractComponent_h */

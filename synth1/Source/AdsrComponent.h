@@ -120,6 +120,10 @@ class AdsrComponent : public AbstractComponent{
         
     }
     
+    void setDials(){
+        
+    }
+    
      void drawAdsr(Adsr * adsr, Graphics& g, int width, int half){
     
            adsr->start();

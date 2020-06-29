@@ -40,6 +40,10 @@ class LfoComponent:  public AbstractComponent{
         
     }
     
+    void setDials(){
+        
+    }
+    
 private:
     float sampleRate;
     int samplesPerBlock;

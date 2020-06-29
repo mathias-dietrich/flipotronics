@@ -40,7 +40,11 @@ public:
         g.drawFittedText ("RMS: " + String(Model::of().sumRMSL,2), r, Justification::topLeft, 1);
      }
     
-        Synth1AudioProcessor * processor;
+    void setDials() override{
+           
+    }
+    
+    Synth1AudioProcessor * processor;
     
 private:
 };

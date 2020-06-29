@@ -59,6 +59,10 @@ class CurveComponent : public AbstractComponent {
         }
     }
     
+    void setDials(){
+        
+    }
+    
 private:
     
     Curve curve;

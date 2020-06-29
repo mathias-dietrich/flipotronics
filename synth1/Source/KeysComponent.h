@@ -74,6 +74,10 @@ class KeysComponent : public AbstractComponent, public MidiKeyboardStateListener
 
     }
     
+    void setDials() override{
+        
+    }
+    
     void buttonClicked (Button* button)  override {
        // Panic
        if(button->getRadioGroupId()==25) {

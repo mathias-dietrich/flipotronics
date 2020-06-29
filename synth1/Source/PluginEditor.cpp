@@ -28,8 +28,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     timeLabel.setColour (Label::textColourId, Colours::white);
     timeLabel.setJustificationType (Justification::centred);
     
-    setDials();
-    
     // Dropdowns
     viewMode.addItem ("Ouput", vPlot);
     viewMode.addItem ("Spectrum", vSpectrum);
@@ -81,6 +79,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
 
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
+        
+    setDials();
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){

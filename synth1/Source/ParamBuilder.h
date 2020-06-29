@@ -212,7 +212,8 @@
 #define P_ARP_NOTE15 910
 #define P_ARP_NOTE16 911
 
-
+#define P_MASTERVOL 1021
+#define P_CURVE 1022
 #define P_PLAYMODE 1023
 
 class ParamBuilder {       // The class
@@ -2072,8 +2073,19 @@ class ParamBuilder {       // The class
             p.def = 0;
             Model::of().params[P_ARP_NOTE16] = p;
             
+            p.pid = P_MASTERVOL;
+            p.name = "Master Vol";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = -96;
+            p.maxVal = 18;
+            p.stepVal = 0.01;
+            p.type = uDb;
+            p.def = 0;
+            Model::of().params[P_MASTERVOL] = p;
+            
             // Curvetest
-            p.pid = 1022;
+            p.pid = P_CURVE;
             p.name = "curve";
             p.writeable = 1;
             p.automate = 1;
@@ -2082,7 +2094,8 @@ class ParamBuilder {       // The class
             p.stepVal = 1;
             p.type = uFloat;
             p.def = 0;
-            Model::of().params[1022] = p;
+            Model::of().params[P_CURVE] = p;
+
         }
 };
 

@@ -90,6 +90,10 @@ public:
         repaint();
     }
     
+    void setDials(){
+        
+    }
+    
     void changeState (TransportState newState)
     {
         if (state != newState)

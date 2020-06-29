@@ -95,7 +95,6 @@ public:
         
         filter3.reset();
         filter4.reset();
-
     }
     
     ~Voice(){
@@ -110,7 +109,6 @@ public:
         // OSC
         osc1.init(sampleRate,samplesPerBlock);
         osc2.init(sampleRate,samplesPerBlock);
-        
         
         // ADSR
         adsr1.init(sampleRate,samplesPerBlock);
@@ -312,7 +310,6 @@ public:
             // Mono
             float mono = (v0 + v1 + vSub)  * vol ;
             
-            
             float lfo0Output = tableLfo1[((int)tablePosLfo1)];
             
              // Filter
@@ -335,17 +332,16 @@ public:
             float vSumR = mono * p[P_PAN];
 
             // Bounds Check
-            if(vSumL > 1.0f){
+            if(vSumL > 1.0f) {
                 vSumL = 1.0f;
             }
-            if(vSumL < -1.0f){
+            if(vSumL < -1.0f) {
                 vSumL = -1.0f;
             }
-            
-            if(vSumR > 1.0f){
+            if(vSumR > 1.0f) {
                 vSumR = 1.0f;
             }
-            if(vSumR < -1.0f){
+            if(vSumR < -1.0f) {
                 vSumR = -1.0f;
             }
             
@@ -354,22 +350,30 @@ public:
             
 // Move the Osc forward  =======================================================================
            
+            // calc Midi Note Osc 1
             int midiNote0 = noteNumber + p[P_OSC1_SEMI] + 12 * p[P_OSC1_OCT];
+            
+            // Get frequency from the Tuning Table
             float freq0 = Model::of().tuneTable[midiNote0] * Model::of().tuneMulti[midiNote0 % 12];
             
+            // calc Midi Note Osc 2
             int midiNote1 = noteNumber + p[P_OSC2_SEMI] + 12 * p[P_OSC2_OCT];
-            float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
             
-            float t = p[0] / 440.0f;
+            // Get frequency from the Tuning Table
+            float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
             
             // fine tune
             freq0 = freq0 + freq0 *  p[P_OSC1_FINE] * 0.01f;
             freq1 = freq1 + freq1 *  p[P_OSC2_FINE] * 0.01f;
             
+            // LFO Pitch to Osc
             freq0 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
             freq1 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
             
-            // move pos
+            // fine tuning from UI relative to 440Hz
+            float t = p[0] / 440.0f;
+            
+            // move pos OSC
             tablePos0 += OVERSAMPLING * freq0  * t ;
             
             bool sync = false;
@@ -388,8 +392,11 @@ public:
             
             tablePosSub += OVERSAMPLING * freq0 / 3.0f * t;
             
-            float freqLfo1 = p[P_LFO1_FREQ];
-            tablePosLfo1 += OVERSAMPLING * freqLfo1;
+            // Move LFO
+            tablePosLfo1 += OVERSAMPLING * p[P_LFO1_FREQ];
+            tablePosLfo2 += OVERSAMPLING * p[P_LFO2_FREQ];
+            tablePosLfo3 += OVERSAMPLING * p[P_LFO3_FREQ];
+            tablePosLfo4 += OVERSAMPLING * p[P_LFO4_FREQ];
             
             // bounds check OSC
             tablePos0 = osc1.checkPos(tablePos0);
@@ -398,6 +405,9 @@ public:
             
              // bounds check LFO
             tablePosLfo1 = lfo1.checkPos(tablePosLfo1);
+            tablePosLfo2 = lfo1.checkPos(tablePosLfo2);
+            tablePosLfo3 = lfo1.checkPos(tablePosLfo3);
+            tablePosLfo4 = lfo1.checkPos(tablePosLfo4);
         }
 
         // General - once per Block

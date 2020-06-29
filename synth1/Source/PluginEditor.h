@@ -78,24 +78,15 @@ private:
         }
 
         btnArp.setToggleState(processor.isArpOn, NotificationType::dontSendNotification);
+        
         Model::of().isUpdateParams = true;
+        potsComponent.setDials();
+        paramButtonComponent.setDials();
+        keysComponent->setDials();
+        viewMeterComponent.setDials();
+        debugComponent.setDials();
+        headerComponent.setDials();
     }
-    
-    /*
-    void sliderValueChanged(Slider *  slider) override {
-        int sid = slider->getName().getIntValue();
-
-        // Edits Mode ================================================================
-        startEdit();
-        int pid = paramRoot * 256 + paramRange * 16 + sid;
-        if(Model::of().params[pid].smoothTime > 0){
-            Model::of().parTargetDelta[pid] = Model::of().par[pid] - slider->getValue();
-        }else{
-            Model::of().par[pid] = slider->getValue();
-        }
-        setDials();
-    }
-    */
     
     void styleMenuChangedView(){
         Model::of().viewModeSetting = viewMode.getSelectedId();

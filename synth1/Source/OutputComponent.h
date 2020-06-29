@@ -36,6 +36,10 @@ public:
      ~OutputComponent () {
          
      }
+    
+    void setDials(){
+        
+    }
 
     void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();

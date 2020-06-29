@@ -29,6 +29,10 @@ public:
         
     }
     
+    void setDials() override{
+        
+    }
+    
     void drawChannel(Graphics& g, float val, int x){
         for(int i=0;i < 8;i++){
             switch(i){

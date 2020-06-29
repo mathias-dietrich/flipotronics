@@ -23,8 +23,8 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         potiMasterVol.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
         potiMasterVol.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 20);
         potiMasterVol.addListener (this);
-        potiMasterVol.setRange(0,1,0.01);
-        potiMasterVol.setValue(0.5);
+        potiMasterVol.setRange(0-96, 18, 0.01);
+        potiMasterVol.setSkewFactor (6);
         
         addAndMakeVisible(potiMasterVol);
         addAndMakeVisible(outputMeter);
@@ -89,6 +89,8 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         btnLoad.addListener (this);
         btnLoad.setRadioGroupId(17);
         addAndMakeVisible (btnLoad);
+        
+        setDials();
     }
    
     ~HeaderComponent () {
@@ -190,10 +192,11 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         g.fillRoundedRectangle(885, 25, 45,  25, 7);
     }
     
-    void setDials() {
+    void setDials() override{
         progNumber.setText(toString(Model::of().patchCurrent+1), NotificationType::dontSendNotification);
         progName.setText(Model::of().patchNameCurrent, NotificationType::dontSendNotification);
         btnCompare.setToggleState(Model::of().compareMode, NotificationType::dontSendNotification);
+        potiMasterVol.setValue(Model::of().par[P_MASTERVOL], dontSendNotification);
     }
     
     void resized() override{
@@ -226,7 +229,7 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
     }
     
      void sliderValueChanged(Slider *  slider) override {
-         
+        Model::of().par[P_MASTERVOL] = slider->getValue();
      }
         
     Synth1AudioProcessor * processor;
