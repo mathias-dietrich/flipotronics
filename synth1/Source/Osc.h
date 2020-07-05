@@ -14,12 +14,13 @@
 #include "WaveTable.h"
 #include "Enum.h"
 
+#include "FilterExtern/Oscillator.h"
+#include "FilterExtern/QBLimitedOscillator.h"
+
 class Osc{
     public:
     
     float * tables[20];
-    
-    // wSin, wSaw, wTriangle, wSquare, wShark, wWhite, wPink, wBrown, wTable
     
     Osc(){
 
@@ -28,18 +29,6 @@ class Osc{
     ~Osc(){
 
     }
-    
-    /*
-    forcedinline float interpolateSample(int currentIndex, int tableSize, float * table) noexcept
-    {
-        auto index0 = (unsigned int) currentIndex;
-        auto index1 = index0 == (tableSize - 1) ? (unsigned int) 0 : index0 + 1;
-        auto frac = currentIndex - (float) index0;
-        auto value0 = table[index0];
-        auto value1 = table[index1];
-        return value0 + frac * (value1 - value0);
-    }
-     */
     
     forcedinline float interpolate(int currentIndex, float * table ) noexcept{
         auto index0 = (unsigned int) currentIndex;
@@ -65,6 +54,10 @@ class Osc{
         tables[wPink] = waveTable->whiteBuffer;
         tables[wBrown] = waveTable->whiteBuffer;
         tables[wTable] = waveTable->whiteBuffer;
+        
+        oscillator.setSampleRate(sampleRate);
+       
+        oscillator.reset();
     }
 
     inline int checkPos(int pos){
@@ -77,11 +70,12 @@ class Osc{
         return pos;
     }
     
+    CQBLimitedOscillator oscillator;
+    
     private:
         WaveTable * waveTable;
         float sampleRate;
         float samplesPerBlock;
         float sr;
-        
 };
 #endif /* Osc_h */

@@ -7,6 +7,14 @@
 // create a derived class and modify it. These objects may be updated from time to
 // time so they need to be left alone.
 
+typedef int UInt16;
+typedef int UInt32;
+typedef int UInt16;
+typedef int UInt64;
+
+typedef float Float32;
+typedef double Float64;
+
 
 
 // CEnvelopeDetector Implementation ----------------------------------------------------------------

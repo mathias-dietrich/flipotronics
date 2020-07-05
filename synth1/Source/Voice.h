@@ -235,6 +235,12 @@ public:
         
         filter2.reset();
         filter2.setBoost(true);
+        
+        int midiNote1 = noteNumber + par[P_OSC2_SEMI] + 12 * par[P_OSC2_OCT];
+        float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
+        osc1.oscillator.m_dOscFo = freq1;
+        osc1.oscillator.update();
+        osc1.oscillator.startOscillator();
     }
     
     void kill(){
@@ -296,6 +302,9 @@ public:
             p1 = p1 / (1.0f + p[P_OSC2_PULSE] * 0.01f);
             float v0 = osc1.interpolate(osc1.checkPos(p0 + p[P_OSC1_PHASE] / 360.0f * sr), table0);
             float v1 = osc1.interpolate(osc1.checkPos(p1 + p[P_OSC2_PHASE] / 360.0f * sr), table1);
+            
+            v0 = osc1.oscillator.doOscillate();
+            
             float vSub = osc1.interpolate(osc1.checkPos(tablePosSub), table2);
 
             v0 *= volVelo;
@@ -408,6 +417,11 @@ public:
             tablePosLfo2 = lfo1.checkPos(tablePosLfo2);
             tablePosLfo3 = lfo1.checkPos(tablePosLfo3);
             tablePosLfo4 = lfo1.checkPos(tablePosLfo4);
+            
+            dInc += 1.0f / 880.0f;
+            if(dInc >= 1.0){
+                dInc -= 1.0;
+            }
         }
 
         // General - once per Block
@@ -427,6 +441,10 @@ private:
     int adsr;
     int sampleId = 0;
     int lastBeat = -1;
+    
+    double dModulo;
+    double dInc;
+    
 };
     
 #endif /* Voice_h */
