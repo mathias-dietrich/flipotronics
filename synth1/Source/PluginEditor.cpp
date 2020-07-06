@@ -131,20 +131,12 @@ void Synth1AudioProcessorEditor::resized() {
 // paint
 // ==================================================================================================
 
-inline const char * const BoolToString(bool b)
-{
+inline const char * const BoolToString(bool b) {
   return b ? "true" : "false";
 }
 
-void Synth1AudioProcessorEditor::paint (Graphics& g)
-{
-    Rectangle<int> r = getLocalBounds();
-    int width = r.getWidth();
-    int height = r.getHeight() ;
-
+void Synth1AudioProcessorEditor::paint (Graphics& g) {
     // BG
     g.fillAll (C_BACKGROUND);
-    
-
 }
 

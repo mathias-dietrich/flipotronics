@@ -184,5 +184,4 @@ private:
     ViewMeterComponent viewMeterComponent;
     DebugComponent debugComponent;
     HeaderComponent headerComponent;
-
 };

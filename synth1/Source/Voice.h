@@ -208,7 +208,6 @@ public:
         adsr4.delayTimeMsec = par[P_ADSR4_DELAY];
         adsr4.trigger = par[P_ADSR4_TRIGGER];
         adsr4.triggerTreshold = par[P_ADSR4_TRESHOLD];
-        
 
         filter1.setFilterType(par[P_FILTER1_TYPE] );
         filter1.setCutoff(par[P_FILTER1_FREQ]);
@@ -288,6 +287,9 @@ public:
     void render(int clock, AudioBuffer<float>& buffer, float (&p)[MAXPARAM]){
 
         ScopedNoDenormals noDenormals;
+        
+        osc1.par = p;
+        osc2.par = p;
 
         // Buffers
         auto* channelDataL = buffer.getWritePointer (0);
@@ -315,8 +317,8 @@ public:
             //float v0 = osc1.interpolate(osc1.checkPos(p0 + p[P_OSC1_PHASE] / 360.0f * sr), table0);
            // float v1 = osc1.interpolate(osc1.checkPos(p1 + p[P_OSC2_PHASE] / 360.0f * sr), table1);
             
-            float v0 = osc1.getSample(wSin);
-            float v1 = osc2.getSample(wSin);
+            float v0 = osc1.getSample((E_WaveType)p[P_OSC1_WAV]);
+            float v1 = osc2.getSample((E_WaveType)p[P_OSC2_WAV]);
             
            // v0 = osc1.oscillator.doOscillate();
             

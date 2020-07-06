@@ -38,25 +38,67 @@ class Osc{
         return value0 + frac * (value1 - value0);
     }
     
+    /* SINE,
+           COSINE,
+           TRIANGLE,
+           SQUARE,
+           RECTANGLE,
+           SAWTOOTH,
+           RAMP,
+           MODIFIED_TRIANGLE,
+           MODIFIED_SQUARE,
+           HALF_WAVE_RECTIFIED_SINE,
+           FULL_WAVE_RECTIFIED_SINE,
+           TRIANGULAR_PULSE,
+           TRAPEZOID_FIXED,
+           TRAPEZOID_VARIABLE
+     */
+    
+    PolyBLEP::Waveform mapWaveEnum(E_WaveType type){
+        switch(type){
+            case wSin:
+                return PolyBLEP::COSINE;
+                
+            case wSaw:
+                return PolyBLEP::SAWTOOTH;
+                
+            case wTriangle:
+                return PolyBLEP::MODIFIED_TRIANGLE;
+                
+            case wSquare:
+                return PolyBLEP::MODIFIED_SQUARE;
+                
+            case wShark:
+                return PolyBLEP::MODIFIED_SQUARE;
+                
+            case wWhite:
+                return PolyBLEP::SAWTOOTH;
+                
+            case wPink:
+                return PolyBLEP::SAWTOOTH;
+                
+            case wBrown:
+                return PolyBLEP::SAWTOOTH;
+                
+            case wTable:
+                return PolyBLEP::SAWTOOTH;
+        }
+        return PolyBLEP::COSINE;
+    }
+    
     float getSample(E_WaveType wt){
         switch(wt){
             case wSin:
-            {
-                //auto table = waveTable->sinBuffer[midiNoteCalculated];
                 return polyBLEP->get();
-                //return table[(int)phase];
-                 //return interpolate(checkPosSin(phase), table);
-                //return interpolate(checkPosSin(phase + par[P_OSC1_PHASE + paramOffset] / 360.0f * 2048), table);
-            }
                 
             case wSaw:
-                 break;
+                return polyBLEP->get();
                 
             case wTriangle:
-                 break;
+                return polyBLEP->get();
                 
             case wSquare:
-                 break;
+                return polyBLEP->get();
                 
             case wShark:
                  break;
@@ -82,7 +124,9 @@ class Osc{
         midiNoteCalculated = midiNote + par[P_OSC1_SEMI + paramOffset] + 12 * par[P_OSC1_OCT + paramOffset];
         freq = Model::of().tuneTable[midiNoteCalculated] * Model::of().tuneMulti[midiNoteCalculated % 12];
         polyBLEP->setFrequency(freq);
-       
+        PolyBLEP::Waveform wf = mapWaveEnum(((E_WaveType)par[P_OSC1_WAV + paramOffset]));
+        polyBLEP->setWaveform(wf);
+        polyBLEP->setPulseWidth(par[P_OSC1_PULSE + paramOffset] / 100.0f);
     }
     
     void move(){
@@ -92,21 +136,20 @@ class Osc{
         
         // Freq
         freq = Model::of().tuneTable[midiNoteCalculated] * Model::of().tuneMulti[midiNoteCalculated % 12];
-        int tablFreq = freq;
-        
-       // freq = 1;
-        
+
         // fine Tune
         freq = freq + freq *  par[P_OSC1_FINE + paramOffset] * 0.01f;
         
         // overall tune
         float t = par[0] / 440.0f;
-        
         freq *= t;
         
+        PolyBLEP::Waveform wf = mapWaveEnum(((E_WaveType)par[P_OSC1_WAV + paramOffset]));
+        polyBLEP->setWaveform(wf);
         polyBLEP->setFrequency(freq);
+        float pulseWidth = par[P_OSC1_PULSE + paramOffset] / 100.0f;
+        polyBLEP->setPulseWidth(pulseWidth);
         polyBLEP->inc();
-        
         
         // bounds check
         phase = checkPhaseSin(phase);
@@ -126,8 +169,11 @@ class Osc{
         waveTable = WaveTable::of();
         oscillator.setSampleRate(sampleRate);
         oscillator.reset();
-        
-        polyBLEP = new PolyBLEP(sampleRate, PolyBLEP::SINE,  440.0);
+        if(oscId == 1){
+            polyBLEP = new PolyBLEP(sampleRate, PolyBLEP::SINE,  440.0);
+        }else{
+            polyBLEP = new PolyBLEP(sampleRate, PolyBLEP::SAWTOOTH,  440.0);
+        }
     }
 
     inline int checkPos(int pos){

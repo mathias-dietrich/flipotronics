@@ -5,6 +5,7 @@
 //  Created by Mathias Dietrich on 06.07.20.
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
+// https://github.com/martinfinke/PolyBLEP/blob/master/PolyBLEPStk.h
 
 #ifndef PolyBLEP_h
 #define PolyBLEP_h
