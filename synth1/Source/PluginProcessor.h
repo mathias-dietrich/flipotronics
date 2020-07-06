@@ -10,6 +10,7 @@
 #include "AdsrComponent.h"
 #include "LfoComponent.h"
 #include "CurveComponent.h"
+#include "ShowTableComponent.h"
 
 //  https://github.com/ffAudio/ff_meters
 //==============================================================================
@@ -28,6 +29,7 @@ public:
     AdsrComponent adsrComponent;
     LfoComponent lfoComponent;
     CurveComponent curveComponent;
+    ShowTableComponent showTableComponent;
     
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;

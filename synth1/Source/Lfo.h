@@ -40,7 +40,7 @@ public:
        this->samplesPerBlock = samplesPerBlock;
        
        waveTable = WaveTable::of();
-       tables[wSin] = waveTable->sinBuffer;
+       tables[wSin] = waveTable->sinBuffer[0];
        tables[wSaw] = waveTable->squareBuffer;
        tables[wTriangle] = waveTable->sawBuffer;
        tables[wSquare] = waveTable->triangleBuffer;
@@ -51,7 +51,7 @@ public:
        tables[wTable] = waveTable->whiteBuffer;
    }
 
-   inline int checkPos(int pos){
+   inline float checkPos(float pos){
        while(pos < 0){
            pos += sr;
        }

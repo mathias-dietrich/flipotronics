@@ -38,6 +38,8 @@ public:
 
         r.setY(40);
         g.drawFittedText ("RMS: " + String(Model::of().sumRMSL,2), r, Justification::topLeft, 1);
+         
+         
      }
     
     void setDials() override{

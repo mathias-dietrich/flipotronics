@@ -9,6 +9,7 @@
 #include "WaveTable.h"
 #include "Const.h"
 
+
 WaveTable* WaveTable::instance = 0;
 
 WaveTable* WaveTable::of()
@@ -32,14 +33,21 @@ void WaveTable::init (double sampleRate, int samplesPerBlock){
     this->samplesPerBlock = samplesPerBlock;
     
     m_time = 0.0;
-    m_deltaTime = 1.0 / (float)sr;
     
+    int freq = 1;
     // Sin Table
-    for (int sample = 0; sample < sr; ++sample) {
-        float value = sin(2.0 * double_Pi  * m_time);
-         sinBuffer[sample] = value;
-         m_time += m_deltaTime;
-    }
+     for (int note = 0; note < 127; ++note) {
+        freq = 440.0f * pow(2.0f, ((note - 69) / 12.0f));
+        m_deltaTime = freq / 2048.0f;
+        m_time = 0;
+         
+        for (int sample = 0; sample < 2048; ++sample) {
+            float value = sin(2.0 * double_Pi  * m_time);
+            
+             sinBuffer[note][sample] = value;
+             m_time += m_deltaTime;
+        }
+     }
     
     // Square Table Generator - add Sin waves up
     int harmonics = 10;
@@ -56,7 +64,7 @@ void WaveTable::init (double sampleRate, int samplesPerBlock){
     for(int i=0; i < harmonics;++i){
         for (int sample = 0; sample < sr; ++sample) {
             int pos = checkPos(sample * freqmul);
-            squareBuffer[sample] += sinBuffer[pos] * vol / 10.0f;
+            squareBuffer[sample] += sinBuffer[0][pos] * vol / 10.0f;
         }
         freqmul += 2;
         vol *= 0.5;

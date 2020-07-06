@@ -37,7 +37,7 @@ class WaveTable {// The class
     int sr;
     void init (double sampleRate, int samplesPerBlock);
     
-    float  sinBuffer[SAMPLERATEMAX * OVERSAMPLING];
+    float  sinBuffer[128][2048];
     float  sawBuffer[SAMPLERATEMAX * OVERSAMPLING];
     float  squareBuffer[SAMPLERATEMAX * OVERSAMPLING];
     float  triangleBuffer[SAMPLERATEMAX * OVERSAMPLING];

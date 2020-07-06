@@ -20,6 +20,7 @@
 #include "DebugComponent.h"
 #include "FontLoader.h"
 #include "HeaderComponent.h"
+#include "ShowTableComponent.h"
 
 //============Poti==================================================================
 
@@ -96,6 +97,7 @@ private:
         processor.adsrComponent.setVisible(false);
         processor.lfoComponent.setVisible(false);
         processor.curveComponent.setVisible(false);
+        processor.showTableComponent.setVisible(false);
         switch(Model::of().viewModeSetting){
             case vSpectrum:
                 processor.spectrum.setVisible(true);
@@ -123,9 +125,13 @@ private:
                 processor.lfoComponent.setVisible(true);
                 break;
               
-            case vCurve:
-                processor.curveComponent.setVisible(true);
+            case vTable:
+                processor.showTableComponent.setVisible(true);
                 break;
+                
+                case vCurve:
+                    processor.curveComponent.setVisible(true);
+                    break;
         }
         repaint();
     }
@@ -178,4 +184,5 @@ private:
     ViewMeterComponent viewMeterComponent;
     DebugComponent debugComponent;
     HeaderComponent headerComponent;
+
 };

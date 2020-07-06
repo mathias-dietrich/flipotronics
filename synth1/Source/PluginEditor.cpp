@@ -13,8 +13,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     ImageFactory::of().init();
     
     //fileManager = new FileManager();
-        BankLoader::of().load();
-    processor.loadPatch(0);
+
     Model::of().set();
     Model::of().compareMode = false;
     
@@ -42,6 +41,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewMode.addItem ("Curve", vCurve);
     viewMode.addItem ("Wave", vWave);
     viewMode.addItem ("Debug", vDebug);
+    viewMode.addItem ("Table", vTable);
+        
     viewMode.onChange = [this] { styleMenuChangedView(); };
     Model::of().viewModeSetting = vWave;
     viewMode.setSelectedId(Model::of().viewModeSetting, NotificationType::dontSendNotification);
@@ -67,6 +68,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(processor.waveComponent);
     addChildComponent(processor.lfoComponent);
     addChildComponent(processor.curveComponent);
+    addChildComponent(processor.showTableComponent);
     addAndMakeVisible(potsComponent);
         
     keysComponent = new KeysComponent(p);
@@ -111,6 +113,7 @@ void Synth1AudioProcessorEditor::resized() {
     processor.adsrComponent.setBounds(0, componentY, width,  componentHeight);
     processor.lfoComponent.setBounds(0, componentY, width,  componentHeight);
     processor.curveComponent.setBounds(0, componentY, width,  componentHeight);
+    processor.showTableComponent.setBounds(0, componentY, width,  componentHeight);
     
     potsComponent.setBounds(0, 110, 830,  260);
     
@@ -122,13 +125,6 @@ void Synth1AudioProcessorEditor::resized() {
     viewMeterComponent.setBounds(840, 100, 260,  80);
     debugComponent.setBounds(width-280, 110, 270,  250);
     headerComponent.setBounds(0, 0, width,  50);
-    /*
-    debugComponent.setVisible(false);
-    viewMeterComponent.setVisible(false);
-    paramButtonComponent.setVisible(false);
-    keysComponent->setVisible(false);
-    potsComponent.setVisible(false);
-     */
 }
 
 // ==================================================================================================

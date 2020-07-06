@@ -88,6 +88,9 @@ class Adsr {       // The class
             {
                 int t = timeLapse / samplesPerMillisecond - delayTimeMsec - attackTimeMsec - holdTimeMsec;
                 float decayRange = 1.0 - sustainLevel;
+                if(decayTimeMsec<1){
+                    decayTimeMsec = 1;
+                }
                 float tableValue = decayCurve.getScaled( t,decayTimeMsec);
                 output = (1.0 - tableValue) * decayRange  + sustainLevel;
                 if(t >= decayTimeMsec ){

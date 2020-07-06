@@ -20,7 +20,7 @@ void Core::init (double sampleRate, int samplesPerBlock){
     BankLoader::of().initTunfile();
     //BankLoader::of().loadTunfile("default.tun");
     //BankLoader::of().loadTunfile("v-aa/aaron.tun");
-    BankLoader::of().saveTunfile("default.tun");
+   // BankLoader::of().saveTunfile("default.tun");
     
     for (int i=0; i<128; ++i) {
        // Model::of().tuneTable[i] = MidiToFreq(i,440);
@@ -38,7 +38,7 @@ void Core::init (double sampleRate, int samplesPerBlock){
    // arp->init(sampleRate, samplesPerBlock);
     //arp->setPlayer(this);
     
-    float p[MAXPARAM];
+   
     for(int i =0; i < MAXPARAM;++i){
        p[i] = Model::of().par[i] ;
     }

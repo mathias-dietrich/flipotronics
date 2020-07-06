@@ -38,6 +38,10 @@
 		4599B1A168D7EF3F6D163426 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = FFEA8FDBAD22152A9A868425 /* include_juce_audio_processors.mm */; };
 		4A8D2E8CC1BE5F98F4BB1670 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 778F6CA556FDCC4981ACDE72 /* include_juce_audio_formats.mm */; };
 		4D6253CEBB7715A7C964F1E4 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32433D092E232C55792342CC /* include_juce_gui_extra.mm */; };
+		4F0B65DE24B33FD700C4A631 /* PolyBLEP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F0B65DD24B33FD700C4A631 /* PolyBLEP.cpp */; };
+		4F0B65DF24B33FD700C4A631 /* PolyBLEP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F0B65DD24B33FD700C4A631 /* PolyBLEP.cpp */; };
+		4F0B65E024B33FD700C4A631 /* PolyBLEP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F0B65DD24B33FD700C4A631 /* PolyBLEP.cpp */; };
+		4F0B65E124B33FD700C4A631 /* PolyBLEP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F0B65DD24B33FD700C4A631 /* PolyBLEP.cpp */; };
 		4F0F15892493A20800031C20 /* stk in Resources */ = {isa = PBXBuildFile; fileRef = 4F0F15882493A20800031C20 /* stk */; };
 		4F0F158A2493A20800031C20 /* stk in Resources */ = {isa = PBXBuildFile; fileRef = 4F0F15882493A20800031C20 /* stk */; };
 		4F0F158B2493A20800031C20 /* stk in Resources */ = {isa = PBXBuildFile; fileRef = 4F0F15882493A20800031C20 /* stk */; };
@@ -226,6 +230,10 @@
 		4CC000940015491524181C5E /* Info-VST3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-VST3.plist"; sourceTree = SOURCE_ROOT; };
 		4F097B6F249770D500566939 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Player.h; path = ../../Source/Player.h; sourceTree = "<group>"; };
 		4F0A84772498003600B2D8EB /* Lfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lfo.h; path = ../../Source/Lfo.h; sourceTree = "<group>"; };
+		4F0B65DB24B3331C00C4A631 /* ShowTableComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ShowTableComponent.h; path = ../../Source/ShowTableComponent.h; sourceTree = "<group>"; };
+		4F0B65DC24B33F7E00C4A631 /* PolyBLEP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PolyBLEP.h; path = ../../Source/FilterExtern/PolyBLEP.h; sourceTree = "<group>"; };
+		4F0B65DD24B33FD700C4A631 /* PolyBLEP.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PolyBLEP.cpp; path = ../../Source/FilterExtern/PolyBLEP.cpp; sourceTree = "<group>"; };
+		4F0B65E224B3400900C4A631 /* PolyBLEPStk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PolyBLEPStk.h; path = ../../Source/FilterExtern/PolyBLEPStk.h; sourceTree = "<group>"; };
 		4F0F15832493458E00031C20 /* Curve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Curve.h; path = ../../Source/Curve.h; sourceTree = "<group>"; };
 		4F0F15882493A20800031C20 /* stk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = stk; path = ../../../../JUCE/modules/stk_module/stk; sourceTree = "<group>"; };
 		4F0F158C2493A21200031C20 /* stk.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = stk.mm; path = ../../../../JUCE/modules/stk_module/stk.mm; sourceTree = "<group>"; };
@@ -561,6 +569,9 @@
 				4FAB8558249A28620039E051 /* SEMFilter.cpp */,
 				4FAB8559249A28620039E051 /* SEMFilter.h */,
 				4FAB8538249A20EC0039E051 /* synthfunctions.h */,
+				4F0B65DC24B33F7E00C4A631 /* PolyBLEP.h */,
+				4F0B65DD24B33FD700C4A631 /* PolyBLEP.cpp */,
+				4F0B65E224B3400900C4A631 /* PolyBLEPStk.h */,
 			);
 			name = Pirkle;
 			sourceTree = "<group>";
@@ -652,6 +663,7 @@
 				4FD0B75C24A7DBDD00B59290 /* ViewMeterComponent.h */,
 				4FD0B75D24A7DDFA00B59290 /* DebugComponent.h */,
 				4FD0B76624A8759B00B59290 /* HeaderComponent.h */,
+				4F0B65DB24B3331C00C4A631 /* ShowTableComponent.h */,
 			);
 			name = component;
 			sourceTree = "<group>";
@@ -1021,6 +1033,7 @@
 				4F53E62424836C1E0080F061 /* WaveTable.cpp in Sources */,
 				4F29AF1624B24FC900118A9B /* VAOnePoleFilter.cpp in Sources */,
 				4F29AF1E24B24FC900118A9B /* Oscillator.cpp in Sources */,
+				4F0B65E024B33FD700C4A631 /* PolyBLEP.cpp in Sources */,
 				4F53E61E248302B60080F061 /* Core.cpp in Sources */,
 				4F29AF1224B24FC900118A9B /* SEMFilter.cpp in Sources */,
 				4FD0B76424A8709700B59290 /* FontLoader.cpp in Sources */,
@@ -1041,6 +1054,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F0B65E124B33FD700C4A631 /* PolyBLEP.cpp in Sources */,
 				4F53E61F248302B60080F061 /* Core.cpp in Sources */,
 				4F258C1E24AA179600F476F4 /* TUN_StringTools.cpp in Sources */,
 				FCF81CA15C2579501330AE33 /* PluginProcessor.cpp in Sources */,
@@ -1106,6 +1120,7 @@
 				4FD0B76324A8709700B59290 /* FontLoader.cpp in Sources */,
 				4FAB855B249A28620039E051 /* SEMFilter.cpp in Sources */,
 				4F29AF0D24B24FC900118A9B /* MoogLadderFilter.cpp in Sources */,
+				4F0B65DF24B33FD700C4A631 /* PolyBLEP.cpp in Sources */,
 				4F9839D1249DD4B10007CD5C /* include_juce_dsp.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1122,6 +1137,7 @@
 				4F53E62224836C1E0080F061 /* WaveTable.cpp in Sources */,
 				4F29AF1424B24FC900118A9B /* VAOnePoleFilter.cpp in Sources */,
 				4F29AF1C24B24FC900118A9B /* Oscillator.cpp in Sources */,
+				4F0B65DE24B33FD700C4A631 /* PolyBLEP.cpp in Sources */,
 				4F53E61C248302B60080F061 /* Core.cpp in Sources */,
 				4F29AF1024B24FC900118A9B /* SEMFilter.cpp in Sources */,
 				4FD0B76224A8709700B59290 /* FontLoader.cpp in Sources */,

@@ -71,22 +71,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "60BAB4CE-8987-4323-BC78-2D1A853C5FBC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Func.h"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "DecibelToLinear(db)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "15F60867-D3F7-4D00-A72D-DA3D4A47C7B4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -375,16 +359,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9DAD22A4-A1A0-4957-BABA-58B1373D661E"
+            uuid = "1B2DE82C-9FC5-4402-BECC-138E9E5F8083"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/Voice.h"
+            filePath = "../../Source/PluginProcessor.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
-            landmarkName = "render(clock, buffer)"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "Synth1AudioProcessor::prepareToPlay(sampleRate, samplesPerBlock)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B2D76AB2-91EF-45A7-B94F-08D4FF028020"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Osc.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "getSample(wt)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

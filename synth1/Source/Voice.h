@@ -31,7 +31,6 @@ class Voice {
 public:
     int vid;
     bool active;
-    //WaveTable *waveTable;
     int noteNumber = 0;
     float velocity = 1.0;
     double volOscSin = 1.0;
@@ -105,10 +104,14 @@ public:
         this->sampleRate = sampleRate;
         this->sr = sampleRate * OVERSAMPLING;
         this->samplesPerBlock = samplesPerBlock;
-
+        this->par = par;
+        
         // OSC
-        osc1.init(sampleRate,samplesPerBlock);
-        osc2.init(sampleRate,samplesPerBlock);
+        osc1.par = par;
+        osc2.par = par;
+        osc1.init(1,sampleRate,samplesPerBlock);
+        osc2.init(2,sampleRate,samplesPerBlock);
+    
         
         // ADSR
         adsr1.init(sampleRate,samplesPerBlock);
@@ -131,10 +134,10 @@ public:
         filter1.setSampleRate(sampleRate);
         filter2.setSampleRate(sampleRate);
         Model::of().isUpdateParams = true;
-        setParams(par);
+        setParams();
     }
     
-    void setParams(float * par){
+    void setParams(){
         adsr1.attackTimeMsec = par[P_ADSR1_ATTACK];
         adsr1.decayTimeMsec = par[P_ADSR1_DECAY];
         adsr1.sustainLevel = par[P_ADSR1_SUSTAIN];
@@ -206,6 +209,7 @@ public:
         adsr4.trigger = par[P_ADSR4_TRIGGER];
         adsr4.triggerTreshold = par[P_ADSR4_TRESHOLD];
         
+
         filter1.setFilterType(par[P_FILTER1_TYPE] );
         filter1.setCutoff(par[P_FILTER1_FREQ]);
         filter1.setResonance(par[P_FILTER1_RES] / 100.0f);
@@ -215,12 +219,15 @@ public:
         filter2.setResonance(par[P_FILTER2_RES] / 100.0f);
     }
     
-    void reset(float * par){
+    void noteOn(int midiNote, float * par){
+        this->noteNumber = midiNote;
+        this->par = par;
+        
         tablePos0 = 0;
         tablePos1 = sampleRate/2;
         tablePos0_n1 = -1;
         
-        setParams(par);
+        setParams();
         
         active = true;
         adsr1.start();
@@ -236,11 +243,15 @@ public:
         filter2.reset();
         filter2.setBoost(true);
         
-        int midiNote1 = noteNumber + par[P_OSC2_SEMI] + 12 * par[P_OSC2_OCT];
-        float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
-        osc1.oscillator.m_dOscFo = freq1;
-        osc1.oscillator.update();
-        osc1.oscillator.startOscillator();
+       // int midiNote1 = noteNumber + par[P_OSC2_SEMI] + 12 * par[P_OSC2_OCT];
+       // float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
+
+        //osc1.oscillator.m_dOscFo = freq1;
+        //osc1.oscillator.update();
+        //osc1.oscillator.startOscillator();
+        
+        osc1.startNote(noteNumber);
+        osc2.startNote(noteNumber);
     }
     
     void kill(){
@@ -250,8 +261,10 @@ public:
         adsr3.state = Adsr::ADSR_OFF;
         adsr4.state = Adsr::ADSR_OFF;
      }
+    
     void retrigger(float * par){
-        reset(par);
+        osc1.retriggerNote();
+        osc2.retriggerNote();
     }
     
     void noteOff(){
@@ -262,8 +275,9 @@ public:
     }
     
     void update(int clock, float * par){
+        this->par = par;
         if(Model::of().isUpdateParams){
-            setParams(par);
+            setParams();
         }
         Model::of().isUpdateParams = false;
     }
@@ -272,24 +286,22 @@ public:
     //   RENDER
     // ===============================================================================================
     void render(int clock, AudioBuffer<float>& buffer, float (&p)[MAXPARAM]){
-        
 
         ScopedNoDenormals noDenormals;
-        int sr = sampleRate * OVERSAMPLING;
-        
+
         // Buffers
         auto* channelDataL = buffer.getWritePointer (0);
         auto* channelDataR = buffer.getWritePointer (1);
 
         // Tables
-        float * table0 = osc1.tables[(int)p[P_OSC1_WAV]];
-        float * table1 = osc2.tables[(int)p[P_OSC2_WAV]];
-        float * table2 = osc2.tables[wSin];
+       // float * table0 = osc1.tables[(int)p[P_OSC1_WAV]];
+       // float * table1 = osc2.tables[(int)p[P_OSC2_WAV]];
+       // float * table2 = osc2.tables[wSin];
         
         float * tableLfo1 = lfo1.tables[(int)p[P_LFO1_WAV]];
-        float * tableLfo2 = lfo2.tables[(int)p[P_LFO2_WAV]];
-        float * tableLfo3 = lfo3.tables[(int)p[P_LFO3_WAV]];
-        float * tableLfo4 = lfo4.tables[(int)p[P_LFO4_WAV]];
+       // float * tableLfo2 = lfo2.tables[(int)p[P_LFO2_WAV]];
+      //  float * tableLfo3 = lfo3.tables[(int)p[P_LFO3_WAV]];
+       // float * tableLfo4 = lfo4.tables[(int)p[P_LFO4_WAV]];
         
         // Prepare
         float volVelo = velocity ;
@@ -300,12 +312,15 @@ public:
             int p1 = tablePos1;
             p0 = p0 / (1.0f + p[P_OSC1_PULSE] * 0.01f);
             p1 = p1 / (1.0f + p[P_OSC2_PULSE] * 0.01f);
-            float v0 = osc1.interpolate(osc1.checkPos(p0 + p[P_OSC1_PHASE] / 360.0f * sr), table0);
-            float v1 = osc1.interpolate(osc1.checkPos(p1 + p[P_OSC2_PHASE] / 360.0f * sr), table1);
+            //float v0 = osc1.interpolate(osc1.checkPos(p0 + p[P_OSC1_PHASE] / 360.0f * sr), table0);
+           // float v1 = osc1.interpolate(osc1.checkPos(p1 + p[P_OSC2_PHASE] / 360.0f * sr), table1);
+            
+            float v0 = osc1.getSample(wSin);
+            float v1 = osc2.getSample(wSin);
             
            // v0 = osc1.oscillator.doOscillate();
             
-            float vSub = osc1.interpolate(osc1.checkPos(tablePosSub), table2);
+            //float vSub = osc1.interpolate(osc1.checkPos(tablePosSub), table2);
 
             v0 *= volVelo;
             v0 *=  DecibelToLinear(p[P_OSC1_VOL]);
@@ -313,7 +328,7 @@ public:
             v1 *= volVelo;
             v1 *=  DecibelToLinear(p[P_OSC2_VOL]);
             
-            vSub = vSub * adsr1.output * p[P_OSC1_SUB];
+            float vSub = 0; // vSub * adsr1.output * p[P_OSC1_SUB];
             float vol = DecibelToLinear(p[P_VOLUME]);
             
             // Mono
@@ -358,48 +373,51 @@ public:
             channelDataR[i] += vSumR;
             
 // Move the Osc forward  =======================================================================
+            
+            osc1.move();
+            osc2.move();
            
             // calc Midi Note Osc 1
-            int midiNote0 = noteNumber + p[P_OSC1_SEMI] + 12 * p[P_OSC1_OCT];
+         //   int midiNote0 = noteNumber + p[P_OSC1_SEMI] + 12 * p[P_OSC1_OCT];
             
             // Get frequency from the Tuning Table
-            float freq0 = Model::of().tuneTable[midiNote0] * Model::of().tuneMulti[midiNote0 % 12];
+         //   float freq0 = Model::of().tuneTable[midiNote0] * Model::of().tuneMulti[midiNote0 % 12];
             
             // calc Midi Note Osc 2
-            int midiNote1 = noteNumber + p[P_OSC2_SEMI] + 12 * p[P_OSC2_OCT];
+          //  int midiNote1 = noteNumber + p[P_OSC2_SEMI] + 12 * p[P_OSC2_OCT];
             
             // Get frequency from the Tuning Table
-            float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
+          //  float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
             
             // fine tune
-            freq0 = freq0 + freq0 *  p[P_OSC1_FINE] * 0.01f;
-            freq1 = freq1 + freq1 *  p[P_OSC2_FINE] * 0.01f;
+          //  freq0 = freq0 + freq0 *  p[P_OSC1_FINE] * 0.01f;
+           // freq1 = freq1 + freq1 *  p[P_OSC2_FINE] * 0.01f;
             
             // LFO Pitch to Osc
-            freq0 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
-            freq1 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
+           //() freq0 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
+           //) freq1 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
             
             // fine tuning from UI relative to 440Hz
-            float t = p[0] / 440.0f;
+           //)) float t = p[0] / 440.0f;
             
             // move pos OSC
-            tablePos0 += OVERSAMPLING * freq0  * t ;
+            //tablePos0 += OVERSAMPLING * freq0  * t ;
             
-            bool sync = false;
-            if(tablePos0 < lastPos0){
-                sync = true;
-            }
+           //( bool sync = false;
+           // if(tablePos0 < lastPos0){
+              //  sync = true;
+            //}
             
-            if(sync && p[P_OSC2_SYNC] ){
-                tablePos1 = 0;
-                sync = false;
-                lastPos0 = 1;
-            }else{
-                tablePos1 += OVERSAMPLING * freq1  * t;
-                lastPos0 = tablePos0;
-            }
+           // if(sync && p[P_OSC2_SYNC] ){
+             //   tablePos1 = 0;
+             //   sync = false;
+              //  lastPos0 = 1;
+          // }else{
+             //  tablePos1 += OVERSAMPLING * freq1  * t;
+              // lastPos0 = tablePos0;
+            //}
             
-            tablePosSub += OVERSAMPLING * freq0 / 3.0f * t;
+           //tablePosSub += OVERSAMPLING * freq0 / 3.0f * t;
             
             // Move LFO
             tablePosLfo1 += OVERSAMPLING * p[P_LFO1_FREQ];
@@ -408,9 +426,9 @@ public:
             tablePosLfo4 += OVERSAMPLING * p[P_LFO4_FREQ];
             
             // bounds check OSC
-            tablePos0 = osc1.checkPos(tablePos0);
-            tablePos1 = osc2.checkPos(tablePos1);
-            tablePosSub = osc2.checkPos(tablePosSub);
+            //tablePos0 = osc1.checkPos(tablePos0);
+           // tablePos1 = osc2.checkPos(tablePos1);
+           // tablePosSub = osc2.checkPos(tablePosSub);
             
              // bounds check LFO
             tablePosLfo1 = lfo1.checkPos(tablePosLfo1);
@@ -444,7 +462,7 @@ private:
     
     double dModulo;
     double dInc;
-    
+    float * par;
 };
     
 #endif /* Voice_h */

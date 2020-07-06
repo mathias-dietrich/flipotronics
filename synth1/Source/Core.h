@@ -75,8 +75,7 @@ class Core : public Player{
         }
         
         voices[vid].midiChannel = midiChannel;
-        voices[vid].noteNumber = midiNoteNumber;
-        voices[vid].reset(p);
+        voices[vid].noteOn(midiNoteNumber, p);
         //std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << std::endl;
     }
     
@@ -162,6 +161,8 @@ private:
     int timeAllowedMsec;
     
     int samplePlayerPos;
+    
+     float p[MAXPARAM];
 };
 
 #endif /* Core_hpp */

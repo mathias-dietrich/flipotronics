@@ -81,6 +81,9 @@ void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     maxTimeMsec = 1000 * samplesPerBlock / sampleRate;
     setArp(false);
     isArpOn = false;
+    
+    BankLoader::of().load();
+    loadPatch(0);
     core->init( sampleRate,  samplesPerBlock);
     waveComponent.init(sampleRate, samplesPerBlock);
     adsrComponent.init(sampleRate, samplesPerBlock);
@@ -88,6 +91,7 @@ void Synth1AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     outputComponent.init(sampleRate, samplesPerBlock);
     spectrum.init(sampleRate, samplesPerBlock);
     curveComponent.init(sampleRate, samplesPerBlock);
+    showTableComponent.init(sampleRate, samplesPerBlock);
 }
 
 void Synth1AudioProcessor::releaseResources(){
