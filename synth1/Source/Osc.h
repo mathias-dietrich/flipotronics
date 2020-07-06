@@ -18,6 +18,7 @@
 #include "FilterExtern/QBLimitedOscillator.h"
 #include "FilterExtern/PolyBLEP.h"
 
+
 class Osc{
     public:
 
@@ -37,23 +38,7 @@ class Osc{
         auto value1 = table[index1];
         return value0 + frac * (value1 - value0);
     }
-    
-    /* SINE,
-           COSINE,
-           TRIANGLE,
-           SQUARE,
-           RECTANGLE,
-           SAWTOOTH,
-           RAMP,
-           MODIFIED_TRIANGLE,
-           MODIFIED_SQUARE,
-           HALF_WAVE_RECTIFIED_SINE,
-           FULL_WAVE_RECTIFIED_SINE,
-           TRIANGULAR_PULSE,
-           TRAPEZOID_FIXED,
-           TRAPEZOID_VARIABLE
-     */
-    
+
     PolyBLEP::Waveform mapWaveEnum(E_WaveType type){
         switch(type){
             case wSin:
@@ -104,10 +89,10 @@ class Osc{
                  break;
                 
             case wWhite:
-                 break;
-                
+                return oscWhite.doOscillate();
+
             case wPink:
-                 break;
+                return oscPink.doOscillate();;
                 
             case wBrown:
                  break;
@@ -152,7 +137,9 @@ class Osc{
         polyBLEP->inc();
         
         // bounds check
-        phase = checkPhaseSin(phase);
+        //phase++;
+        //phase = checkPos(phase);
+       
     }
     
     void retriggerNote(){
@@ -167,8 +154,16 @@ class Osc{
         this->samplesPerBlock = samplesPerBlock;
         
         waveTable = WaveTable::of();
-        oscillator.setSampleRate(sampleRate);
-        oscillator.reset();
+        oscWhite.setSampleRate(sampleRate);
+        oscWhite.m_uWaveform = COscillator::NOISE;
+        oscWhite.reset();
+        oscWhite.startOscillator();
+        
+        oscPink.setSampleRate(sampleRate);
+        oscPink.reset();
+        oscPink.m_uWaveform = COscillator::PNOISE;
+        oscPink.startOscillator();
+        
         if(oscId == 1){
             polyBLEP = new PolyBLEP(sampleRate, PolyBLEP::SINE,  440.0);
         }else{
@@ -202,7 +197,7 @@ class Osc{
         return phase;
     }
     
-    CQBLimitedOscillator oscillator;
+   
     
      float * par;
      int oscId;
@@ -221,6 +216,10 @@ class Osc{
     int paramOffset;
     
     PolyBLEP * polyBLEP;
+    
+     CQBLimitedOscillator oscWhite;
+     CQBLimitedOscillator oscPink;
+    
         
 };
 #endif /* Osc_h */
