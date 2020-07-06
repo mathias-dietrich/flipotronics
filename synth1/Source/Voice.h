@@ -25,6 +25,7 @@
 #include "FilterExtern/SEMFilter.h"
 
 #include "ReleasePool.h"
+#include "ModMatrix.h"
 
 class Voice {
 
@@ -51,6 +52,8 @@ public:
     float tablePosLfo2 = 0;
     float tablePosLfo3 = 0;
     float tablePosLfo4 = 0;
+    
+    ModMatrix modMatrix;
     
     Osc osc1;
     Osc osc2;

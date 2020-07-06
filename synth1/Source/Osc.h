@@ -153,7 +153,7 @@ class Osc{
         this->sr = sampleRate /  2048.0f;
         this->samplesPerBlock = samplesPerBlock;
         
-        waveTable = WaveTable::of();
+       // waveTable = WaveTable::of();
         oscWhite.setSampleRate(sampleRate);
         oscWhite.m_uWaveform = COscillator::NOISE;
         oscWhite.reset();
@@ -203,7 +203,7 @@ class Osc{
      int oscId;
     
     private:
-    WaveTable * waveTable;
+    //WaveTable * waveTable;
     float sampleRate;
     float samplesPerBlock;
     float sr;

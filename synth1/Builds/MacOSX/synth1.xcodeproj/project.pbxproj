@@ -272,6 +272,7 @@
 		4F2DA37F249FE0F600E8873D /* OutputComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OutputComponent.h; path = ../../Source/OutputComponent.h; sourceTree = "<group>"; };
 		4F2DA380249FEAA300E8873D /* AdsrComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AdsrComponent.h; path = ../../Source/AdsrComponent.h; sourceTree = "<group>"; };
 		4F2DA382249FF13000E8873D /* LfoComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LfoComponent.h; path = ../../Source/LfoComponent.h; sourceTree = "<group>"; };
+		4F34542C24B3669A00A5835B /* ModMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModMatrix.h; path = ../../Source/ModMatrix.h; sourceTree = "<group>"; };
 		4F53E61A248302B60080F061 /* Core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Core.cpp; path = ../../Source/Core.cpp; sourceTree = "<group>"; };
 		4F53E61B248302B60080F061 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Core.h; path = ../../Source/Core.h; sourceTree = "<group>"; };
 		4F53E62024836C1E0080F061 /* WaveTable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = WaveTable.cpp; path = ../../Source/WaveTable.cpp; sourceTree = "<group>"; };
@@ -296,7 +297,6 @@
 		4F9839CF249DD4B10007CD5C /* include_juce_dsp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_dsp.mm; path = ../../JuceLibraryCode/include_juce_dsp.mm; sourceTree = "<group>"; };
 		4F9839D8249F98FB0007CD5C /* WaveComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WaveComponent.h; path = ../../Source/WaveComponent.h; sourceTree = "<group>"; };
 		4FA53D032487E84E0056C32E /* ParamBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParamBuilder.h; path = ../../Source/ParamBuilder.h; sourceTree = "<group>"; };
-		4FAB8538249A20EC0039E051 /* synthfunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synthfunctions.h; sourceTree = "<group>"; };
 		4FAB8558249A28620039E051 /* SEMFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SEMFilter.cpp; path = ../../Source/FilterExtern/SEMFilter.cpp; sourceTree = "<group>"; };
 		4FAB8559249A28620039E051 /* SEMFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEMFilter.h; path = ../../Source/FilterExtern/SEMFilter.h; sourceTree = "<group>"; };
 		4FAB855E249A39120039E051 /* ReleasePool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReleasePool.h; path = ../../Source/ReleasePool.h; sourceTree = "<group>"; };
@@ -532,6 +532,7 @@
 				4FAB8569249A95590039E051 /* Detector.h */,
 				4F9839CE249DCEA00007CD5C /* CircularBuffer.h */,
 				4FAC348E24A331B600FB51D7 /* ImageFactory.h */,
+				4F34542C24B3669A00A5835B /* ModMatrix.h */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -568,7 +569,6 @@
 				4F29AF0524B24FC800118A9B /* VAOnePoleFilter.h */,
 				4FAB8558249A28620039E051 /* SEMFilter.cpp */,
 				4FAB8559249A28620039E051 /* SEMFilter.h */,
-				4FAB8538249A20EC0039E051 /* synthfunctions.h */,
 				4F0B65DC24B33F7E00C4A631 /* PolyBLEP.h */,
 				4F0B65DD24B33FD700C4A631 /* PolyBLEP.cpp */,
 				4F0B65E224B3400900C4A631 /* PolyBLEPStk.h */,
