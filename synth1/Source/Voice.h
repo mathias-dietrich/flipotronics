@@ -303,7 +303,7 @@ public:
             float v0 = osc1.interpolate(osc1.checkPos(p0 + p[P_OSC1_PHASE] / 360.0f * sr), table0);
             float v1 = osc1.interpolate(osc1.checkPos(p1 + p[P_OSC2_PHASE] / 360.0f * sr), table1);
             
-            v0 = osc1.oscillator.doOscillate();
+           // v0 = osc1.oscillator.doOscillate();
             
             float vSub = osc1.interpolate(osc1.checkPos(tablePosSub), table2);
 
