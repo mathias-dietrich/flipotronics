@@ -23,28 +23,30 @@ class ShowTableComponent:  public AbstractComponent{
     }
     
      void paint (Graphics& g) override{
-         
-         int tableId = 20;
-         
-         int freq = 440.0f * pow(2.0f, ((tableId - 69) / 12.0f));
+         int freq = 2;
          Rectangle<int> r = getLocalBounds();
          auto width  = r.getWidth();
          auto height  = r.getHeight();
          auto half  = height / 2;
          
+         int sr = sampleRate * OVERSAMPLING;
          g.setColour(Colours::orange);
          g.fillRect(r);
          
          g.setColour(Colours::black);
          int lastY = half;
-         for(int i=0; i < 2048; i++){
-             int y = half - half * wt->sinBuffer[tableId][i] ;
-             int x = i * width / 2048;
-             g.drawLine(x-1,lastY, x ,y);
+         
+         for(int i=0; i < width; i++){
+             int pos = freq * i * sr / width ;
+             while(pos >= sr ){
+                 pos -= sr;
+             }
+             int y = half - half * wt->sinBuffer[pos] ;
+             g.drawLine(i-1,lastY, i ,y);
              lastY = y;
          }
          
-         g.drawFittedText ("ID: " + String(tableId) + " Hz: " + String(freq), r, Justification::bottomLeft, 1);
+         g.drawFittedText (" Hz: " + String(freq), r, Justification::bottomLeft, 1);
      }
     
      void init(float sampleRate, int samplesPerBlock){

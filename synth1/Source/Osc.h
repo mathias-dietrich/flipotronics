@@ -108,6 +108,10 @@ class Osc{
         this->midiNote = midiNote;
         midiNoteCalculated = midiNote + par[P_OSC1_SEMI + paramOffset] + 12 * par[P_OSC1_OCT + paramOffset];
         freq = Model::of().tuneTable[midiNoteCalculated] * Model::of().tuneMulti[midiNoteCalculated % 12];
+        
+        if(oscId == 3){
+            freq = freq / 2.0f;
+        }
         polyBLEP->setFrequency(freq);
         PolyBLEP::Waveform wf = mapWaveEnum(((E_WaveType)par[P_OSC1_WAV + paramOffset]));
         polyBLEP->setWaveform(wf);
@@ -129,8 +133,14 @@ class Osc{
         float t = par[0] / 440.0f;
         freq *= t;
         
-        PolyBLEP::Waveform wf = mapWaveEnum(((E_WaveType)par[P_OSC1_WAV + paramOffset]));
-        polyBLEP->setWaveform(wf);
+        if(oscId < 3){
+            PolyBLEP::Waveform wf = mapWaveEnum(((E_WaveType)par[P_OSC1_WAV + paramOffset]));
+            polyBLEP->setWaveform(wf);
+        }
+        
+        if(oscId == 3){
+            freq = freq / 2.0f;
+        }
         polyBLEP->setFrequency(freq);
         float pulseWidth = par[P_OSC1_PULSE + paramOffset] / 100.0f;
         polyBLEP->setPulseWidth(pulseWidth);
@@ -148,12 +158,15 @@ class Osc{
     
     void init (int oscId, double sampleRate, int samplesPerBlock){
         this->oscId = oscId;
-        this-> paramOffset = 8 * (oscId-1);
+        this-> paramOffset = 0;
+        if(oscId==2){
+            this-> paramOffset = 8;
+        }
+        
         this->sampleRate = sampleRate;
-        this->sr = sampleRate /  2048.0f;
+        this->sr = sampleRate  * OVERSAMPLING;
         this->samplesPerBlock = samplesPerBlock;
         
-       // waveTable = WaveTable::of();
         oscWhite.setSampleRate(sampleRate);
         oscWhite.m_uWaveform = COscillator::NOISE;
         oscWhite.reset();
@@ -164,11 +177,7 @@ class Osc{
         oscPink.m_uWaveform = COscillator::PNOISE;
         oscPink.startOscillator();
         
-        if(oscId == 1){
-            polyBLEP = new PolyBLEP(sampleRate, PolyBLEP::SINE,  440.0);
-        }else{
-            polyBLEP = new PolyBLEP(sampleRate, PolyBLEP::SAWTOOTH,  440.0);
-        }
+        polyBLEP = new PolyBLEP(sampleRate, PolyBLEP::SINE,  440.0);
     }
 
     inline int checkPos(int pos){

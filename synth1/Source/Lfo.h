@@ -40,7 +40,7 @@ public:
        this->samplesPerBlock = samplesPerBlock;
        
        waveTable = WaveTable::of();
-       tables[wSin] = waveTable->sinBuffer[0];
+       tables[wSin] = waveTable->sinBuffer;
        tables[wSaw] = waveTable->squareBuffer;
        tables[wTriangle] = waveTable->sawBuffer;
        tables[wSquare] = waveTable->triangleBuffer;

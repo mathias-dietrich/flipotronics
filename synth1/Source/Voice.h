@@ -57,6 +57,7 @@ public:
     
     Osc osc1;
     Osc osc2;
+    Osc subOsc;
     
     Adsr adsr1;
     Adsr adsr2;
@@ -112,8 +113,10 @@ public:
         // OSC
         osc1.par = par;
         osc2.par = par;
+        subOsc.par = par;
         osc1.init(1,sampleRate,samplesPerBlock);
         osc2.init(2,sampleRate,samplesPerBlock);
+        subOsc.init(3,sampleRate,samplesPerBlock);
     
         
         // ADSR
@@ -254,6 +257,7 @@ public:
         
         osc1.startNote(noteNumber);
         osc2.startNote(noteNumber);
+        subOsc.startNote(noteNumber);
     }
     
     void kill(){
@@ -267,6 +271,7 @@ public:
     void retrigger(float * par){
         osc1.retriggerNote();
         osc2.retriggerNote();
+        subOsc.retriggerNote();
     }
     
     void noteOff(){
@@ -293,6 +298,7 @@ public:
         
         osc1.par = p;
         osc2.par = p;
+        subOsc.par = p;
 
         // Buffers
         auto* channelDataL = buffer.getWritePointer (0);
@@ -313,19 +319,9 @@ public:
         
         // Calulate each Sample
         for (int i=0; i<samplesPerBlock; ++i) {
-            int p0 = tablePos0;
-            int p1 = tablePos1;
-            p0 = p0 / (1.0f + p[P_OSC1_PULSE] * 0.01f);
-            p1 = p1 / (1.0f + p[P_OSC2_PULSE] * 0.01f);
-            //float v0 = osc1.interpolate(osc1.checkPos(p0 + p[P_OSC1_PHASE] / 360.0f * sr), table0);
-           // float v1 = osc1.interpolate(osc1.checkPos(p1 + p[P_OSC2_PHASE] / 360.0f * sr), table1);
-            
             float v0 = osc1.getSample((E_WaveType)p[P_OSC1_WAV]);
             float v1 = osc2.getSample((E_WaveType)p[P_OSC2_WAV]);
-            
-           // v0 = osc1.oscillator.doOscillate();
-            
-            //float vSub = osc1.interpolate(osc1.checkPos(tablePosSub), table2);
+            float vSub = subOsc.getSample((E_WaveType)p[P_OSC1_WAV]);
 
             v0 *= volVelo;
             v0 *=  DecibelToLinear(p[P_OSC1_VOL]);
@@ -333,7 +329,7 @@ public:
             v1 *= volVelo;
             v1 *=  DecibelToLinear(p[P_OSC2_VOL]);
             
-            float vSub = 0; // vSub * adsr1.output * p[P_OSC1_SUB];
+            vSub = vSub * adsr1.output * p[P_OSC1_SUB];
             float vol = DecibelToLinear(p[P_VOLUME]);
             
             // Mono
@@ -381,60 +377,14 @@ public:
             
             osc1.move();
             osc2.move();
-           
-            // calc Midi Note Osc 1
-         //   int midiNote0 = noteNumber + p[P_OSC1_SEMI] + 12 * p[P_OSC1_OCT];
-            
-            // Get frequency from the Tuning Table
-         //   float freq0 = Model::of().tuneTable[midiNote0] * Model::of().tuneMulti[midiNote0 % 12];
-            
-            // calc Midi Note Osc 2
-          //  int midiNote1 = noteNumber + p[P_OSC2_SEMI] + 12 * p[P_OSC2_OCT];
-            
-            // Get frequency from the Tuning Table
-          //  float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
-            
-            // fine tune
-          //  freq0 = freq0 + freq0 *  p[P_OSC1_FINE] * 0.01f;
-           // freq1 = freq1 + freq1 *  p[P_OSC2_FINE] * 0.01f;
-            
-            // LFO Pitch to Osc
-           //() freq0 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
-           //) freq1 *= 1.0 - p[P_LFO1_PITCH] *  lfo0Output;
-            
-            // fine tuning from UI relative to 440Hz
-           //)) float t = p[0] / 440.0f;
-            
-            // move pos OSC
-            //tablePos0 += OVERSAMPLING * freq0  * t ;
-            
-           //( bool sync = false;
-           // if(tablePos0 < lastPos0){
-              //  sync = true;
-            //}
-            
-           // if(sync && p[P_OSC2_SYNC] ){
-             //   tablePos1 = 0;
-             //   sync = false;
-              //  lastPos0 = 1;
-          // }else{
-             //  tablePos1 += OVERSAMPLING * freq1  * t;
-              // lastPos0 = tablePos0;
-            //}
-            
-           //tablePosSub += OVERSAMPLING * freq0 / 3.0f * t;
-            
+            subOsc.move();
+
             // Move LFO
             tablePosLfo1 += OVERSAMPLING * p[P_LFO1_FREQ];
             tablePosLfo2 += OVERSAMPLING * p[P_LFO2_FREQ];
             tablePosLfo3 += OVERSAMPLING * p[P_LFO3_FREQ];
             tablePosLfo4 += OVERSAMPLING * p[P_LFO4_FREQ];
-            
-            // bounds check OSC
-            //tablePos0 = osc1.checkPos(tablePos0);
-           // tablePos1 = osc2.checkPos(tablePos1);
-           // tablePosSub = osc2.checkPos(tablePosSub);
-            
+
              // bounds check LFO
             tablePosLfo1 = lfo1.checkPos(tablePosLfo1);
             tablePosLfo2 = lfo1.checkPos(tablePosLfo2);
