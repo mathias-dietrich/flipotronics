@@ -53,7 +53,7 @@ class PotsComponent : public AbstractComponent, public Slider::Listener {
      void sliderValueChanged(Slider *  slider) override {
             int sid = slider->getName().getIntValue();
             startEdit();
-            int pid = paramRoot * 256 + paramRange * 16 + sid;
+            int pid = paramRoot * 256 + paramRange * 16 + sid + Model::of().editGroup * MAXPARAM;
             if(Model::of().params[pid].smoothTime > 0){
                 Model::of().parTargetDelta[pid] = Model::of().par[pid] - slider->getValue();
             }else{
@@ -68,8 +68,9 @@ class PotsComponent : public AbstractComponent, public Slider::Listener {
     
     void setDials() override{
         float par[MAXPARAM];
+        
         for(int i =0; i < MAXPARAM;++i){
-            par[i] = Model::of().par[i] ;
+            par[i] = Model::of().par[i + Model::of().editGroup * MAXPARAM] ;
         }
         for(int i=0; i < 16; ++i){
             int pid = paramRoot * 256 + paramRange * 16 + i;

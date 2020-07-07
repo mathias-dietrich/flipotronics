@@ -73,8 +73,8 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     auto begin = std::chrono::high_resolution_clock::now();
     
     // Copy PARAMS from the Heap
-    float p[MAXPARAM];
-    for(int i =0; i < MAXPARAM;++i){
+    float p[MAXPARAM * 4];
+    for(int i =0; i < MAXPARAM * 4;++i){
         p[i] = Model::of().par[i] ;
     }
 
@@ -88,7 +88,7 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
             int note = result.getNoteNumber();
             float velocity = result.getVelocity() / 127.0f;
             int channel = result.getChannel();
-            startVoice(channel,note, velocity);
+            startVoice(channel,note, velocity, 0);
         }
         if(result.isNoteOff()){
             int note = result.getNoteNumber();
@@ -131,8 +131,6 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
            voices[i].render(clock, buffer, p, matrix);
        }
      }
-    
-
 
     // Sampler
     if(Model::of().noOfSamplesToPlay > 0){

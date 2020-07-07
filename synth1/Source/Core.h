@@ -69,20 +69,20 @@ class Core : public Player{
     
     void init (double sampleRate, int samplesPerBlock);
     
-    void startVoice(int midiChannel, int midiNoteNumber, float velocity){
+    void startVoice(int midiChannel, int midiNoteNumber, float velocity, int group){
         int vid = findNewVoice(midiNoteNumber, midiChannel);
         voices[vid].velocity = velocity;
         float p[MAXPARAM];
            for(int i =0; i < MAXPARAM;++i){
-               p[i] = Model::of().par[i] ;
+               p[i] = Model::of().par[i + group * MAXPARAM] ;
            }
         if(voices[vid].active){
-            voices[vid].retrigger(p);
+            voices[vid].retrigger(p + group * MAXPARAM);
             return;
         }
         
         voices[vid].midiChannel = midiChannel;
-        voices[vid].noteOn(midiNoteNumber, p);
+        voices[vid].noteOn(midiNoteNumber, p + group * MAXPARAM);
         //std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << std::endl;
     }
     

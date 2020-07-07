@@ -35,10 +35,10 @@ class BankLoader {
             PatchData p;
 
             // copy the floats
-            for(int i=0; i < MAXPARAM;i++){
+            for(int i=0; i < MAXPARAM * 4;i++){
                 p.floatNumbers[i] = Model::of().par[i];
             }
-            p.floatCount = MAXPARAM;
+            p.floatCount = MAXPARAM * 4;
             p.name = Model::of().patchNameCurrent;
             
             Model::of().bankData.patchData[Model::of().patchCurrent] = p;

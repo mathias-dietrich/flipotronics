@@ -291,13 +291,10 @@ public:
     // ===============================================================================================
     //   RENDER
     // ===============================================================================================
-    void render(int clock, AudioBuffer<float>& buffer, float (&p)[MAXPARAM], Matrix & matrix){
+    void render(int clock, AudioBuffer<float>& buffer, float (&p)[MAXPARAM * 4], Matrix & matrix){
 
         ScopedNoDenormals noDenormals;
-        
-        
-       
-        
+
         osc1.par = p;
         osc2.par = p;
         subOsc.par = p;
@@ -305,7 +302,6 @@ public:
         // Buffers
         auto* channelDataL = buffer.getWritePointer (0);
         auto* channelDataR = buffer.getWritePointer (1);
-
 
         float * tableLfo1 = lfo1.tables[(int)p[P_LFO1_WAV]];
         float * tableLfo2 = lfo2.tables[(int)p[P_LFO2_WAV]];
@@ -379,7 +375,6 @@ public:
             channelDataR[i] += vSumR;
             
 // Move the Osc forward  =======================================================================
-            
             
             osc1.modFreq = matrix.targets[d_OSC1_FREQ];
             osc1.modVol = matrix.targets[d_OSC1_VOL];

@@ -19,7 +19,7 @@ class Player{
     Player(){}
     virtual ~Player(){}
 
-    virtual void startVoice(int midiChannel, int midiNoteNumber, float velocity) = 0;
+    virtual void startVoice(int midiChannel, int midiNoteNumber, float velocity, int group) = 0;
     virtual void endVoice(int midiChannel, int midiNoteNumber) = 0;
 };
 

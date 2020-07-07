@@ -42,11 +42,11 @@ class Delay {
         
         int delLeft = par[P_FX_DELAYL_TIME] * sampleRate * 0.001;
         int delRight = par[P_FX_DELAYR_TIME] * sampleRate * 0.001;
-        float delLeftF = par[P_FX_DELAYL_FEEDBACK];
+       // float delLeftF = par[P_FX_DELAYL_FEEDBACK];
        
         float delLeftMix = par[P_FX_DELAYL_MIX];
         float delRightMix = par[P_FX_DELAYR_MIX];
-        float delRightF = par[P_FX_DELAYR_FEEDBACK];
+       // float delRightF = par[P_FX_DELAYR_FEEDBACK];
         
         for(int i=0; i < samplesPerBlock;++i){
             bufL[bufPos] = channelDataL[i];

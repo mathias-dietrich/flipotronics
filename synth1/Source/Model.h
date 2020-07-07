@@ -33,7 +33,7 @@ class PatchData {
     int stringCount= 0;
     int binCount= 0;
     int intNumbers[128];
-    float floatNumbers[1024];
+    float floatNumbers[1024 * 4];
     double doubleNumbers[16];
     String stringTable[16];
     char binaries[0];

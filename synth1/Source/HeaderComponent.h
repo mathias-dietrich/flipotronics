@@ -206,7 +206,7 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
     void paint (Graphics& g) override{
         Rectangle<int> r = getLocalBounds();
         auto width  = getLocalBounds().getWidth();
-        auto height  = getLocalBounds().getHeight();
+        //auto height  = getLocalBounds().getHeight();
         
         g.fillAll (Colours::black);
 

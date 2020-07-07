@@ -113,7 +113,7 @@ class Arp : public Thread {
                isNoteOn = true;
                currentNote = 0;
                runningNote =  Model::of().par[P_ARP_NOTE1] +  Model::of().par[P_ARP_TRANSPOSE];
-               player->startVoice(1,runningNote, 0.9);
+               player->startVoice(1,runningNote, 0.9,0);
                continue;
            }
            
@@ -132,7 +132,7 @@ class Arp : public Thread {
               runningNote =  Model::of().par[noteIndex];
               runningNote +=  Model::of().par[P_ARP_TRANSPOSE];
               
-              player->startVoice(1,runningNote,   Model::of().par[P_ARP_VELOCITY] / 127.0f);
+              player->startVoice(1,runningNote,   Model::of().par[P_ARP_VELOCITY] / 127.0f,0);
               ++currentNote;
               if(currentNote >=  Model::of().par[P_ARP_NOTECOUNT]){
                   currentNote = 0;

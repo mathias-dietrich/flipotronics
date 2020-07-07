@@ -77,7 +77,7 @@ public:
     }
     
     void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity) override {
-        core->startVoice( midiChannel,  midiNoteNumber,  velocity);
+        core->startVoice( midiChannel,  midiNoteNumber,  velocity,0);
         Model::of().isUpdateParams = true;
     }
      

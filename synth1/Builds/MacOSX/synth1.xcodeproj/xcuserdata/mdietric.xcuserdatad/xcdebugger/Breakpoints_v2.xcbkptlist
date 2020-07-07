@@ -39,22 +39,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D223FFB9-A0DC-4BFE-AFE3-223F72D6BE90"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/PatchLoader.h"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "load(pNo)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "740C68D7-1723-4A7A-9BAC-257844D7AF3D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -224,7 +208,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "40"
             endingLineNumber = "40"
-            landmarkName = "handle(buffer, totalNumInputChannels, totalNumOutputChannels)"
+            landmarkName = "handle(buffer, totalNumInputChannels, totalNumOutputChannels, par)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -240,7 +224,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
             endingLineNumber = "51"
-            landmarkName = "handle(buffer, totalNumInputChannels, totalNumOutputChannels)"
+            landmarkName = "handle(buffer, totalNumInputChannels, totalNumOutputChannels, par)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

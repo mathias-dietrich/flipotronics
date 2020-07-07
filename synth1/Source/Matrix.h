@@ -95,7 +95,7 @@ public:
         }
     }
     
-    inline void calc(float (&p)[MAXPARAM]){
+    inline void calc(float (&p)[MAXPARAM * 4]){
            for( int i = 0; i < d_TARGETS;i++){
                float t = 1.0f;
                for( int y = 0; y < s_SOURCES;y++){
