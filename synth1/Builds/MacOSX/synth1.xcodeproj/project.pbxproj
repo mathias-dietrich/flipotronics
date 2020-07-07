@@ -272,6 +272,7 @@
 		4F2DA37F249FE0F600E8873D /* OutputComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OutputComponent.h; path = ../../Source/OutputComponent.h; sourceTree = "<group>"; };
 		4F2DA380249FEAA300E8873D /* AdsrComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AdsrComponent.h; path = ../../Source/AdsrComponent.h; sourceTree = "<group>"; };
 		4F2DA382249FF13000E8873D /* LfoComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LfoComponent.h; path = ../../Source/LfoComponent.h; sourceTree = "<group>"; };
+		4F2FE82224B3B78B007524B1 /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Matrix.h; path = ../../Source/Matrix.h; sourceTree = "<group>"; };
 		4F34542C24B3669A00A5835B /* ModMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModMatrix.h; path = ../../Source/ModMatrix.h; sourceTree = "<group>"; };
 		4F53E61A248302B60080F061 /* Core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Core.cpp; path = ../../Source/Core.cpp; sourceTree = "<group>"; };
 		4F53E61B248302B60080F061 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Core.h; path = ../../Source/Core.h; sourceTree = "<group>"; };
@@ -533,6 +534,7 @@
 				4F9839CE249DCEA00007CD5C /* CircularBuffer.h */,
 				4FAC348E24A331B600FB51D7 /* ImageFactory.h */,
 				4F34542C24B3669A00A5835B /* ModMatrix.h */,
+				4F2FE82224B3B78B007524B1 /* Matrix.h */,
 			);
 			name = core;
 			sourceTree = "<group>";

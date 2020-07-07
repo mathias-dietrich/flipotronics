@@ -16,6 +16,9 @@
 #include "Func.h"
 #include "Param.h"
 
+#define P_NONE 1024
+#define P_FIXTURN 1025
+
 #define P_TUNING 0
 #define P_NOVOICES 1
 #define P_EXP_FILTER1 2

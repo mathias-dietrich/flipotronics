@@ -59,6 +59,10 @@ void Core::init (double sampleRate, int samplesPerBlock){
     detector.setRelease(200);
     
     timeAllowedMsec =  samplesPerBlock / sampleRate * 1000 ;
+    
+    // Build Modulation Matrix
+    // MatrixSource , MatrixDest , paramMulti, paramAdd, MatrixTransform ,isEnabled=true
+    matrix.addEntry(matrix.createEntry(s_LFO1, d_OSC1_FREQ, P_LFO1_PITCH, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR));
 }
 
 void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int totalNumInputChannels, int totalNumOutputChannels) {
@@ -122,9 +126,11 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
     // Render Voices
     for(int i=0; i < MAXVOICE;++i){
        if(voices[i].active){
-           voices[i].render(clock, buffer, p);
+           voices[i].render(clock, buffer, p, matrix);
        }
      }
+    
+
 
     // Sampler
     if(Model::of().noOfSamplesToPlay > 0){

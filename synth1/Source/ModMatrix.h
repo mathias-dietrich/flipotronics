@@ -163,8 +163,8 @@ struct ModMatrixRow
     float dUIContolValue;
 
     // --- needs to default to 1.0 in case no GUI control
-    float* pModIntensity;    // <- "ucControl" in MMA DLS
-    float* pModRange;        // <- "lScale" in MMA DLS
+    std::atomic<float>* pModIntensity;    // <- "ucControl" in MMA DLS
+    std::atomic<float>* pModRange;        // <- "lScale" in MMA DLS
 
     // --- transform on Source
     Transform uSourceTransform;
@@ -310,6 +310,20 @@ class ModMatrix{
     
             return false;
         }
+    
+    inline ModMatrixRow* createMatrixRow(int uSource, int uDestination, std::atomic<float>* pIntensity, std::atomic<float>* pRange, Transform uTransform, bool bEnable = true)
+    {
+        ModMatrixRow* pRow = new ModMatrixRow;
+        pRow->uSourceIndex = uSource;
+        pRow->uDestinationIndex = uDestination;
+        pRow->pModIntensity = pIntensity; // 0->1
+        pRow->pModRange = pRange;
+        pRow->uSourceTransform = uTransform; // for AmpMod
+        pRow->bEnable = bEnable; // on/off
+        pRow->dUIContolValue = 0.0;
+        return pRow;
+    }
+    
     
     // go through each row and transfer/accumulate sources into destinations
         // destination += source*intensity*range

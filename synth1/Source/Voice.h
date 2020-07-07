@@ -26,6 +26,7 @@
 
 #include "ReleasePool.h"
 #include "ModMatrix.h"
+#include "Matrix.h"
 
 class Voice {
 
@@ -52,8 +53,6 @@ public:
     float tablePosLfo2 = 0;
     float tablePosLfo3 = 0;
     float tablePosLfo4 = 0;
-    
-    ModMatrix modMatrix;
     
     Osc osc1;
     Osc osc2;
@@ -292,9 +291,12 @@ public:
     // ===============================================================================================
     //   RENDER
     // ===============================================================================================
-    void render(int clock, AudioBuffer<float>& buffer, float (&p)[MAXPARAM]){
+    void render(int clock, AudioBuffer<float>& buffer, float (&p)[MAXPARAM], Matrix & matrix){
 
         ScopedNoDenormals noDenormals;
+        
+        
+       
         
         osc1.par = p;
         osc2.par = p;
@@ -304,15 +306,11 @@ public:
         auto* channelDataL = buffer.getWritePointer (0);
         auto* channelDataR = buffer.getWritePointer (1);
 
-        // Tables
-       // float * table0 = osc1.tables[(int)p[P_OSC1_WAV]];
-       // float * table1 = osc2.tables[(int)p[P_OSC2_WAV]];
-       // float * table2 = osc2.tables[wSin];
-        
+
         float * tableLfo1 = lfo1.tables[(int)p[P_LFO1_WAV]];
-       // float * tableLfo2 = lfo2.tables[(int)p[P_LFO2_WAV]];
-      //  float * tableLfo3 = lfo3.tables[(int)p[P_LFO3_WAV]];
-       // float * tableLfo4 = lfo4.tables[(int)p[P_LFO4_WAV]];
+        float * tableLfo2 = lfo2.tables[(int)p[P_LFO2_WAV]];
+        float * tableLfo3 = lfo3.tables[(int)p[P_LFO3_WAV]];
+        float * tableLfo4 = lfo4.tables[(int)p[P_LFO4_WAV]];
         
         // Prepare
         float volVelo = velocity ;
@@ -335,7 +333,14 @@ public:
             // Mono
             float mono = (v0 + v1 + vSub)  * vol ;
             
-            float lfo0Output = tableLfo1[((int)tablePosLfo1)];
+            // Feed Matrix
+           float lfo0Output = matrix.sources[s_LFO1] = tableLfo1[((int)tablePosLfo1)];
+            matrix.sources[s_LFO2] = tableLfo2[((int)tablePosLfo2)];
+            matrix.sources[s_LFO3] = tableLfo3[((int)tablePosLfo3)];
+            matrix.sources[s_LFO4] = tableLfo4[((int)tablePosLfo4)];
+            
+            // Calc Matrix
+            matrix.calc(p);
             
              // Filter
             if(filter1.getFilterType() != OFF2){
@@ -375,6 +380,8 @@ public:
             
 // Move the Osc forward  =======================================================================
             
+            
+            osc1.modFreq = matrix.targets[d_OSC1_FREQ];
             osc1.move();
             osc2.move();
             subOsc.move();

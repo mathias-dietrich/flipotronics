@@ -116,6 +116,7 @@ class Osc{
         PolyBLEP::Waveform wf = mapWaveEnum(((E_WaveType)par[P_OSC1_WAV + paramOffset]));
         polyBLEP->setWaveform(wf);
         polyBLEP->setPulseWidth(par[P_OSC1_PULSE + paramOffset] / 100.0f);
+        modFreq = 1;
     }
     
     void move(){
@@ -131,7 +132,7 @@ class Osc{
         
         // overall tune
         float t = par[0] / 440.0f;
-        freq *= t;
+        freq *= t * modFreq;
         
         if(oscId < 3){
             PolyBLEP::Waveform wf = mapWaveEnum(((E_WaveType)par[P_OSC1_WAV + paramOffset]));
@@ -210,6 +211,7 @@ class Osc{
     
      float * par;
      int oscId;
+    float modFreq = 1;
     
     private:
     //WaveTable * waveTable;
@@ -223,6 +225,8 @@ class Osc{
    
     float freq;
     int paramOffset;
+    
+    
     
     PolyBLEP * polyBLEP;
     

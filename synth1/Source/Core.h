@@ -23,12 +23,17 @@
 #include "Delay.h"
 #include "Detector.h"
 #include "BankLoader.h"
+#include "ModMatrix.h"
+#include "Matrix.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 
 class Core : public Player{
     
   public:
+    
+    Matrix matrix;
+    ModMatrix modMatrix;
     
     AbstractFifo test { 1024 };
     AudioSampleFifo<float> fifo;
@@ -162,7 +167,7 @@ private:
     
     int samplePlayerPos;
     
-     float p[MAXPARAM];
+    float p[MAXPARAM];
 };
 
 #endif /* Core_hpp */
