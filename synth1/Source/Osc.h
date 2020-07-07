@@ -74,25 +74,25 @@ class Osc{
     float getSample(E_WaveType wt){
         switch(wt){
             case wSin:
-                return polyBLEP->get();
+                return modVol * polyBLEP->get();
                 
             case wSaw:
-                return polyBLEP->get();
+                return modVol * polyBLEP->get();
                 
             case wTriangle:
-                return polyBLEP->get();
+                return modVol * polyBLEP->get();
                 
             case wSquare:
-                return polyBLEP->get();
+                return modVol * polyBLEP->get();
                 
             case wShark:
                  break;
                 
             case wWhite:
-                return oscWhite.doOscillate();
+                return modVol * oscWhite.doOscillate();
 
             case wPink:
-                return oscPink.doOscillate();;
+                return modVol * oscPink.doOscillate();;
                 
             case wBrown:
                  break;
@@ -117,6 +117,7 @@ class Osc{
         polyBLEP->setWaveform(wf);
         polyBLEP->setPulseWidth(par[P_OSC1_PULSE + paramOffset] / 100.0f);
         modFreq = 1;
+        modVol = 1;
     }
     
     void move(){
@@ -212,6 +213,7 @@ class Osc{
      float * par;
      int oscId;
     float modFreq = 1;
+    float modVol = 1;
     
     private:
     //WaveTable * waveTable;

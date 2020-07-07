@@ -35,7 +35,8 @@ enum MatrixSource{
 enum MatrixDest{
     d_NONE = 0,
     d_OSC1_FREQ,
-    d_OSC2,
+    d_OSC1_VOL,
+    d_FILTER1_CUTOFF,
     d_TARGETS
 };
 

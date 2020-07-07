@@ -382,6 +382,8 @@ public:
             
             
             osc1.modFreq = matrix.targets[d_OSC1_FREQ];
+            osc1.modVol = matrix.targets[d_OSC1_VOL];
+            filter1.modCutoff = matrix.targets[d_FILTER1_CUTOFF];
             osc1.move();
             osc2.move();
             subOsc.move();

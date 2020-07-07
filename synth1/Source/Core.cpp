@@ -63,6 +63,8 @@ void Core::init (double sampleRate, int samplesPerBlock){
     // Build Modulation Matrix
     // MatrixSource , MatrixDest , paramMulti, paramAdd, MatrixTransform ,isEnabled=true
     matrix.addEntry(matrix.createEntry(s_LFO1, d_OSC1_FREQ, P_LFO1_PITCH, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR));
+    matrix.addEntry(matrix.createEntry(s_LFO1, d_OSC1_VOL, P_LFO1_VOL, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR));
+    matrix.addEntry(matrix.createEntry(s_LFO1, d_FILTER1_CUTOFF, P_LFO1_FILTER, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR));
 }
 
 void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int totalNumInputChannels, int totalNumOutputChannels) {

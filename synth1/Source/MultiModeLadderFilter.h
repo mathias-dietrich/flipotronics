@@ -46,11 +46,12 @@ public:
         return filterOutput;
     }
     inline void setCutoff(const float cutoff){
-        m_f1.setCutoff(cutoff);
-        m_f2.setCutoff(cutoff);
-        m_f3.setCutoff(cutoff);
-        m_f4.setCutoff(cutoff);
-        m_cutoff = cutoff;
+        float c = cutoff *  modCutoff;
+        m_f1.setCutoff(c);
+        m_f2.setCutoff(c);
+        m_f3.setCutoff(c);
+        m_f4.setCutoff(c);
+        m_cutoff = c;
         setCoefficients();
     }
     inline void setResonance(const float res){
@@ -150,6 +151,8 @@ public:
     int getFilterType(){
         return m_filterType ;
     }
+    
+    float modCutoff;
     
 private:
     inline void setCoefficients(){
