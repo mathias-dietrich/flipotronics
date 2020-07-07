@@ -25,7 +25,7 @@
 #include "BankLoader.h"
 #include "ModMatrix.h"
 #include "Matrix.h"
-
+#include "ControllerMapping.h"
 
 // https://docs.juce.com/master/tutorial_synth_using_midi_input.html
 
@@ -35,6 +35,7 @@ class Core : public Player{
     
     Matrix matrix;
     ModMatrix modMatrix;
+    ControllerMapping controllerMapping;
     
     AbstractFifo test { 1024 };
     AudioSampleFifo<float> fifo;

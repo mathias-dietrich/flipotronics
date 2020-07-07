@@ -63,6 +63,27 @@ public:
         btnRange3.setRadioGroupId(21);
         addAndMakeVisible (btnRange3);
         
+        btnA.setButtonText ("A <");
+        btnA.addListener (this);
+        btnA.setRadioGroupId(100);
+        addAndMakeVisible (btnA);
+        btnA.setToggleState(true, NotificationType::dontSendNotification);
+        
+        btnB.setButtonText ("B");
+        btnB.addListener (this);
+        btnB.setRadioGroupId(101);
+        addAndMakeVisible (btnB);
+        
+        btnC.setButtonText ("C");
+        btnC.addListener (this);
+        btnC.setRadioGroupId(102);
+        addAndMakeVisible (btnC);
+        
+        btnD.setButtonText ("D");
+        btnD.addListener (this);
+        btnD.setRadioGroupId(103);
+        addAndMakeVisible (btnD);
+        
         for(int i=0; i < 8; ++i){
            addAndMakeVisible (btnLabel[i]);
            btnLabel[i].setColour (Label::textColourId, Colours::green);
@@ -133,6 +154,64 @@ public:
             setButtonRanges();
             return;
         }
+        
+        // A
+        if(button->getRadioGroupId()==100) {
+            btnA.setToggleState(true, NotificationType::dontSendNotification);
+            btnA.setButtonText("A <");
+            btnB.setButtonText("B");
+            btnC.setButtonText("C");
+            btnD.setButtonText("D");
+
+            btnB.setToggleState(false, NotificationType::dontSendNotification);
+            btnC.setToggleState(false, NotificationType::dontSendNotification);
+            btnD.setToggleState(false, NotificationType::dontSendNotification);
+            Model::of().editGroup = 0;
+            return;
+        }
+        // B
+        if(button->getRadioGroupId()==101) {
+            btnA.setButtonText("A");
+            btnB.setButtonText("B <");
+            btnC.setButtonText("C");
+            btnD.setButtonText("D");
+            
+            btnA.setToggleState(false, NotificationType::dontSendNotification);
+            btnB.setToggleState(true, NotificationType::dontSendNotification);
+            btnC.setToggleState(false, NotificationType::dontSendNotification);
+            btnD.setToggleState(false, NotificationType::dontSendNotification);
+            Model::of().editGroup = 1;
+            return;
+        }
+        // C
+        if(button->getRadioGroupId()==102) {
+            btnA.setButtonText("A");
+            btnB.setButtonText("B");
+            btnC.setButtonText("C <");
+            btnD.setButtonText("D");
+            
+            btnA.setToggleState(false, NotificationType::dontSendNotification);
+            btnB.setToggleState(false, NotificationType::dontSendNotification);
+            btnC.setToggleState(true, NotificationType::dontSendNotification);
+            btnD.setToggleState(false, NotificationType::dontSendNotification);
+            Model::of().editGroup = 2;
+            return;
+        }
+        // D
+        if(button->getRadioGroupId()==103) {
+            btnA.setButtonText("A");
+            btnB.setButtonText("B");
+            btnC.setButtonText("C");
+            btnD.setButtonText("D <");
+            
+            btnA.setToggleState(false, NotificationType::dontSendNotification);
+            btnB.setToggleState(false, NotificationType::dontSendNotification);
+            btnC.setToggleState(false, NotificationType::dontSendNotification);
+            btnD.setToggleState(true, NotificationType::dontSendNotification);
+            Model::of().editGroup = 3;
+            return;
+        }
+        
         paramRange = button->getRadioGroupId();
         setDials();
     }
@@ -229,10 +308,17 @@ public:
        }
         
         int xVal = 835;
+       
         btnRange0.setBounds (xVal, 5, 60, 20);
         btnRange1.setBounds (xVal+70, 5, 60, 20);
         btnRange2.setBounds (xVal+140, 5, 60, 20);
         btnRange3.setBounds (xVal+210, 5, 60, 20);
+        
+         int yVal = 5;
+        btnA.setBounds (xVal+280, yVal, 60, 20);
+        btnB.setBounds (xVal+350, yVal, 60, 20);
+        btnC.setBounds (xVal+420, yVal, 60, 20);
+        btnD.setBounds (xVal+490, yVal, 60, 20);
         
         for(int i=0; i < 8; ++i){
             btnLabel[i].setBounds (10 + i * 100, 43, 100, 18);;
@@ -243,6 +329,7 @@ public:
         rootLabel[2].setBounds (xVal+140, 25, 60, 20);
         rootLabel[3].setBounds (xVal+210, 25, 60, 20);
     }
+    
      PotsComponent * potsComponent;
     
 private:
@@ -257,6 +344,11 @@ private:
     TextButton btnRange2;
     TextButton btnRange3;
     TextButton btnParam[16];
+    
+    TextButton btnA;
+    TextButton btnB;
+    TextButton btnC;
+    TextButton btnD;
 };
 
 #endif /* ParamButtonComponent_h */

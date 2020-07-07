@@ -9,8 +9,16 @@
 #ifndef ControllerMapping_h
 #define ControllerMapping_h
 
+struct ControlMapping{
+    
+};
+
 class ControllerMapping{
     
+    
+    
 public:
+    ControlMapping mapping[128];
+    
 };
 #endif /* ControllerMapping_h */

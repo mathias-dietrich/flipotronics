@@ -20,4 +20,9 @@
 
 #define SCOPEFRAMES 25
 
+#define PATCH_A 0
+#define PATCH_B 1024
+#define PATCH_C 2048
+#define PATCH_D 3072
+
 #endif /* Const_h */

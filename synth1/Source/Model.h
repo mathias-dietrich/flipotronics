@@ -65,7 +65,8 @@ public:
     PatchData patchData[256];
     String magicEnd = "FLOP";
     
-    std::atomic<float> par[MAXPARAM];
+    std::atomic<float> par[MAXPARAM * 4];
+    
 };
 
 class Model {
@@ -80,14 +81,14 @@ public:
     void operator=(Model const&)  = delete;
     
    void set(){
-        for(int i=0;i<MAXPARAM;i++ ){
+        for(int i=0;i<MAXPARAM * 4;i++ ){
            paramsUndo[i] = (float)par[i];
         }
         patchNameCurrentUndo = patchNameCurrent;
     }
     
     void recall(){
-        for(int i=0;i<MAXPARAM;i++ ){
+        for(int i=0;i<MAXPARAM * 4;i++ ){
             par[i] = (float)paramsUndo[i];
         }
         patchNameCurrent = patchNameCurrentUndo;
@@ -98,7 +99,7 @@ public:
         patchNameCurrent = patchNameCurrentUndo;
         patchNameCurrentUndo = pn;
 
-        for(int i=0;i<MAXPARAM;i++ ){
+        for(int i=0;i<MAXPARAM * 4;i++ ){
             float t = par[i];
             par[i] =  (float)paramsUndo[i];
             paramsUndo[i] = t;
@@ -117,21 +118,24 @@ public:
     std::atomic<int> viewModeSetting;
     
     // floats
-    std::atomic<float> par[MAXPARAM];
+    std::atomic<float> par[MAXPARAM * 4];
     std::atomic<float> sumPeakL;
     std::atomic<float> sumPeakR;
     std::atomic<float> sumRMSL;
     std::atomic<float> sumRMSR;
     
-    std::atomic<float> paramsUndo[MAXPARAM];
+    std::atomic<float> paramsUndo[MAXPARAM * 4];
     
-    std::atomic<float> parTargetDelta[MAXPARAM];
+    std::atomic<float> parTargetDelta[MAXPARAM * 4];
     std::atomic<float> tuneTable[128];
     std::atomic<float> tuneMulti[12];
 
     // Strings
     String patchNameCurrent;
     String patchNameCurrentUndo;
+    
+    // A B C or D
+    std::atomic<int> editGroup;
     
     // buffer
     AudioBuffer<float> fileBuffer;
