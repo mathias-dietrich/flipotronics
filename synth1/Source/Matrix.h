@@ -55,6 +55,9 @@ struct MatrixEntry{
 
     // --- to easily turn on/off a modulation routing
     bool isEnabled;
+    
+    // Curve
+    float curve;
 };
 
 class Matrix{

@@ -90,11 +90,55 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         btnLoad.setRadioGroupId(17);
         addAndMakeVisible (btnLoad);
         
+        addAndMakeVisible(viewZoom);
+        viewZoom.addItem ("50%", 1);
+        viewZoom.addItem ("75%", 2);
+        viewZoom.addItem ("100%", 3);
+        viewZoom.addItem ("125%", 4);
+        viewZoom.addItem ("150%", 5);
+        viewZoom.addItem ("200%", 6);
+        viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
+        
+        viewZoom.setSelectedId(3,  NotificationType::dontSendNotification);
+        
         setDials();
     }
    
     ~HeaderComponent () {
       
+    }
+    
+    void styleMenuChangedViewZoom()
+    {
+        int ws = 1400;
+        int hs = 780;
+        float p = 1.0f;
+        Desktop::getInstance().setGlobalScaleFactor(1);
+        switch (viewZoom.getSelectedId())
+        {
+            case 1: // 50
+                p = 0.5f;
+                break;
+            case 2: // 75
+                p = 0.75f;
+                break;
+            case 3: // 100
+                p = 1.0f;
+                break;
+            case 4: // 125
+                p = 1.25f;
+                break;
+            case 5: // 150
+                p = 1.5f;
+                break;
+                
+            case 6: // 200
+                p = 2.0f;
+                break;
+        }
+        setSize (ws * p, hs * p);
+        Desktop::getInstance().setGlobalScaleFactor((float)this->getWidth() / ws);
+        repaint();
     }
     
     void buttonClicked (Button* button)  override {
@@ -226,6 +270,8 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         btnCompare.setBounds (1075, 5, 70, 20);
         btnSave.setBounds (1150, 5, 70, 20);
         btnLoad.setBounds (1225, 5, 70, 20);
+        
+        viewZoom.setBounds (1225, 30, 70, 17);
     }
     
      void sliderValueChanged(Slider *  slider) override {
@@ -233,6 +279,7 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
      }
         
     Synth1AudioProcessor * processor;
+    ComboBox viewZoom;
     
 private:
     FontLoader fontLoader;

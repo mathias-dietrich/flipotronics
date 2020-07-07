@@ -8,6 +8,9 @@
 Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p) : 
     AudioProcessorEditor (&p),processor (p){
 
+        
+      addKeyListener(this);
+        
     Model::of().patchCurrent = 0;
 
     ImageFactory::of().init();
@@ -47,17 +50,6 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     Model::of().viewModeSetting = vWave;
     viewMode.setSelectedId(Model::of().viewModeSetting, NotificationType::dontSendNotification);
     addAndMakeVisible(viewMode);
-        
-    addAndMakeVisible(viewZoom);
-    viewZoom.addItem ("50%", 1);
-    viewZoom.addItem ("75%", 2);
-    viewZoom.addItem ("100%", 3);
-    viewZoom.addItem ("125%", 4);
-    viewZoom.addItem ("150%", 5);
-    viewZoom.addItem ("200%", 6);
-    viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
-    
-    viewZoom.setSelectedId(3,  NotificationType::dontSendNotification);
     
     // Components
     headerComponent.processor = &processor;
@@ -98,11 +90,11 @@ void Synth1AudioProcessorEditor::resized() {
     int width = r.getWidth();
     int height = r.getHeight();
    
-    btnArp.setBounds (840, 310, 120, 25);
+    btnArp.setBounds (width - 130, 310, 120, 25);
     
     // Drop Downs
-    viewMode.setBounds (840, 340, 120, 20);
-    viewZoom.setBounds (width-90, 55, 80, 20);
+    viewMode.setBounds (width - 130, 340, 120, 20);
+
     
     // Spectrum
     int componentY = 370;

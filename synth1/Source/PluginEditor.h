@@ -21,10 +21,11 @@
 #include "FontLoader.h"
 #include "HeaderComponent.h"
 #include "ShowTableComponent.h"
+#include "MyKeyListener.h"
 
 //============Poti==================================================================
 
-class Synth1AudioProcessorEditor  : public AudioProcessorEditor, public Button::Listener,  public Timer
+class Synth1AudioProcessorEditor  : public AudioProcessorEditor, public Button::Listener,  public Timer, public KeyListener
 {
 public:
     Synth1AudioProcessorEditor (Synth1AudioProcessor&);
@@ -42,9 +43,18 @@ public:
     int paramRoot = 0;
 
     ComboBox viewMode;
-    ComboBox viewZoom;
+
 
     int maxTime;
+    
+     bool keyPressed(const KeyPress &k, Component *c) override{
+         std::cout << "key" << k. getTextDescription() << std::endl;
+         myListenr.handle(k.getKeyCode(), k.getTextDescription());
+         setDials();
+         return true;
+    }
+    
+    MyKeyListener myListenr;
     
 private:
     Synth1AudioProcessor& processor;
@@ -87,6 +97,21 @@ private:
         viewMeterComponent.setDials();
         debugComponent.setDials();
         headerComponent.setDials();
+        
+       // headerComponent.setVisible(Model::of().showDebugWidgets);
+        viewMeterComponent.setVisible(Model::of().showDebugWidgets);
+        debugComponent.setVisible(Model::of().showDebugWidgets);
+        potsComponent.setVisible(Model::of().showDebugWidgets);
+        paramButtonComponent.setVisible(Model::of().showDebugWidgets);
+        processor.spectrum.setVisible(Model::of().showDebugWidgets);
+        processor.waveComponent.setVisible(Model::of().showDebugWidgets);
+        processor.outputComponent.setVisible(Model::of().showDebugWidgets);
+        processor.adsrComponent.setVisible(Model::of().showDebugWidgets);
+        processor.lfoComponent.setVisible(Model::of().showDebugWidgets);
+        processor.curveComponent.setVisible(Model::of().showDebugWidgets);
+        processor.showTableComponent.setVisible(Model::of().showDebugWidgets);
+        viewMode.setVisible(Model::of().showDebugWidgets);
+        btnArp.setVisible(Model::of().showDebugWidgets);
     }
     
     void styleMenuChangedView(){
@@ -133,39 +158,6 @@ private:
                     processor.curveComponent.setVisible(true);
                     break;
         }
-        repaint();
-    }
-          
-    void styleMenuChangedViewZoom()
-    {
-        int ws = 1400;
-        int hs = 780;
-        float p = 1.0f;
-        Desktop::getInstance().setGlobalScaleFactor(1);
-        switch (viewZoom.getSelectedId())
-        {
-            case 1: // 50
-                p = 0.5f;
-                break;
-            case 2: // 75
-                p = 0.75f;
-                break;
-            case 3: // 100
-                p = 1.0f;
-                break;
-            case 4: // 125
-                p = 1.25f;
-                break;
-            case 5: // 150
-                p = 1.5f;
-                break;
-                
-            case 6: // 200
-                p = 2.0f;
-                break;
-        }
-        setSize (ws * p, hs * p);
-        Desktop::getInstance().setGlobalScaleFactor((float)this->getWidth() / ws);
         repaint();
     }
     

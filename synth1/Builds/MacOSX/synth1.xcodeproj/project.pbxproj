@@ -228,6 +228,9 @@
 		4936648CA072F925CA6348D4 /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
 		4BF21E3EA2D442079E920D85 /* synth1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = synth1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC000940015491524181C5E /* Info-VST3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-VST3.plist"; sourceTree = SOURCE_ROOT; };
+		4F01BCFE24B47AD3006B9B92 /* MyKeyListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MyKeyListener.h; path = ../../Source/MyKeyListener.h; sourceTree = "<group>"; };
+		4F01BCFF24B47B33006B9B92 /* MacroComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MacroComponent.h; path = ../../Source/MacroComponent.h; sourceTree = "<group>"; };
+		4F07D8F524B4713C006173FE /* ControllerMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ControllerMapping.h; path = ../../Source/ControllerMapping.h; sourceTree = "<group>"; };
 		4F097B6F249770D500566939 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Player.h; path = ../../Source/Player.h; sourceTree = "<group>"; };
 		4F0A84772498003600B2D8EB /* Lfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lfo.h; path = ../../Source/Lfo.h; sourceTree = "<group>"; };
 		4F0B65DB24B3331C00C4A631 /* ShowTableComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ShowTableComponent.h; path = ../../Source/ShowTableComponent.h; sourceTree = "<group>"; };
@@ -535,6 +538,8 @@
 				4FAC348E24A331B600FB51D7 /* ImageFactory.h */,
 				4F34542C24B3669A00A5835B /* ModMatrix.h */,
 				4F2FE82224B3B78B007524B1 /* Matrix.h */,
+				4F07D8F524B4713C006173FE /* ControllerMapping.h */,
+				4F01BCFE24B47AD3006B9B92 /* MyKeyListener.h */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -666,6 +671,7 @@
 				4FD0B75D24A7DDFA00B59290 /* DebugComponent.h */,
 				4FD0B76624A8759B00B59290 /* HeaderComponent.h */,
 				4F0B65DB24B3331C00C4A631 /* ShowTableComponent.h */,
+				4F01BCFF24B47B33006B9B92 /* MacroComponent.h */,
 			);
 			name = component;
 			sourceTree = "<group>";

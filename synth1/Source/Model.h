@@ -139,6 +139,8 @@ public:
     // objects
     BankData bankData;
     Param params[MAXPARAM];
+    
+    bool showDebugWidgets = true;
 
     bool flip;
     void pushMsgToUi() noexcept{

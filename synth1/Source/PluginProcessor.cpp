@@ -21,6 +21,8 @@ Synth1AudioProcessor::Synth1AudioProcessor()
 #endif
 {
     core = new Core();
+    
+     //setWantsKeyboardFocus(true);
 }
 
 Synth1AudioProcessor::~Synth1AudioProcessor(){
