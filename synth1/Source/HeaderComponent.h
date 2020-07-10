@@ -28,12 +28,51 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         
         addAndMakeVisible(potiMasterVol);
         addAndMakeVisible(outputMeter);
+        
+        
+        // mEdit, mLibrary, mPerform, mArp, mSetup
+        
+        switch0.setButtonText("Edit");
+        switch0.masterSel = mEdit;
+        switch0.setToggleState(true, NotificationType::dontSendNotification);
+        switch0.setRadioGroupId(100);
+        switch0.addListener (this);
         addAndMakeVisible(switch0);
+        
+        switch1.setButtonText("Library");
+        switch1.masterSel = mLibrary;
+        switch1.setRadioGroupId(101);
+        switch1.addListener (this);
         addAndMakeVisible(switch1);
+        
+        switch2.masterSel = mPerform;
+        switch2.setButtonText("Perform");
+        switch2.setRadioGroupId(102);
+        switch2.addListener (this);
         addAndMakeVisible(switch2);
+        
+        switch3.masterSel = mArp;
+        switch3.setButtonText("Arp");
+        switch3.setRadioGroupId(103);
+        switch3.addListener (this);
         addAndMakeVisible(switch3);
+        
+        switch4.masterSel = mSetup;
+        switch4.setButtonText("Setup");
+        switch4.setRadioGroupId(104);
+        switch4.addListener (this);
         addAndMakeVisible(switch4);
+        
+        switch5.masterSel = mDebug;
+        switch5.setButtonText("Debug");
+        switch5.setRadioGroupId(105);
+        switch5.addListener (this);
         addAndMakeVisible(switch5);
+        
+        // switchSave.setButtonText("S");
+        switchSave.addListener (this);
+        switchSave.setRadioGroupId(106);
+ 
         addAndMakeVisible(switchSave);
         
         btnProgUp.setButtonText (">");
@@ -45,11 +84,11 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         btnProgDown.addListener (this);
         btnProgDown.setRadioGroupId(23);
         addAndMakeVisible (btnProgDown);
-        
-        btnBrowse.setButtonText ("Browse");
-        btnBrowse.addListener (this);
-        btnBrowse.setRadioGroupId(26);
-        addAndMakeVisible (btnBrowse);
+
+        btnArp.setButtonText ("Arp");
+        btnArp.addListener (this);
+        btnArp.setRadioGroupId(27);
+        addAndMakeVisible (btnArp);
         
         progName.setColour (Label::textColourId, C_PTACHNAME);
         progName.setJustificationType (Justification::centred);
@@ -79,17 +118,7 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         btnCompare.addListener (this);
         btnCompare.setRadioGroupId(24);
         addAndMakeVisible (btnCompare);
-        
-        btnSave.setButtonText ("Save");
-        btnSave.addListener (this);
-        btnSave.setRadioGroupId(16);
-        addAndMakeVisible (btnSave);
-        
-        btnLoad.setButtonText ("Load");
-        btnLoad.addListener (this);
-        btnLoad.setRadioGroupId(17);
-        addAndMakeVisible (btnLoad);
-        
+
         addAndMakeVisible(viewZoom);
         viewZoom.addItem ("50%", 1);
         viewZoom.addItem ("75%", 2);
@@ -144,7 +173,7 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
     void buttonClicked (Button* button)  override {
 
         // Save
-        if(button->getRadioGroupId()==16) {
+        if(button->getRadioGroupId()==106) {
             BankLoader::of().save();
             Model::of().set();
             Model::of().compareMode = false;
@@ -162,43 +191,127 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
             return;
         }
         
-           // Progr Up
-           if(button->getRadioGroupId()==22) {
-               Model::of().patchCurrent++;
-               if(Model::of().patchCurrent >=127){
-                   Model::of().patchCurrent = 0;
+       // Progr Up
+       if(button->getRadioGroupId()==22) {
+           Model::of().patchCurrent++;
+           if(Model::of().patchCurrent >=127){
+               Model::of().patchCurrent = 0;
+           }
+           processor->loadPatch(Model::of().patchCurrent);
+           Model::of().compareMode = false;
+           Model::of().set();
+           setDials();
+           return;
+       }
+           
+       // Progr Down
+       if(button->getRadioGroupId()==23) {
+           Model::of().patchCurrent--;
+           if(Model::of().patchCurrent < 0){
+              Model::of().patchCurrent = 127;
+           }
+           
+           processor->loadPatch(Model::of().patchCurrent);
+           Model::of().compareMode = false;
+           Model::of().set();
+           setDials();
+           return;
+       }
+           
+       // Compare
+       if(button->getRadioGroupId()==24) {
+           Model::of().compareMode = !Model::of().compareMode;
+           Model::of().swap();
+           return;
+       }
+
+        
+        // Edit
+        if(button->getRadioGroupId()==100) {
+            switch0.setToggleState(true, NotificationType::dontSendNotification);
+            switch1.setToggleState(false, NotificationType::dontSendNotification);
+            switch2.setToggleState(false, NotificationType::dontSendNotification);
+            switch3.setToggleState(false, NotificationType::dontSendNotification);
+            switch4.setToggleState(false, NotificationType::dontSendNotification);
+            switch5.setToggleState(false, NotificationType::dontSendNotification);
+            Model::of().masterSel = mEdit;
+            return;
+        }
+        
+        // Lib
+       if(button->getRadioGroupId()==101) {
+           switch0.setToggleState(false, NotificationType::dontSendNotification);
+           switch1.setToggleState(true, NotificationType::dontSendNotification);
+           switch2.setToggleState(false, NotificationType::dontSendNotification);
+           switch3.setToggleState(false, NotificationType::dontSendNotification);
+           switch4.setToggleState(false, NotificationType::dontSendNotification);
+           switch5.setToggleState(false, NotificationType::dontSendNotification);
+           Model::of().masterSel = mLibrary;
+           processor->browse();
+           return;
+       }
+        
+        // Perform
+      if(button->getRadioGroupId()==102) {
+          switch0.setToggleState(false, NotificationType::dontSendNotification);
+          switch1.setToggleState(false, NotificationType::dontSendNotification);
+          switch2.setToggleState(true, NotificationType::dontSendNotification);
+          switch3.setToggleState(false, NotificationType::dontSendNotification);
+          switch4.setToggleState(false, NotificationType::dontSendNotification);
+          switch5.setToggleState(false, NotificationType::dontSendNotification);
+          Model::of().masterSel = mPerform;
+          return;
+      }
+        
+    // Arp
+        if(button->getRadioGroupId()==103) {
+            switch0.setToggleState(false, NotificationType::dontSendNotification);
+            switch1.setToggleState(false, NotificationType::dontSendNotification);
+            switch2.setToggleState(false, NotificationType::dontSendNotification);
+            switch3.setToggleState(true, NotificationType::dontSendNotification);
+            switch4.setToggleState(false, NotificationType::dontSendNotification);
+            switch5.setToggleState(false, NotificationType::dontSendNotification);
+            Model::of().masterSel = mArp;
+            return;
+        }
+        
+        // Setup
+        if(button->getRadioGroupId()==104) {
+            switch0.setToggleState(false, NotificationType::dontSendNotification);
+            switch1.setToggleState(false, NotificationType::dontSendNotification);
+            switch2.setToggleState(false, NotificationType::dontSendNotification);
+            switch3.setToggleState(false, NotificationType::dontSendNotification);
+            switch4.setToggleState(true, NotificationType::dontSendNotification);
+            switch5.setToggleState(false, NotificationType::dontSendNotification);
+            Model::of().masterSel = mSetup;
+            return;
+        }
+        
+        // Debug
+        if(button->getRadioGroupId()==105) {
+            switch0.setToggleState(false, NotificationType::dontSendNotification);
+            switch1.setToggleState(false, NotificationType::dontSendNotification);
+            switch2.setToggleState(false, NotificationType::dontSendNotification);
+            switch3.setToggleState(false, NotificationType::dontSendNotification);
+            switch4.setToggleState(false, NotificationType::dontSendNotification);
+            switch5.setToggleState(true, NotificationType::dontSendNotification);
+            Model::of().masterSel = mDebug;
+            return;
+        }
+        
+        // ARP
+           if(button->getRadioGroupId()==27) {
+               if(processor->isArpOn){
+                   btnArp.setButtonText ("Arp");
+                   btnArp.setToggleState(false, NotificationType::dontSendNotification);
+                   processor->isArpOn = false;
+                   processor->panic();
+               }else{
+                   btnArp.setButtonText ("Arp");
+                   btnArp.setToggleState(true, NotificationType::dontSendNotification);
+                   processor->isArpOn = true;
                }
-               processor->loadPatch(Model::of().patchCurrent);
-               Model::of().compareMode = false;
-               Model::of().set();
-               setDials();
-               return;
-           }
-           
-           // Progr Down
-           if(button->getRadioGroupId()==23) {
-               Model::of().patchCurrent--;
-               if(Model::of().patchCurrent < 0){
-                  Model::of().patchCurrent = 127;
-               }
-               
-               processor->loadPatch(Model::of().patchCurrent);
-               Model::of().compareMode = false;
-               Model::of().set();
-               setDials();
-               return;
-           }
-           
-           // Compare
-           if(button->getRadioGroupId()==24) {
-               Model::of().compareMode = !Model::of().compareMode;
-               Model::of().swap();
-               return;
-           }
-           
-           // Browse
-           if(button->getRadioGroupId()==26) {
-               processor->browse();
+               processor->setArp(processor->isArpOn);
                return;
            }
     }
@@ -241,6 +354,9 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         progName.setText(Model::of().patchNameCurrent, NotificationType::dontSendNotification);
         btnCompare.setToggleState(Model::of().compareMode, NotificationType::dontSendNotification);
         potiMasterVol.setValue(Model::of().par[P_MASTERVOL], dontSendNotification);
+        if(processor){
+            btnArp.setToggleState(processor->isArpOn, NotificationType::dontSendNotification);
+        }
     }
     
     void resized() override{
@@ -250,13 +366,14 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         potiMasterVol.setBounds(width-80,6,40,40);
         outputMeter.setBounds(width-40,0,40,50);
         
-        switch0.setBounds(150,0,50,50);
-        switch1.setBounds(205,0,50,50);
-        switch2.setBounds(260,0,50,50);
-        switch3.setBounds(315,0,50,50);
-        switch4.setBounds(370,0,50,50);
-        switch5.setBounds(425,0,50,50);
-        switchSave.setBounds(490,0,25,25);
+        switch0.setBounds(150,1,50,48);
+        switch1.setBounds(205,1,50,48);
+        switch2.setBounds(260,1,50,48);
+        switch3.setBounds(315,1,50,48);
+        switch4.setBounds(370,1,50,48);
+        switch5.setBounds(425,1,50,48);
+        switchSave.setBounds(490,1,25,25);
+        switchSave.setImages(false,true,true,ImageFactory::of().png[eFloppy],1.0f,{},ImageFactory::of().png[eFloppy],1.0f,{}, ImageFactory::of().png[eFloppy],1.0f,{});
         
         btnProgDown.setBounds (885, 3, 20, 20);
         btnProgUp.setBounds (910, 3, 20, 20);
@@ -266,12 +383,9 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         progNumber.setBounds(880, 25, 60,  25);
         progAuthor.setBounds(930, 30, 200,  20);
         
-        btnBrowse.setBounds (1000, 5, 70, 20);
-        btnCompare.setBounds (1075, 5, 70, 20);
-        btnSave.setBounds (1150, 5, 70, 20);
-        btnLoad.setBounds (1225, 5, 70, 20);
-        
-        viewZoom.setBounds (1225, 30, 70, 17);
+        btnCompare.setBounds (1080, 5, 70, 20);
+        viewZoom.setBounds (1160, 5, 70, 20);
+        btnArp.setBounds (1240, 5, 70, 20);
     }
     
      void sliderValueChanged(Slider *  slider) override {
@@ -291,14 +405,12 @@ private:
     MasterSwitch switch3;
     MasterSwitch switch4;
     MasterSwitch switch5;
-    MasterSwitch switchSave;
+    ImageButton switchSave;
     
     TextButton btnProgUp;
     TextButton btnProgDown;
-    TextButton btnBrowse;
-    TextButton btnSave;
-    TextButton btnLoad;
     TextButton btnCompare;
+    TextButton btnArp;
     
     Label progName;
     Label progNumber;

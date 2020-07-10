@@ -22,10 +22,14 @@
 #include "HeaderComponent.h"
 #include "ShowTableComponent.h"
 #include "MyKeyListener.h"
+#include "PerformanceComponent.h"
+#include "LibraryComponent.h"
+#include "ArpComponent.h"
+#include "SetupComponent.h"
 
 //============Poti==================================================================
 
-class Synth1AudioProcessorEditor  : public AudioProcessorEditor, public Button::Listener,  public Timer, public KeyListener
+class Synth1AudioProcessorEditor  : public AudioProcessorEditor, public Timer, public KeyListener
 {
 public:
     Synth1AudioProcessorEditor (Synth1AudioProcessor&);
@@ -34,8 +38,6 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
-    
-    TextButton btnArp;
 
     Label timeLabel;
 
@@ -43,8 +45,6 @@ public:
     int paramRoot = 0;
 
     ComboBox viewMode;
-
-
     int maxTime;
     
      bool keyPressed(const KeyPress &k, Component *c) override{
@@ -58,38 +58,13 @@ public:
     
 private:
     Synth1AudioProcessor& processor;
-   // Image vumeter; // = ImageCache::getFromMemory (img::meter_png, img::meter_pngSize);
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)
-    
-    void buttonClicked (Button* button)  override {
 
-        // ARP
-        if(button->getRadioGroupId()==27) {
-            if(processor.isArpOn){
-                btnArp.setButtonText ("Arp");
-                btnArp.setToggleState(false, NotificationType::dontSendNotification);
-                processor.isArpOn = false;
-                processor.panic();
-            }else{
-                btnArp.setButtonText ("Arp");
-                btnArp.setToggleState(true, NotificationType::dontSendNotification);
-                processor.isArpOn = true;
-            }
-            processor.setArp(processor.isArpOn);
-            return;
-        }
-        paramRange = button->getRadioGroupId();
-    }
-    
     void setDials() {
         float par[MAXPARAM];
         for(int i =0; i < MAXPARAM;++i){
             par[i] = Model::of().par[i] ;
         }
-
-        btnArp.setToggleState(processor.isArpOn, NotificationType::dontSendNotification);
-        
         Model::of().isUpdateParams = true;
         potsComponent.setDials();
         paramButtonComponent.setDials();
@@ -97,21 +72,95 @@ private:
         viewMeterComponent.setDials();
         debugComponent.setDials();
         headerComponent.setDials();
-        
-       // headerComponent.setVisible(Model::of().showDebugWidgets);
-        viewMeterComponent.setVisible(Model::of().showDebugWidgets);
-        debugComponent.setVisible(Model::of().showDebugWidgets);
-        potsComponent.setVisible(Model::of().showDebugWidgets);
-        paramButtonComponent.setVisible(Model::of().showDebugWidgets);
-        processor.spectrum.setVisible(Model::of().showDebugWidgets);
-        processor.waveComponent.setVisible(Model::of().showDebugWidgets);
-        processor.outputComponent.setVisible(Model::of().showDebugWidgets);
-        processor.adsrComponent.setVisible(Model::of().showDebugWidgets);
-        processor.lfoComponent.setVisible(Model::of().showDebugWidgets);
-        processor.curveComponent.setVisible(Model::of().showDebugWidgets);
-        processor.showTableComponent.setVisible(Model::of().showDebugWidgets);
-        viewMode.setVisible(Model::of().showDebugWidgets);
-        btnArp.setVisible(Model::of().showDebugWidgets);
+
+        switch( Model::of().masterSel){
+            case mEdit:
+                libraryComponent.setVisible(false);
+                performanceComponent.setVisible(false);
+                debugComponent.setVisible(false);
+                arpComponent.setVisible(false);
+                setupComponent.setVisible(false);
+                paramButtonComponent.setVisible(false);
+                potsComponent.setVisible(false);
+                viewMeterComponent.setVisible(false);
+                subComponentsVisible(false);
+                break;
+                
+            case mLibrary:
+                performanceComponent.setVisible(false);
+                debugComponent.setVisible(false);
+                paramButtonComponent.setVisible(false);
+                potsComponent.setVisible(false);
+                viewMeterComponent.setVisible(false);
+                arpComponent.setVisible(false);
+                setupComponent.setVisible(false);
+                libraryComponent.setVisible(true);
+                subComponentsVisible(false);
+                break;
+                
+            case mPerform:
+                paramButtonComponent.setVisible(false);
+                potsComponent.setVisible(false);
+                viewMeterComponent.setVisible(false);
+                libraryComponent.setVisible(false);
+                arpComponent.setVisible(false);
+                setupComponent.setVisible(false);
+                performanceComponent.setVisible(true);
+                subComponentsVisible(false);
+                break;
+                
+            case mArp:
+                performanceComponent.setVisible(false);
+                potsComponent.setVisible(false);
+                viewMeterComponent.setVisible(false);
+                debugComponent.setVisible(false);
+                paramButtonComponent.setVisible(false);
+                setupComponent.setVisible(false);
+                arpComponent.setVisible(true);
+                subComponentsVisible(false);
+                break;
+                
+            case mSetup:
+                performanceComponent.setVisible(false);
+                potsComponent.setVisible(false);
+                viewMeterComponent.setVisible(false);
+                debugComponent.setVisible(false);
+                paramButtonComponent.setVisible(false);
+                viewMeterComponent.setVisible(false);
+                libraryComponent.setVisible(false);
+                arpComponent.setVisible(false);
+                setupComponent.setVisible(true);
+                subComponentsVisible(false);
+                break;
+                
+            case mDebug:
+                performanceComponent.setVisible(false);
+                paramButtonComponent.setVisible(true);
+                viewMeterComponent.setVisible(true);
+                libraryComponent.setVisible(false);
+                arpComponent.setVisible(false);
+                setupComponent.setVisible(false);
+                potsComponent.setVisible(true);
+                debugComponent.setVisible(true);
+                subComponentsVisible(true);
+                break;
+            }
+    }
+    
+    void subComponentsVisible(bool show){
+        if(show){
+            viewMode.setVisible(true);
+            styleMenuChangedView();
+            return;
+        }
+        processor.spectrum.setVisible(false);
+        processor.waveComponent.setVisible(false);
+        processor.outputComponent.setVisible(false);
+        processor.adsrComponent.setVisible(false);
+        processor.lfoComponent.setVisible(false);
+        processor.curveComponent.setVisible(false);
+        processor.showTableComponent.setVisible(false);
+        viewMode.setVisible(false);
     }
     
     void styleMenuChangedView(){
@@ -176,4 +225,8 @@ private:
     ViewMeterComponent viewMeterComponent;
     DebugComponent debugComponent;
     HeaderComponent headerComponent;
+    PerformanceComponent performanceComponent;
+    LibraryComponent libraryComponent;
+    ArpComponent arpComponent;
+    SetupComponent setupComponent;
 };

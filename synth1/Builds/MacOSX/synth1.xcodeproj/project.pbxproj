@@ -300,6 +300,12 @@
 		4F9839CE249DCEA00007CD5C /* CircularBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CircularBuffer.h; path = ../../Source/CircularBuffer.h; sourceTree = "<group>"; };
 		4F9839CF249DD4B10007CD5C /* include_juce_dsp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_dsp.mm; path = ../../JuceLibraryCode/include_juce_dsp.mm; sourceTree = "<group>"; };
 		4F9839D8249F98FB0007CD5C /* WaveComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WaveComponent.h; path = ../../Source/WaveComponent.h; sourceTree = "<group>"; };
+		4FA0963024B70C91005F9BDB /* PerformanceComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PerformanceComponent.h; path = ../../Source/PerformanceComponent.h; sourceTree = "<group>"; };
+		4FA0963124B70CF1005F9BDB /* VoiceSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VoiceSelector.h; path = ../../Source/VoiceSelector.h; sourceTree = "<group>"; };
+		4FA0963224B70D1B005F9BDB /* XYPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XYPad.h; path = ../../Source/XYPad.h; sourceTree = "<group>"; };
+		4FA0963324B7418B005F9BDB /* LibraryComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LibraryComponent.h; path = ../../Source/LibraryComponent.h; sourceTree = "<group>"; };
+		4FA0963424B742F4005F9BDB /* ArpComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArpComponent.h; path = ../../Source/ArpComponent.h; sourceTree = "<group>"; };
+		4FA0963524B743C2005F9BDB /* SetupComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SetupComponent.h; path = ../../Source/SetupComponent.h; sourceTree = "<group>"; };
 		4FA53D032487E84E0056C32E /* ParamBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParamBuilder.h; path = ../../Source/ParamBuilder.h; sourceTree = "<group>"; };
 		4FAB8558249A28620039E051 /* SEMFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SEMFilter.cpp; path = ../../Source/FilterExtern/SEMFilter.cpp; sourceTree = "<group>"; };
 		4FAB8559249A28620039E051 /* SEMFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEMFilter.h; path = ../../Source/FilterExtern/SEMFilter.h; sourceTree = "<group>"; };
@@ -672,6 +678,10 @@
 				4FD0B76624A8759B00B59290 /* HeaderComponent.h */,
 				4F0B65DB24B3331C00C4A631 /* ShowTableComponent.h */,
 				4F01BCFF24B47B33006B9B92 /* MacroComponent.h */,
+				4FA0963024B70C91005F9BDB /* PerformanceComponent.h */,
+				4FA0963324B7418B005F9BDB /* LibraryComponent.h */,
+				4FA0963424B742F4005F9BDB /* ArpComponent.h */,
+				4FA0963524B743C2005F9BDB /* SetupComponent.h */,
 			);
 			name = component;
 			sourceTree = "<group>";
@@ -684,6 +694,8 @@
 				4FAC349024A3686200FB51D7 /* Poti.h */,
 				4FD0B76924A881C600B59290 /* OutputMeter.h */,
 				4FD0B76A24A8881000B59290 /* MasterSwitch.h */,
+				4FA0963124B70CF1005F9BDB /* VoiceSelector.h */,
+				4FA0963224B70D1B005F9BDB /* XYPad.h */,
 			);
 			name = widget;
 			sourceTree = "<group>";

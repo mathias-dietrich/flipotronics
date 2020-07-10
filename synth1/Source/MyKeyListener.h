@@ -43,6 +43,10 @@ public:
 
             case 57: //9
                 break;
+                
+                case 27: // escap
+                JUCEApplicationBase::quit();
+         break;
         }
     }
     

@@ -8,22 +8,12 @@
 Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p) : 
     AudioProcessorEditor (&p),processor (p){
 
-        
-      addKeyListener(this);
+    addKeyListener(this);
         
     Model::of().patchCurrent = 0;
-
     ImageFactory::of().init();
-    
-    //fileManager = new FileManager();
-
     Model::of().set();
     Model::of().compareMode = false;
-    
-    btnArp.setButtonText ("Arp");
-    btnArp.addListener (this);
-    btnArp.setRadioGroupId(27);
-    addAndMakeVisible (btnArp);
     
     addAndMakeVisible (timeLabel);
     timeLabel.setColour (Label::backgroundColourId, Colours::black);
@@ -47,7 +37,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     viewMode.addItem ("Table", vTable);
         
     viewMode.onChange = [this] { styleMenuChangedView(); };
-    Model::of().viewModeSetting = vWave;
+    Model::of().viewModeSetting = vPlot;
     viewMode.setSelectedId(Model::of().viewModeSetting, NotificationType::dontSendNotification);
     addAndMakeVisible(viewMode);
     
@@ -55,7 +45,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     headerComponent.processor = &processor;
     addAndMakeVisible(headerComponent);
     addChildComponent(processor.spectrum);
-    addChildComponent(processor.outputComponent);
+    addAndMakeVisible(processor.outputComponent);
     addChildComponent(processor.adsrComponent);
     addAndMakeVisible(processor.waveComponent);
     addChildComponent(processor.lfoComponent);
@@ -70,11 +60,21 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addAndMakeVisible(viewMeterComponent);
     addAndMakeVisible(debugComponent);
     debugComponent.processor = &processor;
-
+        
+    addChildComponent(performanceComponent);
+    addChildComponent(libraryComponent);
+    addChildComponent(arpComponent);
+    addChildComponent(setupComponent);
+        
     startTimer(1000 / SCOPEFRAMES);
     setSize (1400, 780);
         
     setDials();
+        
+       // auto window = dynamic_cast<ResizableWindow*>(getTopLevelComponent());
+        //window->setFullScreen(true);
+
+       // String windowsPlace = window->getWindowStateAsString();
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
@@ -90,12 +90,10 @@ void Synth1AudioProcessorEditor::resized() {
     int width = r.getWidth();
     int height = r.getHeight();
    
-    btnArp.setBounds (width - 130, 310, 120, 25);
-    
     // Drop Downs
-    viewMode.setBounds (width - 130, 340, 120, 20);
+    viewMode.setBounds (width - 120, 350, 120, 20);
+    viewMode.setSelectedId(1);
 
-    
     // Spectrum
     int componentY = 370;
     int componentHeight = 310;
@@ -115,8 +113,13 @@ void Synth1AudioProcessorEditor::resized() {
     paramButtonComponent.setDials();
     
     viewMeterComponent.setBounds(840, 100, 260,  80);
-    debugComponent.setBounds(width-280, 110, 270,  250);
+   
     headerComponent.setBounds(0, 0, width,  50);
+    performanceComponent.setBounds(0,50, width,  630);
+    libraryComponent.setBounds(0,50, width,  630);
+    arpComponent.setBounds(0,50, width,  630);
+    setupComponent.setBounds(0,50, width,  630);
+    debugComponent.setBounds(width-280,80, 270,  260);
 }
 
 // ==================================================================================================

@@ -25,7 +25,7 @@ template<typename T> map_init_helper<T> map_init(T& item)
     return map_init_helper<T>(item);
 }
 
-enum E_Image {eMeter, ePoti, ePotiMaster, eFader,eModWheel, ePitchWheel, eExpressionWheel};
+enum E_Image {eMeter, ePoti, ePotiMaster, eFader,eModWheel, ePitchWheel, eExpressionWheel, eFloppy};
 
 class ImageFactory{
 public:
@@ -50,6 +50,7 @@ public:
             (eFader, "fader.png")
             (eModWheel, "modwheel.png")
             (ePitchWheel, "pitchwheel.png")
+            (eFloppy, "floppy.png")
             (eExpressionWheel, "expressionWheel.png");
         
         String filePath = (File::getCurrentWorkingDirectory().getFullPathName());
@@ -72,7 +73,7 @@ public:
     ~ImageFactory(){
        
     }
-    std::map<E_Image, const char*> imgEnumMap;
+   std::map<E_Image, const char*> imgEnumMap;
 };
 
 #endif /* ImageFactory_h */

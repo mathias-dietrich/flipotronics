@@ -13,11 +13,12 @@ class DebugComponent : public AbstractComponent{
     
 public:
     
-     void paint (Graphics& g){
+     void paint (Graphics& g) override{
         Rectangle<int> r = getLocalBounds();
-
+         g.fillAll (Colours::white);
+         
         // Debug speed of render
-        g.setFont (11.0f);
+        g.setFont (15.0f);
 
         // Time taken in the Render Loop
         float taken = Model::of().timeTaken * 0.000001f;

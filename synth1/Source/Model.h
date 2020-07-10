@@ -52,6 +52,10 @@ public:
     ~BankData(){
         
     }
+    
+    // mEdit, mLibrary, mPerform, mArp, mSetup
+   
+    
     String magicStart = "FLIP";
     int checksum;
     int lengthTotal;
@@ -105,6 +109,8 @@ public:
             paramsUndo[i] = t;
         }
     }
+    
+     E_Master masterSel = mEdit;
     
     // boolean
     std::atomic<bool> hasPlayed;

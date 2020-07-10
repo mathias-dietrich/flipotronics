@@ -24,4 +24,7 @@
 #define C_RED Colour(255, 0, 0)
 #define C_PTACHNAME Colour(100,162,213)
 
+#define C_BUTTONDOWN  Colour(0, 0, 0)
+#define C_BUTTONDOWN_LED  Colour(127, 255, 255)
+
 #endif /* Color_h */

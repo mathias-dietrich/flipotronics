@@ -9,6 +9,7 @@
 #ifndef Enum_h
 #define Enum_h
 
+enum E_Master {mEdit, mLibrary, mPerform, mArp, mSetup, mDebug};
 
 enum E_ViewMode { vPlot=1, vSpectrum, vADSR1, vADSR2, vADSR3, vADSR4, vLFO1, vLFO2, vLFO3, vLFO4, vWave, vCurve, vDebug, vTable, vNone };
 
