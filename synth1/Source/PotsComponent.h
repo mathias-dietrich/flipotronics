@@ -54,7 +54,8 @@ class PotsComponent : public AbstractComponent, public Slider::Listener {
             int sid = slider->getName().getIntValue();
             startEdit();
             int pid = paramRoot * 256 + paramRange * 16 + sid + Model::of().editGroup * MAXPARAM;
-            if(Model::of().params[pid].smoothTime > 0){
+
+            if(Model::of().params[sid].smoothTime > 0){
                 Model::of().parTargetDelta[pid] = Model::of().par[pid] - slider->getValue();
             }else{
                 Model::of().par[pid] = slider->getValue();

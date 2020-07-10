@@ -69,6 +69,13 @@ class Core : public Player{
     
     void init (double sampleRate, int samplesPerBlock);
     
+     void startVoice(int midiChannel, int midiNoteNumber, float velocity){
+         startVoice( midiChannel,  midiNoteNumber,  velocity, 0);
+        // startVoice( midiChannel,  midiNoteNumber,  velocity, 1);
+         //startVoice( midiChannel,  midiNoteNumber,  velocity, 2);
+         //startVoice( midiChannel,  midiNoteNumber,  velocity, 3);
+     }
+    
     void startVoice(int midiChannel, int midiNoteNumber, float velocity, int group){
         int vid = findNewVoice(midiNoteNumber, midiChannel);
         voices[vid].velocity = velocity;

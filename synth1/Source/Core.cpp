@@ -18,10 +18,7 @@ void Core::init (double sampleRate, int samplesPerBlock){
     
     // Tuning
     BankLoader::of().initTunfile();
-    //BankLoader::of().loadTunfile("default.tun");
-    //BankLoader::of().loadTunfile("v-aa/aaron.tun");
-   // BankLoader::of().saveTunfile("default.tun");
-    
+
     for (int i=0; i<128; ++i) {
        // Model::of().tuneTable[i] = MidiToFreq(i,440);
         Model::of().tuneTable[i] = BankLoader::of().tunReader.GetMIDINoteFreqHz(i);
@@ -33,12 +30,7 @@ void Core::init (double sampleRate, int samplesPerBlock){
     // Wave Table
     WaveTable::of()->init(sampleRate,samplesPerBlock );
     Model::of().patchCurrent = 1;
-    
-    // ARP
-   // arp->init(sampleRate, samplesPerBlock);
-    //arp->setPlayer(this);
-    
-   
+
     for(int i =0; i < MAXPARAM;++i){
        p[i] = Model::of().par[i] ;
     }
@@ -115,7 +107,6 @@ void Core::handle(AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int tota
               voices[i].update(clock,p);
             }
         }
-       // cout << "timeTaken (msec): " << timeTaken / 1000.0f << " Blocksize: " << samplesPerBlock <<  " Allowed: " << timeAllowedMsec << endl;
     }
     ++updateCounter;
     

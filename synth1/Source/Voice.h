@@ -54,9 +54,21 @@ public:
     float tablePosLfo3 = 0;
     float tablePosLfo4 = 0;
     
-    Osc osc1;
-    Osc osc2;
-    Osc subOsc;
+    Osc osc1_A;
+    Osc osc2_A;
+    Osc subOsc_A;
+    
+    Osc osc1_B;
+    Osc osc2_B;
+    Osc subOsc_B;
+    
+    Osc osc1_C;
+    Osc osc2_C;
+    Osc subOsc_C;
+    
+    Osc osc1_D;
+    Osc osc2_D;
+    Osc subOsc_D;
     
     Adsr adsr1;
     Adsr adsr2;
@@ -75,8 +87,11 @@ public:
     
     Smooth smoothMaster;
     
-    MultiModeLadderFilter filter1;
-    MultiModeLadderFilter filter2;
+    MultiModeLadderFilter filter1L;
+    MultiModeLadderFilter filter1R;
+    
+    MultiModeLadderFilter filter2L;
+    MultiModeLadderFilter filter2R;
     
     CMoogLadderFilter  filter3;
     CSEMFilter filter4;
@@ -110,14 +125,34 @@ public:
         this->par = par;
         
         // OSC
-        osc1.par = par;
-        osc2.par = par;
-        subOsc.par = par;
-        osc1.init(1,sampleRate,samplesPerBlock);
-        osc2.init(2,sampleRate,samplesPerBlock);
-        subOsc.init(3,sampleRate,samplesPerBlock);
-    
+        osc1_A.par = par;
+        osc2_A.par = par;
+        subOsc_A.par = par;
+        osc1_A.init(1,sampleRate,samplesPerBlock);
+        osc2_A.init(2,sampleRate,samplesPerBlock);
+        subOsc_A.init(3,sampleRate,samplesPerBlock);
         
+        osc1_B.par = par;
+        osc2_B.par = par;
+        subOsc_B.par = par;
+        osc1_B.init(1,sampleRate,samplesPerBlock);
+        osc2_B.init(2,sampleRate,samplesPerBlock);
+        subOsc_B.init(3,sampleRate,samplesPerBlock);
+        
+        osc1_C.par = par;
+        osc2_C.par = par;
+        subOsc_C.par = par;
+        osc1_C.init(1,sampleRate,samplesPerBlock);
+        osc2_C.init(2,sampleRate,samplesPerBlock);
+        subOsc_C.init(3,sampleRate,samplesPerBlock);
+        
+        osc1_D.par = par;
+        osc2_D.par = par;
+        subOsc_D.par = par;
+        osc1_D.init(1,sampleRate,samplesPerBlock);
+        osc2_D.init(2,sampleRate,samplesPerBlock);
+        subOsc_D.init(3,sampleRate,samplesPerBlock);
+    
         // ADSR
         adsr1.init(sampleRate,samplesPerBlock);
         adsr2.init(sampleRate,samplesPerBlock);
@@ -136,8 +171,8 @@ public:
         smoothMaster.setup(1,sampleRate);
         
         // Filter
-        filter1.setSampleRate(sampleRate);
-        filter2.setSampleRate(sampleRate);
+        filter1L.setSampleRate(sampleRate);
+        filter2R.setSampleRate(sampleRate);
         Model::of().isUpdateParams = true;
         setParams();
     }
@@ -214,13 +249,21 @@ public:
         adsr4.trigger = par[P_ADSR4_TRIGGER];
         adsr4.triggerTreshold = par[P_ADSR4_TRESHOLD];
 
-        filter1.setFilterType(par[P_FILTER1_TYPE] );
-        filter1.setCutoff(par[P_FILTER1_FREQ]);
-        filter1.setResonance(par[P_FILTER1_RES] / 100.0f);
+        filter1L.setFilterType(par[P_FILTER1_TYPE] );
+        filter1L.setCutoff(par[P_FILTER1_FREQ]);
+        filter1L.setResonance(par[P_FILTER1_RES] / 100.0f);
+        
+        filter1R.setFilterType(par[P_FILTER1_TYPE] );
+        filter1R.setCutoff(par[P_FILTER1_FREQ]);
+        filter1R.setResonance(par[P_FILTER1_RES] / 100.0f);
 
-        filter2.setFilterType(par[P_FILTER2_TYPE] );
-        filter2.setCutoff(par[P_FILTER2_FREQ]);
-        filter2.setResonance(par[P_FILTER2_RES] / 100.0f);
+        filter2L.setFilterType(par[P_FILTER2_TYPE] );
+        filter2L.setCutoff(par[P_FILTER2_FREQ]);
+        filter2L.setResonance(par[P_FILTER2_RES] / 100.0f);
+        
+        filter2R.setFilterType(par[P_FILTER2_TYPE] );
+        filter2R.setCutoff(par[P_FILTER2_FREQ]);
+        filter2R.setResonance(par[P_FILTER2_RES] / 100.0f);
     }
     
     void noteOn(int midiNote, float * par){
@@ -241,22 +284,33 @@ public:
         
         lastPos0 = 1;
         
-        filter1.reset();
-        filter1.setBoost(true);
+        filter1L.reset();
+        filter1L.setBoost(true);
         
-        filter2.reset();
-        filter2.setBoost(true);
+        filter1R.reset();
+        filter1R.setBoost(true);
         
-       // int midiNote1 = noteNumber + par[P_OSC2_SEMI] + 12 * par[P_OSC2_OCT];
-       // float freq1 = Model::of().tuneTable[midiNote1] * Model::of().tuneMulti[midiNote1 % 12];
-
-        //osc1.oscillator.m_dOscFo = freq1;
-        //osc1.oscillator.update();
-        //osc1.oscillator.startOscillator();
+        filter2L.reset();
+        filter2L.setBoost(true);
         
-        osc1.startNote(noteNumber);
-        osc2.startNote(noteNumber);
-        subOsc.startNote(noteNumber);
+        filter2R.reset();
+        filter2R.setBoost(true);
+        
+        osc1_A.startNote(noteNumber);
+        osc2_A.startNote(noteNumber);
+        subOsc_A.startNote(noteNumber);
+        
+        osc1_B.startNote(noteNumber);
+        osc2_B.startNote(noteNumber);
+        subOsc_B.startNote(noteNumber);
+        
+        osc1_C.startNote(noteNumber);
+        osc2_C.startNote(noteNumber);
+        subOsc_C.startNote(noteNumber);
+        
+        osc1_D.startNote(noteNumber);
+        osc2_D.startNote(noteNumber);
+        subOsc_D.startNote(noteNumber);
     }
     
     void kill(){
@@ -268,9 +322,21 @@ public:
      }
     
     void retrigger(float * par){
-        osc1.retriggerNote();
-        osc2.retriggerNote();
-        subOsc.retriggerNote();
+        osc1_A.retriggerNote();
+        osc2_A.retriggerNote();
+        subOsc_A.retriggerNote();
+        
+        osc1_B.retriggerNote();
+        osc2_B.retriggerNote();
+        subOsc_B.retriggerNote();
+        
+        osc1_C.retriggerNote();
+        osc2_C.retriggerNote();
+        subOsc_C.retriggerNote();
+        
+        osc1_D.retriggerNote();
+        osc2_D.retriggerNote();
+        subOsc_D.retriggerNote();
     }
     
     void noteOff(){
@@ -295,9 +361,21 @@ public:
 
         ScopedNoDenormals noDenormals;
 
-        osc1.par = p;
-        osc2.par = p;
-        subOsc.par = p;
+        osc1_A.par = p;
+        osc2_A.par = p;
+        subOsc_A.par = p;
+        
+        osc1_B.par = p;
+        osc2_B.par = p;
+        subOsc_B.par = p;
+
+        osc1_C.par = p;
+        osc2_C.par = p;
+        subOsc_C.par = p;
+
+        osc1_D.par = p;
+        osc2_D.par = p;
+        subOsc_D.par = p;
 
         // Buffers
         auto* channelDataL = buffer.getWritePointer (0);
@@ -313,24 +391,54 @@ public:
         
         // Calulate each Sample
         for (int i=0; i<samplesPerBlock; ++i) {
-            float v0 = osc1.getSample((E_WaveType)p[P_OSC1_WAV]);
-            float v1 = osc2.getSample((E_WaveType)p[P_OSC2_WAV]);
-            float vSub = subOsc.getSample((E_WaveType)p[P_OSC1_WAV]);
+            float v0_A = osc1_A.getSample((E_WaveType)p[P_OSC1_WAV]);
+            float v1_A = osc2_A.getSample((E_WaveType)p[P_OSC2_WAV]);
+            float vSub_A = subOsc_A.getSample((E_WaveType)p[P_OSC1_WAV]);
 
-            v0 *= volVelo;
-            v0 *=  DecibelToLinear(p[P_OSC1_VOL]);
+            v0_A *= volVelo;
+            v0_A *=  DecibelToLinear(p[P_OSC1_VOL]);
+            v1_A *= volVelo;
+            v1_A *=  DecibelToLinear(p[P_OSC2_VOL]);
+            vSub_A = vSub_A * adsr1.output * p[P_OSC1_SUB];
             
-            v1 *= volVelo;
-            v1 *=  DecibelToLinear(p[P_OSC2_VOL]);
+            float v0_B = osc1_B.getSample((E_WaveType)p[MAXPARAM + P_OSC1_WAV]);
+            float v1_B = osc2_B.getSample((E_WaveType)p[MAXPARAM + P_OSC2_WAV]);
+            float vSub_B = subOsc_B.getSample((E_WaveType)p[MAXPARAM + P_OSC1_WAV]);
+
+            v0_B *= volVelo;
+            v0_B *=  DecibelToLinear(p[MAXPARAM + P_OSC1_VOL]);
+            v1_B *= volVelo;
+            v1_B *=  DecibelToLinear(p[MAXPARAM + P_OSC2_VOL]);
+            vSub_B = vSub_B * adsr1.output * p[MAXPARAM +P_OSC1_SUB];
             
-            vSub = vSub * adsr1.output * p[P_OSC1_SUB];
-            float vol = DecibelToLinear(p[P_VOLUME]);
-            
+            float v0_C = osc1_B.getSample((E_WaveType)p[2*MAXPARAM + P_OSC1_WAV]);
+            float v1_C = osc2_B.getSample((E_WaveType)p[2*MAXPARAM + P_OSC2_WAV]);
+            float vSub_C = subOsc_B.getSample((E_WaveType)p[2*MAXPARAM + P_OSC1_WAV]);
+
+            v0_C *= volVelo;
+            v0_C *=  DecibelToLinear(p[2*MAXPARAM + P_OSC1_VOL]);
+            v1_C *= volVelo;
+            v1_C *=  DecibelToLinear(p[2*MAXPARAM + P_OSC2_VOL]);
+            vSub_C = vSub_C * adsr1.output * p[2*MAXPARAM + P_OSC1_SUB];
+           
+            float v0_D = osc1_B.getSample((E_WaveType)p[3*MAXPARAM + P_OSC1_WAV]);
+            float v1_D = osc2_B.getSample((E_WaveType)p[3*MAXPARAM + P_OSC2_WAV]);
+            float vSub_D = subOsc_B.getSample((E_WaveType)p[3*MAXPARAM + P_OSC1_WAV]);
+
+            v0_D *= volVelo;
+            v0_D *=  DecibelToLinear(p[3*MAXPARAM + P_OSC1_VOL]);
+            v1_D *= volVelo;
+            v1_D *=  DecibelToLinear(p[3*MAXPARAM + P_OSC2_VOL]);
+            vSub_D = vSub_D * adsr1.output * p[3*MAXPARAM + P_OSC1_SUB];
+
             // Mono
-            float mono = (v0 + v1 + vSub)  * vol ;
+            float vol = DecibelToLinear(p[P_VOLUME]);
+
+            float vSumOscL = v0_A  * (1.0f - p[P_PAN]) + v0_B  * (1.0f - p[MAXPARAM +P_PAN]) + v0_C  * (1.0f - p[2*MAXPARAM +P_PAN]) + v0_D  * (1.0f - p[3*MAXPARAM +P_PAN]);
+            float vSumOscR = v0_A  * p[P_PAN] + v0_B  * p[MAXPARAM +P_PAN] + v0_C  * p[2*MAXPARAM +P_PAN] + v0_D  * p[3*MAXPARAM +P_PAN];
             
             // Feed Matrix
-           float lfo0Output = matrix.sources[s_LFO1] = tableLfo1[((int)tablePosLfo1)];
+            float lfo0Output = matrix.sources[s_LFO1] = tableLfo1[((int)tablePosLfo1)];
             matrix.sources[s_LFO2] = tableLfo2[((int)tablePosLfo2)];
             matrix.sources[s_LFO3] = tableLfo3[((int)tablePosLfo3)];
             matrix.sources[s_LFO4] = tableLfo4[((int)tablePosLfo4)];
@@ -339,49 +447,80 @@ public:
             matrix.calc(p);
             
              // Filter
-            if(filter1.getFilterType() != OFF2){
+            if(filter1L.getFilterType() != OFF2){
                 float cutoff = p[P_FILTER1_FREQ];
                 cutoff *= 1.0 - p[P_LFO1_FILTER] * (1.0 + lfo0Output) * 0.5;
-                filter1.setCutoff(cutoff);
-                filter1.setDrive(p[P_FILTER1_DRIVE]);
-                mono = filter1.process(mono);
+                filter1L.setCutoff(cutoff);
+                filter1L.setDrive(p[P_FILTER1_DRIVE]);
+                vSumOscL = filter1L.process(vSumOscL);
+            }
+            if(filter1R.getFilterType() != OFF2){
+                float cutoff = p[P_FILTER1_FREQ];
+                cutoff *= 1.0 - p[P_LFO1_FILTER] * (1.0 + lfo0Output) * 0.5;
+                filter1R.setCutoff(cutoff);
+                filter1R.setDrive(p[P_FILTER1_DRIVE]);
+                vSumOscR = filter1R.process(vSumOscR);
             }
             
             // LFO Amp
-            mono *= 1.0 - p[P_LFO1_VOL] * lfo0Output;
+            vSumOscL *= 1.0 - p[P_LFO1_VOL] * lfo0Output;
+            vSumOscR *= 1.0 - p[P_LFO1_VOL] * lfo0Output;
             
             // ADSR
-            mono *= smoothMaster.processLP(adsr1.output);
-            
-            // Pan
-            float vSumL = mono * (1.0f - p[P_PAN]);
-            float vSumR = mono * p[P_PAN];
+            vSumOscL *= smoothMaster.processLP(adsr1.output);
+            vSumOscR *= smoothMaster.processLP(adsr1.output);
 
             // Bounds Check
-            if(vSumL > 1.0f) {
-                vSumL = 1.0f;
+            if(vSumOscL > 1.0f) {
+                vSumOscL = 1.0f;
             }
-            if(vSumL < -1.0f) {
-                vSumL = -1.0f;
+            if(vSumOscL < -1.0f) {
+                vSumOscL = -1.0f;
             }
-            if(vSumR > 1.0f) {
-                vSumR = 1.0f;
+            if(vSumOscR > 1.0f) {
+                vSumOscR = 1.0f;
             }
-            if(vSumR < -1.0f) {
-                vSumR = -1.0f;
+            if(vSumOscR < -1.0f) {
+                vSumOscR = -1.0f;
             }
             
-            channelDataL[i] += vSumL;
-            channelDataR[i] += vSumR;
+            channelDataL[i] += vSumOscL;
+            channelDataR[i] += vSumOscR;
             
 // Move the Osc forward  =======================================================================
             
-            osc1.modFreq = matrix.targets[d_OSC1_FREQ];
-            osc1.modVol = matrix.targets[d_OSC1_VOL];
-            filter1.modCutoff = matrix.targets[d_FILTER1_CUTOFF];
-            osc1.move();
-            osc2.move();
-            subOsc.move();
+            osc1_A.modFreq = matrix.targets[d_OSC1_FREQ];
+            osc1_A.modVol = matrix.targets[d_OSC1_VOL];
+            
+            osc1_B.modFreq = matrix.targets[d_OSC1_FREQ];
+            osc1_B.modVol = matrix.targets[d_OSC1_VOL];
+            
+            osc1_C.modFreq = matrix.targets[d_OSC1_FREQ];
+            osc1_C.modVol = matrix.targets[d_OSC1_VOL];
+            
+            osc1_D.modFreq = matrix.targets[d_OSC1_FREQ];
+            osc1_D.modVol = matrix.targets[d_OSC1_VOL];
+            
+            // Filter
+            filter1L.modCutoff = matrix.targets[d_FILTER1_CUTOFF];
+            filter1R.modCutoff = matrix.targets[d_FILTER1_CUTOFF];
+            
+            // OSC
+            osc1_A.move();
+            osc2_A.move();
+            subOsc_A.move();
+            
+            osc1_B.move();
+            osc2_B.move();
+            subOsc_B.move();
+            
+            osc1_C.move();
+            osc2_C.move();
+            subOsc_C.move();
+            
+            osc1_D.move();
+            osc2_D.move();
+            subOsc_D.move();
 
             // Move LFO
             tablePosLfo1 += OVERSAMPLING * p[P_LFO1_FREQ];
