@@ -10,6 +10,7 @@
 #define Color_h
 
 #define C_DARKGREY  Colour(33, 33, 33)
+#define C_LIGHTGREY  Colour(66, 66, 66)
 #define C_BACKGROUND  Colour(239, 239, 239)
 #define C_BRANDTITLE  Colour(255,200,128)
 #define C_KEYBORDAREA  Colour(33, 66, 33)
@@ -21,7 +22,11 @@
 #define C_WAVEDISPLAY  Colour(255, 255, 255)
 
 #define C_BLACK Colour(0, 0, 0)
+#define C_WHITE Colour(255, 255, 255)
 #define C_RED Colour(255, 0, 0)
+
+#define C_DOT Colour(128, 128, 255)
+
 #define C_PTACHNAME Colour(100,162,213)
 
 #define C_BUTTONDOWN  Colour(0, 0, 0)

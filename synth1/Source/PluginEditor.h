@@ -72,6 +72,10 @@ private:
         viewMeterComponent.setDials();
         debugComponent.setDials();
         headerComponent.setDials();
+        libraryComponent.setDials();
+        arpComponent.setDials();
+        performanceComponent.setDials();
+        debugComponent.setDials();
 
         switch( Model::of().masterSel){
             case mEdit:

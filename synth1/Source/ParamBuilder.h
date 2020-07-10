@@ -184,6 +184,19 @@
 #define P_FX_DELAYR_FEEDBACK 516
 #define P_FX_DELAYR_MIX 517
 
+#define P_MACRO_0 864
+#define P_MACRO_1 865
+#define P_MACRO_2 866
+#define P_MACRO_3 867
+#define P_MACRO_4 868
+#define P_MACRO_5 869
+#define P_MACRO_6 870
+#define P_MACRO_7 871
+
+#define P_VOICESELECT_X 872
+#define P_VOICESELECT_Y 873
+#define P_PERFORM_X 874
+#define P_PERFORM_Y 875
 
 #define P_ARP_BPM 768 // BPM
 #define P_ARP_DEVISION 769 //  1/1-Note, 1/2-Note, 1/4-Note, 1/8-Note, 1/16-Note, 1/32-Note, and 1/64-Note
@@ -2098,7 +2111,138 @@ class ParamBuilder {       // The class
             p.type = uFloat;
             p.def = 0;
             Model::of().params[P_CURVE] = p;
+            
+            p.pid = P_MACRO_0;
+            p.name = "macro0";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_0] = p;
+            
+            p.pid = P_MACRO_1;
+            p.name = "macro1";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_1] = p;
+            
+            p.pid = P_MACRO_2;
+            p.name = "macro2";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_2] = p;
+            
+            p.pid = P_MACRO_3;
+            p.name = "macro3";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_3] = p;
+            
+            p.pid = P_MACRO_4;
+            p.name = "macro4";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_4] = p;
+            
+            p.pid = P_MACRO_5;
+            p.name = "macro5";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_5] = p;
+            
+            p.pid = P_MACRO_6;
+            p.name = "macro6";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_6] = p;
+            
+            p.pid = P_MACRO_7;
+            p.name = "macro7";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_7] = p;
+            
+            p.pid = P_VOICESELECT_X;
+            p.name = "VoiceX";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_VOICESELECT_X] = p;
 
+            p.pid = P_VOICESELECT_Y;
+            p.name = "VoiceY";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_VOICESELECT_Y] = p;
+            
+            p.pid = P_PERFORM_X;
+            p.name = "PerformX";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_PERFORM_X] = p;
+            
+            p.pid = P_PERFORM_Y;
+            p.name = "PerformY";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_PERFORM_Y] = p;
         }
 };
 

@@ -27,7 +27,7 @@ class PotsComponent : public AbstractComponent, public Slider::Listener {
              dials[i].setName(toString(i));
              dials[i].addListener (this);
              addAndMakeVisible (dials[i]);
-         }
+    }
     }
     
     ~PotsComponent () {
