@@ -11,9 +11,16 @@
 
 #include "AbstractComponent.h"
 
-class WaveComponent : public AbstractComponent, public ChangeListener, public Timer {
+class WaveComponent :  public AbstractComponent, public ChangeListener, public Timer {
    
 public:
+    
+    ~WaveComponent(){
+        for(auto it = std::begin(children); it != std::end(children); ++it) {
+          delete *it;
+        }
+    }
+    
     enum TransportState
     {
         Stopped,
@@ -23,6 +30,10 @@ public:
         Pausing,
         Paused
     };
+    
+    void build(Node node) override{
+           
+       }
     
    WaveComponent () : thumbnailCache (5),  thumbnail (512, formatManager, thumbnailCache)  {
       setOpaque (true);
@@ -64,7 +75,7 @@ public:
             changeState (Stopped);
     }
 
-    ~WaveComponent () {}
+   
     
     void thumbnailChanged()
     {
@@ -90,7 +101,7 @@ public:
         repaint();
     }
     
-    void setDials(){
+    void setDials() override{
         
     }
     

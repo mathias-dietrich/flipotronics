@@ -44,6 +44,10 @@ public:
         
     }
     
+    void build(Node node) override{
+           
+    }
+    
     void mouseDown (const MouseEvent& event) override{
           mouseDownX = event.position.x;
           mouseDownY = event.position.y;

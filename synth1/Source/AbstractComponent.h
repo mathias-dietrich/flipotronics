@@ -12,9 +12,28 @@
 #include <stdio.h>
 #include <JuceHeader.h>
 
-class AbstractComponent : public Component{
-    
+struct Node{
+    int width;
+    int height;
+    int x;
+    int y;
+    String type;
+    std::vector<Node> childen;
+    int paramId;
+};
+
+class AbstractComponent  :  public Component{
+
 public:
+    
+    AbstractComponent(){
+        
+    }
+    
+    virtual ~AbstractComponent () {
+        
+    }
+    
     void init(float sampleRate, int samplesPerBlock){
         this->samplesPerBlock = samplesPerBlock;
         this->sampleRate = sampleRate;
@@ -22,12 +41,20 @@ public:
         this->blocksPerSecond = sampleRate / samplesPerBlock;
     }
     
+   
+    
+    Node node;
+    
     virtual void setDials()=0;
+    
+    virtual void build(Node node)=0;
     
     float sampleRate;
     int samplesPerBlock;
     float sr;
     int blocksPerSecond;
+    
+    std::vector<AbstractComponent *> children;
     
 private:
 };

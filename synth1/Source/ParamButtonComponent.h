@@ -25,7 +25,7 @@
 #include "PotsComponent.h"
 #include "KeysComponent.h"
 
-class ParamButtonComponent : public AbstractComponent,  public Button::Listener{
+class ParamButtonComponent :  public AbstractComponent,  public Button::Listener{
 public:
     
     ParamButtonComponent() {
@@ -112,6 +112,10 @@ public:
     ~ParamButtonComponent(){
         
     }
+    
+    void build(Node node) override{
+           
+       }
     
     void buttonClicked (Button* button)  override {
         

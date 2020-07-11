@@ -9,7 +9,7 @@
 #ifndef SetupComponent_h
 #define SetupComponent_h
 
-class SetupComponent:  public AbstractComponent{
+class SetupComponent :  public AbstractComponent{
 
    public:
     
@@ -28,6 +28,10 @@ class SetupComponent:  public AbstractComponent{
      void setDials() override{
          
      }
+    
+    void build(Node node) override{
+           
+       }
 };
 
 #endif /* SetupComponent_h */

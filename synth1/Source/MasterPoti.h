@@ -47,14 +47,26 @@ public:
     
     MasterPotiLookAndFeel potiLookAndFeel;
 
-     MasterPoti() {
-        this->setLookAndFeel (&potiLookAndFeel);
+   
+    MasterPoti() {
+      //using juce::Component::Slider...;
+        
+         juce::Slider::setLookAndFeel (&potiLookAndFeel);
           hideTextBox(true);
     }
     
     ~MasterPoti() {
-        setLookAndFeel (nullptr);
+        // using juce::Component::setLookAndFeel;
+        juce::Slider::setLookAndFeel (nullptr);
      }
+    
+    void build(Node node) {
+           
+       }
+    
+    void setDials(){
+        
+    }
     
 private:
     

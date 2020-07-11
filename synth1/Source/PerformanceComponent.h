@@ -18,7 +18,7 @@
 #include "XYPad.h"
 #include "MacroComponent.h"
 
-class PerformanceComponent:  public AbstractComponent{
+class PerformanceComponent : public AbstractComponent{
 
    public:
    
@@ -34,6 +34,10 @@ class PerformanceComponent:  public AbstractComponent{
          auto height  = r.getHeight();
          g.fillAll (Colours::black);
     }
+    
+    void build(Node node) override{
+           
+       }
        
     void resized() override {
         Rectangle<int> r = getLocalBounds();

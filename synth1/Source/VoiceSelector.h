@@ -9,7 +9,7 @@
 #ifndef VoiceSelector_h
 #define VoiceSelector_h
 
-class VoiceSelector : public AbstractComponent {
+class VoiceSelector :  public AbstractComponent {
     
 public:
     VoiceSelector(){
@@ -44,6 +44,10 @@ public:
     void setDials() override{
            
     }
+    
+    void build(Node node) override{
+           
+       }
     
     void mouseDown (const MouseEvent& event) override{
         mouseDownX = event.position.x;

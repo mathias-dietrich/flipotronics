@@ -318,6 +318,10 @@
 		4FAC349024A3686200FB51D7 /* Poti.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Poti.h; path = ../../Source/Poti.h; sourceTree = "<group>"; };
 		4FB9214924A4A41D00204531 /* AbstractComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AbstractComponent.h; path = ../../Source/AbstractComponent.h; sourceTree = "<group>"; };
 		4FB9214A24A4DA6800204531 /* CurveComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CurveComponent.h; path = ../../Source/CurveComponent.h; sourceTree = "<group>"; };
+		4FBE24A724B997CE0079D020 /* UILoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UILoader.h; path = ../../Source/UILoader.h; sourceTree = "<group>"; };
+		4FBE24AC24B9A0C80079D020 /* xml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = xml; path = build/Debug/xml; sourceTree = "<group>"; };
+		4FBE24AE24B9B5930079D020 /* ComponentFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ComponentFactory.h; path = ../../Source/ComponentFactory.h; sourceTree = "<group>"; };
+		4FBE24AF24B9B6D60079D020 /* RootComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RootComponent.h; path = ../../Source/RootComponent.h; sourceTree = "<group>"; };
 		4FC14FD6249748C700C259ED /* Smooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Smooth.h; path = ../../Source/Smooth.h; sourceTree = "<group>"; };
 		4FC14FD724974ABB00C259ED /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Osc.h; path = ../../Source/Osc.h; sourceTree = "<group>"; };
 		4FC4C0BB248395E700CBE568 /* Arp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Arp.cpp; path = ../../Source/Arp.cpp; sourceTree = "<group>"; };
@@ -546,6 +550,7 @@
 				4F2FE82224B3B78B007524B1 /* Matrix.h */,
 				4F07D8F524B4713C006173FE /* ControllerMapping.h */,
 				4F01BCFE24B47AD3006B9B92 /* MyKeyListener.h */,
+				4FBE24A724B997CE0079D020 /* UILoader.h */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -682,6 +687,8 @@
 				4FA0963324B7418B005F9BDB /* LibraryComponent.h */,
 				4FA0963424B742F4005F9BDB /* ArpComponent.h */,
 				4FA0963524B743C2005F9BDB /* SetupComponent.h */,
+				4FBE24AE24B9B5930079D020 /* ComponentFactory.h */,
+				4FBE24AF24B9B6D60079D020 /* RootComponent.h */,
 			);
 			name = component;
 			sourceTree = "<group>";
@@ -768,6 +775,7 @@
 		FA8B1015400F39E650751125 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4FBE24AC24B9A0C80079D020 /* xml */,
 				4FD0B75F24A86FC300B59290 /* Fonts */,
 				4FAC348F24A33A0100FB51D7 /* images */,
 				4F88DBCB2485B19F006ABA7A /* TODO.txt */,

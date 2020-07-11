@@ -7,6 +7,11 @@
 //==============================================================================
 Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p) : 
     AudioProcessorEditor (&p),processor (p){
+    
+    Node rootNode;
+    uiLoader.loadRoot(rootNode);
+    rootComponent = new RootComponent();
+    rootComponent->build(rootNode);
 
     addKeyListener(this);
         
@@ -53,6 +58,8 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addChildComponent(processor.showTableComponent);
     addAndMakeVisible(potsComponent);
         
+    addAndMakeVisible(rootComponent);
+        
     keysComponent = new KeysComponent(p);
     addAndMakeVisible(keysComponent);
         
@@ -80,6 +87,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
     ImageFactory::of().close();
     delete keysComponent;
+    delete rootComponent;
 }
 
 // ==================================================================================================
@@ -119,6 +127,7 @@ void Synth1AudioProcessorEditor::resized() {
     libraryComponent.setBounds(0,50, width,  630);
     arpComponent.setBounds(0,50, width,  630);
     setupComponent.setBounds(0,50, width,  630);
+    rootComponent->setBounds(0,50, width,  630);
     debugComponent.setBounds(width-280,80, 270,  260);
 }
 

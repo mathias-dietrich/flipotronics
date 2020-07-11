@@ -29,6 +29,7 @@ class KeysComponent : public AbstractComponent, public MidiKeyboardStateListener
         pitchWheel.setSliderStyle(Slider::SliderStyle::LinearVertical );
         pitchWheel.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 20);
         pitchWheel.setNumDecimalPlacesToDisplay(2);
+
         pitchWheel.setName("100");
         pitchWheel.addListener (this);
         pitchWheel.setRange(-8192, 8192, 1);
@@ -73,6 +74,10 @@ class KeysComponent : public AbstractComponent, public MidiKeyboardStateListener
     ~KeysComponent () {
 
     }
+    
+    void build(Node node) override{
+           
+       }
     
     void setDials() override{
         

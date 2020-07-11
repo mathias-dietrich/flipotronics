@@ -9,7 +9,7 @@
 #ifndef LibraryComponent_h
 #define LibraryComponent_h
 
-class LibraryComponent:  public AbstractComponent{
+class LibraryComponent  : public AbstractComponent{
 
    public:
     
@@ -28,6 +28,10 @@ class LibraryComponent:  public AbstractComponent{
      void setDials() override{
          
      }
+    
+    void build(Node node) override{
+           
+       }
 };
 
 #endif /* LibraryComponent_h */

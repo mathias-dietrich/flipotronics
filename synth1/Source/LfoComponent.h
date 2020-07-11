@@ -11,7 +11,7 @@
 
 #include "AbstractComponent.h"
 
-class LfoComponent:  public AbstractComponent{
+class LfoComponent:   public AbstractComponent{
    public:
    
     LfoComponent () {
@@ -19,6 +19,10 @@ class LfoComponent:  public AbstractComponent{
     }
    
     ~LfoComponent () {
+        
+    }
+    
+    void build(Node node) override{
         
     }
     

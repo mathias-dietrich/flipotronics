@@ -11,7 +11,7 @@
 
 #include "AbstractComponent.h"
 
-class AdsrComponent : public AbstractComponent{
+class AdsrComponent :   public AbstractComponent{
     public:
     
      AdsrComponent () {
@@ -24,6 +24,10 @@ class AdsrComponent : public AbstractComponent{
      ~AdsrComponent () {
          
      }
+    
+    void build(Node node) override{
+           
+       }
     
      void paint (Graphics& g) override{
          Rectangle<int> r = getLocalBounds();

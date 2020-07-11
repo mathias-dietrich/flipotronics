@@ -16,7 +16,7 @@
 #include "Poti.h"
 #include "AbstractComponent.h"
 
-class PotsComponent : public AbstractComponent, public Slider::Listener {
+class PotsComponent :  virtual public AbstractComponent, public Slider::Listener {
     
  public:
     PotsComponent(){
@@ -27,12 +27,16 @@ class PotsComponent : public AbstractComponent, public Slider::Listener {
              dials[i].setName(toString(i));
              dials[i].addListener (this);
              addAndMakeVisible (dials[i]);
-    }
+      }
     }
     
     ~PotsComponent () {
            
     }
+    
+    void build(Node node) override{
+           
+       }
        
     void paint (Graphics& g) override {
         

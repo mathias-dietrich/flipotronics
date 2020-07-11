@@ -16,7 +16,7 @@ class ViewMeterComponent : public AbstractComponent{
     
 public:
     
-    void paint (Graphics& g){
+    void paint (Graphics& g) override{
         g.drawImageWithin(ImageFactory::of().png[eMeter], 0, 0, 120,80, juce::RectanglePlacement::stretchToFit, false);
         g.drawImageWithin(ImageFactory::of().png[eMeter], 150, 0, 120,80, juce::RectanglePlacement::stretchToFit, false);
         
@@ -44,7 +44,11 @@ public:
         g.drawLine(150+60,80, 150+xR, 80 - yR, 1.2);
     }
     
-    void resized(){
+    void build(Node node) override{
+           
+       }
+    
+    void resized() override{
         
     }
     

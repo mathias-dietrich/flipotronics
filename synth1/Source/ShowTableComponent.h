@@ -11,7 +11,7 @@
 
 #include "AbstractComponent.h"
 
-class ShowTableComponent:  public AbstractComponent{
+class ShowTableComponent: public AbstractComponent{
    public:
    
     ShowTableComponent () {
@@ -21,6 +21,10 @@ class ShowTableComponent:  public AbstractComponent{
     ~ShowTableComponent () {
         
     }
+    
+    void build(Node node) override{
+           
+       }
     
      void paint (Graphics& g) override{
          int freq = 2;

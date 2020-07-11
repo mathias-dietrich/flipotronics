@@ -61,22 +61,27 @@ public:
     }
 };
 
-class MasterSwitch : public TextButton {
+class MasterSwitch : public TextButton{
     
 public:
     
     MasterSwitchFeel feel;
     
     MasterSwitch(){
-     setLookAndFeel (&feel);
+     juce::TextButton::setLookAndFeel (&feel);
     }
     
      E_Master masterSel;
     
     ~MasterSwitch() override
     {
-        setLookAndFeel (nullptr);
+         juce::TextButton::setLookAndFeel (nullptr);
     }
+    
+    void build(Node node) {
+           
+    }
+    
     
     /*
      void paint (Graphics& g) override{

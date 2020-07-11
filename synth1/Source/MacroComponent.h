@@ -32,6 +32,16 @@ class MacroComponent:  public AbstractComponent, public Slider::Listener{
         }
     }
     
+    ~MacroComponent(){
+       for(auto it = std::begin(children); it != std::end(children); ++it) {
+         delete *it;
+       }
+    }
+    
+    void build(Node node) override{
+           
+    }
+    
     void paint (Graphics& g) override {
          Rectangle<int> r = getLocalBounds();
          auto width  = getLocalBounds().getWidth();

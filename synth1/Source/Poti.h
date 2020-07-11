@@ -72,7 +72,7 @@ class PotiLookAndFeel : public  LookAndFeel_V4{
     
 };
 
-class Poti : public Slider{
+class Poti : public Slider {
     
 public:
     
@@ -83,13 +83,21 @@ public:
     }
 
      Poti() {
-        this->setLookAndFeel (&potiLookAndFeel);
-          hideTextBox(true);
+        juce::Slider::setLookAndFeel (&potiLookAndFeel);
+        hideTextBox(true);
     }
     
     ~Poti() {
-        setLookAndFeel (nullptr);
+        juce::Slider::setLookAndFeel (nullptr);
      }
+    
+    void build(Node node) {
+           
+       }
+    
+    void setDials() {
+           
+       }
     
 private:
     

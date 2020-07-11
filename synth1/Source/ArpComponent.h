@@ -10,7 +10,7 @@
 #define ArpComonent_h
 
 
-class ArpComponent:  public AbstractComponent{
+class ArpComponent :public AbstractComponent{
 
    public:
     
@@ -29,6 +29,10 @@ class ArpComponent:  public AbstractComponent{
      void setDials() override{
          
      }
+    
+    void build(Node node) override{
+           
+       }
 };
 
 #endif /* ArpComonent_h */

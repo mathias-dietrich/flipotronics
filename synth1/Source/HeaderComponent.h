@@ -131,6 +131,7 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         viewZoom.setSelectedId(3,  NotificationType::dontSendNotification);
         
         setDials();
+        
     }
    
     ~HeaderComponent () {
@@ -169,6 +170,10 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         Desktop::getInstance().setGlobalScaleFactor((float)this->getWidth() / ws);
         repaint();
     }
+    
+    void build(Node node) override{
+           
+       }
     
     void buttonClicked (Button* button)  override {
 

@@ -26,6 +26,10 @@ class CurveComponent : public AbstractComponent {
     ~CurveComponent () {
            
     }
+    
+    void build(Node node) override{
+           
+       }
        
     void paint (Graphics& g) override {
         Rectangle<int> r = getLocalBounds();

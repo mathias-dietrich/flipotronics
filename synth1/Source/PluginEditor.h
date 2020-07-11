@@ -26,8 +26,8 @@
 #include "LibraryComponent.h"
 #include "ArpComponent.h"
 #include "SetupComponent.h"
-
-//============Poti==================================================================
+#include "UILoader.h"
+#include "RootComponent.h"
 
 class Synth1AudioProcessorEditor  : public AudioProcessorEditor, public Timer, public KeyListener
 {
@@ -88,6 +88,7 @@ private:
                 potsComponent.setVisible(false);
                 viewMeterComponent.setVisible(false);
                 subComponentsVisible(false);
+                rootComponent->setVisible(true);
                 break;
                 
             case mLibrary:
@@ -100,6 +101,7 @@ private:
                 setupComponent.setVisible(false);
                 libraryComponent.setVisible(true);
                 subComponentsVisible(false);
+                rootComponent->setVisible(false);
                 break;
                 
             case mPerform:
@@ -111,6 +113,7 @@ private:
                 setupComponent.setVisible(false);
                 performanceComponent.setVisible(true);
                 subComponentsVisible(false);
+                rootComponent->setVisible(false);
                 break;
                 
             case mArp:
@@ -122,6 +125,7 @@ private:
                 setupComponent.setVisible(false);
                 arpComponent.setVisible(true);
                 subComponentsVisible(false);
+                rootComponent->setVisible(false);
                 break;
                 
             case mSetup:
@@ -135,6 +139,7 @@ private:
                 arpComponent.setVisible(false);
                 setupComponent.setVisible(true);
                 subComponentsVisible(false);
+                rootComponent->setVisible(false);
                 break;
                 
             case mDebug:
@@ -147,6 +152,7 @@ private:
                 potsComponent.setVisible(true);
                 debugComponent.setVisible(true);
                 subComponentsVisible(true);
+                rootComponent->setVisible(false);
                 break;
             }
     }
@@ -233,4 +239,9 @@ private:
     LibraryComponent libraryComponent;
     ArpComponent arpComponent;
     SetupComponent setupComponent;
+    
+    UILoader uiLoader;
+    
+    RootComponent * rootComponent;
+    ComponentFactory componentFactory;
 };

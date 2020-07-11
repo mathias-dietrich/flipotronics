@@ -35,24 +35,29 @@ class PitchWheelLookAndFeel : public  LookAndFeel_V4{
     }
 };
 
-class PitchWheel : public Slider{
+class PitchWheel : public Slider {
     
 public:
-    
     PitchWheelLookAndFeel pitchWheelLookAndFeel;
     
      PitchWheel() {
-        pitchWheelLookAndFeel.setColour (Slider::thumbColourId, Colours::blue);
-        
-         
-       setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
-        hideTextBox (true)    ;
-       this->setLookAndFeel (&pitchWheelLookAndFeel);
+         pitchWheelLookAndFeel.setColour (Slider::thumbColourId, Colours::blue);
+         this->setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
+         this->hideTextBox (true)    ;
+         juce::Slider::setLookAndFeel (&pitchWheelLookAndFeel);
     }
     
     ~PitchWheel() {
-        setLookAndFeel (nullptr);
+       juce::Slider::setLookAndFeel (nullptr);
      }
+    
+    void setDials(){
+        
+    }
+    
+    void build(Node node) {
+           
+       }
     
 private:
     

@@ -99,6 +99,10 @@ class SpectrumComponent : public AbstractComponent , private Timer{
             x += steps;
         }
     }
+    
+    void build(Node node) override{
+           
+       }
 
     void getNextAudioBlock ()
     {

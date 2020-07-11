@@ -433,7 +433,7 @@ public:
 
             // Mono
             float vol = DecibelToLinear(p[P_VOLUME]);
-            
+             
             float a = v0_A * (1.0f-p[P_VOICESELECT_X]) * (1.0f-p[P_VOICESELECT_Y]);
             float b = v0_B * p[P_VOICESELECT_X] * (1.0f-p[P_VOICESELECT_Y]);
             float c = v0_C * (1.0f-p[P_VOICESELECT_X]) * p[P_VOICESELECT_Y];
