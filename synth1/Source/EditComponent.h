@@ -26,15 +26,15 @@ public:
     }
     
     void paint (Graphics& g) override {
-            Rectangle<int> r = getLocalBounds();
-            auto width  = getLocalBounds().getWidth();
-            auto height  = getLocalBounds().getHeight();
-            g.fillAll (C_BLACK);
+        Rectangle<int> r = getLocalBounds();
+        auto width  = r.getWidth();
+        auto height  = r.getHeight();
+        g.fillAll (C_BLACK);
     }
     
     void setDials() override{
         for(auto it = std::begin(children); it != std::end(children); ++it) {
-          auto c = *it;
+            auto c = *it;
             c->setDials();
         }
     }
@@ -51,7 +51,7 @@ public:
            if(node.type == 1){ // Widget
                current->build(node);
            }
-         }
+       }
     }
     
     void resized() override{

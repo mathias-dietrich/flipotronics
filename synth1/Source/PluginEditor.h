@@ -76,6 +76,7 @@ private:
         arpComponent.setDials();
         performanceComponent.setDials();
         debugComponent.setDials();
+        editComponent->setDials();
 
         switch( Model::of().masterSel){
             case mEdit:

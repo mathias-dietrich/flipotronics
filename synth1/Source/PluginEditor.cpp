@@ -8,9 +8,8 @@
 Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p) : 
     AudioProcessorEditor (&p),processor (p){
     
-     ImageFactory::of().init();
+    ImageFactory::of().init();
       
-        
    // Node rootNode;
     uiLoader.loadRoot(editNode, "edit.xml");
     editComponent = new EditComponent();

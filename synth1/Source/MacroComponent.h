@@ -45,6 +45,7 @@ class MacroComponent:  public AbstractComponent, public Slider::Listener{
            wc->setNumDecimalPlacesToDisplay(2);
            wc->setName(toString(node.paramId));
            wc->addListener (this);
+           wc->setRange(0,1,0.01f);
            widgets.push_back(wc);
         }
     }
@@ -53,8 +54,8 @@ class MacroComponent:  public AbstractComponent, public Slider::Listener{
          Rectangle<int> r = getLocalBounds();
          auto width  = r.getWidth();
          auto height  = r.getHeight();
-        auto defaultColour = Colours::black;
-          g.fillAll (juce::Colours::findColourForName (node.bgColor, defaultColour));
+         auto defaultColour = Colours::black;
+         g.fillAll (juce::Colours::findColourForName (node.bgColor, defaultColour));
     }
        
      void resized() override{
@@ -72,13 +73,10 @@ class MacroComponent:  public AbstractComponent, public Slider::Listener{
     }
     
      void setDials() override{
-         int i = 0;
-         for(auto it = std::begin(children); it != std::end(children); ++it) {
-             int pid = P_MACRO_0 + i;
+         for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
              MasterPoti *p =  (MasterPoti*) *it;
-             p->setRange(Model::of().params[pid].minVal,Model::of().params[pid].maxVal,Model::of().params[pid].stepVal);
-             p->setValue(Model::of().par[pid],dontSendNotification);
-             ++i;
+             Node node = p->node;
+             p->setValue(Model::of().par[node.paramId],dontSendNotification);
          }
      }
     
