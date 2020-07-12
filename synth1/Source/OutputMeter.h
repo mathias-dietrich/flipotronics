@@ -9,7 +9,10 @@
 #ifndef OutputMeter_h
 #define OutputMeter_h
 
-class OutputMeter : public AbstractComponent {
+#include "Widget.h"
+#include "Color.h"
+
+class OutputMeter : public Component,  public Widget {
     
 public:
     OutputMeter(){
@@ -25,17 +28,7 @@ public:
          
         drawChannel(g,Model::of().sumPeakL, 10);
         drawChannel(g,Model::of().sumPeakR, 25);
-        
-        
     }
-    
-    void setDials() override{
-        
-    }
-    
-    void build(Node node) override{
-           
-       }
     
     void drawChannel(Graphics& g, float val, int x){
         for(int i=0;i < 8;i++){
@@ -114,6 +107,14 @@ public:
             g.fillRect (r);
         }
     }
+    
+    void setDials() override{
+        
+    }
+    
+    //void resized() override{
+             // setBounds(node.x, node.y, node.width, node.height);
+     //  }
     
 private:
 };

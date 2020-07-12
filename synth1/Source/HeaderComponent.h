@@ -25,10 +25,9 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         potiMasterVol.addListener (this);
         potiMasterVol.setRange(0-96, 18, 0.01);
         potiMasterVol.setSkewFactor (6);
-        
+
         addAndMakeVisible(potiMasterVol);
         addAndMakeVisible(outputMeter);
-        
         
         // mEdit, mLibrary, mPerform, mArp, mSetup
         
@@ -326,7 +325,7 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         auto width  = getLocalBounds().getWidth();
         //auto height  = getLocalBounds().getHeight();
         
-        g.fillAll (Colours::black);
+        g.fillAll (C_BLACK);
 
         r.setX(5);
         r.setY(5);

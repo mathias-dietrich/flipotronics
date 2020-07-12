@@ -8,6 +8,7 @@
 
 #ifndef Poti_h
 #define Poti_h
+#include "Widget.h"
 
 class PotiLookAndFeel : public  LookAndFeel_V4{
     public:
@@ -72,7 +73,7 @@ class PotiLookAndFeel : public  LookAndFeel_V4{
     
 };
 
-class Poti : public Slider {
+class Poti : public Slider,  public Widget {
     
 public:
     
@@ -91,13 +92,13 @@ public:
         juce::Slider::setLookAndFeel (nullptr);
      }
     
-    void build(Node node) {
+    void setDials()  override{
            
-       }
+    }
     
-    void setDials() {
-           
-       }
+   // void resized() override{
+             // setBounds(node.x, node.y, node.width, node.height);
+     //  }
     
 private:
     

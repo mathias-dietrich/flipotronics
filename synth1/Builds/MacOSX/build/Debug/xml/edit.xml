@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flipotronics>
+    <e t="0" n="macro" x="60" y="0"  w="1400" h="50" bg="black" bgi="">
+        <e t="1" n="masterpoti" x="10" y="0"  w="50" h="50" p="800" />
+        <e t="1" n="masterpoti" x="90" y="0" w="50" h="50"  p="801" />
+        <e t="1" n="masterpoti" x="170" y="0" w="50" h="50"  p="802" />
+        <e t="1" n="masterpoti" x="250" y="0" w="50" h="50"  p="803" />
+        <e t="1" n="masterpoti" x="320" y="0" w="50" h="50"  p="804" />
+        <e t="1" n="masterpoti" x="400" y="0" w="50" h="50"  p="805" />
+        <e t="1" n="masterpoti" x="480" y="0" w="50" h="50"  p="806" />
+        <e t="1" n="masterpoti" x="560" y="0" w="50" h="50"  p="807" />
+        <e t="1" n="masterpoti" x="640" y="0"  w="50" h="50" p="808" />
+        <e t="1" n="masterpoti" x="720" y="0" w="50" h="50"  p="809" />
+        <e t="1" n="masterpoti" x="800" y="0" w="50" h="50"  p="810" />
+        <e t="1" n="masterpoti" x="880" y="0" w="50" h="50"  p="811" />
+        <e t="1" n="masterpoti" x="960" y="0" w="50" h="50"  p="812" />
+        <e t="1" n="masterpoti" x="1040" y="0" w="50" h="50"  p="813" />
+        <e t="1" n="masterpoti" x="1120" y="0" w="50" h="50"  p="814" />
+        <e t="1" n="masterpoti" x="1200" y="0" w="50" h="50"  p="815" />
+    </e>
+</flipotronics>

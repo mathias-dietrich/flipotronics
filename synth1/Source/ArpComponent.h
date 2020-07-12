@@ -9,6 +9,7 @@
 #ifndef ArpComonent_h
 #define ArpComonent_h
 
+#include "WidgetFactory.h"
 
 class ArpComponent :public AbstractComponent{
 
@@ -33,6 +34,8 @@ class ArpComponent :public AbstractComponent{
     void build(Node node) override{
            
        }
+    
+    WidgetFactory widgetFactory;
 };
 
 #endif /* ArpComonent_h */

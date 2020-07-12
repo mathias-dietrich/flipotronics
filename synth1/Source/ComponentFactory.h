@@ -15,11 +15,9 @@ class ComponentFactory{
 public:
     
     AbstractComponent * get(String type){
-  
         if(type == "macro"){
             return new MacroComponent();
         }
-       
         return new MacroComponent();
     }
 };

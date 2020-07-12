@@ -6,19 +6,20 @@
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef RootComponent_h
-#define RootComponent_h
+#ifndef EditComponent_h
+#define EditComponent_h
 
+#include "AbstractComponent.h"
 #include "ComponentFactory.h"
 
-class RootComponent :  public AbstractComponent {
+class EditComponent :  public AbstractComponent {
 public:
     
-    RootComponent(){
+    EditComponent(){
         
     }
     
-    ~RootComponent(){
+    ~EditComponent(){
        for(auto it = std::begin(children); it != std::end(children); ++it) {
          delete *it;
        }
@@ -29,7 +30,7 @@ public:
             auto width  = getLocalBounds().getWidth();
             auto height  = getLocalBounds().getHeight();
             g.fillAll (C_BLACK);
-       }
+    }
     
     void setDials() override{
         for(auto it = std::begin(children); it != std::end(children); ++it) {
@@ -41,20 +42,28 @@ public:
     void build(Node node) override{
        for(auto it = std::begin( node.childen); it != std::end( node.childen); ++it) {
            Node node = *it;
-           AbstractComponent *c = componentFactory.get(node.type);
-           this->addAndMakeVisible(c);
-           children.push_back(c);
+           if(node.type == 0){ //Component
+               current = componentFactory.get(node.name);
+               current->node = node;
+               this->addAndMakeVisible(current);
+               children.push_back(current);
+           }
+           if(node.type == 1){ // Widget
+               current->build(node);
+           }
          }
     }
     
     void resized() override{
         for(auto it = std::begin(children); it != std::end(children); ++it) {
-          auto c = *it;
-            c->setBounds(0,0,0,0);
+            AbstractComponent *c = *it;
+            Node n = c->node;
+            c->setBounds(n.x,n.y,n.width,n.height);
         }
     }
     
+    AbstractComponent *current;
     ComponentFactory componentFactory;
 };
 
-#endif /* RootComponent_h */
+#endif /* EditComponent_h */

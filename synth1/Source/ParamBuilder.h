@@ -192,11 +192,19 @@
 #define P_MACRO_5 869
 #define P_MACRO_6 870
 #define P_MACRO_7 871
+#define P_MACRO_8 872
+#define P_MACRO_9 873
+#define P_MACRO_10 874
+#define P_MACRO_11 875
+#define P_MACRO_12 876
+#define P_MACRO_13 877
+#define P_MACRO_14 878
+#define P_MACRO_15 879
 
-#define P_VOICESELECT_X 872
-#define P_VOICESELECT_Y 873
-#define P_PERFORM_X 874
-#define P_PERFORM_Y 875
+#define P_VOICESELECT_X 880
+#define P_VOICESELECT_Y 881
+#define P_PERFORM_X 882
+#define P_PERFORM_Y 883
 
 #define P_ARP_BPM 768 // BPM
 #define P_ARP_DEVISION 769 //  1/1-Note, 1/2-Note, 1/4-Note, 1/8-Note, 1/16-Note, 1/32-Note, and 1/64-Note
@@ -2199,6 +2207,94 @@ class ParamBuilder {       // The class
             p.type = uFloat;
             p.def = 0;
             Model::of().params[P_MACRO_7] = p;
+            
+            p.pid = P_MACRO_8;
+            p.name = "macro8";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_8] = p;
+            
+            p.pid = P_MACRO_9;
+            p.name = "macro9";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_9] = p;
+            
+            p.pid = P_MACRO_10;
+            p.name = "macro10";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_10] = p;
+            
+            p.pid = P_MACRO_11;
+            p.name = "macro11";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_11] = p;
+            
+            p.pid = P_MACRO_12;
+            p.name = "macro12";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_12] = p;
+            
+            p.pid = P_MACRO_13;
+            p.name = "macro13";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_13] = p;
+            
+            p.pid = P_MACRO_14;
+            p.name = "macro14";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_14] = p;
+            
+            p.pid = P_MACRO_15;
+            p.name = "macro15";
+            p.writeable = 1;
+            p.automate = 1;
+            p.minVal = 0;
+            p.maxVal = 1;
+            p.stepVal = 0.01;
+            p.type = uFloat;
+            p.def = 0;
+            Model::of().params[P_MACRO_15] = p;
             
             p.pid = P_VOICESELECT_X;
             p.name = "VoiceX";

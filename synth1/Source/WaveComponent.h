@@ -33,7 +33,7 @@ public:
     
     void build(Node node) override{
            
-       }
+    }
     
    WaveComponent () : thumbnailCache (5),  thumbnail (512, formatManager, thumbnailCache)  {
       setOpaque (true);

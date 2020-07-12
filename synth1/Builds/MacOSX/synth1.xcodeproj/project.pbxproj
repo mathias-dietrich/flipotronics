@@ -321,7 +321,9 @@
 		4FBE24A724B997CE0079D020 /* UILoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UILoader.h; path = ../../Source/UILoader.h; sourceTree = "<group>"; };
 		4FBE24AC24B9A0C80079D020 /* xml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = xml; path = build/Debug/xml; sourceTree = "<group>"; };
 		4FBE24AE24B9B5930079D020 /* ComponentFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ComponentFactory.h; path = ../../Source/ComponentFactory.h; sourceTree = "<group>"; };
-		4FBE24AF24B9B6D60079D020 /* RootComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RootComponent.h; path = ../../Source/RootComponent.h; sourceTree = "<group>"; };
+		4FBE24AF24B9B6D60079D020 /* EditComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EditComponent.h; path = ../../Source/EditComponent.h; sourceTree = "<group>"; };
+		4FBE24B024BAD6F70079D020 /* Widget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Widget.h; path = ../../Source/Widget.h; sourceTree = "<group>"; };
+		4FBE24B124BAD96E0079D020 /* WidgetFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WidgetFactory.h; path = ../../Source/WidgetFactory.h; sourceTree = "<group>"; };
 		4FC14FD6249748C700C259ED /* Smooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Smooth.h; path = ../../Source/Smooth.h; sourceTree = "<group>"; };
 		4FC14FD724974ABB00C259ED /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Osc.h; path = ../../Source/Osc.h; sourceTree = "<group>"; };
 		4FC4C0BB248395E700CBE568 /* Arp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Arp.cpp; path = ../../Source/Arp.cpp; sourceTree = "<group>"; };
@@ -688,7 +690,7 @@
 				4FA0963424B742F4005F9BDB /* ArpComponent.h */,
 				4FA0963524B743C2005F9BDB /* SetupComponent.h */,
 				4FBE24AE24B9B5930079D020 /* ComponentFactory.h */,
-				4FBE24AF24B9B6D60079D020 /* RootComponent.h */,
+				4FBE24AF24B9B6D60079D020 /* EditComponent.h */,
 			);
 			name = component;
 			sourceTree = "<group>";
@@ -703,6 +705,8 @@
 				4FD0B76A24A8881000B59290 /* MasterSwitch.h */,
 				4FA0963124B70CF1005F9BDB /* VoiceSelector.h */,
 				4FA0963224B70D1B005F9BDB /* XYPad.h */,
+				4FBE24B024BAD6F70079D020 /* Widget.h */,
+				4FBE24B124BAD96E0079D020 /* WidgetFactory.h */,
 			);
 			name = widget;
 			sourceTree = "<group>";

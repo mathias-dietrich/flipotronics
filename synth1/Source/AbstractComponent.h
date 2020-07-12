@@ -11,16 +11,7 @@
 
 #include <stdio.h>
 #include <JuceHeader.h>
-
-struct Node{
-    int width;
-    int height;
-    int x;
-    int y;
-    String type;
-    std::vector<Node> childen;
-    int paramId;
-};
+#include "Widget.h"
 
 class AbstractComponent  :  public Component{
 
@@ -40,11 +31,7 @@ public:
         this->sr = sampleRate * OVERSAMPLING;
         this->blocksPerSecond = sampleRate / samplesPerBlock;
     }
-    
-   
-    
-    Node node;
-    
+
     virtual void setDials()=0;
     
     virtual void build(Node node)=0;
@@ -55,8 +42,11 @@ public:
     int blocksPerSecond;
     
     std::vector<AbstractComponent *> children;
+    std::vector<Widget *> widgets;
+    Node node;
     
 private:
+
 };
 
 #endif /* AbstractComponent_h */

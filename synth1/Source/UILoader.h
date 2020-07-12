@@ -14,11 +14,11 @@
 
 class UILoader{
 public:
-    void loadRoot(Node & rootNode){
-        File f = File(File::getCurrentWorkingDirectory().getFullPathName()).getChildFile("xml").getChildFile("root.xml");
+    void loadRoot(Node & rootNode, String xmlFile){
+        File f = File(File::getCurrentWorkingDirectory().getFullPathName()).getChildFile("xml").getChildFile(xmlFile);
         XmlDocument dataDoc(f);
         std::unique_ptr<XmlElement> root{ dataDoc.getDocumentElement() };
-        rootNode.type = "root";
+        rootNode.name = "root";
         auto el =  root.release();
         parse(rootNode, el);
         el->deleteAllChildElements();
@@ -42,13 +42,18 @@ public:
         for(int i=0; i < el->getNumChildElements() ;++i){
             auto child = el->getChildElement(i);
             Node n;
-           n.type = child->getStringAttribute("t");
+           n.type = child->getIntAttribute("t");
+           n.name = child->getStringAttribute("n");
            n.x = child->getIntAttribute("x");
            n.y = child->getIntAttribute("y");
            n.width = child->getIntAttribute("w");
            n.height = child->getIntAttribute("h");
+   
            if(child->hasAttribute("p")){
                n.paramId = child->getIntAttribute("p");
+           }
+          if(child->hasAttribute("bg")){
+                n.bgColor = child->getStringAttribute("bg");
            }
            node.childen.push_back(n);
            parse(node, child);

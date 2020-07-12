@@ -9,7 +9,9 @@
 #ifndef XYPad_h
 #define XYPad_h
 
-class XYPad : public AbstractComponent {
+#include "Widget.h"
+
+class XYPad : public Component,  public Widget {
     
 public:
     XYPad(){
@@ -39,15 +41,7 @@ public:
          
          g.drawLine(width/2,height/2,xVal*width, yVal*height, 3.0f);
     }
-    
-    void setDials() override{
-        
-    }
-    
-    void build(Node node) override{
-           
-    }
-    
+
     void mouseDown (const MouseEvent& event) override{
           mouseDownX = event.position.x;
           mouseDownY = event.position.y;
@@ -86,6 +80,13 @@ public:
           }
       }
       
+    void setDials() override {
+        
+    }
+    
+    //void resized() override{
+              //setBounds(node.x, node.y, node.width, node.height);
+      // }
     
 private:
     int dotSize = 25;

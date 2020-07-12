@@ -9,14 +9,15 @@
 #ifndef MasterPoti_h
 #define MasterPoti_h
 
+#include "Widget.h"
+
 class MasterPotiLookAndFeel : public  LookAndFeel_V4{
     public:
     
      MasterPotiLookAndFeel() {
-          
+    
      }
 
-    
     void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
                               const float rotaryStartAngle, const float rotaryEndAngle, Slider& slider) override{
  
@@ -41,31 +42,23 @@ class MasterPotiLookAndFeel : public  LookAndFeel_V4{
     }
 };
 
-class MasterPoti : public Slider{
+class MasterPoti : public Slider, public Widget{
     
 public:
     
     MasterPotiLookAndFeel potiLookAndFeel;
 
-   
     MasterPoti() {
-      //using juce::Component::Slider...;
-        
-         juce::Slider::setLookAndFeel (&potiLookAndFeel);
-          hideTextBox(true);
+        juce::Slider::setLookAndFeel (&potiLookAndFeel);
+        hideTextBox(true);
     }
     
     ~MasterPoti() {
-        // using juce::Component::setLookAndFeel;
         juce::Slider::setLookAndFeel (nullptr);
      }
     
-    void build(Node node) {
-           
-       }
-    
-    void setDials(){
-        
+    void setDials() override{
+       
     }
     
 private:

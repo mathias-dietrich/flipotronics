@@ -53,16 +53,18 @@ public:
             (eFloppy, "floppy.png")
             (eExpressionWheel, "expressionWheel.png");
         
-        String filePath = (File::getCurrentWorkingDirectory().getFullPathName());
-
+        String filePath = File::getCurrentWorkingDirectory().getFullPathName();
+       
         File  dir = File(filePath).getChildFile("images");
     
+        std::cout << " filePath  " << dir.getFullPathName() << std::endl;
+        
         std::map<E_Image, const char*>::iterator it;
         for ( it = imgEnumMap.begin(); it != imgEnumMap.end(); it++ ) {
             png[it->first ] = ImageFileFormat::loadFrom(dir.getChildFile(imgEnumMap[it->first ]));
         }
         
-       // std::cout << " loaded images " <<  png.size() << std::endl;
+     std::cout << " loaded images " <<  png.size() << std::endl;
     }
     
     std::map<E_Image, Image > png;

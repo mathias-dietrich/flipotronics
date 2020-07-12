@@ -9,7 +9,9 @@
 #ifndef VoiceSelector_h
 #define VoiceSelector_h
 
-class VoiceSelector :  public AbstractComponent {
+#include "Widget.h"
+
+class VoiceSelector :  public Component,  public Widget {
     
 public:
     VoiceSelector(){
@@ -40,14 +42,6 @@ public:
         
         g.drawLine(width/2,height/2,xVal*width, yVal*height, 3.0f);
     }
-    
-    void setDials() override{
-           
-    }
-    
-    void build(Node node) override{
-           
-       }
     
     void mouseDown (const MouseEvent& event) override{
         mouseDownX = event.position.x;
@@ -85,6 +79,15 @@ public:
             Model::of().par[P_VOICESELECT_Y] = mouseDownY / height;
         }
     }
+    
+    void setDials() override{
+        
+    }
+    
+    //void resized() override{
+             // setBounds(node.x, node.y, node.width, node.height);
+   
+    //}
     
    // float xVal = 0.5;
    // float yVal  = 0.7;

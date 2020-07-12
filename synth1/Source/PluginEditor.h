@@ -27,7 +27,7 @@
 #include "ArpComponent.h"
 #include "SetupComponent.h"
 #include "UILoader.h"
-#include "RootComponent.h"
+#include "EditComponent.h"
 
 class Synth1AudioProcessorEditor  : public AudioProcessorEditor, public Timer, public KeyListener
 {
@@ -88,7 +88,8 @@ private:
                 potsComponent.setVisible(false);
                 viewMeterComponent.setVisible(false);
                 subComponentsVisible(false);
-                rootComponent->setVisible(true);
+                
+                editComponent->setVisible(true);
                 break;
                 
             case mLibrary:
@@ -101,7 +102,7 @@ private:
                 setupComponent.setVisible(false);
                 libraryComponent.setVisible(true);
                 subComponentsVisible(false);
-                rootComponent->setVisible(false);
+                editComponent->setVisible(false);
                 break;
                 
             case mPerform:
@@ -113,7 +114,7 @@ private:
                 setupComponent.setVisible(false);
                 performanceComponent.setVisible(true);
                 subComponentsVisible(false);
-                rootComponent->setVisible(false);
+                editComponent->setVisible(false);
                 break;
                 
             case mArp:
@@ -125,7 +126,7 @@ private:
                 setupComponent.setVisible(false);
                 arpComponent.setVisible(true);
                 subComponentsVisible(false);
-                rootComponent->setVisible(false);
+                editComponent->setVisible(false);
                 break;
                 
             case mSetup:
@@ -139,7 +140,7 @@ private:
                 arpComponent.setVisible(false);
                 setupComponent.setVisible(true);
                 subComponentsVisible(false);
-                rootComponent->setVisible(false);
+                editComponent->setVisible(false);
                 break;
                 
             case mDebug:
@@ -152,7 +153,7 @@ private:
                 potsComponent.setVisible(true);
                 debugComponent.setVisible(true);
                 subComponentsVisible(true);
-                rootComponent->setVisible(false);
+                editComponent->setVisible(false);
                 break;
             }
     }
@@ -242,6 +243,8 @@ private:
     
     UILoader uiLoader;
     
-    RootComponent * rootComponent;
+    EditComponent * editComponent;
     ComponentFactory componentFactory;
+    
+    Node editNode;
 };

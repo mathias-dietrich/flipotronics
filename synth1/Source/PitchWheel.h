@@ -10,7 +10,7 @@
 #define PitchWheel_h
 
 #include <JuceHeader.h>
-
+#include "Widget.h"
 
 class PitchWheelLookAndFeel : public  LookAndFeel_V4{
     public:
@@ -51,14 +51,14 @@ public:
        juce::Slider::setLookAndFeel (nullptr);
      }
     
-    void setDials(){
+    void setDials() {
         
     }
     
-    void build(Node node) {
-           
-       }
-    
+   // void resized() {
+              //setBounds(node.x, node.y, node.width, node.height);
+       //}
+
 private:
     
 };

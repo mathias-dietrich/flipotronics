@@ -17,6 +17,7 @@ struct Note{
     int sampleLength;
     int startClock;
     int endClock;
+   
     
 };
 

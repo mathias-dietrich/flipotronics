@@ -8,15 +8,18 @@
 Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p) : 
     AudioProcessorEditor (&p),processor (p){
     
-    Node rootNode;
-    uiLoader.loadRoot(rootNode);
-    rootComponent = new RootComponent();
-    rootComponent->build(rootNode);
+     ImageFactory::of().init();
+      
+        
+   // Node rootNode;
+    uiLoader.loadRoot(editNode, "edit.xml");
+    editComponent = new EditComponent();
+    editComponent->build(editNode);
 
     addKeyListener(this);
         
     Model::of().patchCurrent = 0;
-    ImageFactory::of().init();
+   
     Model::of().set();
     Model::of().compareMode = false;
     
@@ -58,7 +61,7 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     addChildComponent(processor.showTableComponent);
     addAndMakeVisible(potsComponent);
         
-    addAndMakeVisible(rootComponent);
+    addAndMakeVisible(editComponent);
         
     keysComponent = new KeysComponent(p);
     addAndMakeVisible(keysComponent);
@@ -77,17 +80,12 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     setSize (1400, 780);
         
     setDials();
-        
-       // auto window = dynamic_cast<ResizableWindow*>(getTopLevelComponent());
-        //window->setFullScreen(true);
-
-       // String windowsPlace = window->getWindowStateAsString();
 }
 
 Synth1AudioProcessorEditor::~Synth1AudioProcessorEditor(){
     ImageFactory::of().close();
     delete keysComponent;
-    delete rootComponent;
+    delete editComponent;
 }
 
 // ==================================================================================================
@@ -127,7 +125,7 @@ void Synth1AudioProcessorEditor::resized() {
     libraryComponent.setBounds(0,50, width,  630);
     arpComponent.setBounds(0,50, width,  630);
     setupComponent.setBounds(0,50, width,  630);
-    rootComponent->setBounds(0,50, width,  630);
+    editComponent->setBounds(0,50, width,  630);
     debugComponent.setBounds(width-280,80, 270,  260);
 }
 
