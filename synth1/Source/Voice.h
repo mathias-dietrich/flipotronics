@@ -337,6 +337,11 @@ public:
         osc1_D.retriggerNote();
         osc2_D.retriggerNote();
         subOsc_D.retriggerNote();
+        
+        adsr1.start();
+       adsr2.start();
+       adsr3.start();
+       adsr4.start();
     }
     
     void noteOff(){
@@ -435,12 +440,16 @@ public:
             float vol = DecibelToLinear(p[P_VOLUME]);
              
             float a = v0_A * (1.0f-p[P_VOICESELECT_X]) * (1.0f-p[P_VOICESELECT_Y]);
-            float b = v0_B * p[P_VOICESELECT_X] * (1.0f-p[P_VOICESELECT_Y]);
-            float c = v0_C * (1.0f-p[P_VOICESELECT_X]) * p[P_VOICESELECT_Y];
-            float d = v0_D * p[P_VOICESELECT_X] * p[P_VOICESELECT_Y];
+            //float b = v0_B * p[P_VOICESELECT_X] * (1.0f-p[P_VOICESELECT_Y]);
+         
+            // float c = v0_C * (1.0f-p[P_VOICESELECT_X]) * p[P_VOICESELECT_Y];
+            // float d = v0_D * p[P_VOICESELECT_X] * p[P_VOICESELECT_Y];
 
-            float vSumOscL = vol * a  * (1.0f - p[P_PAN]) + b  * (1.0f - p[MAXPARAM +P_PAN]) + c * (1.0f - p[2*MAXPARAM +P_PAN]) + d * (1.0f - p[3*MAXPARAM +P_PAN]);
-            float vSumOscR = vol * a  * p[P_PAN] + b * p[MAXPARAM +P_PAN] + c * p[2*MAXPARAM +P_PAN] + d  * p[3*MAXPARAM +P_PAN];
+           // float vSumOscL = vol * a  * (1.0f - p[P_PAN]) + b  * (1.0f - p[MAXPARAM +P_PAN]) + c * (1.0f - p[2*MAXPARAM +P_PAN]) + d * (1.0f - p[3*MAXPARAM +P_PAN]);
+           // float vSumOscR = vol * a  * p[P_PAN] + b * p[MAXPARAM +P_PAN] + c * p[2*MAXPARAM +P_PAN] + d  * p[3*MAXPARAM +P_PAN];
+            
+            float vSumOscL = vol * a * (1.0f - p[P_PAN]) ;
+            float vSumOscR = vol * a  * p[P_PAN];
             
             // Feed Matrix
             float lfo0Output = matrix.sources[s_LFO1] = tableLfo1[((int)tablePosLfo1)];
