@@ -48,6 +48,7 @@ public:
            n.y = child->getIntAttribute("y");
            n.width = child->getIntAttribute("w");
            n.height = child->getIntAttribute("h");
+            n.isVisible = child->getStringAttribute("v").compare("true") ==0;
    
            if(child->hasAttribute("p")){
                n.paramId = child->getIntAttribute("p");

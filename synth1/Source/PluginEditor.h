@@ -56,6 +56,21 @@ public:
     
     MyKeyListener myListenr;
     
+     void mouseDown (const MouseEvent& event) override{
+       int mouseDownX = event.position.x;
+       int mouseDownY = event.position.y;
+        if(mouseDownX < 50 && mouseDownY < 50){
+            loadXml();
+            editComponent->node = editNode;
+            resized();
+        }
+      }
+    
+    void loadXml(){
+        uiLoader.loadRoot(editNode, "edit.xml");
+        
+    }
+    
 private:
     Synth1AudioProcessor& processor;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Synth1AudioProcessorEditor)

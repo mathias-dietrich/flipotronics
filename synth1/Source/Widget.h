@@ -19,6 +19,7 @@ struct Node{
     int paramId;
     int type;
     String bgColor;
+    bool isVisible;
 };
 
 class Widget{

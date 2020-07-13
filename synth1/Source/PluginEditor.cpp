@@ -11,11 +11,12 @@ Synth1AudioProcessorEditor::Synth1AudioProcessorEditor (Synth1AudioProcessor& p)
     ImageFactory::of().init();
       
    // Node rootNode;
-    uiLoader.loadRoot(editNode, "edit.xml");
+    loadXml();
     editComponent = new EditComponent();
     editComponent->build(editNode);
 
     addKeyListener(this);
+    addMouseListener(this, true);
         
     Model::of().patchCurrent = 0;
    
@@ -124,8 +125,11 @@ void Synth1AudioProcessorEditor::resized() {
     libraryComponent.setBounds(0,50, width,  630);
     arpComponent.setBounds(0,50, width,  630);
     setupComponent.setBounds(0,50, width,  630);
-    editComponent->setBounds(0,50, width,  630);
+   
     debugComponent.setBounds(width-280,80, 270,  260);
+    
+    editComponent->setBounds(0,50, width,  640);
+    editComponent->resized();
 }
 
 // ==================================================================================================

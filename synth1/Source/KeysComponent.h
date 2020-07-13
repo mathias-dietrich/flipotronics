@@ -126,14 +126,14 @@ class KeysComponent : public AbstractComponent, public MidiKeyboardStateListener
         int width = r.getWidth();
         int height = r.getHeight();
         
-        keyboardComponent.setBounds (112, 10, 1187,  80);
+        keyboardComponent.setBounds (112, 5, 1187,  80);
         keyboardComponent.setKeyWidth(26.5);
         keyboardComponent.setAvailableRange(33, 108);
         
         // Live Controller
-        pitchWheel.setBounds(5, 0, 30, 97);
-        modWheel.setBounds (40, 0, 30, 97);
-        expWheel.setBounds (75, 0, 30, 97);
+        pitchWheel.setBounds(5, -5, 30, 97);
+        modWheel.setBounds (40, -5, 30, 97);
+        expWheel.setBounds (75, -5, 30, 97);
         
         btnLatch.setBounds (width-90, 8, 80, 22);
         btnPanic.setBounds (width-90, 64, 80, 22);

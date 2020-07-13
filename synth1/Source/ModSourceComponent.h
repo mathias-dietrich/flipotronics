@@ -1,25 +1,22 @@
 //
-//  RootComponent.h
+//  ModSourceComponent.h
 //  synth1
 //
-//  Created by Mathias Dietrich on 11.07.20.
+//  Created by Mathias Dietrich on 13.07.20.
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef EditComponent_h
-#define EditComponent_h
+#ifndef ModSourceComponent_h
+#define ModSourceComponent_h
 
-#include "AbstractComponent.h"
-#include "ComponentFactory.h"
-
-class EditComponent :  public AbstractComponent {
+class ModSourceComponent :  public AbstractComponent {
 public:
     
-    EditComponent(){
+    ModSourceComponent(){
         
     }
     
-    ~EditComponent(){
+    ~ModSourceComponent(){
        for(auto it = std::begin(children); it != std::end(children); ++it) {
          delete *it;
        }
@@ -29,7 +26,8 @@ public:
         Rectangle<int> r = getLocalBounds();
         auto width  = r.getWidth();
         auto height  = r.getHeight();
-        g.fillAll (C_BLACK);
+        auto defaultColour = Colours::black;
+        g.fillAll (juce::Colours::findColourForName (node.bgColor, defaultColour));
     }
     
     void setDials() override{
@@ -38,18 +36,14 @@ public:
             c->setDials();
         }
     }
-
+    
     void build(Node node) override{
        for(auto it = std::begin( node.childen); it != std::end( node.childen); ++it) {
            Node node = *it;
            if(node.type == 0){ //Component
-               current = componentFactory.get(node.name);
+               current = factory->get(node.name);
                current->node = node;
-               if(node.isVisible){
-                   this->addAndMakeVisible(current);
-               }else{
-                   addChildComponent(current);
-               }
+               this->addAndMakeVisible(current);
                children.push_back(current);
            }
            if(node.type == 1){ // Widget
@@ -65,12 +59,12 @@ public:
             c->setBounds(n.x,n.y,n.width,n.height);
             c->resized();
             c->setVisible(n.isVisible);
-            c->repaint();
         }
     }
     
     AbstractComponent *current;
-    ComponentFactory componentFactory;
+    WidgetFactory widgetFactory;
+    Factory * factory;
 };
 
-#endif /* EditComponent_h */
+#endif /* ModSourceComponent_h */

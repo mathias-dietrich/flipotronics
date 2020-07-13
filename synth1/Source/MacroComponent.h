@@ -17,6 +17,7 @@
 #include "Poti.h"
 
 #include "WidgetFactory.h"
+#include "Factory.h"
 
 class MacroComponent:  public AbstractComponent, public Slider::Listener{
 
@@ -63,6 +64,7 @@ class MacroComponent:  public AbstractComponent, public Slider::Listener{
              MasterPoti *p =  (MasterPoti*) *it;
              Node node = p->node;
              p->setBounds(node.x , node.y, node.width,node.height);
+             p->setVisible(node.isVisible);
          }
      }
     
@@ -79,6 +81,8 @@ class MacroComponent:  public AbstractComponent, public Slider::Listener{
              p->setValue(Model::of().par[node.paramId],dontSendNotification);
          }
      }
+    
+    Factory * factory;
     
 private:
     WidgetFactory widgetFactory;
