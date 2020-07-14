@@ -9,6 +9,7 @@
 #ifndef Poti_h
 #define Poti_h
 #include "Widget.h"
+#include "ImageFactory.h"
 
 class PotiLookAndFeel : public  LookAndFeel_V4{
     public:

@@ -9,7 +9,6 @@
 #ifndef OscComponent_h
 #define OscComponent_h
 
-
 #include "AbstractComponent.h"
 #include "WidgetFactory.h"
 #include "Factory.h"
@@ -22,12 +21,12 @@ public:
     }
     
     ~OscComponent(){
-       for(auto it = std::begin(children); it != std::end(children); ++it) {
-               delete *it;
-             }
-              for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
-                delete *it;
-              }
+        for(auto it = std::begin(children); it != std::end(children); ++it) {
+            delete *it;
+        }
+        for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
+            delete *it;
+        }
     }
     
     void paint (Graphics& g) override {
@@ -40,101 +39,11 @@ public:
     
     void setDials() override{
        for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
-            Poti *p =  (Poti*) *it;
-            Node node = p->node;
-            p->setValue(Model::of().par[node.paramId],dontSendNotification);
-           
+           Poti *p =  (Poti*) *it;
+           Node node = p->node;
            int pid = node.paramId;
-           p->setRange(Model::of().params[pid].minVal,Model::of().params[pid].maxVal,Model::of().params[pid].stepVal);
-           p->setTitle(Model::of().params[pid].name);
-           // boxes[i].setText(params[pid].name);
-            if( Model::of().params[pid].type == uWaveType){
-                p->setTextValueSuffix(" " + getWaveType(E_WaveType(int(Model::of().par[pid]))));
-                p->setValue(Model::of().par[pid], dontSendNotification);
-            }else if( Model::of().params[pid].type == uFilterType){
-                   p->setTextValueSuffix(" " + getFilterTypeString(MultiModeLadderFilterTypes(int(Model::of().par[pid]))));
-                   p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uPhase){
-                p->setTextValueSuffix(" degrees");
-                p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uTimeMsec){
-                p->setTextValueSuffix(" msec");
-                p->setSkewFactor(0.5);
-                p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uDb){
-                p->setSkewFactor (6);
-                p->setTextValueSuffix(" dB");
-                p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uHZ){
-                p->setSkewFactor (0.3);
-                p->setTextValueSuffix(" Hz");
-                p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uBool){
-                bool test = Model::of().par[pid];
-                String text = test ? " on" : " off" ;
-                p->setTextValueSuffix(text);
-            }
-            else if( Model::of().params[pid].type == uCurve){
-                p->setSkewFactor(1);
-                p->setTextValueSuffix(" %");
-                p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uMidiNote){
-               p->setTextValueSuffix(" " + midiNote(Model::of().par[pid]));
-               p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uDevision){
-               p->setTextValueSuffix(" " + devision(Model::of().par[pid]));
-               p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uArpMode){
-                p->setSkewFactor(1);
-                if(Model::of().par[pid]==0){
-                     p->setTextValueSuffix(" SEQ");
-                }else if (Model::of().par[pid]==1){
-                     p->setTextValueSuffix(" ARP");
-                }else{
-                    p->setTextValueSuffix(" CHORD");
-                }
-                p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else if( Model::of().params[pid].type == uChordMode){
-                switch(((int)Model::of().par[pid])){
-                    case 0:
-                     p->setTextValueSuffix(" Singe ");
-                    break;
-                    
-                    case 1:
-                     p->setTextValueSuffix(" Quinte ");
-                    break;
-                        
-                    case 2:
-                     p->setTextValueSuffix(" Quarte ");
-                    break;
-                    
-                    case 3:
-                     p->setTextValueSuffix(" Root ");
-                    break;
-                        
-                    case 4:
-                     p->setTextValueSuffix(" Inv 1 ");
-                    break;
-                    
-                    case 5:
-                     p->setTextValueSuffix(" Inv 2 ");
-                    break;
-                }
-               p->setValue(Model::of().par[pid], dontSendNotification);
-            }
-            else{
-                p->setTextValueSuffix("");
-                p->setValue(Model::of().par[pid], dontSendNotification);
-            }
+           setPoti(pid, p);
+           p->setValue(Model::of().par[node.paramId],dontSendNotification);
         }
     }
     
@@ -162,9 +71,9 @@ public:
     }
     
     void sliderValueChanged(Slider *  slider) override {
-       int sid = slider->getName().getIntValue();
-      Model::of().par[sid] = slider->getValue();
-      setDials();
+        int sid = slider->getName().getIntValue();
+        Model::of().par[sid] = slider->getValue();
+        setDials();
     }
     
     void resized() override{
