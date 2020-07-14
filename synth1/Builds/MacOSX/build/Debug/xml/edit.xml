@@ -30,6 +30,8 @@
     <e t="0" n="osc" x="550" y="60"  w="396" h="338" bg="red" bgi="" v="true">
     </e>
     <e t="0" n="filter" x="948" y="60"  w="299" h="338" bg="blue" bgi="" v="true">
+        <e t="1" n="poti" x="0" y="0" w="80" h="90"  p="32" v="true" title="Cutoff" />
+        <e t="1" n="poti" x="80" y="0" w="80" h="90"  p="33" v="true"  title="Resonanze" />
     </e>
     <e t="0" n="amp" x="1250" y="60"  w="148" h="338" bg="brown" bgi="" v="true">
     </e>

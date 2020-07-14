@@ -13,7 +13,7 @@
 #include "WidgetFactory.h"
 #include "Factory.h"
 
-class FilterComponent :  public AbstractComponent {
+class FilterComponent :  public AbstractComponent , public Slider::Listener {
 public:
     
     FilterComponent(){
@@ -21,9 +21,12 @@ public:
     }
     
     ~FilterComponent(){
-       for(auto it = std::begin(children); it != std::end(children); ++it) {
-         delete *it;
-       }
+        for(auto it = std::begin(children); it != std::end(children); ++it) {
+            delete *it;
+        }
+        for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
+            delete *it;
+        }
     }
     
     void paint (Graphics& g) override {
@@ -36,35 +39,50 @@ public:
 
        
         void setDials() override{
-            for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
-                MasterPoti *p =  (MasterPoti*) *it;
-                Node node = p->node;
-                p->setValue(Model::of().par[node.paramId],dontSendNotification);
-            }
+             for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
+                      Poti *p =  (Poti*) *it;
+                      Node node = p->node;
+                      int pid = node.paramId;
+                      setPoti(pid, p);
+                      p->setValue(Model::of().par[node.paramId],dontSendNotification);
+             }
         }
     
     void build(Node node) override{
-       for(auto it = std::begin( node.childen); it != std::end( node.childen); ++it) {
-           Node node = *it;
-           if(node.type == 0){ //Component
-               current = factory->get(node.name);
-               current->node = node;
-               this->addAndMakeVisible(current);
-               children.push_back(current);
-           }
-           if(node.type == 1){ // Widget
-               current->build(node);
-           }
+       if(node.type == 0){ //Component
+             current = factory->get(node.name);
+             current->node = node;
+             this->addAndMakeVisible(current);
+             children.push_back(current);
+           return;
+       }
+       if(node.name == "poti"){
+          Poti *wc = (Poti *)widgetFactory.get(node.name);
+          wc->node = node;
+          addAndMakeVisible(wc);
+          wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
+          wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
+          wc->setNumDecimalPlacesToDisplay(2);
+          wc->setName(toString(node.paramId));
+          wc->addListener (this);
+          wc->setRange(0,1,0.01f);
+          wc->setTitle(node.title);
+          widgets.push_back(wc);
        }
     }
     
+    void sliderValueChanged(Slider *  slider) override {
+           int sid = slider->getName().getIntValue();
+           Model::of().par[sid] = slider->getValue();
+           setDials();
+       }
+    
     void resized() override{
-        for(auto it = std::begin(children); it != std::end(children); ++it) {
-            AbstractComponent *c = *it;
-            Node n = c->node;
-            c->setBounds(n.x,n.y,n.width,n.height);
-            c->resized();
-            c->setVisible(n.isVisible);
+        for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
+            MasterPoti *p =  (MasterPoti*) *it;
+            Node node = p->node;
+            p->setBounds(node.x , node.y, node.width,node.height);
+            p->setVisible(node.isVisible);
         }
     }
     
