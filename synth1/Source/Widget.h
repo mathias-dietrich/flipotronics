@@ -20,6 +20,7 @@ struct Node{
     int type;
     String bgColor;
     bool isVisible;
+    String title;
 };
 
 class Widget{

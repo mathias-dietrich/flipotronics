@@ -18,8 +18,11 @@ public:
     
     ~InputComponent(){
        for(auto it = std::begin(children); it != std::end(children); ++it) {
-         delete *it;
-       }
+               delete *it;
+             }
+              for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
+                delete *it;
+              }
     }
     
     void paint (Graphics& g) override {

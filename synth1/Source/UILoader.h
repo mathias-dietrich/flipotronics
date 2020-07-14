@@ -56,6 +56,9 @@ public:
           if(child->hasAttribute("bg")){
                 n.bgColor = child->getStringAttribute("bg");
            }
+            if(child->hasAttribute("title")){
+                 n.title = child->getStringAttribute("title");
+            }
            node.childen.push_back(n);
            parse(node, child);
         }

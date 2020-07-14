@@ -33,13 +33,15 @@ public:
         auto defaultColour = Colours::black;
         g.fillAll (juce::Colours::findColourForName (node.bgColor, defaultColour));
     }
-    
-    void setDials() override{
-        for(auto it = std::begin(children); it != std::end(children); ++it) {
-            auto c = *it;
-            c->setDials();
+
+       
+        void setDials() override{
+            for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
+                MasterPoti *p =  (MasterPoti*) *it;
+                Node node = p->node;
+                p->setValue(Model::of().par[node.paramId],dontSendNotification);
+            }
         }
-    }
     
     void build(Node node) override{
        for(auto it = std::begin( node.childen); it != std::end( node.childen); ++it) {

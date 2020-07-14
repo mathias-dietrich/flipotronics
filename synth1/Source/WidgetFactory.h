@@ -17,6 +17,10 @@ public:
         if(type == "masterporti"){
             return new MasterPoti();
         }
+        
+        if(type == "poti"){
+            return new Poti();
+        }
        
         return new MasterPoti();
     }

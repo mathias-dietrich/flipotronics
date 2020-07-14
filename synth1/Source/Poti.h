@@ -32,7 +32,7 @@ class PotiLookAndFeel : public  LookAndFeel_V4{
         
         // Title
         g.setColour (Colour(30,30,30));
-        Rectangle<int> rv{x+8,y,width,20};
+        Rectangle<int> rv{x,y,width,20};
         g.drawFittedText (title, rv, Justification::centred, 1);
         
         y = y+20;
