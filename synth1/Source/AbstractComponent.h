@@ -47,9 +47,10 @@ public:
     Node node;
     
     
-    void setPoti(int pid, Poti * p){
+    void setPoti(Node node, Poti * p){
+        int pid = node.paramId;
         p->setRange(Model::of().params[pid].minVal,Model::of().params[pid].maxVal,Model::of().params[pid].stepVal);
-        p->setTitle(Model::of().params[pid].name);
+        p->setTitle(node.title);
         // boxes[i].setText(params[pid].name);
         if( Model::of().params[pid].type == uWaveType){
            p->setTextValueSuffix(" " + getWaveType(E_WaveType(int(Model::of().par[pid]))));

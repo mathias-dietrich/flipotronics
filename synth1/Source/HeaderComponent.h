@@ -377,7 +377,7 @@ class HeaderComponent:  public AbstractComponent, public Slider::Listener, publi
         switch4.setBounds(370,1,50,48);
         switch5.setBounds(425,1,50,48);
         switchSave.setBounds(490,1,25,25);
-        switchSave.setImages(false,true,true,ImageFactory::of().png[eFloppy],1.0f,{},ImageFactory::of().png[eFloppy],1.0f,{}, ImageFactory::of().png[eFloppy],1.0f,{});
+        switchSave.setImages(false,true,true,ImageFactory::of().png[eFloppy],1.0f,{},ImageFactory::of().png[eFloppyOver],1.0f,{}, ImageFactory::of().png[eFloppyDown],1.0f,{});
         
         btnProgDown.setBounds (885, 3, 20, 20);
         btnProgUp.setBounds (910, 3, 20, 20);

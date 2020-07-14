@@ -25,7 +25,7 @@ template<typename T> map_init_helper<T> map_init(T& item)
     return map_init_helper<T>(item);
 }
 
-enum E_Image {eMeter, ePoti, ePotiMaster, eFader,eModWheel, ePitchWheel, eExpressionWheel, eFloppy};
+enum E_Image {eMeter, ePoti, ePotiMaster, eFader,eModWheel, ePitchWheel, eExpressionWheel, eFloppy,eFloppyDown,eFloppyOver};
 
 class ImageFactory{
 public:
@@ -45,12 +45,14 @@ public:
     void init(){
         map_init(imgEnumMap)
             (eMeter, "meter.png")
-            (ePoti, "poti.png")
+            (ePoti, "poti2.png")
             (ePotiMaster, "potiMaster.png")
             (eFader, "fader.png")
             (eModWheel, "modwheel.png")
             (ePitchWheel, "pitchwheel.png")
             (eFloppy, "floppy.png")
+            (eFloppyDown, "floppy_down.png")
+            (eFloppyOver, "floppy_over.png")
             (eExpressionWheel, "expressionWheel.png");
         
         String filePath = File::getCurrentWorkingDirectory().getFullPathName();

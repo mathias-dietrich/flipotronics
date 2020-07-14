@@ -17,6 +17,10 @@
 #define C_PROGNUMBER  Colour(20, 20, 20)
 #define C_PROGNAME  Colour(33, 33, 33)
 
+#define C_MODULE_BORDER  Colour(0,153, 153)
+#define C_MODULE_TITLE  Colour(255,255, 255)
+#define C_MODULE_BG Colour(254,254, 254)
+
 #define C_GREENTEXT  Colour(33, 66, 33)
 
 #define C_WAVEDISPLAY  Colour(255, 255, 255)

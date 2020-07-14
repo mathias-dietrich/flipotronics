@@ -28,6 +28,11 @@ inline int intFromString(String s) {
     return s.getIntValue();
 }
 
+inline Rectangle<float> convertRect(Rectangle<int> r){
+    Rectangle<float> rf{static_cast<float>(r.getX()), static_cast<float>(r.getY()), static_cast<float>(r.getWidth()), static_cast<float>(r.getHeight())};
+    return rf;
+}
+
 // 0.0 - 1.0
 inline float LinearToDecibel(float linear)
 {

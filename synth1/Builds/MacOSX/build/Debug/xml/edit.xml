@@ -19,21 +19,35 @@
         <e t="1" n="masterpoti" x="1200" y="0" w="50" h="50"  p="815" v="true"/>
     </e>
     
-    <e t="0" n="input" x="2" y="60"  w="148" h="338" bg="brown" bgi="" v="true">
+    <e t="0" n="input" x="2" y="60"  w="148" h="338" bg="black" bgi="" v="true" title="Input">
        </e>
-    <e t="0" n="osc" x="152" y="60"  w="396" h="338" bg="red" bgi="" v="true">
-         <e t="1" n="poti" x="0" y="0" w="80" h="90"  p="16" v="true" title="Oct" />
-         <e t="1" n="poti" x="80" y="0" w="80" h="90"  p="17" v="true"  title="Semi" />
-         <e t="1" n="poti" x="160" y="0" w="80" h="90"  p="18" v="true"  title="Fine" />
-         <e t="1" n="poti" x="240" y="0" w="80" h="90"  p="19" v="true"  title="Wave" />
+    <e t="0" n="osc" x="152" y="60"  w="396" h="338" bg="black" bgi="" v="true" title="Osc1 1">
+         <e t="1" n="poti" x="0" y="22" w="60" h="80"  p="16" v="true" title="Oct" />
+         <e t="1" n="poti" x="80" y="22" w="60" h="80"  p="17" v="true"  title="Semi" />
+         <e t="1" n="poti" x="160" y="22" w="60" h="80"  p="18" v="true"  title="Fine" />
+         <e t="1" n="poti" x="240" y="22" w="60" h="80"  p="19" v="true"  title="Volume" />
+         <e t="1" n="poti" x="320" y="22" w="60" h="80"  p="20" v="true"  title="Wave" />
     </e>
-    <e t="0" n="osc" x="550" y="60"  w="396" h="338" bg="red" bgi="" v="true">
+    <e t="0" n="osc" x="550" y="60"  w="396" h="338" bg="black" bgi="" v="true" title="Osc1 2">
+            <e t="1" n="poti" x="0" y="22" w="60" h="80"  p="16" v="true" title="Oct" />
+            <e t="1" n="poti" x="80" y="22" w="60" h="80"  p="17" v="true"  title="Semi" />
+            <e t="1" n="poti" x="160" y="22" w="60" h="80"  p="18" v="true"  title="Fine" />
+            <e t="1" n="poti" x="240" y="22" w="60" h="80"  p="19" v="true"  title="Volume" />
+            <e t="1" n="poti" x="320" y="22" w="60" h="80"  p="20" v="true"  title="Wave" />
+       </e>
+    <e t="0" n="filter" x="948" y="60"  w="138" h="338" bg="black" bgi="" v="true" title="Filter 1">
+        <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="32" v="true" title="Cutoff" />
+        <e t="1" n="poti" x="73" y="22" w="60" h="80"  p="33" v="true"  title="Resonance" />
+        <e t="1" n="poti" x="3" y="109" w="60" h="80"  p="34" v="true" title="Type" />
+        <e t="1" n="poti" x="73" y="109" w="60" h="80"  p="35" v="true"  title="Drive" />
     </e>
-    <e t="0" n="filter" x="948" y="60"  w="299" h="338" bg="blue" bgi="" v="true">
-        <e t="1" n="poti" x="0" y="0" w="80" h="90"  p="32" v="true" title="Cutoff" />
-        <e t="1" n="poti" x="80" y="0" w="80" h="90"  p="33" v="true"  title="Resonanze" />
-    </e>
-    <e t="0" n="amp" x="1250" y="60"  w="148" h="338" bg="brown" bgi="" v="true">
+    <e t="0" n="filter" x="1088" y="60"  w="138" h="338" bg="black" bgi="" v="true" title="Filter 2">
+           <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="32" v="true" title="Cutoff" />
+           <e t="1" n="poti" x="73" y="22" w="60" h="80"  p="33" v="true"  title="Resonance" />
+           <e t="1" n="poti" x="3" y="109" w="60" h="80"  p="34" v="true" title="Type" />
+           <e t="1" n="poti" x="73" y="109" w="60" h="80"  p="35" v="true"  title="Drive" />
+       </e>
+    <e t="0" n="amp" x="1230" y="60"  w="168" h="338" bg="black" bgi="" v="true" title="Amp">
     </e>
     
     <e t="0" n="modheader" x="2" y="400"  w="1396" h="68" bg="pink" bgi="" v="true">
