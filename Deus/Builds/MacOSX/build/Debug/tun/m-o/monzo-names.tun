@@ -1,0 +1,298 @@
+; AnaMark / VAZ 1.5 Plus tuning map file
+; File converted by "ScalaConverter", 
+; written by Tobias Fleischer,
+; available at www.tobybear.de
+; Here are some suggestions for a logical system encompassing
+; more 'commas' than most other systems.  It classifies
+; intervals into seven broad groups: skhisma, kleisma, comma,
+; small diesis, great diesis, small semitone, and limma (from
+; smallest to largest).
+;
+; Each interval is qualified by a pseudo-Latin term
+; indicating the exponent of 5 and its sign.
+;
+; I don't particularly like these names, but the set of
+; these intervals in this lattice fell roughly into 11 groups
+; (based on the gaps in the graph of their cents-values),
+; which I condensed into these seven groups, to try to retain
+; familiar names without introducing new ones. I then devised
+; a logical system of qualification to accomodate the great
+; variety.  The stem '-pental' immediately betrays the
+; 5-limit dimensionality of these intervals, 'Pythagorean'
+; designating the ones that don't include 5 as a factor.
+;
+; Suggested terminology for 5-limit intervals from 0 to 100 cents (read file)
+; with arbitrary boundaries of 3^-15...15 * 5^-7...7
+; ; with arbitrary boundaries of 3^-15...15 * 5^-7...7
+; by Joe Monzo 2000.1.11
+; ; by Joe Monzo 2000.1.11
+; ----------------------------------------------------------------
+; ; ----------------------------------------------------------------
+;
+; ;
+;
+;
+; Joseph L. Monzo    Philadelphia     monz@juno.com
+; http://www.ixpres.com/interval/monzo/homepage.html
+; 1. VAZ-section with quantized tunings
+[Tuning]
+note 0=-1166
+note 1=0
+note 2=71
+note 3=22
+note 4=41
+note 5=92
+note 6=49
+note 7=90
+note 8=63
+note 9=20
+note 10=30
+note 11=84
+note 12=43
+note 13=8
+note 14=82
+note 15=51
+note 16=28
+note 17=69
+note 18=2
+note 19=98
+note 20=100
+note 21=13
+note 22=61
+note 23=73
+note 24=65
+note 25=23
+note 26=6
+note 27=47
+note 28=10
+note 29=39
+note 30=94
+note 31=77
+note 32=88
+note 33=32
+note 34=18
+note 35=80
+note 36=53
+note 37=59
+note 38=34
+note 39=1200
+note 40=1271
+note 41=1222
+note 42=1241
+note 43=1292
+note 44=1249
+note 45=1290
+note 46=1263
+note 47=1220
+note 48=1230
+note 49=1284
+note 50=1243
+note 51=1208
+note 52=1282
+note 53=1251
+note 54=1228
+note 55=1269
+note 56=1202
+note 57=1298
+note 58=1300
+note 59=1213
+note 60=1261
+note 61=1273
+note 62=1265
+note 63=1223
+note 64=1206
+note 65=1247
+note 66=1210
+note 67=1239
+note 68=1294
+note 69=1277
+note 70=1288
+note 71=1232
+note 72=1218
+note 73=1280
+note 74=1253
+note 75=1259
+note 76=1234
+note 77=2400
+note 78=2471
+note 79=2422
+note 80=2441
+note 81=2492
+note 82=2449
+note 83=2490
+note 84=2463
+note 85=2420
+note 86=2430
+note 87=2484
+note 88=2443
+note 89=2408
+note 90=2482
+note 91=2451
+note 92=2428
+note 93=2469
+note 94=2402
+note 95=2498
+note 96=2500
+note 97=2413
+note 98=2461
+note 99=2473
+note 100=2465
+note 101=2423
+note 102=2406
+note 103=2447
+note 104=2410
+note 105=2439
+note 106=2494
+note 107=2477
+note 108=2488
+note 109=2432
+note 110=2418
+note 111=2480
+note 112=2453
+note 113=2459
+note 114=2434
+note 115=3600
+note 116=3671
+note 117=3622
+note 118=3641
+note 119=3692
+note 120=3649
+note 121=3690
+note 122=3663
+note 123=3620
+note 124=3630
+note 125=3684
+note 126=3643
+note 127=3608
+;
+; 2. AnaMark-specific section with exact tunings
+[Exact Tuning]
+basefreq=8.17579891564371
+note 0=-1166.479
+note 1=0
+note 2=70.6724268642822
+note 3=21.5062895967149
+note 4=41.0588584054955
+note 5=92.1787164609971
+note 6=49.1661372675674
+note 7=90.2249956730629
+note 8=62.5651480022104
+note 9=19.5525688087807
+note 10=29.6135684587867
+note 11=84.0714375989253
+note 12=43.0125791934297
+note 13=8.10727886207182
+note 14=82.1177168109911
+note 15=51.1198580555015
+note 16=27.6598476708525
+note 17=68.7187060763481
+note 18=1.95372078793416
+note 19=98.3322745351347
+note 20=100.285995323069
+note 21=13.399010734643
+note 22=60.6114272142762
+note 23=72.6261476522164
+note 24=64.5188687901446
+note 25=23.460010384649
+note 26=6.15355807413766
+note 27=47.2124164796332
+note 28=10.060999650006
+note 29=39.1051376175614
+note 30=94.1324372489312
+note 31=76.8259849384199
+note 32=88.2712748851287
+note 33=31.5672892467208
+note 34=17.5988480208465
+note 35=80.1639960230569
+note 36=53.0735788434357
+note 37=59
+note 38=33.521
+note 39=1200
+note 40=1270.67242686428
+note 41=1221.50628959671
+note 42=1241.0588584055
+note 43=1292.178716461
+note 44=1249.16613726757
+note 45=1290.22499567306
+note 46=1262.56514800221
+note 47=1219.55256880878
+note 48=1229.61356845879
+note 49=1284.07143759893
+note 50=1243.01257919343
+note 51=1208.10727886207
+note 52=1282.11771681099
+note 53=1251.1198580555
+note 54=1227.65984767085
+note 55=1268.71870607635
+note 56=1201.95372078793
+note 57=1298.33227453513
+note 58=1300.28599532307
+note 59=1213.39901073464
+note 60=1260.61142721428
+note 61=1272.62614765222
+note 62=1264.51886879014
+note 63=1223.46001038465
+note 64=1206.15355807414
+note 65=1247.21241647963
+note 66=1210.06099965001
+note 67=1239.10513761756
+note 68=1294.13243724893
+note 69=1276.82598493842
+note 70=1288.27127488513
+note 71=1231.56728924672
+note 72=1217.59884802085
+note 73=1280.16399602306
+note 74=1253.07357884344
+note 75=1259
+note 76=1233.521
+note 77=2400
+note 78=2470.67242686428
+note 79=2421.50628959671
+note 80=2441.0588584055
+note 81=2492.178716461
+note 82=2449.16613726757
+note 83=2490.22499567306
+note 84=2462.56514800221
+note 85=2419.55256880878
+note 86=2429.61356845879
+note 87=2484.07143759893
+note 88=2443.01257919343
+note 89=2408.10727886207
+note 90=2482.11771681099
+note 91=2451.1198580555
+note 92=2427.65984767085
+note 93=2468.71870607635
+note 94=2401.95372078793
+note 95=2498.33227453513
+note 96=2500.28599532307
+note 97=2413.39901073464
+note 98=2460.61142721428
+note 99=2472.62614765222
+note 100=2464.51886879014
+note 101=2423.46001038465
+note 102=2406.15355807414
+note 103=2447.21241647963
+note 104=2410.06099965001
+note 105=2439.10513761756
+note 106=2494.13243724893
+note 107=2476.82598493842
+note 108=2488.27127488513
+note 109=2431.56728924672
+note 110=2417.59884802085
+note 111=2480.16399602306
+note 112=2453.07357884344
+note 113=2459
+note 114=2433.521
+note 115=3600
+note 116=3670.67242686428
+note 117=3621.50628959671
+note 118=3641.0588584055
+note 119=3692.178716461
+note 120=3649.16613726757
+note 121=3690.22499567306
+note 122=3662.56514800221
+note 123=3619.55256880878
+note 124=3629.61356845879
+note 125=3684.07143759893
+note 126=3643.01257919343
+note 127=3608.10727886207

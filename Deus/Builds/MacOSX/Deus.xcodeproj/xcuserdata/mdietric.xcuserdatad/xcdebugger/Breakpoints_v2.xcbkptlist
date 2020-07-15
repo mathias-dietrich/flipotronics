@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "76C130B1-1432-47AC-B1B4-96912B4A1241"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5ACA46DA-87B0-468A-968E-A96E0B111956"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/PluginProcessor.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "DeusAudioProcessor::DeusAudioProcessor()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5ACA46DA-87B0-468A-968E-A96E0B111956 - 1a708f56453009f0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DeusAudioProcessor::DeusAudioProcessor()"
+                  moduleName = "Deus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mdietric/flipotronics/Deus/Source/PluginProcessor.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "66">
+               </Location>
+               <Location
+                  uuid = "5ACA46DA-87B0-468A-968E-A96E0B111956 - 1a708f56453009f0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DeusAudioProcessor::DeusAudioProcessor()"
+                  moduleName = "Deus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mdietric/flipotronics/Deus/Source/PluginProcessor.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "21">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B5D9FA34-3EA6-4407-8876-EA5E160FBFEE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/PluginEditor.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "DeusAudioProcessorEditor::DeusAudioProcessorEditor(p)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B5D9FA34-3EA6-4407-8876-EA5E160FBFEE - 7b1b222a6049b018"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DeusAudioProcessorEditor::DeusAudioProcessorEditor(DeusAudioProcessor&amp;)"
+                  moduleName = "Deus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mdietric/flipotronics/Deus/Source/PluginEditor.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "B5D9FA34-3EA6-4407-8876-EA5E160FBFEE - 7b1b222a6049b018"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DeusAudioProcessorEditor::DeusAudioProcessorEditor(DeusAudioProcessor&amp;)"
+                  moduleName = "Deus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mdietric/flipotronics/Deus/Source/PluginEditor.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "29">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FDCEFD43-0814-48FD-B29C-5A5606904856"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/MasterComponent.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "paint(g)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

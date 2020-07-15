@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flipotronics>
+    <e t="0" n="macro" x="60" y="0"  w="1400" h="50" bg="black" bgi="" v="true">
+        <e t="1" n="masterpoti" x="10" y="0"  w="50" h="50" p="800" v="true"/>
+        <e t="1" n="masterpoti" x="90" y="0" w="50" h="50"  p="801" v="true"/>
+        <e t="1" n="masterpoti" x="170" y="0" w="50" h="50"  p="802" v="true"/>
+        <e t="1" n="masterpoti" x="250" y="0" w="50" h="50"  p="803" v="true"/>
+        <e t="1" n="masterpoti" x="320" y="0" w="50" h="50"  p="804" v="true"/>
+        <e t="1" n="masterpoti" x="400" y="0" w="50" h="50"  p="805" v="true"/>
+        <e t="1" n="masterpoti" x="480" y="0" w="50" h="50"  p="806" v="true"/>
+        <e t="1" n="masterpoti" x="560" y="0" w="50" h="50"  p="807" v="true"/>
+        <e t="1" n="masterpoti" x="640" y="0"  w="50" h="50" p="808" v="true"/>
+        <e t="1" n="masterpoti" x="720" y="0" w="50" h="50"  p="809" v="true"/>
+        <e t="1" n="masterpoti" x="800" y="0" w="50" h="50"  p="810" v="true"/>
+        <e t="1" n="masterpoti" x="880" y="0" w="50" h="50"  p="811" v="true"/>
+        <e t="1" n="masterpoti" x="960" y="0" w="50" h="50"  p="812" v="true"/>
+        <e t="1" n="masterpoti" x="1040" y="0" w="50" h="50"  p="813" v="true"/>
+        <e t="1" n="masterpoti" x="1120" y="0" w="50" h="50"  p="814" v="true"/>
+        <e t="1" n="masterpoti" x="1200" y="0" w="50" h="50"  p="815" v="true"/>
+    </e>
+    
+    <e t="0" n="input" x="2" y="60"  w="148" h="338" bg="black" bgi="" v="true" title="Input">
+       </e>
+    <e t="0" n="osc" x="152" y="60"  w="396" h="338" bg="black" bgi="" v="true" title="Osc1 1">
+         <e t="1" n="poti" x="0" y="22" w="60" h="80"  p="16" v="true" title="Oct" />
+         <e t="1" n="poti" x="80" y="22" w="60" h="80"  p="17" v="true"  title="Semi" />
+         <e t="1" n="poti" x="160" y="22" w="60" h="80"  p="18" v="true"  title="Fine" />
+         <e t="1" n="poti" x="240" y="22" w="60" h="80"  p="19" v="true"  title="Volume" />
+         <e t="1" n="poti" x="320" y="22" w="60" h="80"  p="20" v="true"  title="Wave" />
+    </e>
+    <e t="0" n="osc" x="550" y="60"  w="396" h="338" bg="black" bgi="" v="true" title="Osc1 2">
+            <e t="1" n="poti" x="0" y="22" w="60" h="80"  p="16" v="true" title="Oct" />
+            <e t="1" n="poti" x="80" y="22" w="60" h="80"  p="17" v="true"  title="Semi" />
+            <e t="1" n="poti" x="160" y="22" w="60" h="80"  p="18" v="true"  title="Fine" />
+            <e t="1" n="poti" x="240" y="22" w="60" h="80"  p="19" v="true"  title="Volume" />
+            <e t="1" n="poti" x="320" y="22" w="60" h="80"  p="20" v="true"  title="Wave" />
+       </e>
+    <e t="0" n="filter" x="948" y="60"  w="138" h="338" bg="black" bgi="" v="true" title="Filter 1">
+        <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="32" v="true" title="Cutoff" />
+        <e t="1" n="poti" x="73" y="22" w="60" h="80"  p="33" v="true"  title="Resonance" />
+        <e t="1" n="poti" x="3" y="109" w="60" h="80"  p="34" v="true" title="Type" />
+        <e t="1" n="poti" x="73" y="109" w="60" h="80"  p="35" v="true"  title="Drive" />
+    </e>
+    <e t="0" n="filter" x="1088" y="60"  w="138" h="338" bg="black" bgi="" v="true" title="Filter 2">
+           <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="32" v="true" title="Cutoff" />
+           <e t="1" n="poti" x="73" y="22" w="60" h="80"  p="33" v="true"  title="Resonance" />
+           <e t="1" n="poti" x="3" y="109" w="60" h="80"  p="34" v="true" title="Type" />
+           <e t="1" n="poti" x="73" y="109" w="60" h="80"  p="35" v="true"  title="Drive" />
+       </e>
+    <e t="0" n="amp" x="1230" y="60"  w="168" h="338" bg="black" bgi="" v="true" title="Amp">
+    </e>
+    
+    <e t="0" n="modheader" x="2" y="400"  w="1396" h="68" bg="pink" bgi="" v="true">
+    </e>
+    <e t="0" n="mod" x="2" y="470"  w="464" h="170" bg="orange" bgi="" v="true">
+    </e>
+    <e t="0" n="mod" x="468" y="470"  w="464" h="170" bg="orange" bgi="" v="true">
+    </e>
+    <e t="0" n="mod" x="934" y="470"  w="464" h="170" bg="orange" bgi="" v="true">
+    </e>
+    
+</flipotronics>
