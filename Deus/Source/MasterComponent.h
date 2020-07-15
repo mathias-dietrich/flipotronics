@@ -12,24 +12,39 @@
 #include "Inc.h"
 #include "IComponent.h"
 #include "HeaderComponent.h"
+#include "EventHandler.h"
 
-class MasterComponent : public IComponent{
+class MasterComponent : public IComponent, public EventHandler{
     
 public:
     
     MasterComponent(){
-        
+       
+    }
+    
+    ~MasterComponent(){
+          delete headerComponent;
+      }
+    
+    MasterComponent(int width, int height){
+        headerComponent = new HeaderComponent();
+        headerComponent->handler = this;
+        this->width = width;
+        this->height = height;
+        addAndMakeVisible(headerComponent);
+    }
+    
+    void resizeAll(float prozent) override{
+        handler->resizeAll(prozent);
     }
     
     void paint (Graphics& g) override {
             g.fillAll (Colours::green);
     }
     
-    void init(int width, int hiight){
+    void init(int width, int height){
         this->width = width;
         this->height = height;
-        
-        addAndMakeVisible(headerComponent);
     }
     
     void setDials() override{
@@ -41,7 +56,10 @@ public:
     }
     
     void resized() override{
-        headerComponent.setBounds(0,0,width,60);
+        if(headerComponent==0){
+            return;
+        }
+        headerComponent->setBounds(0,0,width,50);
         for(auto it = std::begin(children); it != std::end(children); ++it) {
             IComponent *c = *it;
             Node n = c->node;
@@ -52,7 +70,8 @@ public:
         }
     }
     
-    HeaderComponent headerComponent;
+    HeaderComponent * headerComponent;
+    EventHandler * handler;
 };
 
 #endif /* MasterComponent_h */

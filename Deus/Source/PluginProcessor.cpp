@@ -27,6 +27,7 @@ DeusAudioProcessor::DeusAudioProcessor()
 {
     Loader::of()->init();
     Model::of()->init();
+    ImageFactory::of().init();
 }
 
 DeusAudioProcessor::~DeusAudioProcessor()
@@ -143,7 +144,7 @@ void DeusAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& m
     // interleaved by keeping the same state.
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
+       // auto* channelData = buffer.getWritePointer (channel);
 
         // ..do something to the data...
     }

@@ -14,6 +14,7 @@
 #include "IWidget.h"
 #include "Poti.h"
 #include "Model.h"
+#include "EventHandler.h"
 
 class IComponent  :  public Component{
 
@@ -155,6 +156,8 @@ public:
         return r;
     }
     
+    EventHandler * eventHandler;
+
 private:
 
 };

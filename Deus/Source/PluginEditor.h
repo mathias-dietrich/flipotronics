@@ -15,11 +15,12 @@
 
 #include "Inc.h"
 #include "MasterComponent.h"
+#include "EventHandler.h"
 
 //==============================================================================
 /**
 */
-class DeusAudioProcessorEditor  : public AudioProcessorEditor
+class DeusAudioProcessorEditor  : public AudioProcessorEditor, public EventHandler
 {
 public:
     DeusAudioProcessorEditor (DeusAudioProcessor&);
@@ -28,13 +29,22 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+    
+    void resizeAll(float prozent)override{
+        Desktop::getInstance().setGlobalScaleFactor(1);
+       float ws = UIWIDTH;
+       int hs = UIHEIGHT;
+       setSize (ws * prozent, hs * prozent);
+       Desktop::getInstance().setGlobalScaleFactor((float)this->getWidth() / ws);
+       repaint();
+    }
 
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     DeusAudioProcessor& processor;
     
-    MasterComponent masterComponent;
+    MasterComponent masterComponent{UIWIDTH, UIHEIGHT};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeusAudioProcessorEditor)
 };

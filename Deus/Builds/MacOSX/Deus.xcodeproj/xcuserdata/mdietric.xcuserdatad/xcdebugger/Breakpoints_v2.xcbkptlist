@@ -14,8 +14,8 @@
             filePath = "../../Source/PluginProcessor.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "DeusAudioProcessor::DeusAudioProcessor()"
             landmarkType = "7">
             <Locations>
@@ -55,64 +55,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B5D9FA34-3EA6-4407-8876-EA5E160FBFEE"
+            uuid = "7DEF2278-DAED-4D9A-84AE-F3BBC038E393"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/PluginEditor.cpp"
+            filePath = "../../Source/HeaderComponent.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "DeusAudioProcessorEditor::DeusAudioProcessorEditor(p)"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
+            landmarkName = "resized()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B5D9FA34-3EA6-4407-8876-EA5E160FBFEE - 7b1b222a6049b018"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DeusAudioProcessorEditor::DeusAudioProcessorEditor(DeusAudioProcessor&amp;)"
-                  moduleName = "Deus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mdietric/flipotronics/Deus/Source/PluginEditor.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "104">
-               </Location>
-               <Location
-                  uuid = "B5D9FA34-3EA6-4407-8876-EA5E160FBFEE - 7b1b222a6049b018"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DeusAudioProcessorEditor::DeusAudioProcessorEditor(DeusAudioProcessor&amp;)"
-                  moduleName = "Deus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mdietric/flipotronics/Deus/Source/PluginEditor.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "29">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FDCEFD43-0814-48FD-B29C-5A5606904856"
+            uuid = "7731C2A3-03D2-4415-B9F1-61B2E79E91DF"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/MasterComponent.h"
+            filePath = "../../Source/PluginEditor.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "resizeAll(prozent)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "79F9FB86-A85A-4DB5-9EE6-3BF95FA800A5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/MasterPoti.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
             endingLineNumber = "25"
-            landmarkName = "paint(g)"
+            landmarkName = "drawRotarySlider(g, x, y, width, height, sliderPos, rotaryStartAngle, rotaryEndAngle, slider)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E0AD3089-C7F9-452F-A121-67D099FFF99F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/ImageFactory.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "init()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

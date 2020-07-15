@@ -145,6 +145,7 @@
 		492802E88BC8A0D24660ED79 /* juce_data_structures */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_data_structures; path = "~/JUCE/modules/juce_data_structures"; sourceTree = "<absolute>"; };
 		49D00B0FD38D129061D9FB27 /* include_juce_audio_formats.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_formats.mm; path = ../../JuceLibraryCode/include_juce_audio_formats.mm; sourceTree = SOURCE_ROOT; };
 		4B1D41C0CADA50190E5B72E9 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		4F3C175C24BF44AC001DF4DD /* EventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = ../../Source/EventHandler.h; sourceTree = "<group>"; };
 		4FA5747F24BEF9DE00A1E759 /* xml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = xml; path = build/Debug/xml; sourceTree = "<group>"; };
 		4FA5748024BEF9DE00A1E759 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = build/Debug/images; sourceTree = "<group>"; };
 		4FA5748124BEF9DE00A1E759 /* tun */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tun; path = build/Debug/tun; sourceTree = "<group>"; };
@@ -440,6 +441,7 @@
 				4FA574B024BF0BA300A1E759 /* MasterPoti.h */,
 				4FA574B124BF0BC800A1E759 /* MasterSwitch.h */,
 				4FA574B324BF0C5300A1E759 /* OutputMeter.h */,
+				4F3C175C24BF44AC001DF4DD /* EventHandler.h */,
 			);
 			name = Widgets;
 			sourceTree = "<group>";
@@ -680,7 +682,7 @@
 		9FCFE4F6F0F0C8F2F5796E28 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = Flipotronics;
 				TargetAttributes = {
 					068657E2720AF0DE35782575 = {

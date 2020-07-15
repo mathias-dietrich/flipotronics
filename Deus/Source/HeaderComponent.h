@@ -17,7 +17,10 @@
 #include "OutputMeter.h"
 #include "MasterSwitch.h"
 #include "MasterPoti.h"
+#include "MasterComponent.h"
+#include "EventHandler.h"
 
+class MasterComponent;
 
 class HeaderComponent:  public IComponent, public Slider::Listener, public Button::Listener{
    public:
@@ -87,11 +90,6 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         btnProgDown.addListener (this);
         btnProgDown.setRadioGroupId(23);
         addAndMakeVisible (btnProgDown);
-
-        btnArp.setButtonText ("Arp");
-        btnArp.addListener (this);
-        btnArp.setRadioGroupId(27);
-        addAndMakeVisible (btnArp);
         
         progName.setColour (Label::textColourId, C_PTACHNAME);
         progName.setJustificationType (Justification::centred);
@@ -134,7 +132,6 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         viewZoom.setSelectedId(3,  NotificationType::dontSendNotification);
         
         setDials();
-        
     }
    
     ~HeaderComponent () {
@@ -143,10 +140,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
     
     void styleMenuChangedViewZoom()
     {
-        int ws = 1400;
-        int hs = 780;
-        float p = 1.0f;
-        Desktop::getInstance().setGlobalScaleFactor(1);
+        float p = 0;
         switch (viewZoom.getSelectedId())
         {
             case 1: // 50
@@ -164,14 +158,12 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
             case 5: // 150
                 p = 1.5f;
                 break;
-                
             case 6: // 200
                 p = 2.0f;
                 break;
         }
-        setSize (ws * p, hs * p);
-        Desktop::getInstance().setGlobalScaleFactor((float)this->getWidth() / ws);
-        repaint();
+
+        handler->resizeAll(p);
     }
     
     void build(Node node) override{
@@ -308,22 +300,6 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
             Model::of().masterSel = mDebug;
             return;
         }
-        
-        // ARP
-           if(button->getRadioGroupId()==27) {
-               if(processor->isArpOn){
-                   btnArp.setButtonText ("Arp");
-                   btnArp.setToggleState(false, NotificationType::dontSendNotification);
-                   processor->isArpOn = false;
-                   processor->panic();
-               }else{
-                   btnArp.setButtonText ("Arp");
-                   btnArp.setToggleState(true, NotificationType::dontSendNotification);
-                   processor->isArpOn = true;
-               }
-               processor->setArp(processor->isArpOn);
-               return;
-           }
          */
     }
         
@@ -373,9 +349,11 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
     void resized() override{
         Rectangle<int> r = getLocalBounds();
         auto width  = r.getWidth();
-        auto height  = r.getHeight();
-        potiMasterVol.setBounds(width-80,6,40,40);
-        outputMeter.setBounds(width-40,0,40,50);
+       // auto height  = r.getHeight();
+        
+        viewZoom.setBounds (width-75, 3, 70, 20);
+        potiMasterVol.setBounds(width-160,6,40,40);
+        outputMeter.setBounds(width-120,0,40,50);
         
         switch0.setBounds(150,1,50,48);
         switch1.setBounds(205,1,50,48);
@@ -383,7 +361,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         switch3.setBounds(315,1,50,48);
         switch4.setBounds(370,1,50,48);
         switch5.setBounds(425,1,50,48);
-        switchSave.setBounds(490,1,25,25);
+        switchSave.setBounds(510,1,25,25);
         switchSave.setImages(false,true,true,ImageFactory::of().png[eFloppy],1.0f,{},ImageFactory::of().png[eFloppyOver],1.0f,{}, ImageFactory::of().png[eFloppyDown],1.0f,{});
         
         btnProgDown.setBounds (885, 3, 20, 20);
@@ -394,17 +372,17 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         progNumber.setBounds(880, 25, 60,  25);
         progAuthor.setBounds(930, 30, 200,  20);
         
-        btnCompare.setBounds (1080, 5, 70, 20);
-        viewZoom.setBounds (1160, 5, 70, 20);
-        btnArp.setBounds (1240, 5, 70, 20);
+        btnCompare.setBounds (950, 3, 70, 20);
+       
     }
     
      void sliderValueChanged(Slider *  slider) override {
        // Model::of().par[P_MASTERVOL] = slider->getValue();
      }
-        
-    DeusAudioProcessor * processor;
+
     ComboBox viewZoom;
+    MasterComponent * masterComponent;
+    EventHandler * handler;
     
 private:
     FontLoader fontLoader;
@@ -421,12 +399,12 @@ private:
     TextButton btnProgUp;
     TextButton btnProgDown;
     TextButton btnCompare;
-    TextButton btnArp;
     
     Label progName;
     Label progNumber;
     Label progAuthor;
     
+    Process * processor;
 };
 
 #endif /* HeaderComponent_h */

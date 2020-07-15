@@ -19,6 +19,7 @@ DeusAudioProcessorEditor::DeusAudioProcessorEditor (DeusAudioProcessor& p)
     // editor's size to whatever you need it to be.
     setSize (UIWIDTH, UIHEIGHT);
     masterComponent.init(UIWIDTH, UIHEIGHT);
+    masterComponent.handler = this;
     addAndMakeVisible(masterComponent);
 }
 
@@ -41,5 +42,6 @@ void DeusAudioProcessorEditor::paint (Graphics& g)
 
 void DeusAudioProcessorEditor::resized()
 {
+    //setBounds(0,0,UIWIDTH,UIHEIGHT);
     masterComponent.setBounds(0,0,UIWIDTH,UIHEIGHT);
 }
