@@ -16,6 +16,7 @@
 #include "Inc.h"
 #include "MasterComponent.h"
 #include "EventHandler.h"
+#include "UILoader.h"
 
 //==============================================================================
 /**
@@ -45,6 +46,8 @@ private:
     DeusAudioProcessor& processor;
     
     MasterComponent masterComponent;
-
+    UILoader uiloader;
+    ComponentFactory *factory;
+    Node * node = new Node();
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeusAudioProcessorEditor)
 };

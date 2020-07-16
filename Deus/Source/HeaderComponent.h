@@ -17,10 +17,7 @@
 #include "OutputMeter.h"
 #include "MasterSwitch.h"
 #include "MasterPoti.h"
-#include "MasterComponent.h"
 #include "EventHandler.h"
-
-class MasterComponent;
 
 class HeaderComponent:  public IComponent, public Slider::Listener, public Button::Listener{
    public:
@@ -166,7 +163,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         handler->resizeAll(p);
     }
     
-    void build(Node node) override{
+    void build(Node * node) override{
            
     }
     
@@ -352,7 +349,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
     void resized() override{
         Rectangle<int> r = getLocalBounds();
         auto width  = r.getWidth();
-        auto height  = r.getHeight();
+       // auto height  = r.getHeight();
         
         viewZoom.setBounds (width-75, 3, 70, 20);
         potiMasterVol.setBounds(width-160,6,40,40);
@@ -376,7 +373,6 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         progAuthor.setBounds(930, 30, 200,  20);
         
         btnCompare.setBounds (485, 30, 50, 18);
-       
     }
     
      void sliderValueChanged(Slider *  slider) override {
@@ -384,7 +380,6 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
      }
 
     ComboBox viewZoom;
-    MasterComponent * masterComponent;
     EventHandler * handler;
     
 private:

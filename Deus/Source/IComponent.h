@@ -15,6 +15,9 @@
 #include "Poti.h"
 #include "Model.h"
 #include "EventHandler.h"
+#include "IFactory.h"
+
+class ComponentFactory;
 
 class IComponent  :  public Component{
 
@@ -35,19 +38,6 @@ public:
         this->blocksPerSecond = sampleRate / samplesPerBlock;
     }
 
-    virtual void setDials()=0;
-    virtual void build(Node node)=0;
-    
-    float sampleRate;
-    int samplesPerBlock;
-    float sr;
-    int blocksPerSecond;
-    
-    std::vector<IComponent *> children;
-    std::vector<Widget *> widgets;
-    Node node;
-    
-    
     void setPoti(Node node, Poti * p){
         Model *m = Model::of();
         int pid = node.paramId;
@@ -155,8 +145,20 @@ public:
         Rectangle<float> r = {0,0,(float)width,(float)height};
         return r;
     }
+    virtual void setDials()=0;
+    virtual void build(Node * node)=0;
     
     EventHandler * eventHandler;
+
+    IFactory * factory;
+    IComponent *current;
+    Node * node;
+    float sampleRate;
+    int samplesPerBlock;
+    float sr;
+    int blocksPerSecond;
+    std::vector<IComponent *> children;
+    std::vector<Widget *> widgets;
 
 private:
 

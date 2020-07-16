@@ -10,6 +10,8 @@
 #define WidgetFactory_h
 
 #include "IWidget.h"
+#include "Poti.h"
+#include "MasterPoti.h"
 
 class WidgetFactory{
 public:
@@ -35,7 +37,10 @@ public:
         }
         return new MasterPoti();
     }
+private:
+    
+
 };
-WidgetFactory * WidgetFactory::instance = 0;
+
     
 #endif /* WidgetFactory_h */

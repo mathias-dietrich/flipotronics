@@ -1,24 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flipotronics>
-    <e t="0" n="macro" x="60" y="0"  w="1400" h="50" bg="black" bgi="" v="true">
-        <e t="1" n="masterpoti" x="10" y="0"  w="50" h="50" p="800" v="true"/>
-        <e t="1" n="masterpoti" x="90" y="0" w="50" h="50"  p="801" v="true"/>
-        <e t="1" n="masterpoti" x="170" y="0" w="50" h="50"  p="802" v="true"/>
-        <e t="1" n="masterpoti" x="250" y="0" w="50" h="50"  p="803" v="true"/>
-        <e t="1" n="masterpoti" x="320" y="0" w="50" h="50"  p="804" v="true"/>
-        <e t="1" n="masterpoti" x="400" y="0" w="50" h="50"  p="805" v="true"/>
-        <e t="1" n="masterpoti" x="480" y="0" w="50" h="50"  p="806" v="true"/>
-        <e t="1" n="masterpoti" x="560" y="0" w="50" h="50"  p="807" v="true"/>
-        <e t="1" n="masterpoti" x="640" y="0"  w="50" h="50" p="808" v="true"/>
-        <e t="1" n="masterpoti" x="720" y="0" w="50" h="50"  p="809" v="true"/>
-        <e t="1" n="masterpoti" x="800" y="0" w="50" h="50"  p="810" v="true"/>
-        <e t="1" n="masterpoti" x="880" y="0" w="50" h="50"  p="811" v="true"/>
-        <e t="1" n="masterpoti" x="960" y="0" w="50" h="50"  p="812" v="true"/>
-        <e t="1" n="masterpoti" x="1040" y="0" w="50" h="50"  p="813" v="true"/>
-        <e t="1" n="masterpoti" x="1120" y="0" w="50" h="50"  p="814" v="true"/>
-        <e t="1" n="masterpoti" x="1200" y="0" w="50" h="50"  p="815" v="true"/>
-    </e>
-    
     <e t="0" n="input" x="2" y="60"  w="148" h="338" bg="black" bgi="" v="true" title="Input">
        </e>
     <e t="0" n="osc" x="152" y="60"  w="396" h="338" bg="black" bgi="" v="true" title="Osc1 1">

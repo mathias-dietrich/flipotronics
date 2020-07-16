@@ -9,18 +9,22 @@
 #ifndef IWidget_h
 #define IWidget_h
 
+#include <JuceHeader.h>
+#include "Inc.h"
+
 struct Node{
     int width;
     int height;
     int x;
     int y;
     String name;
-    std::vector<Node> childen;
+    std::vector<Node*> childen;
     int paramId;
     int type;
     String bgColor;
     bool isVisible;
     String title;
+    String xmlFile;
 };
 
 class Widget{
@@ -36,7 +40,7 @@ public:
     
     virtual void setDials() = 0;
     
-    Node node;
+    Node * node;
 };
 
 #endif /* IWidget_h */
