@@ -19,20 +19,13 @@ class MasterComponent : public IComponent, public EventHandler{
 public:
     
     MasterComponent(){
-       
+        headerComponent.handler = this;
+        addAndMakeVisible(headerComponent);
     }
     
     ~MasterComponent(){
-          delete headerComponent;
+
       }
-    
-    MasterComponent(int width, int height){
-        headerComponent = new HeaderComponent();
-        headerComponent->handler = this;
-        this->width = width;
-        this->height = height;
-        addAndMakeVisible(headerComponent);
-    }
     
     void resizeAll(float prozent) override{
         handler->resizeAll(prozent);
@@ -40,11 +33,9 @@ public:
     
     void paint (Graphics& g) override {
             g.fillAll (Colours::green);
-    }
-    
-    void init(int width, int height){
-        this->width = width;
-        this->height = height;
+        
+        Image img = ImageFactory::of().get("header.png");
+         //g.drawImageAt(img, 0, 0);
     }
     
     void setDials() override{
@@ -52,14 +43,12 @@ public:
     }
     
     void build(Node node) override{
-        
+        width = 1440;
+        height = 850;
     }
     
     void resized() override{
-        if(headerComponent==0){
-            return;
-        }
-        headerComponent->setBounds(0,0,width,50);
+        headerComponent.setBounds(0,0,1440,50);
         for(auto it = std::begin(children); it != std::end(children); ++it) {
             IComponent *c = *it;
             Node n = c->node;
@@ -70,7 +59,7 @@ public:
         }
     }
     
-    HeaderComponent * headerComponent;
+    HeaderComponent headerComponent;
     EventHandler * handler;
 };
 

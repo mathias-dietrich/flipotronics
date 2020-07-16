@@ -40,6 +40,7 @@ public:
     
     void close(){
          png.clear();
+        pngCache.clear();
     }
     
     void init(){
@@ -56,7 +57,6 @@ public:
             (eExpressionWheel, "expressionWheel.png");
         
         String filePath = File::getCurrentWorkingDirectory().getFullPathName();
-       
         File  dir = File(filePath).getChildFile("images");
     
         std::cout << " filePath  " << dir.getFullPathName() << std::endl;
@@ -69,13 +69,25 @@ public:
      std::cout << " loaded images " <<  png.size() << std::endl;
     }
     
+    Image get(String name){
+        if(pngCache.find(name) == pngCache.end()){
+            String filePath = File::getCurrentWorkingDirectory().getFullPathName();
+            File  dir = File(filePath).getChildFile("images").getChildFile(name);
+            pngCache[name] = ImageFileFormat::loadFrom(dir);
+        }
+        return pngCache[name];
+    }
+    
     std::map<E_Image, Image > png;
+   
     
     private:
     ImageFactory(){}
     
+     std::map<String, Image > pngCache;
+    
     ~ImageFactory(){
-       
+        close();
     }
    std::map<E_Image, const char*> imgEnumMap;
 };

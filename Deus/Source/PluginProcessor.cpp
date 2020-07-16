@@ -32,6 +32,7 @@ DeusAudioProcessor::DeusAudioProcessor()
 
 DeusAudioProcessor::~DeusAudioProcessor()
 {
+    ImageFactory::of().close();
 }
 
 //==============================================================================

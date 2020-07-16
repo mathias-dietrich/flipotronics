@@ -168,7 +168,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
     
     void build(Node node) override{
            
-       }
+    }
     
     void buttonClicked (Button* button)  override {
 
@@ -302,13 +302,16 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         }
          */
     }
-        
+    
     void paint (Graphics& g) override{
         Rectangle<int> r = getLocalBounds();
         auto width  = getLocalBounds().getWidth();
         //auto height  = getLocalBounds().getHeight();
         
         g.fillAll (C_BLACK);
+        
+        Image img = ImageFactory::of().get("header.png");
+         g.drawImageAt(img, 0, 0);
 
         r.setX(5);
         r.setY(5);
@@ -349,7 +352,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
     void resized() override{
         Rectangle<int> r = getLocalBounds();
         auto width  = r.getWidth();
-       // auto height  = r.getHeight();
+        auto height  = r.getHeight();
         
         viewZoom.setBounds (width-75, 3, 70, 20);
         potiMasterVol.setBounds(width-160,6,40,40);
@@ -361,7 +364,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         switch3.setBounds(315,1,50,48);
         switch4.setBounds(370,1,50,48);
         switch5.setBounds(425,1,50,48);
-        switchSave.setBounds(510,1,25,25);
+        switchSave.setBounds(510,2,25,25);
         switchSave.setImages(false,true,true,ImageFactory::of().png[eFloppy],1.0f,{},ImageFactory::of().png[eFloppyOver],1.0f,{}, ImageFactory::of().png[eFloppyDown],1.0f,{});
         
         btnProgDown.setBounds (885, 3, 20, 20);
@@ -372,7 +375,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         progNumber.setBounds(880, 25, 60,  25);
         progAuthor.setBounds(930, 30, 200,  20);
         
-        btnCompare.setBounds (950, 3, 70, 20);
+        btnCompare.setBounds (485, 30, 50, 18);
        
     }
     

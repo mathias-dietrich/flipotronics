@@ -44,7 +44,7 @@ private:
     // access the processor object that created it.
     DeusAudioProcessor& processor;
     
-    MasterComponent masterComponent{UIWIDTH, UIHEIGHT};
+    MasterComponent masterComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeusAudioProcessorEditor)
 };

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flipotronics>
+    <e t="0" n="master" x="0" y="0"  w="1440" h="850" bg="black" v="true">
+        <e t="0" n="header" x="0" y="0"  w="1440" h="50" bgi="header.png" v="true"/>
+    </e>
+</flipotronics>
