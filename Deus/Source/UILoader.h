@@ -10,11 +10,13 @@
 #define UILoader_h
 
 #include "IComponent.h"
-#include "ComponentFactory.h"
 
 class UILoader{
 public:
     void load(Node * node, String xmlFile){
+        if(xmlFile.compare("")==0){
+            return;
+        }
         File f = File(File::getCurrentWorkingDirectory().getFullPathName()).getChildFile("xml").getChildFile(xmlFile);
         if(!f.exists()){
             std::cout << "XML file missing " << f.getFullPathName() << std::endl;
@@ -55,12 +57,7 @@ public:
             node->childen.push_back(n);
             parse(n, child);
         }
-        
     }
-    
-private:
-    ComponentFactory componentFactory;
-    
 };
 
 #endif /* UILoader_h */

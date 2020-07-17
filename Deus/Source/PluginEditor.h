@@ -39,6 +39,10 @@ public:
        Desktop::getInstance().setGlobalScaleFactor((float)this->getWidth() / ws);
        repaint();
     }
+    
+     void update()override {
+        
+    }
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -47,7 +51,7 @@ private:
     
     MasterComponent masterComponent;
     UILoader uiloader;
-    ComponentFactory *factory;
+   // ComponentFactory *factory;
     Node * node = new Node();
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeusAudioProcessorEditor)
 };

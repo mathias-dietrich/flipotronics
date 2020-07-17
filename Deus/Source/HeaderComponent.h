@@ -160,7 +160,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
                 break;
         }
 
-        handler->resizeAll(p);
+        eventHandler->resizeAll(p);
     }
     
     void build(Node * node) override{
@@ -174,10 +174,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
            // BankLoader::of().save();
            // Model::of().set();
            // Model::of().compareMode = false;
-            setDials();
-           return;
         }
-        
         
         /*
         // Load
@@ -223,81 +220,39 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
            Model::of().swap();
            return;
        }
-
+         */
         
         // Edit
         if(button->getRadioGroupId()==100) {
-            switch0.setToggleState(true, NotificationType::dontSendNotification);
-            switch1.setToggleState(false, NotificationType::dontSendNotification);
-            switch2.setToggleState(false, NotificationType::dontSendNotification);
-            switch3.setToggleState(false, NotificationType::dontSendNotification);
-            switch4.setToggleState(false, NotificationType::dontSendNotification);
-            switch5.setToggleState(false, NotificationType::dontSendNotification);
-            Model::of().masterSel = mEdit;
-            return;
+            Model::of()->masterSel = mEdit;
         }
         
         // Lib
        if(button->getRadioGroupId()==101) {
-           switch0.setToggleState(false, NotificationType::dontSendNotification);
-           switch1.setToggleState(true, NotificationType::dontSendNotification);
-           switch2.setToggleState(false, NotificationType::dontSendNotification);
-           switch3.setToggleState(false, NotificationType::dontSendNotification);
-           switch4.setToggleState(false, NotificationType::dontSendNotification);
-           switch5.setToggleState(false, NotificationType::dontSendNotification);
-           Model::of().masterSel = mLibrary;
-           processor->browse();
-           return;
+           Model::of()->masterSel = mLibrary;
        }
         
         // Perform
       if(button->getRadioGroupId()==102) {
-          switch0.setToggleState(false, NotificationType::dontSendNotification);
-          switch1.setToggleState(false, NotificationType::dontSendNotification);
-          switch2.setToggleState(true, NotificationType::dontSendNotification);
-          switch3.setToggleState(false, NotificationType::dontSendNotification);
-          switch4.setToggleState(false, NotificationType::dontSendNotification);
-          switch5.setToggleState(false, NotificationType::dontSendNotification);
-          Model::of().masterSel = mPerform;
-          return;
+          Model::of()->masterSel = mPerform;
       }
         
     // Arp
         if(button->getRadioGroupId()==103) {
-            switch0.setToggleState(false, NotificationType::dontSendNotification);
-            switch1.setToggleState(false, NotificationType::dontSendNotification);
-            switch2.setToggleState(false, NotificationType::dontSendNotification);
-            switch3.setToggleState(true, NotificationType::dontSendNotification);
-            switch4.setToggleState(false, NotificationType::dontSendNotification);
-            switch5.setToggleState(false, NotificationType::dontSendNotification);
-            Model::of().masterSel = mArp;
-            return;
+            Model::of()->masterSel = mArp;
         }
         
         // Setup
         if(button->getRadioGroupId()==104) {
-            switch0.setToggleState(false, NotificationType::dontSendNotification);
-            switch1.setToggleState(false, NotificationType::dontSendNotification);
-            switch2.setToggleState(false, NotificationType::dontSendNotification);
-            switch3.setToggleState(false, NotificationType::dontSendNotification);
-            switch4.setToggleState(true, NotificationType::dontSendNotification);
-            switch5.setToggleState(false, NotificationType::dontSendNotification);
-            Model::of().masterSel = mSetup;
-            return;
+            Model::of()->masterSel = mSetup;
         }
         
         // Debug
         if(button->getRadioGroupId()==105) {
-            switch0.setToggleState(false, NotificationType::dontSendNotification);
-            switch1.setToggleState(false, NotificationType::dontSendNotification);
-            switch2.setToggleState(false, NotificationType::dontSendNotification);
-            switch3.setToggleState(false, NotificationType::dontSendNotification);
-            switch4.setToggleState(false, NotificationType::dontSendNotification);
-            switch5.setToggleState(true, NotificationType::dontSendNotification);
-            Model::of().masterSel = mDebug;
-            return;
+            Model::of()->masterSel = mDebug;
         }
-         */
+        setDials();
+        eventHandler->update();
     }
     
     void paint (Graphics& g) override{
@@ -319,7 +274,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         f.setHeight(40.0f);
         f.setBold(true);
         g.setFont(f);
-        g.drawFittedText (PRODUCTNAME, r, Justification::topLeft, 1);
+       // g.drawFittedText (PRODUCTNAME, r, Justification::topLeft, 1);
          
         f.setHeight(11.0f);
         f.setBold(false);
@@ -337,6 +292,13 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
     }
     
     void setDials() override{
+        switch0.setToggleState(Model::of()->masterSel==mEdit, NotificationType::dontSendNotification);
+        switch1.setToggleState(Model::of()->masterSel==mLibrary, NotificationType::dontSendNotification);
+        switch2.setToggleState(Model::of()->masterSel==mPerform, NotificationType::dontSendNotification);
+        switch3.setToggleState(Model::of()->masterSel==mArp, NotificationType::dontSendNotification);
+        switch4.setToggleState(Model::of()->masterSel==mSetup, NotificationType::dontSendNotification);
+        switch5.setToggleState(Model::of()->masterSel==mDebug, NotificationType::dontSendNotification);
+        
        // progNumber.setText(toString(Model::of().patchCurrent+1), NotificationType::dontSendNotification);
        // progName.setText(Model::of().patchNameCurrent, NotificationType::dontSendNotification);
         //btnCompare.setToggleState(Model::of().compareMode, NotificationType::dontSendNotification);
@@ -380,7 +342,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
      }
 
     ComboBox viewZoom;
-    EventHandler * handler;
+
     
 private:
     FontLoader fontLoader;

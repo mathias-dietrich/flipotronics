@@ -15,6 +15,7 @@ public:
      }
     
      virtual void resizeAll(float prozent) = 0;
+     virtual void update() = 0;
 };
 
 #endif /* EventHandler_h */

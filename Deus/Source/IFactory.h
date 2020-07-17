@@ -12,7 +12,7 @@
 
 #include "IComponent.h"
 
-class IComponent;
+class  IComponent;
 
 class IFactory{
 public:

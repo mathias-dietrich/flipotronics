@@ -14,12 +14,14 @@
 #include "HeaderComponent.h"
 #include "EventHandler.h"
 #include "UILoader.h"
+#include "ComponentFactory.h"
 
 class MasterComponent : public IComponent, public EventHandler{
     
 public:
     
     MasterComponent(){
+        factory = new ComponentFactory();
       //  headerComponent.handler = this;
        // addAndMakeVisible(headerComponent);
     }
@@ -29,14 +31,15 @@ public:
                  IComponent *c = *it;
                 delete c;
             }
+        delete factory;
     }
     
     void resizeAll(float prozent) override{
-        handler->resizeAll(prozent);
+        eventHandler->resizeAll(prozent);
     }
     
     void paint (Graphics& g) override {
-        g.fillAll (Colours::green);
+        g.fillAll (Colours::black);
         Image img = ImageFactory::of().get("header.png");
     }
     
@@ -55,21 +58,51 @@ public:
                 current = factory->get(node->name);
                 current->node = node;
                 current->factory = factory;
+                current->eventHandler = eventHandler;
                 if(node->isVisible){
                     this->addAndMakeVisible(current);
                 }else{
                     addChildComponent(current);
                 }
                 children.push_back(current);
-                Node *n = new Node();
-                uiloader.load(n, node->xmlFile);
-                current->build(n);
+                
+                if(node->xmlFile.compare("")==0){
+                    
+                }else{
+                    Node *n = new Node();
+                    uiloader.load(n, node->xmlFile);
+                    current->build(n);
+                }
             }
             if(node->type == 1){ // Widget
                 current->build(node);
             }
         }
         repaint();
+    }
+    
+    void update()override {
+        switch(Model::of()->masterSel){
+                
+            case mEdit:
+                
+                break;
+            case mLibrary:
+                
+                break;
+            case mPerform:
+                
+                break;
+            case mArp:
+                
+                break;
+            case mSetup:
+                
+                break;
+            case mDebug:
+                
+                break;
+        }
     }
     
     void resized() override{
@@ -83,7 +116,6 @@ public:
         }
     }
     
-    EventHandler * handler;
     UILoader uiloader;
 };
 

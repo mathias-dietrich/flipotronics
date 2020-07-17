@@ -13,6 +13,15 @@
 #include "IFactory.h"
 #include "HeaderComponent.h"
 #include "MacroComponent.h"
+#include "EditComponent.h"
+#include "InputComponent.h"
+#include "KeyboardComponent.h"
+#include "PluginProcessor.h"
+#include "OscComponent.h"
+#include "FilterComponent.h"
+#include "AmpComponent.h"
+
+class DeusAudioProcessor;
 
 class ComponentFactory: public IFactory{
 public:
@@ -32,17 +41,43 @@ public:
             c->factory = this;
             return c;
         }
-        /*
+      
+        if(type == "edit"){
+            EditComponent *c = new EditComponent();
+            c->factory = this;
+            return c;
+        }
+        if(type == "input"){
+             InputComponent *c = new InputComponent();
+             c->factory = this;
+             return c;
+         }
+        if(type == "keyboard"){
+            KeyboardComponent *c = new KeyboardComponent(processor);
+            c->factory = this;
+            return c;
+        }
+       
         if(type == "osc"){
             OscComponent *c = new OscComponent();
             c->factory = this;
             return c;
         }
+        
+         
         if(type == "filter"){
            FilterComponent *c = new FilterComponent();
            c->factory = this;
            return c;
         }
+        
+        if(type == "amp"){
+              AmpComponent *c = new AmpComponent();
+              c->factory = this;
+              return c;
+        }
+        
+        /*
         if(type == "modheader"){
             ModHeaderComponent *c = new ModHeaderComponent();
             c->factory = this;
@@ -53,19 +88,13 @@ public:
             c->factory = this;
             return c;
         }
-        if(type == "input"){
-            InputComponent *c = new InputComponent();
-            c->factory = this;
-            return c;
-        }
-        if(type == "amp"){
-           AmpComponent *c = new AmpComponent();
-           c->factory = this;
-           return c;
-       }
+     
+       
          */
         return new HeaderComponent();
     }
+    
+    DeusAudioProcessor * processor;
 };
 
 #endif /* ComponentFactory_h */

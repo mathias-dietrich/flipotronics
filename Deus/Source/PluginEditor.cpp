@@ -18,12 +18,10 @@ DeusAudioProcessorEditor::DeusAudioProcessorEditor (DeusAudioProcessor& p)
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (UIWIDTH, UIHEIGHT);
-    factory = new ComponentFactory();
     masterComponent.init(UIWIDTH, UIHEIGHT);
-    masterComponent.factory = factory;
+    masterComponent.eventHandler = this;
     uiloader.load(node, "master.xml");
     masterComponent.build(node);
-    masterComponent.handler = this;
     addAndMakeVisible(masterComponent);
     masterComponent.resized();
 }
@@ -32,7 +30,6 @@ DeusAudioProcessorEditor::~DeusAudioProcessorEditor()
 {
      // delete masterComponent;
     delete node;
-    delete factory;
 }
 
 //==============================================================================

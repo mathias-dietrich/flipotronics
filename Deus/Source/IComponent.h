@@ -17,8 +17,6 @@
 #include "EventHandler.h"
 #include "IFactory.h"
 
-class ComponentFactory;
-
 class IComponent  :  public Component{
 
 public:
@@ -38,11 +36,11 @@ public:
         this->blocksPerSecond = sampleRate / samplesPerBlock;
     }
 
-    void setPoti(Node node, Poti * p){
+    void setPoti(Node * node, Poti * p){
         Model *m = Model::of();
-        int pid = node.paramId;
+        int pid = node->paramId;
         p->setRange(m->params[pid].minVal,m->params[pid].maxVal,m->params[pid].stepVal);
-        p->setTitle(node.title);
+        p->setTitle(node->title);
         // boxes[i].setText(params[pid].name);
         if( m->params[pid].type == uWaveType){
            p->setTextValueSuffix(" " + getWaveType(E_WaveType(int(m->par[pid]))));
@@ -159,8 +157,6 @@ public:
     int blocksPerSecond;
     std::vector<IComponent *> children;
     std::vector<Widget *> widgets;
-
-private:
 
 };
 

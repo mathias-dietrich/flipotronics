@@ -36,6 +36,7 @@ class Model{
     
     atomic<float> sumPeakL;
     atomic<float> sumPeakR;
+    E_Master masterSel;
     
 private:
 
