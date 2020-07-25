@@ -20,6 +20,8 @@
 #include "OscComponent.h"
 #include "FilterComponent.h"
 #include "AmpComponent.h"
+#include "ModHeaderComponent.h"
+#include "ModComponent.h"
 
 class DeusAudioProcessor;
 
@@ -77,20 +79,17 @@ public:
               return c;
         }
         
-        /*
         if(type == "modheader"){
             ModHeaderComponent *c = new ModHeaderComponent();
             c->factory = this;
             return c;
         }
+
         if(type == "mod"){
-            ModSourceComponent *c = new ModSourceComponent();
+            ModComponent *c = new ModComponent();
             c->factory = this;
             return c;
         }
-     
-       
-         */
         return new HeaderComponent();
     }
     

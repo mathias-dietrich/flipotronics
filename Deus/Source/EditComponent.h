@@ -22,7 +22,7 @@
 
 class UILoader;
 
-class EditComponent :  public IComponent, public Slider::Listener{
+class EditComponent :  public IComponent{
 public:
     EditComponent(){
        
@@ -46,12 +46,8 @@ public:
     }
     
     void setDials() override{
-            for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
-          //      MasterPoti *p =  (MasterPoti*) *it;
-              //  Node *node = p->node;
-               // p->setValue(Model::of().par[node.paramId],dontSendNotification);
-            }
-        }
+
+    }
     
      void resized() override{
           for(auto it = std::begin(children); it != std::end(children); ++it) {
@@ -63,13 +59,7 @@ public:
                 c->repaint();
             }
      }
-    
-    void sliderValueChanged(Slider *  slider) override {
-      //  int sid = slider->getName().getIntValue();
-       // Model::of().par[sid] = slider->getValue();
-        setDials();
-    }
-    
+
     void build(Node * node) override{
         for(auto it = std::begin( node->childen); it != std::end( node->childen); ++it) {
             Node *node = *it;
@@ -81,7 +71,7 @@ public:
                 current->node = node;
                 current->factory = factory;
                 current->eventHandler = eventHandler;
-                current->build(node);
+                //current->build(node);
                 if(node->isVisible){
                     this->addAndMakeVisible(current);
                     current->repaint();
@@ -91,10 +81,11 @@ public:
                 }
                 children.push_back(current);
                 
-               // if(node->xmlFile)
-               // Node *n = new Node();
-               // uiloader.load(n, node->xmlFile);
-               // current->build(n);
+                if(node->xmlFile.length() > 0){
+                    Node *n = new Node();
+                    uiloader.load(n, node->xmlFile);
+                    current->build(n);
+                }
             }
 
         }

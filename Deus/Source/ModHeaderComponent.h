@@ -1,27 +1,26 @@
 //
-//  OscComponent.h
+//  ModHeaderComponent.h
 //  Deus
 //
-//  Created by Mathias Dietrich on 17.07.20.
+//  Created by Mathias Dietrich on 7/25/20.
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef OscComponent_h
-#define OscComponent_h
-
+#ifndef ModHeaderComponent_h
+#define ModHeaderComponent_h
 
 #include "IComponent.h"
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class OscComponent :  public IComponent, public Slider::Listener {
+class ModHeaderComponent :  public IComponent, public Slider::Listener {
 public:
     
-    OscComponent(){
+    ModHeaderComponent(){
         
     }
     
-    ~OscComponent(){
+    ~ModHeaderComponent(){
         for(auto it = std::begin(children); it != std::end(children); ++it) {
             delete *it;
         }
@@ -100,6 +99,4 @@ public:
     }
 
 };
-
-
-#endif /* OscComponent_h */
+#endif /* ModHeaderComponent_h */

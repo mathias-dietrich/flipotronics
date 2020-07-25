@@ -1,27 +1,26 @@
 //
-//  OscComponent.h
+//  ModComponent.h
 //  Deus
 //
-//  Created by Mathias Dietrich on 17.07.20.
+//  Created by Mathias Dietrich on 7/25/20.
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef OscComponent_h
-#define OscComponent_h
-
+#ifndef ModComponent_h
+#define ModComponent_h
 
 #include "IComponent.h"
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class OscComponent :  public IComponent, public Slider::Listener {
+class ModComponent :  public IComponent, public Slider::Listener {
 public:
     
-    OscComponent(){
+    ModComponent(){
         
     }
     
-    ~OscComponent(){
+    ~ModComponent(){
         for(auto it = std::begin(children); it != std::end(children); ++it) {
             delete *it;
         }
@@ -36,8 +35,10 @@ public:
                auto height  = r.getHeight();
                
                // Fill
-               auto defaultColour = Colours::black;
+               auto defaultColour = Colours::green;
                g.fillAll (juce::Colours::findColourForName (node->bgColor, defaultColour));
+        
+               g.fillAll (defaultColour);
                
                // Border
                g.setColour(C_MODULE_BORDER);
@@ -100,6 +101,4 @@ public:
     }
 
 };
-
-
-#endif /* OscComponent_h */
+#endif /* ModComponent_h */
