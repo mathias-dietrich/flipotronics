@@ -13,7 +13,7 @@
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class ModHeaderComponent :  public IComponent, public Slider::Listener {
+class ModHeaderComponent :  public IComponent, public Button::Listener {
 public:
     
     ModHeaderComponent(){
@@ -46,11 +46,11 @@ public:
                g.fillRoundedRectangle(0,height-5,width, 5, 15.0f);
                
                g.setColour(C_MODULE_BG);
-               g.fillRect(2.0f,17.0f,width-4, height - 22);
+               //g.fillRect(2.0f,17.0f,width-4, height - 22);
                 
                // Title
                g.setColour(C_MODULE_TITLE);
-               g.drawText(node->title, 5,3,100,20,Justification::topLeft, false);
+               g.drawText(node->title, 5,3,200,20,Justification::topLeft, false);
     }
     
     void setDials() override{
@@ -66,33 +66,25 @@ public:
         std::cout << node->name << std::endl;
         for(auto it = std::begin(node->childen); it != std::end(node->childen); ++it){
               Node *n = *it;
-             if(node->name.compare("poti")==1){
-               Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);
+             if(node->name.compare("modview")==1){
+               ModView *wc = (ModView *) WidgetFactory::of()->get(n->name);
                wc->node = n;
                addAndMakeVisible(wc);
-               wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
-               wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
-               wc->setNumDecimalPlacesToDisplay(2);
                wc->setName(toString(n->paramId));
                wc->addListener (this);
-               wc->setRange(0,1,0.01f);
-               wc->setTitle(node->title);
                widgets.push_back(wc);
             }
         }
     }
     
-    void sliderValueChanged(Slider *  slider) override {
-        int sid = slider->getName().getIntValue();
-        Model::of()->par[sid] = slider->getValue();
+    void buttonClicked(Button *  button) override {
         setDials();
     }
     
     void resized() override{
          for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
-            Poti *p =  (Poti*) *it;
+            ModView *p =  (ModView*) *it;
             Node *node = p->node;
-            p->setTitle(node->title);
             p->setBounds(node->x , node->y, node->width,node->height);
             p->setVisible(node->isVisible);
         }

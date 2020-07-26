@@ -12,6 +12,7 @@
 #include "IWidget.h"
 #include "Poti.h"
 #include "MasterPoti.h"
+#include "ModView.h"
 
 class WidgetFactory{
 public:
@@ -34,6 +35,10 @@ public:
     Widget * get(String type){
         if(type == "poti"){
             return new Poti();
+        }
+        
+        if(type == "modview"){
+            return new ModView();
         }
         return new MasterPoti();
     }

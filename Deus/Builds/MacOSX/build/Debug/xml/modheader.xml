@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flipotronics>
-    <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="1" v="true" title="Vol" />
+    <e t="1" n="modview" x="5" y="19" w="160" h="120"  p="1" v="true" title="ADSR 1" />
+    <e t="1" n="modview" x="167" y="19" w="160" h="120"  p="1" v="true" title="ADSR 2" />
+    <e t="1" n="modview" x="329" y="19" w="160" h="120"  p="1" v="true" title="ADSR 3" />
+    <e t="1" n="modview" x="491" y="19" w="160" h="120"  p="1" v="true" title="ADSR 4" />
+    
+    <e t="1" n="modview" x="653" y="19" w="160" h="120"  p="1" v="true" title="LFO 1" />
+    <e t="1" n="modview" x="815" y="19" w="160" h="120"  p="1" v="true" title="LFO 2" />
+    <e t="1" n="modview" x="977" y="19" w="160" h="120"  p="1" v="true" title="LFO 3" />
+    <e t="1" n="modview" x="1139" y="19" w="160" h="120"  p="1" v="true" title="LFO 4" />
 </flipotronics>

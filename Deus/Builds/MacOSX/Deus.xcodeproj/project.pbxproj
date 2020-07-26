@@ -142,6 +142,7 @@
 		2D372B10A135E898FDC5EE56 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		2EBD1A975FF072C0BD8BC8BE /* include_juce_opengl.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_opengl.mm; path = ../../JuceLibraryCode/include_juce_opengl.mm; sourceTree = SOURCE_ROOT; };
 		32311A0F8C5A5B66F7DD6F2F /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
+		40506BD824CD6EE600ED5568 /* ModView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModView.h; path = ../../Source/ModView.h; sourceTree = "<group>"; };
 		409F0A3B24CC788A0037A342 /* ModHeaderComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModHeaderComponent.h; path = ../../Source/ModHeaderComponent.h; sourceTree = "<group>"; };
 		409F0A3C24CC7A650037A342 /* ModComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModComponent.h; path = ../../Source/ModComponent.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
@@ -474,6 +475,7 @@
 				4FA574B324BF0C5300A1E759 /* OutputMeter.h */,
 				4F3C175C24BF44AC001DF4DD /* EventHandler.h */,
 				4FE513F024C18B1800E2B6F1 /* PitchWheel.h */,
+				40506BD824CD6EE600ED5568 /* ModView.h */,
 			);
 			name = Widgets;
 			sourceTree = "<group>";
