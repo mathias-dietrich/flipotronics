@@ -41,8 +41,6 @@ public:
 
          auto defaultColour = Colours::black;
          g.fillAll (juce::Colours::findColourForName (node->bgColor, defaultColour));
-        
-         g.fillAll (C_RED);
     }
     
     void setDials() override{

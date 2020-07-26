@@ -26,6 +26,9 @@
 #define C_WAVEDISPLAY  Colour(255, 255, 255)
 
 #define C_BLACK Colour(0, 0, 0)
+#define C_DARKGRAY Colour(33, 33, 33)
+#define C_LIGHTGRAY Colour(99, 99, 99)
+
 #define C_WHITE Colour(255, 255, 255)
 #define C_RED Colour(255, 0, 0)
 #define C_GREEN Colour(00, 128, 0)

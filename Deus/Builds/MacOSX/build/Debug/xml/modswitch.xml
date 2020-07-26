@@ -1,0 +1,10 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<flipotronics>
+    <e t="1" n="modswitch" x="0" y="0" w="240" h="20"  p="1" v="true" title="Keyboard" />
+    <e t="1" n="modswitch" x="240" y="0" w="240" h="20"  p="1" v="true" title="ADSR" />
+    <e t="1" n="modswitch" x="480" y="0" w="240" h="20"  p="1" v="true" title="LFO" />
+    <e t="1" n="modswitch" x="720" y="0" w="240" h="20"  p="1" v="true" title="FUNC" />
+    <e t="1" n="modswitch" x="960" y="0" w="240" h="20"  p="1" v="true" title="SEQ" />
+    <e t="1" n="modswitch" x="1200" y="0" w="240" h="20"  p="1" v="true" title="COMB" />
+</flipotronics>

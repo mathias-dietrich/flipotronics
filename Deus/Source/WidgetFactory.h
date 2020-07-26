@@ -13,6 +13,7 @@
 #include "Poti.h"
 #include "MasterPoti.h"
 #include "ModView.h"
+#include "ModSwitch.h"
 
 class WidgetFactory{
 public:
@@ -39,6 +40,9 @@ public:
         
         if(type == "modview"){
             return new ModView();
+        }
+        if(type == "modswitch"){
+            return new ModSwitch();
         }
         return new MasterPoti();
     }

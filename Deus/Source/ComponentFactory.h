@@ -22,6 +22,7 @@
 #include "AmpComponent.h"
 #include "ModHeaderComponent.h"
 #include "ModComponent.h"
+#include "ModSelector.h"
 
 class DeusAudioProcessor;
 
@@ -90,6 +91,13 @@ public:
             c->factory = this;
             return c;
         }
+        if(type == "modselector"){
+            ModSelector *c = new ModSelector();
+            c->factory = this;
+            return c;
+        }
+        
+        
         return new HeaderComponent();
     }
     

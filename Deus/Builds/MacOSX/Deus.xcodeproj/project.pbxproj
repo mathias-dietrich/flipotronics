@@ -143,6 +143,8 @@
 		2EBD1A975FF072C0BD8BC8BE /* include_juce_opengl.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_opengl.mm; path = ../../JuceLibraryCode/include_juce_opengl.mm; sourceTree = SOURCE_ROOT; };
 		32311A0F8C5A5B66F7DD6F2F /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
 		40506BD824CD6EE600ED5568 /* ModView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModView.h; path = ../../Source/ModView.h; sourceTree = "<group>"; };
+		40506BD924CDE98200ED5568 /* ModSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModSwitch.h; path = ../../Source/ModSwitch.h; sourceTree = "<group>"; };
+		40506BDA24CDEA0400ED5568 /* ModSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModSelector.h; path = ../../Source/ModSelector.h; sourceTree = "<group>"; };
 		409F0A3B24CC788A0037A342 /* ModHeaderComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModHeaderComponent.h; path = ../../Source/ModHeaderComponent.h; sourceTree = "<group>"; };
 		409F0A3C24CC7A650037A342 /* ModComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModComponent.h; path = ../../Source/ModComponent.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
@@ -476,6 +478,7 @@
 				4F3C175C24BF44AC001DF4DD /* EventHandler.h */,
 				4FE513F024C18B1800E2B6F1 /* PitchWheel.h */,
 				40506BD824CD6EE600ED5568 /* ModView.h */,
+				40506BD924CDE98200ED5568 /* ModSwitch.h */,
 			);
 			name = Widgets;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				4F31986824C08C2A007D694F /* MacroComponent.h */,
 				4FE513ED24C179E200E2B6F1 /* EditComponent.h */,
 				4FE513EF24C1888000E2B6F1 /* KeyboardComponent.h */,
+				40506BDA24CDEA0400ED5568 /* ModSelector.h */,
 			);
 			name = UI;
 			sourceTree = "<group>";

@@ -39,10 +39,10 @@ public:
         g.drawRoundedRectangle(r, 13.0f, 5.0f);
         g.fillRoundedRectangle(0,0,width, 10, 15.0f);
         g.fillRect(0.0f,8.0f,width, 12.0f);
-        g.fillRoundedRectangle(0,height-5,width, 5, 15.0f);
+       // g.fillRoundedRectangle(0,height-5,width, 5, 15.0f);
 
         g.setColour(C_MODULE_BG);
-        g.fillRect(2.0f,17.0f,width-4, height - 22);
+        g.fillRect(2.0f,17.0f,width-4, height - 20);
 
         // Title
         g.setColour(C_MODULE_TITLE);

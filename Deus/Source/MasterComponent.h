@@ -40,7 +40,6 @@ public:
     
     void paint (Graphics& g) override {
         g.fillAll (Colours::black);
-        Image img = ImageFactory::of().get("header.png");
     }
     
     void setDials() override{

@@ -37,15 +37,15 @@ public:
                // Fill
                auto defaultColour = Colours::black;
                g.fillAll (juce::Colours::findColourForName (node->bgColor, defaultColour));
-               
+        
                // Border
                g.setColour(C_MODULE_BORDER);
                g.drawRoundedRectangle(r, 13.0f, 5.0f);
                g.fillRoundedRectangle(0,0,width, 10, 15.0f);
                g.fillRect(0.0f,8.0f,width, 12.0f);
-               g.fillRoundedRectangle(0,height-5,width, 5, 15.0f);
+              // g.fillRoundedRectangle(0,height-5,width, 5, 15.0f);
                
-               g.setColour(C_MODULE_BG);
+               //g.setColour(C_MODULE_BG);
                //g.fillRect(2.0f,17.0f,width-4, height - 22);
                 
                // Title

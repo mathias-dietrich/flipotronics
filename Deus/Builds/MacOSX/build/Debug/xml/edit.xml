@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flipotronics>
-    <e t="0" n="input" x="0" y="0"  w="150" h="340" bg="black" bgi="" v="true" title="Input"  xml="input.xml" />
-    <e t="0" n="osc" x="150" y="0"  w="400" h="340" bg="black" bgi="" v="true" title="Osc1 1" xml="osc.xml" />
-    <e t="0" n="osc" x="550" y="0"  w="400" h="340" bg="black" bgi="" v="true" title="Osc1 2"  xml="osc.xml" />
-    <e t="0" n="filter" x="948" y="0"  w="160" h="340" bg="black" bgi="" v="true" title="Filter 1" xml="filter.xml" />
-    <e t="0" n="filter" x="1108" y="0"  w="160" h="340" bg="black" bgi="" v="true" title="Filter 2"  xml="filter.xml" />
-    <e t="0" n="amp" x="1268" y="0"  w="174" h="340" bg="black" bgi="" v="true" title="Amp" xml="amp.xml" />
+    <e t="0" n="input" x="0" y="0"  w="150" h="338" bg="black" bgi="" v="true" title="Input"  xml="input.xml" />
+    <e t="0" n="osc" x="150" y="0"  w="400" h="338" bg="black" bgi="" v="true" title="Osc1 1" xml="osc.xml" />
+    <e t="0" n="osc" x="550" y="0"  w="400" h="338" bg="black" bgi="" v="true" title="Osc1 2"  xml="osc.xml" />
+    <e t="0" n="filter" x="950" y="0"  w="158" h="338" bg="black" bgi="" v="true" title="Filter 1" xml="filter.xml" />
+    <e t="0" n="filter" x="1108" y="0"  w="160" h="338" bg="black" bgi="" v="true" title="Filter 2"  xml="filter.xml" />
+    <e t="0" n="amp" x="1268" y="0"  w="174" h="338" bg="black" bgi="" v="true" title="Amp" xml="amp.xml" />
     
     <e t="0" n="modheader" x="0" y="340"  w="1440" h="150" bg="black" bgi="" v="true" title="Modulation Sources"  xml="modheader.xml" />
     
-    <e t="0" n="mod" x="0" y="480"  w="480" h="180" bg="orange" bgi="" v="true" xml="mod.xml" />
-    <e t="0" n="mod" x="480" y="480"  w="480" h="180" bg="orange" bgi="" v="true" xml="mod.xml" />
-    <e t="0" n="mod" x="960" y="480"  w="480" h="180" bg="orange" bgi="" v="true" xml="mod.xml" />
+    <e t="0" n="modselector" x="0" y="478"  w="1440" h="20" bg="orange" bgi="" v="true" xml="modswitch.xml" />
+     
+    <e t="0" n="mod" x="0" y="498"  w="480" h="180" bg="orange" bgi="" v="true" title="ADSR" xml="mod.xml" />
+    <e t="0" n="mod" x="480" y="498"  w="480" h="180" bg="orange" bgi="" v="true" title="LFO" xml="mod.xml" />
+    <e t="0" n="mod" x="960" y="498"  w="480" h="180" bg="orange" bgi="" v="true" title="FUNC" xml="mod.xml" />
 </flipotronics>
