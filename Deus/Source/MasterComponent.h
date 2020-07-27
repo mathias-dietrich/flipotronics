@@ -27,11 +27,17 @@ public:
     }
     
     ~MasterComponent(){
-            for(auto it = std::begin(children); it != std::end(children); ++it) {
-                 IComponent *c = *it;
-                delete c;
-            }
+        clearUi();
         delete factory;
+    }
+    
+    void clearUi(){
+        for(auto it = std::begin(children); it != std::end(children); ++it) {
+             IComponent *c = *it;
+            c->clearUi();
+            delete c;
+        }
+        children.clear();
     }
     
     void resizeUi(int prozent) override{
@@ -50,10 +56,10 @@ public:
     }
     
     void build(Node * node) override{
-        Node *nodeMaster = node->childen.front();
+        Node *nodeMaster = node->children.front();
         width = nodeMaster->width;
         height = nodeMaster->height;
-        for(auto it = std::begin( nodeMaster->childen); it != std::end( nodeMaster->childen); ++it) {
+        for(auto it = std::begin( nodeMaster->children); it != std::end( nodeMaster->children); ++it) {
             Node *node = *it;
           
             if(node->type == 0){ //Component

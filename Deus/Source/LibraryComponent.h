@@ -1,20 +1,13 @@
 //
-//  EditComponent.h
+//  LibraryComponent.h
 //  Deus
 //
-//  Created by Mathias Dietrich on 17.07.20.
+//  Created by Mathias Dietrich on 7/27/20.
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef EditComponent_h
-#define EditComponent_h
-
-#include "IComponent.h"
-#include "MasterPoti.h"
-#include "OutputMeter.h"
-#include "MasterSwitch.h"
-#include "MasterPoti.h"
-#include "Poti.h"
+#ifndef LibraryComponent_h
+#define LibraryComponent_h
 
 #include "WidgetFactory.h"
 #include "IFactory.h"
@@ -22,27 +15,27 @@
 
 class UILoader;
 
-class EditComponent :  public IComponent{
+class LibraryComponent :  public IComponent{
+    
 public:
-    EditComponent(){
+    LibraryComponent(){
        
     }
     
-    ~EditComponent(){
-        /*
+    ~LibraryComponent(){
        for(auto it = std::begin(children); it != std::end(children); ++it) {
          delete *it;
        }
         for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
           delete *it;
         }
-         */
     }
     
     void paint (Graphics& g) override {
 
          auto defaultColour = Colours::black;
          g.fillAll (juce::Colours::findColourForName (node->bgColor, defaultColour));
+         g.fillAll(C_RED);
     }
     
     void setDials() override{
@@ -94,4 +87,5 @@ public:
     UILoader uiloader;
 };
 
-#endif /* EditComponent_h */
+
+#endif /* LibraryComponent_h */

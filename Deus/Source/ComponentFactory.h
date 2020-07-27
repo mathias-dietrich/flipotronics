@@ -23,6 +23,7 @@
 #include "ModHeaderComponent.h"
 #include "ModComponent.h"
 #include "ModSelector.h"
+#include "LibraryComponent.h"
 
 class DeusAudioProcessor;
 
@@ -96,7 +97,11 @@ public:
             c->factory = this;
             return c;
         }
-        
+        if(type == "library"){
+           LibraryComponent *c = new LibraryComponent();
+           c->factory = this;
+           return c;
+        }
         
         return new HeaderComponent();
     }

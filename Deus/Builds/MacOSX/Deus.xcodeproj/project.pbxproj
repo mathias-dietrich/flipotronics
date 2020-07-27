@@ -150,6 +150,7 @@
 		409F0A3B24CC788A0037A342 /* ModHeaderComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModHeaderComponent.h; path = ../../Source/ModHeaderComponent.h; sourceTree = "<group>"; };
 		409F0A3C24CC7A650037A342 /* ModComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModComponent.h; path = ../../Source/ModComponent.h; sourceTree = "<group>"; };
 		40A491BD24CEBF3B00DF8705 /* KeysListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeysListener.h; path = ../../Source/KeysListener.h; sourceTree = "<group>"; };
+		40A491BE24CEEC7B00DF8705 /* LibraryComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LibraryComponent.h; path = ../../Source/LibraryComponent.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -570,6 +571,7 @@
 				4FE513EF24C1888000E2B6F1 /* KeyboardComponent.h */,
 				40506BDA24CDEA0400ED5568 /* ModSelector.h */,
 				40A491BD24CEBF3B00DF8705 /* KeysListener.h */,
+				40A491BE24CEEC7B00DF8705 /* LibraryComponent.h */,
 			);
 			name = UI;
 			sourceTree = "<group>";

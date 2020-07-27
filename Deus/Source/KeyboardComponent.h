@@ -123,7 +123,7 @@ public:
    }
     
     void build(Node * node) override{
-       for(auto it = std::begin( node->childen); it != std::end( node->childen); ++it) {
+       for(auto it = std::begin( node->children); it != std::end( node->children); ++it) {
            Node *node = *it;
            if(node->type == 0){ //Component
                current = factory->get(node->name);
@@ -140,7 +140,7 @@ public:
     void resized() override{
         Rectangle<int> r = getLocalBounds();
         int width = r.getWidth();
-        int height = r.getHeight();
+       // int height = r.getHeight();
         
         keyboardComponent.setBounds (118, 5, 1218,  80);
         keyboardComponent.setKeyWidth(26.5);

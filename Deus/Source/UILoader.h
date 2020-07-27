@@ -54,7 +54,7 @@ public:
             if(child->hasAttribute("xml")){
                 n->xmlFile= child->getStringAttribute("xml");
             }
-            node->childen.push_back(n);
+            node->children.push_back(n);
             parse(n, child);
         }
     }

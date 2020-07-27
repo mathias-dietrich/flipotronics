@@ -30,7 +30,7 @@ class ModSelector:  public IComponent, public Button::Listener{
     
     void build(Node * node) override{
         std::cout << node->name << std::endl;
-               for(auto it = std::begin(node->childen); it != std::end(node->childen); ++it){
+               for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
                      Node *n = *it;
                     if(node->name.compare("modswitch")==1){
                       ModView *wc = (ModView *) WidgetFactory::of()->get(n->name);

@@ -58,7 +58,7 @@ public:
     
     void build(Node * node) override{
         std::cout << node->name << std::endl;
-             for(auto it = std::begin(node->childen); it != std::end(node->childen); ++it){
+             for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
                    Node *n = *it;
                   if(node->name.compare("poti")==1){
                     Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);

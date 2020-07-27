@@ -33,46 +33,10 @@ public:
     void resized() override;
     
     void timerCallback() override{
-        if(masterSelLast != Model::of()->masterSel){
-            switch(Model::of()->masterSel){
-                case mEdit:
-                    uiloader.load(node, "master.xml");
-                    masterComponent.build(node);
-                    break;
-                    
-                case mLibrary:
-                    uiloader.load(node, "master.xml");
-                    masterComponent.build(node);
-                    break;
-                    
-                case mPerform:
-                    uiloader.load(node, "master.xml");
-                    masterComponent.build(node);
-                    break;
-                    
-                case mArp:
-                    uiloader.load(node, "master.xml");
-                    masterComponent.build(node);
-                    break;
-                    
-                case mSetup:
-                    uiloader.load(node, "master.xml");
-                    masterComponent.build(node);
-                    break;
-                    
-                case mDebug:
-                    uiloader.load(node, "master.xml");
-                    masterComponent.build(node);
-                    break;
-                }
-        }
-        
-        // has the zoom changed
         if(lastZoom != Model::of()->global.lastGuiZoom){
             lastZoom = Model::of()->global.lastGuiZoom;
             resizeUi(lastZoom);
         }
-        
     }
     
     void resizeUi(int sel)override{
@@ -126,17 +90,44 @@ public:
     }
     
      void update()override {
-        
+         if(Model::of()->masterSel != masterSelLast){
+             
+             masterSelLast = Model::of()->masterSel;
+             masterComponent.clearUi();
+             node->clearAll();
+             switch(masterSelLast){
+                 case mEdit:
+                    uiloader.load(node, "master.xml");
+                 break;
+                     
+                case mLibrary:
+                     uiloader.load(node, "library.xml");
+                break;
+                     
+                case mPerform:
+                break;
+                     
+                case mArp:
+                break;
+                     
+                case mSetup:
+                break;
+                     
+                case mDebug:
+                break;
+             }
+              masterComponent.build(node);
+             masterComponent.resized();
+        }
     }
     
-     bool keyPressed (const KeyPress &key, Component *originatingComponent){
+     bool keyPressed (const KeyPress &key, Component *originatingComponent) override{
          return listener.keyPressed(key, originatingComponent);
     }
       
      
-    bool  keyStateChanged (bool isKeyDown, Component *originatingComponent){
+    bool  keyStateChanged (bool isKeyDown, Component *originatingComponent) override {
         return listener.keyStateChanged(isKeyDown, originatingComponent);
-        return true;
     }
 
 private:

@@ -131,6 +131,15 @@ public:
         }
     }
     
+    void clearUi(){
+        for(auto it = std::begin(children); it != std::end(children); ++it) {
+            IComponent *c = *it;
+            c->clearUi();
+            delete c;
+        }
+        children.clear();
+    }
+    
     int width;
     int height;
     

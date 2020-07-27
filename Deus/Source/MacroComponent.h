@@ -38,9 +38,9 @@ class MacroComponent:  public IComponent, public Slider::Listener{
     }
     
     void build(Node * node) override{
-        for(auto it = std::begin(node->childen); it != std::end(node->childen); ++it){
+        for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
             Node *macro = *it;
-             for(auto it = std::begin(macro->childen); it != std::end(macro->childen); ++it){
+             for(auto it = std::begin(macro->children); it != std::end(macro->children); ++it){
                   Node *n = *it;
                  if(node->name.compare("masterpoti")==1){
                    MasterPoti *wc = (MasterPoti *) WidgetFactory::of()->get(n->name);
