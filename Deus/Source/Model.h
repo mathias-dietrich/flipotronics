@@ -12,6 +12,7 @@
 #include <JuceHeader.h>
 #include "Param.h"
 #include "Defines.h"
+#include "Global.h"
 
 using namespace std;
 
@@ -36,7 +37,9 @@ class Model{
     
     atomic<float> sumPeakL;
     atomic<float> sumPeakR;
-    E_Master masterSel;
+    E_Master masterSel = mEdit;
+    
+    Global global;
     
 private:
 

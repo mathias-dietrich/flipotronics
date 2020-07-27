@@ -16,6 +16,7 @@
 #include "Colors.h"
 #include "Bank.h"
 #include "Performance.h"
-#include "Patch.h"
+#include "Preset.h"
+#include "Playlist.h"
 #include "Func.h"
 #endif /* Inc_h */

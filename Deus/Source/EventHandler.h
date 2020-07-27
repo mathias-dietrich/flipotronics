@@ -14,7 +14,7 @@ public:
      virtual  ~EventHandler(){
      }
     
-     virtual void resizeAll(float prozent) = 0;
+     virtual void resizeUi(int sel) = 0;
      virtual void update() = 0;
 };
 

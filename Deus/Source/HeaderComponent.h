@@ -119,15 +119,18 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
 
         addAndMakeVisible(viewZoom);
         viewZoom.addItem ("50%", 1);
-        viewZoom.addItem ("75%", 2);
-        viewZoom.addItem ("100%", 3);
-        viewZoom.addItem ("125%", 4);
-        viewZoom.addItem ("150%", 5);
-        viewZoom.addItem ("200%", 6);
+        viewZoom.addItem ("60%", 2);
+        viewZoom.addItem ("70%", 3);
+        viewZoom.addItem ("80%", 4);
+        viewZoom.addItem ("90%", 5);
+        viewZoom.addItem ("100%", 6);
+        viewZoom.addItem ("120%", 7);
+        viewZoom.addItem ("140%", 8);
+        viewZoom.addItem ("160%", 9);
+        viewZoom.addItem ("180%", 10);
+        viewZoom.addItem ("200%", 11);
         viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
-        
-        viewZoom.setSelectedId(3,  NotificationType::dontSendNotification);
-        
+        viewZoom.setSelectedId(Model::of()->global.lastGuiZoom,  NotificationType::dontSendNotification);
         setDials();
     }
    
@@ -137,30 +140,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
     
     void styleMenuChangedViewZoom()
     {
-        float p = 0;
-        switch (viewZoom.getSelectedId())
-        {
-            case 1: // 50
-                p = 0.5f;
-                break;
-            case 2: // 75
-                p = 0.75f;
-                break;
-            case 3: // 100
-                p = 1.0f;
-                break;
-            case 4: // 125
-                p = 1.25f;
-                break;
-            case 5: // 150
-                p = 1.5f;
-                break;
-            case 6: // 200
-                p = 2.0f;
-                break;
-        }
-
-        eventHandler->resizeAll(p);
+        eventHandler->resizeUi(viewZoom.getSelectedId());
     }
     
     void build(Node * node) override{
@@ -232,12 +212,12 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
            Model::of()->masterSel = mLibrary;
        }
         
-        // Perform
+      // Perform
       if(button->getRadioGroupId()==102) {
           Model::of()->masterSel = mPerform;
       }
         
-    // Arp
+      // Arp
         if(button->getRadioGroupId()==103) {
             Model::of()->masterSel = mArp;
         }
@@ -306,6 +286,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         if(processor){
           //  btnArp.setToggleState(processor->isArpOn, NotificationType::dontSendNotification);
         }
+        viewZoom.setSelectedId(Model::of()->global.lastGuiZoom,  NotificationType::dontSendNotification);
     }
     
     void resized() override{

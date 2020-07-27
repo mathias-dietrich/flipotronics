@@ -63,7 +63,7 @@ public:
            playMode.addItem ("Mono", 3);
            playMode.addItem ("Legato", 4);
            playMode.onChange = [this] { styleMenuChanged(); };
-          // playMode.setSelectedId(Model::of().par[1023], NotificationType::dontSendNotification);
+           playMode.setSelectedId(1);
            addAndMakeVisible(playMode);
     }
     

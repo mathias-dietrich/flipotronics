@@ -17,11 +17,12 @@
 #include "MasterComponent.h"
 #include "EventHandler.h"
 #include "UILoader.h"
+#include "KeysListener.h"
 
 //==============================================================================
 /**
 */
-class DeusAudioProcessorEditor  : public AudioProcessorEditor, public EventHandler
+class DeusAudioProcessorEditor  : public AudioProcessorEditor, public EventHandler, public Timer, public KeyListener
 {
 public:
     DeusAudioProcessorEditor (DeusAudioProcessor&);
@@ -31,27 +32,121 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    void resizeAll(float prozent)override{
+    void timerCallback() override{
+        if(masterSelLast != Model::of()->masterSel){
+            switch(Model::of()->masterSel){
+                case mEdit:
+                    uiloader.load(node, "master.xml");
+                    masterComponent.build(node);
+                    break;
+                    
+                case mLibrary:
+                    uiloader.load(node, "master.xml");
+                    masterComponent.build(node);
+                    break;
+                    
+                case mPerform:
+                    uiloader.load(node, "master.xml");
+                    masterComponent.build(node);
+                    break;
+                    
+                case mArp:
+                    uiloader.load(node, "master.xml");
+                    masterComponent.build(node);
+                    break;
+                    
+                case mSetup:
+                    uiloader.load(node, "master.xml");
+                    masterComponent.build(node);
+                    break;
+                    
+                case mDebug:
+                    uiloader.load(node, "master.xml");
+                    masterComponent.build(node);
+                    break;
+                }
+        }
+        
+        // has the zoom changed
+        if(lastZoom != Model::of()->global.lastGuiZoom){
+            lastZoom = Model::of()->global.lastGuiZoom;
+            resizeUi(lastZoom);
+        }
+        
+    }
+    
+    void resizeUi(int sel)override{
+        Model::of()->global.lastGuiZoom = sel;
+        float p = 1.0;
+        switch (sel)
+        {
+            case 1: // 50
+                p = 0.5f;
+                break;
+            case 2: //
+                p = 0.6f;
+                break;
+            case 3: //
+                p = 0.7f;
+                break;
+            case 4: //
+                p = 0.8f;
+                break;
+            case 5: //
+                p = 0.9f;
+                break;
+            case 6: //
+                p = 1.0f;
+                break;
+            case 7: //
+                p = 1.2f;
+                break;
+            case 8: //
+                p = 1.4f;
+                break;
+            case 9: //
+                p = 1.6f;
+                break;
+            case 10: //
+                p = 1.8f;
+                break;
+            case 11: //
+                p = 2.0f;
+                break;
+        }
+        
         Desktop::getInstance().setGlobalScaleFactor(1);
-       float ws = UIWIDTH;
-       int hs = UIHEIGHT;
-       setSize (ws * prozent, hs * prozent);
-       Desktop::getInstance().setGlobalScaleFactor((float)this->getWidth() / ws);
-       repaint();
+        float ws = UIWIDTH;
+        int hs = UIHEIGHT;
+        setSize (ws * p, hs * p);
+        Desktop::getInstance().setGlobalScaleFactor((float)this->getWidth() / ws);
+       
+        repaint();
+        masterComponent.setDials();
     }
     
      void update()override {
         
     }
+    
+     bool keyPressed (const KeyPress &key, Component *originatingComponent){
+         return listener.keyPressed(key, originatingComponent);
+    }
+      
+     
+    bool  keyStateChanged (bool isKeyDown, Component *originatingComponent){
+        return listener.keyStateChanged(isKeyDown, originatingComponent);
+        return true;
+    }
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
-    DeusAudioProcessor& processor;
+    E_Master masterSelLast = mEdit;
+    int lastZoom;
     
+    DeusAudioProcessor& processor;
     MasterComponent masterComponent;
     UILoader uiloader;
-   // ComponentFactory *factory;
     Node * node = new Node();
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeusAudioProcessorEditor)
+    KeysListener listener;
 };

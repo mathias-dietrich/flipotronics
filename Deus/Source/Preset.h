@@ -6,8 +6,8 @@
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef Patch_h
-#define Patch_h
+#ifndef Preset_h
+#define Preset_h
 #include <JuceHeader.h>
 
-#endif /* Patch_h */
+#endif /* Preset_h */

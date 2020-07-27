@@ -34,8 +34,8 @@ public:
         delete factory;
     }
     
-    void resizeAll(float prozent) override{
-        eventHandler->resizeAll(prozent);
+    void resizeUi(int prozent) override{
+        eventHandler->resizeUi(prozent);
     }
     
     void paint (Graphics& g) override {
@@ -43,7 +43,10 @@ public:
     }
     
     void setDials() override{
-           
+        for(auto it = std::begin( children); it != std::end(children); ++it) {
+            IComponent *c = *it;
+            c->setDials();
+           }
     }
     
     void build(Node * node) override{

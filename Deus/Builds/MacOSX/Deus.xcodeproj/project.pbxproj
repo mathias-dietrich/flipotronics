@@ -142,11 +142,14 @@
 		2D372B10A135E898FDC5EE56 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		2EBD1A975FF072C0BD8BC8BE /* include_juce_opengl.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_opengl.mm; path = ../../JuceLibraryCode/include_juce_opengl.mm; sourceTree = SOURCE_ROOT; };
 		32311A0F8C5A5B66F7DD6F2F /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
+		4021727624CEB79A00535ACE /* Playlist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Playlist.h; path = ../../Source/Playlist.h; sourceTree = "<group>"; };
+		4021727724CEB80F00535ACE /* Global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Global.h; path = ../../Source/Global.h; sourceTree = "<group>"; };
 		40506BD824CD6EE600ED5568 /* ModView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModView.h; path = ../../Source/ModView.h; sourceTree = "<group>"; };
 		40506BD924CDE98200ED5568 /* ModSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModSwitch.h; path = ../../Source/ModSwitch.h; sourceTree = "<group>"; };
 		40506BDA24CDEA0400ED5568 /* ModSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModSelector.h; path = ../../Source/ModSelector.h; sourceTree = "<group>"; };
 		409F0A3B24CC788A0037A342 /* ModHeaderComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModHeaderComponent.h; path = ../../Source/ModHeaderComponent.h; sourceTree = "<group>"; };
 		409F0A3C24CC7A650037A342 /* ModComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModComponent.h; path = ../../Source/ModComponent.h; sourceTree = "<group>"; };
+		40A491BD24CEBF3B00DF8705 /* KeysListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeysListener.h; path = ../../Source/KeysListener.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -164,7 +167,7 @@
 		4FA5748024BEF9DE00A1E759 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = build/Debug/images; sourceTree = "<group>"; };
 		4FA5748124BEF9DE00A1E759 /* tun */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tun; path = build/Debug/tun; sourceTree = "<group>"; };
 		4FA5748324BEFA3F00A1E759 /* Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Loader.h; path = ../../Source/Loader.h; sourceTree = "<group>"; };
-		4FA5748624BEFBD000A1E759 /* Patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Patch.h; path = ../../Source/Patch.h; sourceTree = "<group>"; };
+		4FA5748624BEFBD000A1E759 /* Preset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Preset.h; path = ../../Source/Preset.h; sourceTree = "<group>"; };
 		4FA5748724BEFBE600A1E759 /* Performance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Performance.h; path = ../../Source/Performance.h; sourceTree = "<group>"; };
 		4FA5748824BEFBFE00A1E759 /* Bank.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Bank.h; path = ../../Source/Bank.h; sourceTree = "<group>"; };
 		4FA5748924BEFC3D00A1E759 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = ../../Source/Defines.h; sourceTree = "<group>"; };
@@ -387,16 +390,18 @@
 		4FA5748424BEFB9D00A1E759 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4FA5748624BEFBD000A1E759 /* Patch.h */,
-				4FA5748724BEFBE600A1E759 /* Performance.h */,
+				4FA5748B24BEFC6F00A1E759 /* Inc.h */,
+				4FA5748624BEFBD000A1E759 /* Preset.h */,
 				4FA5748824BEFBFE00A1E759 /* Bank.h */,
+				4FA5748724BEFBE600A1E759 /* Performance.h */,
+				4021727624CEB79A00535ACE /* Playlist.h */,
 				4FA5748924BEFC3D00A1E759 /* Defines.h */,
 				4FA5748A24BEFC5100A1E759 /* Enums.h */,
-				4FA5748B24BEFC6F00A1E759 /* Inc.h */,
 				4FA5748C24BEFCCC00A1E759 /* Colors.h */,
+				4FA574AA24BF06F500A1E759 /* Param.h */,
 				4FA5749F24BEFF4900A1E759 /* Model.h */,
 				4FA574AB24BF082600A1E759 /* Model.cpp */,
-				4FA574AA24BF06F500A1E759 /* Param.h */,
+				4021727724CEB80F00535ACE /* Global.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -564,6 +569,7 @@
 				4FE513ED24C179E200E2B6F1 /* EditComponent.h */,
 				4FE513EF24C1888000E2B6F1 /* KeyboardComponent.h */,
 				40506BDA24CDEA0400ED5568 /* ModSelector.h */,
+				40A491BD24CEBF3B00DF8705 /* KeysListener.h */,
 			);
 			name = UI;
 			sourceTree = "<group>";

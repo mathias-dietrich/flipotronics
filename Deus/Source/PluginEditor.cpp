@@ -1,22 +1,8 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
 //==============================================================================
-DeusAudioProcessorEditor::DeusAudioProcessorEditor (DeusAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
-{
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
+DeusAudioProcessorEditor::DeusAudioProcessorEditor (DeusAudioProcessor& p) : AudioProcessorEditor (&p), processor (p) {
     setSize (UIWIDTH, UIHEIGHT);
     masterComponent.init(UIWIDTH, UIHEIGHT);
     masterComponent.eventHandler = this;
@@ -24,22 +10,23 @@ DeusAudioProcessorEditor::DeusAudioProcessorEditor (DeusAudioProcessor& p)
     masterComponent.build(node);
     addAndMakeVisible(masterComponent);
     masterComponent.resized();
+    
+    
+    lastZoom = Model::of()->global.lastGuiZoom;
+    startTimer(200);
+    
+    addKeyListener(this);
 }
 
-DeusAudioProcessorEditor::~DeusAudioProcessorEditor()
-{
-     // delete masterComponent;
+DeusAudioProcessorEditor::~DeusAudioProcessorEditor() {
     delete node;
 }
 
 //==============================================================================
-void DeusAudioProcessorEditor::paint (Graphics& g)
-{
+void DeusAudioProcessorEditor::paint (Graphics& g) {
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 }
 
-void DeusAudioProcessorEditor::resized()
-{
+void DeusAudioProcessorEditor::resized() {
     masterComponent.setBounds(0,0,UIWIDTH,UIHEIGHT);
-    
 }
