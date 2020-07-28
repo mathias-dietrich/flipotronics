@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flipotronics>
-     <e t="1" n="poti" x="0" y="22" w="60" h="80"  p="16" v="true" title="Oct" />
-     <e t="1" n="poti" x="80" y="22" w="60" h="80"  p="17" v="true"  title="Semi" />
-     <e t="1" n="poti" x="160" y="22" w="60" h="80"  p="18" v="true"  title="Fine" />
-     <e t="1" n="poti" x="240" y="22" w="60" h="80"  p="19" v="true"  title="Volume" />
-     <e t="1" n="poti" x="320" y="22" w="60" h="80"  p="20" v="true"  title="Wave" />
+     <e t="1" n="poti" x="0" y="22" w="60" h="80"  p="16" v="true" m="0" title="Oct" />
+     <e t="1" n="poti" x="80" y="22" w="60" h="80"  p="17" v="true"  m="0" title="Semi" />
+     <e t="1" n="poti" x="160" y="22" w="60" h="80"  p="18" v="true"  m="0" title="Fine" />
+     <e t="1" n="poti" x="240" y="22" w="60" h="80"  p="19" v="true"  m="0" title="Volume" />
+     <e t="1" n="poti" x="320" y="22" w="60" h="80"  p="20" v="true"  m="0" title="Wave" />
 </flipotronics>

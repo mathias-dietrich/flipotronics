@@ -346,6 +346,17 @@ private:
     Label progAuthor;
     
     Process * processor;
+    
+    std::map<int, Param> getParams() override{
+        return params;
+    }
+    
+    void setParams( std::map<int, Param> params) override{
+        this->params = params;
+    }
+        
+    private:
+        std::map<int, Param> params;
 };
 
 #endif /* HeaderComponent_h */

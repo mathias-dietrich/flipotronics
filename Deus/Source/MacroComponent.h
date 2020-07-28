@@ -182,12 +182,16 @@ class MacroComponent:  public IComponent, public Slider::Listener{
          }
      }
 
-    std::map<int, Param> getParams(){
+    std::map<int, Param> getParams() override{
         return params;
     }
     
-    void setParams( std::map<int, Param> params){
+    void setParams( std::map<int, Param> params) override{
         this->params = params;
+    }
+    
+    int getParamCount() override{
+           return 16;
     }
     
 private:

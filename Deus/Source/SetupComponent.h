@@ -86,5 +86,16 @@ public:
        repaint();
     }
     UILoader uiloader;
+    
+    std::map<int, Param> getParams(){
+        return params;
+    }
+    
+    void setParams( std::map<int, Param> params){
+        this->params = params;
+    }
+        
+    private:
+            std::map<int, Param> params;
 };
 #endif /* SetupComponent_h */

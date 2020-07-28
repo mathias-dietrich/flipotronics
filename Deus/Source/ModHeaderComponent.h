@@ -89,6 +89,17 @@ public:
             p->setVisible(node->isVisible);
         }
     }
+    
+    std::map<int, Param> getParams(){
+        return params;
+    }
+    
+    void setParams( std::map<int, Param> params){
+        this->params = params;
+    }
+        
+    private:
+            std::map<int, Param> params;
 
 };
 #endif /* ModHeaderComponent_h */

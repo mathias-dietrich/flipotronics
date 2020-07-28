@@ -74,6 +74,17 @@ class ModSelector:  public IComponent, public Button::Listener{
          }
      }
     
+    std::map<int, Param> getParams(){
+        return params;
+    }
+    
+    void setParams( std::map<int, Param> params){
+        this->params = params;
+    }
+        
+    private:
+            std::map<int, Param> params;
+    
 private:
 
 };

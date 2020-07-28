@@ -29,6 +29,9 @@ public:
         
     }
     
+    virtual std::map<int, Param> getParams() = 0;
+    virtual void setParams( std::map<int, Param> params) = 0;
+    
     void init(float sampleRate, int samplesPerBlock){
         this->samplesPerBlock = samplesPerBlock;
         this->sampleRate = sampleRate;
@@ -36,70 +39,56 @@ public:
         this->blocksPerSecond = sampleRate / samplesPerBlock;
     }
 
-    /*
-    void setPoti(Node * node, Poti * p){
-        Model *m = Model::of();
-        int pid = node->paramId;
-        p->setRange(m->params[pid].minVal,m->params[pid].maxVal,m->params[pid].stepVal);
+    void setPoti(Node * node, Poti * p, Param param, float val){
+        p->setRange(param.minVal,param.maxVal,param.stepVal);
         p->setTitle(node->title);
         // boxes[i].setText(params[pid].name);
-        if( m->params[pid].type == uWaveType){
-           p->setTextValueSuffix(" " + getWaveType(E_WaveType(int(m->par[pid]))));
-           p->setValue(m->par[pid], dontSendNotification);
-        }else if( m->params[pid].type == uFilterType){
-              p->setTextValueSuffix(" " + getFilterTypeString(MultiModeLadderFilterTypes(int(m->par[pid]))));
-              p->setValue(m->par[pid], dontSendNotification);
+        if( param.type == uWaveType){
+           p->setTextValueSuffix(" " + getWaveType(E_WaveType(int(val))));
+        }else if( param.type == uFilterType){
+              p->setTextValueSuffix(" " + getFilterTypeString(MultiModeLadderFilterTypes(int(val))));
         }
-        else if( m->params[pid].type == uPhase){
+        else if( param.type == uPhase){
            p->setTextValueSuffix(" degrees");
-           p->setValue(m->par[pid], dontSendNotification);
         }
-        else if( m->params[pid].type == uTimeMsec){
+        else if( param.type == uTimeMsec){
            p->setTextValueSuffix(" msec");
            p->setSkewFactor(0.5);
-           p->setValue(m->par[pid], dontSendNotification);
         }
-        else if( m->params[pid].type == uDb){
+        else if( param.type == uDb){
            p->setSkewFactor (6);
-           p->setTextValueSuffix(" dB");
-           p->setValue(m->par[pid], dontSendNotification);
         }
-        else if( m->params[pid].type == uHZ){
+        else if( param.type == uHZ){
            p->setSkewFactor (0.3);
            p->setTextValueSuffix(" Hz");
-           p->setValue(m->par[pid], dontSendNotification);
         }
-        else if( m->params[pid].type == uBool){
-           bool test = m->par[pid];
+        else if(param.type == uBool){
+           bool test = val;
            String text = test ? " on" : " off" ;
            p->setTextValueSuffix(text);
         }
-        else if( m->params[pid].type == uCurve){
+        else if( param.type == uCurve){
            p->setSkewFactor(1);
            p->setTextValueSuffix(" %");
-           p->setValue(m->par[pid], dontSendNotification);
         }
-        else if( m->params[pid].type == uMidiNote){
-          p->setTextValueSuffix(" " + midiNote(m->par[pid]));
-          p->setValue(m->par[pid], dontSendNotification);
+        else if( param.type == uMidiNote){
+          p->setTextValueSuffix(" " + midiNote(val));
         }
-        else if( m->params[pid].type == uDevision){
-          p->setTextValueSuffix(" " + devision(m->par[pid]));
-          p->setValue(m->par[pid], dontSendNotification);
+        else if( param.type == uDevision){
+          p->setTextValueSuffix(" " + devision(val));
         }
-        else if( m->params[pid].type == uArpMode){
+        else if( param.type == uArpMode){
            p->setSkewFactor(1);
-           if(m->par[pid]==0){
+           if(val==0){
                 p->setTextValueSuffix(" SEQ");
-           }else if (m->par[pid]==1){
+           }else if (val==1){
                 p->setTextValueSuffix(" ARP");
            }else{
                p->setTextValueSuffix(" CHORD");
            }
-           p->setValue(m->par[pid], dontSendNotification);
         }
-        else if( m->params[pid].type == uChordMode){
-           switch(((int)m->par[pid])){
+        else if( param.type == uChordMode){
+           switch(((int)val)){
                case 0:
                 p->setTextValueSuffix(" Singe ");
                break;
@@ -124,14 +113,12 @@ public:
                 p->setTextValueSuffix(" Inv 2 ");
                break;
            }
-          p->setValue(m->par[pid], dontSendNotification);
         }
         else{
            p->setTextValueSuffix("");
-           p->setValue(m->par[pid], dontSendNotification);
         }
     }
-     */
+
     
     void clearUi(){
         for(auto it = std::begin(children); it != std::end(children); ++it) {
@@ -168,7 +155,10 @@ public:
     int blocksPerSecond;
     std::vector<IComponent *> children;
     std::vector<Widget *> widgets;
-
+    
+    virtual int getParamCount(){
+           return 0;
+    }
 };
 
 #endif /* IComponent_h */
