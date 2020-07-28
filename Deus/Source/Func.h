@@ -13,6 +13,15 @@
 #include <string>
 
 #include "Enums.h"
+
+
+inline String format(float val, int prec){
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(prec) << val;
+    std::string s = stream.str();
+    return s;
+}
+
 inline String toString(int i) {
     return std::to_string(i);
 }

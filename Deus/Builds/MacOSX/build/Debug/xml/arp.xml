@@ -2,8 +2,8 @@
 <flipotronics>
     <e t="0" n="master" x="0" y="0"  w="1440" h="850" bg="black" v="true">
         <e t="0" n="header" x="0" y="0"  w="1440" h="50" bgi="header.png" xml="header.xml" v="true" />
-        <e t="0" n="macro" x="90" y="50"  w="1440" h="50" bgi="" xml="macro.xml" v="true" />
-        <e t="0" n="arp" x="0" y="102"  w="1440" h="670" bgi=""  v="true" />
+        <e t="0" n="macro" x="90" y="50"  w="1440" h="60" bgi="" xml="macro.xml" v="true" />
+        <e t="0" n="arp" x="0" y="108"  w="1440" h="660" bgi=""  v="true" />
         <e t="0" n="keyboard" x="0" y="760"  w="1440" h="90" bg="black" xml="" v="true" />
     </e>
 </flipotronics>
