@@ -32,7 +32,9 @@
 #define C_WHITE Colour(255, 255, 255)
 #define C_RED Colour(255, 0, 0)
 #define C_GREEN Colour(00, 128, 0)
-
+#define C_BLUE Colour(33, 33, 255)
+#define  C_YELLOW Colour(33, 55, 255)
+#define  C_PINK Colour(255, 255, 33)
 
 #define C_DOT Colour(128, 128, 255)
 

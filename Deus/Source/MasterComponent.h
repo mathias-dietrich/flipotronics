@@ -31,6 +31,10 @@ public:
         delete factory;
     }
     
+    void configure() {
+        
+    }
+    
     void clearUi(){
         for(auto it = std::begin(children); it != std::end(children); ++it) {
              IComponent *c = *it;

@@ -13,6 +13,9 @@
 #include <JuceHeader.h>
 
 #include "Inc.h"
+#include "IModule.h"
+#include "Core.h"
+
 //==============================================================================
 /**
 */
@@ -55,8 +58,11 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+     Core core;
 
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeusAudioProcessor)
+   
 };

@@ -16,6 +16,8 @@ public:
     
      virtual void resizeUi(int sel) = 0;
      virtual void update() = 0;
+    
+    virtual void configure() = 0;
 };
 
 #endif /* EventHandler_h */

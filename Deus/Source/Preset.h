@@ -10,4 +10,7 @@
 #define Preset_h
 #include <JuceHeader.h>
 
+class Preset{
+    
+};
 #endif /* Preset_h */

@@ -24,6 +24,10 @@
 #include "ModComponent.h"
 #include "ModSelector.h"
 #include "LibraryComponent.h"
+#include "ArpComponent.h"
+#include "SetupComponent.h"
+#include "DebugComponent.h"
+#include "PerformComponent.h"
 
 class DeusAudioProcessor;
 
@@ -36,73 +40,91 @@ public:
     
     IComponent * get(String type){
         if(type == "header"){
-            HeaderComponent *c = new HeaderComponent();
+            auto *c = new HeaderComponent();
             c->factory = this;
             return c;
         }
         if(type == "macro"){
-            MacroComponent *c = new MacroComponent();
+            auto *c = new MacroComponent();
             c->factory = this;
             return c;
         }
       
         if(type == "edit"){
-            EditComponent *c = new EditComponent();
+            auto *c = new EditComponent();
             c->factory = this;
             return c;
         }
         if(type == "input"){
-             InputComponent *c = new InputComponent();
+             auto *c = new InputComponent();
              c->factory = this;
              return c;
          }
         if(type == "keyboard"){
-            KeyboardComponent *c = new KeyboardComponent(processor);
+            auto *c = new KeyboardComponent(processor);
             c->factory = this;
             return c;
         }
        
         if(type == "osc"){
-            OscComponent *c = new OscComponent();
+            auto *c = new OscComponent();
             c->factory = this;
             return c;
         }
         
-         
         if(type == "filter"){
-           FilterComponent *c = new FilterComponent();
+           auto *c = new FilterComponent();
            c->factory = this;
            return c;
         }
         
         if(type == "amp"){
-              AmpComponent *c = new AmpComponent();
-              c->factory = this;
-              return c;
+          auto *c = new AmpComponent();
+          c->factory = this;
+          return c;
         }
         
         if(type == "modheader"){
-            ModHeaderComponent *c = new ModHeaderComponent();
+            auto *c = new ModHeaderComponent();
             c->factory = this;
             return c;
         }
 
         if(type == "mod"){
-            ModComponent *c = new ModComponent();
+            auto *c = new ModComponent();
             c->factory = this;
             return c;
         }
         if(type == "modselector"){
-            ModSelector *c = new ModSelector();
+            auto *c = new ModSelector();
             c->factory = this;
             return c;
         }
         if(type == "library"){
-           LibraryComponent *c = new LibraryComponent();
+           auto *c = new LibraryComponent();
            c->factory = this;
            return c;
         }
-        
+        if(type == "arp"){
+           auto *c = new ArpComponent();
+           c->factory = this;
+           return c;
+        }
+        if(type == "setup"){
+           auto *c = new SetupComponent();
+           c->factory = this;
+           return c;
+        }
+        if(type == "debug"){
+           auto *c = new DebugComponent();
+           c->factory = this;
+           return c;
+        }
+        if(type == "perform"){
+           auto *c = new PerformComponent();
+           c->factory = this;
+           return c;
+        }
         return new HeaderComponent();
     }
     

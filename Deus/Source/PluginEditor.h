@@ -32,6 +32,16 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
+    void configure() override{
+        // Load a new Preset
+        Preset preset;
+        
+        // Configure the UI
+        
+        // Configure the Processor
+        processor.core.configure(preset);
+    }
+    
     void timerCallback() override{
         if(lastZoom != Model::of()->global.lastGuiZoom){
             lastZoom = Model::of()->global.lastGuiZoom;
@@ -101,19 +111,23 @@ public:
                  break;
                      
                 case mLibrary:
-                     uiloader.load(node, "library.xml");
+                    uiloader.load(node, "library.xml");
                 break;
                      
                 case mPerform:
+                    uiloader.load(node, "perform.xml");
                 break;
                      
                 case mArp:
+                    uiloader.load(node, "arp.xml");
                 break;
                      
                 case mSetup:
+                     uiloader.load(node, "setup.xml");
                 break;
                      
                 case mDebug:
+                     uiloader.load(node, "debug.xml");
                 break;
              }
               masterComponent.build(node);

@@ -147,10 +147,16 @@
 		40506BD824CD6EE600ED5568 /* ModView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModView.h; path = ../../Source/ModView.h; sourceTree = "<group>"; };
 		40506BD924CDE98200ED5568 /* ModSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModSwitch.h; path = ../../Source/ModSwitch.h; sourceTree = "<group>"; };
 		40506BDA24CDEA0400ED5568 /* ModSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModSelector.h; path = ../../Source/ModSelector.h; sourceTree = "<group>"; };
+		40930F3E24D0270400DDE286 /* ArpComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArpComponent.h; path = ../../Source/ArpComponent.h; sourceTree = "<group>"; };
+		40930F4124D027E800DDE286 /* SetupComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SetupComponent.h; path = ../../Source/SetupComponent.h; sourceTree = "<group>"; };
+		40930F4424D028E800DDE286 /* PerformComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PerformComponent.h; path = ../../Source/PerformComponent.h; sourceTree = "<group>"; };
+		40930F4524D028FF00DDE286 /* DebugComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DebugComponent.h; path = ../../Source/DebugComponent.h; sourceTree = "<group>"; };
 		409F0A3B24CC788A0037A342 /* ModHeaderComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModHeaderComponent.h; path = ../../Source/ModHeaderComponent.h; sourceTree = "<group>"; };
 		409F0A3C24CC7A650037A342 /* ModComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModComponent.h; path = ../../Source/ModComponent.h; sourceTree = "<group>"; };
 		40A491BD24CEBF3B00DF8705 /* KeysListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeysListener.h; path = ../../Source/KeysListener.h; sourceTree = "<group>"; };
 		40A491BE24CEEC7B00DF8705 /* LibraryComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LibraryComponent.h; path = ../../Source/LibraryComponent.h; sourceTree = "<group>"; };
+		40A491BF24D004AB00DF8705 /* IModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IModule.h; path = ../../Source/IModule.h; sourceTree = "<group>"; };
+		40A491C024D00FA100DF8705 /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Core.h; path = ../../Source/Core.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -348,6 +354,38 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		40930F3F24D027AD00DDE286 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				40A491BE24CEEC7B00DF8705 /* LibraryComponent.h */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		40930F4024D027C000DDE286 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				40930F4124D027E800DDE286 /* SetupComponent.h */,
+			);
+			name = Setup;
+			sourceTree = "<group>";
+		};
+		40930F4224D028BA00DDE286 /* Perform */ = {
+			isa = PBXGroup;
+			children = (
+				40930F4424D028E800DDE286 /* PerformComponent.h */,
+			);
+			name = Perform;
+			sourceTree = "<group>";
+		};
+		40930F4324D028C300DDE286 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				40930F4524D028FF00DDE286 /* DebugComponent.h */,
+			);
+			name = Debug;
+			sourceTree = "<group>";
+		};
 		409F0A3A24CC78530037A342 /* Mod */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,6 +490,7 @@
 				4FA5749824BEFDF800A1E759 /* LFO */,
 				4FA5749724BEFDF100A1E759 /* Filter */,
 				4FA5749624BEFDE700A1E759 /* Osc */,
+				40A491BF24D004AB00DF8705 /* IModule.h */,
 			);
 			name = Synth;
 			sourceTree = "<group>";
@@ -459,6 +498,7 @@
 		4FA5749324BEFD8600A1E759 /* Arp */ = {
 			isa = PBXGroup;
 			children = (
+				40930F3E24D0270400DDE286 /* ArpComponent.h */,
 			);
 			name = Arp;
 			sourceTree = "<group>";
@@ -571,7 +611,6 @@
 				4FE513EF24C1888000E2B6F1 /* KeyboardComponent.h */,
 				40506BDA24CDEA0400ED5568 /* ModSelector.h */,
 				40A491BD24CEBF3B00DF8705 /* KeysListener.h */,
-				40A491BE24CEEC7B00DF8705 /* LibraryComponent.h */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -637,6 +676,10 @@
 		BF478CC371D1FB35A558F7BB /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				40930F4324D028C300DDE286 /* Debug */,
+				40930F4224D028BA00DDE286 /* Perform */,
+				40930F4024D027C000DDE286 /* Setup */,
+				40930F3F24D027AD00DDE286 /* Library */,
 				4FA574A524BF036200A1E759 /* UI */,
 				4FA5749524BEFDD400A1E759 /* Widgets */,
 				4FA5749424BEFDA300A1E759 /* Fx */,
@@ -650,6 +693,7 @@
 				9AF5C9C872E07758CD419AFA /* PluginProcessor.h */,
 				A4B688CA146BACF50B28F4CB /* PluginEditor.cpp */,
 				159E15C564A0D7E5170E5AFF /* PluginEditor.h */,
+				40A491C024D00FA100DF8705 /* Core.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
