@@ -78,7 +78,7 @@ public:
     
     void sliderValueChanged(Slider *  slider) override {
               int sid = slider->getName().getIntValue();
-              Model::of()->par[sid] = slider->getValue();
+              //Model::of()->par[sid] = slider->getValue();
               setDials();
           }
     

@@ -42,6 +42,9 @@ public:
             n->height = child->getIntAttribute("h");
             n->isVisible = child->getStringAttribute("v").compare("true") ==0;
    
+            if(child->hasAttribute("m")){
+                n->module = (E_Module)child->getIntAttribute("m");
+            }
             if(child->hasAttribute("p")){
                 n->paramId = child->getIntAttribute("p");
             }

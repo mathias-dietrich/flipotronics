@@ -59,7 +59,7 @@ public:
        for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
            Poti *p =  (Poti*) *it;
            Node *node = p->node;
-           setPoti(node, p);
+         //  setPoti(node, p);
           // p->setValue(Model::of().par[node->paramId],dontSendNotification);
        }
     }
@@ -86,7 +86,7 @@ public:
     
     void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();
-        Model::of()->par[sid] = slider->getValue();
+       // Model::of()->par[sid] = slider->getValue();
         setDials();
     }
     

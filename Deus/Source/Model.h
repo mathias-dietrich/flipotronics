@@ -13,33 +13,37 @@
 #include "Param.h"
 #include "Defines.h"
 #include "Global.h"
+#include "Preset.h"
 
 using namespace std;
 
 class Model{
     protected:
-           static Model *instance;
-           Model() { }
+       static Model *instance;
+       Model() { }
     
     public:
-           static Model * of() {
-               if (instance == 0)
-                   instance = new Model();
-               return instance;
-           }
+       static Model * of() {
+           if (instance == 0)
+               instance = new Model();
+           return instance;
+       }
     
     void init(){
         
     }
-    
-    Param params[MAXPARAM];
-    std::atomic<float> par[MAXPARAM * 4];
-    
-    atomic<float> sumPeakL;
-    atomic<float> sumPeakR;
+
+    Preset preset;
     E_Master masterSel = mEdit;
-    
     Global global;
+    
+    Param getParam(E_Module module, int paramId){
+        return preset.params[module][paramId];
+    }
+    
+    std::map<int, Param> getParams(E_Module module){
+        return preset.params[module];
+    }
     
 private:
 

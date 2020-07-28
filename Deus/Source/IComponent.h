@@ -36,6 +36,7 @@ public:
         this->blocksPerSecond = sampleRate / samplesPerBlock;
     }
 
+    /*
     void setPoti(Node * node, Poti * p){
         Model *m = Model::of();
         int pid = node->paramId;
@@ -130,6 +131,7 @@ public:
            p->setValue(m->par[pid], dontSendNotification);
         }
     }
+     */
     
     void clearUi(){
         for(auto it = std::begin(children); it != std::end(children); ++it) {

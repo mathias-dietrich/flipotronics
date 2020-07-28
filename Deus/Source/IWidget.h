@@ -20,6 +20,7 @@ struct Node{
     String name;
     std::vector<Node*> children;
     int paramId;
+    E_Module module;
     int type;
     String bgColor;
     bool isVisible;

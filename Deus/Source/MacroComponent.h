@@ -56,6 +56,7 @@ class MacroComponent:  public IComponent, public Slider::Listener{
                 }
              }
         }
+        setDials();
     }
     
     void paint (Graphics& g) override {
@@ -83,9 +84,10 @@ class MacroComponent:  public IComponent, public Slider::Listener{
     
      void setDials() override{
          for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
-       //      MasterPoti *p =  (MasterPoti*) *it;
-           //  Node *node = p->node;
-            // p->setValue(Model::of().par[node.paramId],dontSendNotification);
+             MasterPoti *p =  (MasterPoti*) *it;
+             Node *node = p->node;
+             Param pr = Model::of()->getParam(node->module, node->paramId);
+             p->setValue(pr.valF);
          }
      }
     

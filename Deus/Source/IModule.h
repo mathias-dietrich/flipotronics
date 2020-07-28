@@ -9,29 +9,7 @@
 #ifndef IModule_h
 #define IModule_h
 
-enum E_Module {
-    mOSCAnalog0=0,
-    mOSCAnalog1=1,
-    mOSCWave0=2,
-    mOSCWave1=3,
-    mOSCSample0=4,
-    mOSCSample1=5,
-    mFilter0=6,
-    mFilter1=7,
-    mAdsr0=8,
-    mAdsr1=9,
-    mAdsr2=10,
-    mLFO0=11,
-    mLFO1=12,
-    mLFO2=13,
-    mAmp=14,
-    mInput=15,
-    mLFX0=16,
-    mLFX1=17,
-    mLFX2=18,
-    mLFX3=19,
-    mMODULECOUNT
-};
+#include "Enums.h"
 
 struct ParamSet{
     int moduleId;

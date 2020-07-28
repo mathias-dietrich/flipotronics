@@ -12,6 +12,7 @@
 #include "Enums.h"
 
 struct Param{
+    E_Module module;
     E_UnitType type = uUnknown;
     String name = "";
     int pid = -1;
@@ -34,6 +35,7 @@ struct Param{
     
     Param copy(){
         Param p;
+        p.module = module;
         p.type = type;
         p.name = String(name);
         p.pid = pid;

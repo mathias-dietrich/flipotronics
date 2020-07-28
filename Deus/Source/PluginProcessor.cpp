@@ -17,7 +17,7 @@ DeusAudioProcessor::DeusAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
+                     #if ! JucePlugin_IsSynth
                        .withInput  ("Input",  AudioChannelSet::stereo(), false)
                       #endif
                        .withOutput ("Output", AudioChannelSet::stereo(), true)

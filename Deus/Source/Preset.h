@@ -10,7 +10,16 @@
 #define Preset_h
 #include <JuceHeader.h>
 
+#include "Param.h"
+#include "Enums.h"
+
 class Preset{
+public:
+    String name;
+    String author;
+    String desc;
+    std::map<E_Module,std::map<int, Param> > params;
+    
     
 };
 #endif /* Preset_h */

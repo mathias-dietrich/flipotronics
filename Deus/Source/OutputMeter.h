@@ -27,8 +27,8 @@ public:
         g.setColour (C_BLACK);
         g.fillRect (r);
          
-        drawChannel(g,Model::of()->sumPeakL, 10);
-        drawChannel(g,Model::of()->sumPeakR, 25);
+        drawChannel(g,1, 10);
+        drawChannel(g,1, 25);
     }
     
     void drawChannel(Graphics& g, float val, int x){
