@@ -125,7 +125,7 @@ public:
     
     void sliderValueChanged(Slider *  slider) override {
            int sid = slider->getName().getIntValue();
-           Model::of()->preset.params[mFilter0][sid].valF = slider->getValue();
+           Core::of()->update(mFilter0, sid, slider->getValue());
            setDials();
     }
     

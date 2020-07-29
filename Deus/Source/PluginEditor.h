@@ -22,7 +22,7 @@
 //==============================================================================
 /**
 */
-class DeusAudioProcessorEditor  : public AudioProcessorEditor, public EventHandler, public Timer, public KeyListener
+class DeusAudioProcessorEditor : public AudioProcessorEditor, public EventHandler, public Timer, public KeyListener
 {
 public:
     DeusAudioProcessorEditor (DeusAudioProcessor&);
@@ -40,7 +40,7 @@ public:
         
         
         // Configure the Processor
-        processor.core.configure(preset);
+        processor.core->configure(preset);
     }
     
     void timerCallback() override{

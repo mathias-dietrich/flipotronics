@@ -17,6 +17,12 @@
 
 using namespace std;
 
+
+struct ParamSet{
+    int moduleId;
+    std::map<int, float> params;
+};
+
 class Model{
     protected:
        static Model *instance;
@@ -44,6 +50,8 @@ class Model{
     std::map<int, Param> getParams(E_Module module){
         return preset.params[module];
     }
+    
+    int64 timeTaken;
     
 private:
 

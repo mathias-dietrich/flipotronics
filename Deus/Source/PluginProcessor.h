@@ -21,10 +21,18 @@
 */
 class DeusAudioProcessor  : public AudioProcessor
 {
+    
+protected:
+      static DeusAudioProcessor *instance;
+    
 public:
     //==============================================================================
     DeusAudioProcessor();
     ~DeusAudioProcessor();
+    
+    static DeusAudioProcessor * of(){
+        return instance;
+    }
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -59,7 +67,19 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-     Core core;
+    void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity)  {
+        core->startVoice( midiChannel,  midiNoteNumber,  velocity,0);
+    }
+        
+    void handleNoteOff (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity)  {
+        core->endVoice( midiChannel,  midiNoteNumber);
+    }
+
+    void panic(){
+       core->killAllVoice();
+    }
+    
+    Core * core;
 
 private:
     //==============================================================================

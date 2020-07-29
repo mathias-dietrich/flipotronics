@@ -17,6 +17,8 @@
 #include "EventHandler.h"
 #include "IFactory.h"
 
+class Core;
+
 class IComponent  :  public Component{
 
 public:
@@ -159,6 +161,8 @@ public:
     virtual int getParamCount(){
            return 0;
     }
+    
+    Core * core;
 };
 
 #endif /* IComponent_h */

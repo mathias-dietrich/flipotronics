@@ -133,7 +133,7 @@ public:
     
     void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();
-        Model::of()->preset.params[mOSCAnalog0][sid].valF = slider->getValue();
+        Core::of()->update(mOSCAnalog0, sid, slider->getValue());
         setDials();
     }
     

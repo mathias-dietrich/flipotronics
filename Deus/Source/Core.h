@@ -10,38 +10,169 @@
 #define Core_h
 
 #include "Preset.h"
+#include "Model.h"
+#include "Voice.h"
 
 class Core{
+protected:
+      static Core *instance;
+    
 public:
+    
+    Core(){
+        instance = this;
+    }
+    
+    static Core * of() {
+        return instance;
+    }
+    
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages, int totalNumInputChannels, int totalNumOutputChannels){
         
-            ScopedNoDenormals noDenormals;
+        ScopedNoDenormals noDenormals;
         
-            // In case we have more outputs than inputs, this code clears any output
-            // channels that didn't contain input data, (because these aren't
-            // guaranteed to be empty - they may contain garbage).
-            // This is here to avoid people getting screaming feedback
-            // when they first compile a plugin, but obviously you don't need to keep
-            // this code if your algorithm always overwrites all the output channels.
-            for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-                buffer.clear (i, 0, buffer.getNumSamples());
+        auto begin = std::chrono::high_resolution_clock::now();
         
-            // This is the place where you'd normally do the guts of your plugin's
-            // audio processing...
-            // Make sure to reset the state if your inner loop is processing
-            // the samples and the outer loop is handling the channels.
-            // Alternatively, you can process the samples with the channels
-            // interleaved by keeping the same state.
-            for (int channel = 0; channel < totalNumInputChannels; ++channel)
-            {
-               // auto* channelData = buffer.getWritePointer (channel);
+        // Handle Midi Messages
+        MidiMessage result;
+        int samplePosition;
+        MidiBuffer::Iterator n(midiMessages);
         
-                // ..do something to the data...
+        while(n.getNextEvent (result, samplePosition)){
+            if(result.isNoteOn()){
+                int note = result.getNoteNumber();
+                float velocity = result.getVelocity() / 127.0f;
+                int channel = result.getChannel();
+                startVoice(channel,note, velocity, 0);
             }
+            if(result.isNoteOff()){
+                int note = result.getNoteNumber();
+                int channel = result.getChannel();
+                endVoice(channel,note);
+            }
+        }
+        
+        // Prepare audio buffer
+        auto* channelDataL = buffer.getWritePointer (0);
+        auto* channelDataR = buffer.getWritePointer (1);
+        std::fill(channelDataL, channelDataL + samplesPerBlock, 0);
+        std::fill(channelDataR, channelDataR + samplesPerBlock, 0);
+        
+        // Render Voices
+       for(int i=0; i < MAXVOICE;++i){
+          if(voices[i].active){
+              voices[i].render(clock, buffer);
+          }
+        }
+        
+        clock += samplesPerBlock;
+        
+        // Measure time taken
+        auto end = std::chrono::high_resolution_clock::now();
+        int64 nanoSec = std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count();
+        Model::of()->timeTaken = (Model::of()->timeTaken+nanoSec) * 0.5;
+    }
+    
+    void startVoice(int channel,int note, float velocity, int group){
+        int vid = findNewVoice(note, channel);
+        voices[vid].velocity = velocity;
+        if(voices[vid].active){
+           voices[vid].noteRetrigger();
+           return;
+        }
+        voices[vid].noteOn(channel, note);
+        //std::cout <<  "Starting Voice midiNoteNumber:" << midiNoteNumber << " velocity:" << velocity << std::endl;
+    }
+    
+    void endVoice(int midiChannel, int midiNoteNumber){
+        int vid = findExistingVoice(midiChannel, midiNoteNumber);
+        voices[vid].noteOff();
+        //std::cout <<  "End Voice midiNoteNumber:" << midiNoteNumber  << std::endl
+    }
+    
+    void killVoice(int midiChannel, int midiNoteNumber){
+        int vid = findExistingVoice(midiChannel, midiNoteNumber);
+        voices[vid].active = false;
+        //std::cout << "Kill Voice midiNoteNumber:" << midiNoteNumber  << std::endl;
+    }
+    
+    void killAllVoice(){
+        for(int i=0; i < MAXVOICE;i++){
+            voices[i].kill();
+        }
+        //std::cout << "Kill All Voice midiNoteNumber:" << std::endl;
+    }
+    
+    int findExistingVoice(int midiChannel, int midiNoteNumber){
+       for(int i=0; i < MAXVOICE;i++){
+           if(midiChannel == voices[i].midiChannel && midiNoteNumber== voices[i].noteNumber){
+               return voices[i].vid;
+           }
+       }
+       return -1;
+   }
+    
+    // Voicepool - find next voice to uae
+    int findNewVoice(int midiNoteNumber,int midiChannel){
+
+        // Existing Voice?
+        for(int i=0; i < MAXVOICE;i++){
+           if(midiNoteNumber==voices[i].noteNumber && midiChannel==voices[i].midiChannel){
+               return i;
+           }
+        }
+
+        // Innactive Voice available?
+        for(int i=0; i < MAXVOICE;i++){
+           if(!voices[i].active){
+               voices[i].now = Time::currentTimeMillis();
+               return voices[i].vid;
+           }
+        }
+
+        // Find oldest Voice
+        int64 oldest = Time::currentTimeMillis();
+        int posFoundVoice;
+        for(int i=0; i < MAXVOICE;i++){
+           if(voices[i].now < oldest){
+               posFoundVoice = i;
+           }
+        }
+        return posFoundVoice;
+    }
+    
+    void init (double sampleRate, int samplesPerBlock){
+        this->sampleRate = sampleRate;
+        this->samplesPerBlock = samplesPerBlock;
+        this->blocksPerSeccond = sampleRate / samplesPerBlock;
+        
+        // Voices
+       for (int i=0; i<MAXVOICE; ++i) {
+           voices[i].vid = i;
+           voices[i].init( sampleRate, samplesPerBlock);
+           voices[i].active = false;
+       }
     }
     
     void configure(Preset preset){
-        
+         for (int i=0; i<MAXVOICE; ++i) {
+             voices[i].configure(preset);
+         }
     }
+    
+    void update(E_Module module, int pid, float val){
+        Model::of()->preset.params[module][pid].valF = val;
+        for (int i=0; i<MAXVOICE; ++i) {
+            voices[i].update(module, pid, val);
+        }
+    }
+    
+    Voice voices[MAXVOICE] ;
+    
+private:
+    int sampleRate;
+    int samplesPerBlock;
+    int blocksPerSeccond;
+    int64 clock;
 };
 #endif /* Core_h */

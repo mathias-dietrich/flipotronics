@@ -168,7 +168,7 @@ class MacroComponent:  public IComponent, public Slider::Listener{
     
     void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();
-        Model::of()->preset.params[mMacro][sid].valF = slider->getValue();
+        Core::of()->update(mMacro, sid, slider->getValue());
         setDials();
     }
     

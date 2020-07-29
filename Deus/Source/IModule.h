@@ -10,62 +10,16 @@
 #define IModule_h
 
 #include "Enums.h"
+#include "Model.h"
 
-struct ParamSet{
-    int moduleId;
-    std::map<int, float> params;
-};
 
-class IModule{
+class IModule {
 public:
-    virtual ~IModule() = 0;
+
     virtual ParamSet getSet() = 0;
     virtual void set(int i, float p) = 0;
+    virtual int getParamCount() = 0;
+    virtual E_Module getType() = 0;
 };
-
-class RootModule : public IModule{
-public:
-    RootModule(){
-        
-    }
-    
-    ~RootModule(){
-        
-    }
-    
-    ParamSet getSet(){
-        ParamSet set;
-        set.moduleId = 0;
-        return set;
-    }
-    
-    void set(int i, float p) {
-        
-    }
-};
-
-class ModuleFactory{
-public:
-    ModuleFactory(){
-        modules_map[mOSCAnalog0] = new RootModule();
-    }
-    
-    ~ModuleFactory(){
-           
-    }
-    IModule * get(E_Module m){
-        return modules_map[m];
-    }
-    
-    std::vector<E_Module> getAll(){
-        std::vector<E_Module> all;
-        return all;
-    }
-    
-private:
-    std::map<E_Module, IModule *> modules_map;
-};
-
-
 
 #endif /* IModule_h */

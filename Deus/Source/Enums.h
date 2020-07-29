@@ -31,6 +31,7 @@ enum E_Module {
     mLFX2=18,
     mLFX3=19,
     mMacro=20,
+    mBlank=21,
     mMODULECOUNT
 };
 

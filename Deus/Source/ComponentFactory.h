@@ -33,11 +33,14 @@ class DeusAudioProcessor;
 
 class ComponentFactory: public IFactory{
 public:
-    ComponentFactory(){}
+    ComponentFactory(){
+     
+    }
+    
     virtual ~ComponentFactory(){
         
     }
-    
+
     IComponent * get(String type){
         if(type == "header"){
             auto *c = new HeaderComponent();
@@ -61,7 +64,7 @@ public:
              return c;
          }
         if(type == "keyboard"){
-            auto *c = new KeyboardComponent(processor);
+            auto *c = new KeyboardComponent();
             c->factory = this;
             return c;
         }
@@ -127,8 +130,6 @@ public:
         }
         return new HeaderComponent();
     }
-    
-    DeusAudioProcessor * processor;
 };
 
 #endif /* ComponentFactory_h */

@@ -17,7 +17,7 @@
 class KeyboardComponent : public IComponent, public MidiKeyboardStateListener,  public Button::Listener, public Slider::Listener{
 public:
     
-     KeyboardComponent(DeusAudioProcessor * p) : keyboardComponent (keyboardState, MidiKeyboardComponent::horizontalKeyboard), processor (*p){
+     KeyboardComponent() : keyboardComponent (keyboardState, MidiKeyboardComponent::horizontalKeyboard){
          
           keyboardState.addListener (this);
                addAndMakeVisible(keyboardComponent);
@@ -158,13 +158,12 @@ public:
         playMode.setEditableText(false);
     }
     
-    
     void handleNoteOn (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override {
-       // processor.handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
+        DeusAudioProcessor::of()->handleNoteOn(state, midiChannel, midiNoteNumber, velocity);
     }
         
     void handleNoteOff (MidiKeyboardState* state, int midiChannel, int midiNoteNumber, float velocity) override {
-        //processor.handleNoteOff(state, midiChannel, midiNoteNumber, velocity);
+        DeusAudioProcessor::of()->handleNoteOff(state, midiChannel, midiNoteNumber, velocity);
     }
     
     void styleMenuChanged(){
@@ -188,19 +187,16 @@ public:
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
     
-    std::map<int, Param> getParams(){
+    std::map<int, Param> getParams() override{
         return params;
     }
     
-    void setParams( std::map<int, Param> params){
+    void setParams( std::map<int, Param> params) override {
         this->params = params;
     }
         
-
-           
 private:
     std::map<int, Param> params;
-    DeusAudioProcessor& processor;
     PitchWheel pitchWheel;
     PitchWheel modWheel;
     PitchWheel expWheel;
