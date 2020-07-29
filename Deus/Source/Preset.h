@@ -15,9 +15,11 @@
 
 class Preset{
 public:
+    
     String name;
     String author;
     String desc;
+    
     std::map<E_Module,std::map<int, Param> > params;
     
     E_Module inputModule = mInput;
@@ -31,6 +33,8 @@ public:
     E_Module lfo1Module  = mLFO0;
     E_Module lfo2Module   = mLFO1;
     E_Module lfo3Module  = mLFO2;
+    
+    bool isFilterParallel;
     
     
 };

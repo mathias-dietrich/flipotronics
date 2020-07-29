@@ -32,7 +32,7 @@ public:
     void paint (Graphics& g) override {
         Rectangle<float> r = convertRect(getLocalBounds());
                auto width  = r.getWidth();
-               auto height  = r.getHeight();
+               //auto height  = r.getHeight();
                
                // Fill
                auto defaultColour = Colours::black;
@@ -55,8 +55,8 @@ public:
     
     void setDials() override{
        for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
-           Poti *p =  (Poti*) *it;
-           Node *node = p->node;
+           //Poti *p =  (Poti*) *it;
+          // Node *node = p->node;
           // setPoti(node, p);
           // p->setValue(Model::of().par[node->paramId],dontSendNotification);
        }
@@ -90,11 +90,11 @@ public:
         }
     }
     
-    std::map<int, Param> getParams(){
+    std::map<int, Param> getParams()override{
         return params;
     }
     
-    void setParams( std::map<int, Param> params){
+    void setParams( std::map<int, Param> params)override{
         this->params = params;
     }
         

@@ -162,6 +162,7 @@
 		40930F4D24D1786400DDE286 /* AnalogOsc0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AnalogOsc0.h; path = ../../Source/AnalogOsc0.h; sourceTree = "<group>"; };
 		40930F4E24D17A3600DDE286 /* ModuleFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModuleFactory.h; path = ../../Source/ModuleFactory.h; sourceTree = "<group>"; };
 		40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleFactory.cpp; path = ../../Source/ModuleFactory.cpp; sourceTree = "<group>"; };
+		40930F5424D1CE0400DDE286 /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = ../../Source/TODO.txt; sourceTree = "<group>"; };
 		409F0A3B24CC788A0037A342 /* ModHeaderComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModHeaderComponent.h; path = ../../Source/ModHeaderComponent.h; sourceTree = "<group>"; };
 		409F0A3C24CC7A650037A342 /* ModComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModComponent.h; path = ../../Source/ModComponent.h; sourceTree = "<group>"; };
 		40A491BD24CEBF3B00DF8705 /* KeysListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeysListener.h; path = ../../Source/KeysListener.h; sourceTree = "<group>"; };
@@ -332,6 +333,7 @@
 		1F1081E89DA509093CD29100 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				40930F5424D1CE0400DDE286 /* TODO.txt */,
 				4FA5748024BEF9DE00A1E759 /* images */,
 				4FA5748124BEF9DE00A1E759 /* tun */,
 				4FA5747F24BEF9DE00A1E759 /* xml */,

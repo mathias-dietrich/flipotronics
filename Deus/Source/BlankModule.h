@@ -14,32 +14,41 @@
 
 class BlankModule:  public IModule{
 public:
-    
-    BlankModule(){
 
-    }
-
-    ~BlankModule(){
-
-    }
-    
     ParamSet getSet() override{
           ParamSet set;
           set.moduleId = mBlank;
           return set;
-       }
+    }
        
-       void set(int pid, float p) override{
-           
-       }
+   void set(int pid, float p) override{
        
-       int getParamCount() override{
-             return 0;
-       }
+   }
+   
+   int getParamCount() override{
+         return 0;
+   }
+   
+   E_Module getType() override{
+       return mBlank;
+   }
+    
+    void noteOn(int channel, int note)override{
+
+    }
+
+    void noteOff(int channel, int note)override{
        
-       E_Module getType() override{
-           return mBlank;
-       }
+    }
+       
+    
+    void init(int sampleRate, int samplesPerBlock) override{
+        
+    }
+    
+    float getNext(bool move)override{
+        return 0;
+    }
     
 private:
     std::map<int, Param> params;

@@ -74,11 +74,11 @@ class ModSelector:  public IComponent, public Button::Listener{
          }
      }
     
-    std::map<int, Param> getParams(){
+    std::map<int, Param> getParams() override{
         return params;
     }
     
-    void setParams( std::map<int, Param> params){
+    void setParams( std::map<int, Param> params) override{
         this->params = params;
     }
         

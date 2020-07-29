@@ -49,8 +49,7 @@ public:
         midiChannel = channel;
         noteNumber = note;
         active = true;
-        
-        m_frequency = MidiToFreq(noteNumber, 440.0f);
+        osc1Module->noteOn(channel, note);
     }
     
     void noteRetrigger(){
@@ -58,6 +57,7 @@ public:
     }
     
     void noteOff(){
+        osc1Module->noteOff(midiChannel, noteNumber);
         active = false;
     }
     
@@ -71,9 +71,88 @@ public:
         // TODO Build all
         osc1Module = ModuleFactory::of()->get(preset.osc1Module);
         osc2Module = ModuleFactory::of()->get(preset.osc2Module);
+        
+        osc1Module->init(sampleRate,samplesPerBlock );
+        
+        for(int i=0;i< osc1Module->getParamCount();++i){
+            osc1Module->set(i,preset.params[mOSCAnalog0][i].valF);
+        }
+    
     }
     
     void update(E_Module module, int pid, float val){
+        switch(module){
+            case mOSCAnalog0:
+                osc1Module->set(pid, val);
+                break;
+            case mOSCAnalog1:
+                
+                break;
+            case mOSCWave0:
+                
+                break;
+            case mOSCWave1:
+                
+                break;
+            case mOSCSample0:
+                
+                break;
+            case mOSCSample1:
+                
+                break;
+            case mFilter0:
+                
+                break;
+            case mFilter1:
+                
+                break;
+            case mAdsr0:
+                
+                break;
+            case mAdsr1:
+                
+                break;
+            case mAdsr2:
+                
+                break;
+            case mLFO0:
+                
+                break;
+            case mLFO1:
+                
+                break;
+            case mLFO2:
+                
+                break;
+            case mAmp:
+                
+                break;
+            case mInput:
+                
+                break;
+            case mLFX0:
+                
+                break;
+            case mLFX1:
+                
+                break;
+            case mLFX2:
+                
+                break;
+            case mLFX3:
+                
+                break;
+            case mMacro:
+                
+                break;
+            case mBlank:
+                
+                break;
+            case mMODULECOUNT:
+                
+                break;
+        }
+        
         std::cout << "Voice " << vid << " update " << module << " " << pid << " " << val << std::endl;
     }
     
@@ -81,29 +160,19 @@ public:
         this->sampleRate = sampleRate;
         this->sr = sampleRate * OVERSAMPLING;
         this->samplesPerBlock = samplesPerBlock;
-
-        // Test
-        m_deltaTime = 1 / sampleRate;
-        m_phase = 0;
     }
     
     void render(int64 clock, AudioBuffer<float>& buffer){
         auto* channelDataL = buffer.getWritePointer (0);
         auto* channelDataR = buffer.getWritePointer (1);
         for (int sample = 0; sample < samplesPerBlock; ++sample) {
-            float value = m_amplitude * sin(2 * double_Pi * m_frequency * m_time + m_phase);
+            float value = osc1Module->getNext(true);
             channelDataL[sample] += value;
             channelDataR[sample] += value;
-            m_time += m_deltaTime;
        }
     }
     
 private:
-    float m_phase;
-    float m_deltaTime;
-    float m_frequency = 440;
-    float m_time = 0.0;
-    float m_amplitude = 1;
     
     int sampleRate;
     int sr;

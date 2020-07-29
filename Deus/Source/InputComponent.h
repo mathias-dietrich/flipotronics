@@ -77,7 +77,7 @@ public:
     }
     
     void sliderValueChanged(Slider *  slider) override {
-              int sid = slider->getName().getIntValue();
+             // int sid = slider->getName().getIntValue();
               //Model::of()->par[sid] = slider->getValue();
               setDials();
           }
@@ -91,11 +91,11 @@ public:
             p->setVisible(node->isVisible);
         }
     }
-    std::map<int, Param> getParams(){
+    std::map<int, Param> getParams()override{
         return params;
     }
     
-    void setParams( std::map<int, Param> params){
+    void setParams( std::map<int, Param> params)override{
         this->params = params;
     }
         
