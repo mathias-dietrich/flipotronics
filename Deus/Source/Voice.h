@@ -190,10 +190,13 @@ public:
         auto* channelDataR = buffer.getWritePointer (1);
         for (int sample = 0; sample < samplesPerBlock; ++sample) {
             float vLeft = osc0Module->getNextL(0, true);
-            float vRight = osc1Module->getNextR(0, false);
+            float vRight = osc0Module->getNextR(0, false);
+            
+            vLeft += osc1Module->getNextR(0, true);
+            vRight+= osc1Module->getNextR(0, false);
             
             vLeft = filter0Module->getNextL(vLeft, true);
-            vRight = filter0Module->getNextL(vRight, true);
+            vRight = filter0Module->getNextR    (vRight, true);
             
             float  mix = vLeft + vRight;
             channelDataL[sample] += mix;
