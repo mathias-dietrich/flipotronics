@@ -1,18 +1,18 @@
 //
-//  AnalogOsc0.h
+//  AnlaogOsc1.h
 //  Deus
 //
-//  Created by Mathias Dietrich on 7/29/20.
+//  Created by Mathias Dietrich on 7/30/20.
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef AnalogOsc0_h
-#define AnalogOsc0_h
+#ifndef AnlaogOsc1_h
+#define AnlaogOsc1_h
 
 #include "IModule.h"
 #include "Model.h"
 
-class AnalogOsc0 : public IModule{
+class AnalogOsc1 : public IModule{
 public:
        
     void init (int sampleRate, int samplesPerBlock) override{
@@ -27,7 +27,7 @@ public:
     
     ParamSet getSet() override{
        ParamSet set;
-       set.moduleId = mOSCAnalog0;
+       set.moduleId = mOSCAnalog1;
        return set;
     }
     
@@ -56,7 +56,7 @@ public:
     }
     
     E_Module getType() override{
-        return mOSCAnalog0;
+        return mOSCAnalog1;
     }
     
     void reset(){
@@ -75,7 +75,7 @@ public:
     float getNextL(float input, bool move)override{
         if(move){
             int fNote =  note + octave * 12 + semitone;
-            m_frequency =  MidiToFreq(fNote, tuning);
+            m_frequency =  MidiToFreq(fNote, 440.0);
             float fineTune = 1.0 + finetuning / 100.0f;
             m_frequency *= fineTune;
             float vol = DecibelToLinear(volume);
@@ -84,17 +84,18 @@ public:
         }
         return val;
     }
+    
     float getNextR(float input, bool move)override{
         if(move){
-               int fNote =  note + octave * 12 + semitone;
-               m_frequency =  MidiToFreq(fNote, tuning);
-               float fineTune = 1.0 + finetuning / 100.0f;
-               m_frequency *= fineTune;
-               float vol = DecibelToLinear(volume);
-               val =  vol * sin(2.0f * double_Pi * m_frequency * m_time + m_phase);
-               m_time += m_deltaTime;
-           }
-           return val;
+            int fNote =  note + octave * 12 + semitone;
+            m_frequency =  MidiToFreq(fNote, 440.0);
+            float fineTune = 1.0 + finetuning / 100.0f;
+            m_frequency *= fineTune;
+            float vol = DecibelToLinear(volume);
+            val =  vol * sin(2.0f * double_Pi * m_frequency * m_time + m_phase);
+            m_time += m_deltaTime;
+        }
+        return val;
     }
     
 private:
@@ -118,5 +119,4 @@ private:
     int sr;
     int samplesPerBlock;
 };
-
-#endif /* AnalogOsc0_h */
+#endif /* AnlaogOsc1_h */

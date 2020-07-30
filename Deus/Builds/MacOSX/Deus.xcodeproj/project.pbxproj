@@ -163,6 +163,10 @@
 		40930F4E24D17A3600DDE286 /* ModuleFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModuleFactory.h; path = ../../Source/ModuleFactory.h; sourceTree = "<group>"; };
 		40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleFactory.cpp; path = ../../Source/ModuleFactory.cpp; sourceTree = "<group>"; };
 		40930F5424D1CE0400DDE286 /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = ../../Source/TODO.txt; sourceTree = "<group>"; };
+		40930F5524D2CB1200DDE286 /* AnalogOsc1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AnalogOsc1.h; path = ../../Source/AnalogOsc1.h; sourceTree = "<group>"; };
+		40930F5624D2CBDF00DDE286 /* OscComponentA1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscComponentA1.h; path = ../../Source/OscComponentA1.h; sourceTree = "<group>"; };
+		40930F5724D2D96500DDE286 /* FilterComponent1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FilterComponent1.h; path = ../../Source/FilterComponent1.h; sourceTree = "<group>"; };
+		40930F5824D2D9F500DDE286 /* Filter0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Filter0.h; path = ../../Source/Filter0.h; sourceTree = "<group>"; };
 		409F0A3B24CC788A0037A342 /* ModHeaderComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModHeaderComponent.h; path = ../../Source/ModHeaderComponent.h; sourceTree = "<group>"; };
 		409F0A3C24CC7A650037A342 /* ModComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModComponent.h; path = ../../Source/ModComponent.h; sourceTree = "<group>"; };
 		40A491BD24CEBF3B00DF8705 /* KeysListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeysListener.h; path = ../../Source/KeysListener.h; sourceTree = "<group>"; };
@@ -213,8 +217,8 @@
 		4FE513EE24C185E800E2B6F1 /* InputComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = InputComponent.h; path = ../../Source/InputComponent.h; sourceTree = "<group>"; };
 		4FE513EF24C1888000E2B6F1 /* KeyboardComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeyboardComponent.h; path = ../../Source/KeyboardComponent.h; sourceTree = "<group>"; };
 		4FE513F024C18B1800E2B6F1 /* PitchWheel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PitchWheel.h; path = ../../Source/PitchWheel.h; sourceTree = "<group>"; };
-		4FE513F224C1984900E2B6F1 /* OscComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscComponent.h; path = ../../Source/OscComponent.h; sourceTree = "<group>"; };
-		4FE513F324C19B2200E2B6F1 /* FilterComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FilterComponent.h; path = ../../Source/FilterComponent.h; sourceTree = "<group>"; };
+		4FE513F224C1984900E2B6F1 /* OscComponentA0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscComponentA0.h; path = ../../Source/OscComponentA0.h; sourceTree = "<group>"; };
+		4FE513F324C19B2200E2B6F1 /* FilterComponent0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FilterComponent0.h; path = ../../Source/FilterComponent0.h; sourceTree = "<group>"; };
 		4FE513F524C19C7D00E2B6F1 /* AmpComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AmpComponent.h; path = ../../Source/AmpComponent.h; sourceTree = "<group>"; };
 		5BFC9E90CB59A7269A1DFD52 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppConfig.h; path = ../../JuceLibraryCode/AppConfig.h; sourceTree = SOURCE_ROOT; };
 		5D86C4ED3BB6C0EEE6132A06 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
@@ -504,8 +508,8 @@
 				4FA5749724BEFDF100A1E759 /* Filter */,
 				4FA5749624BEFDE700A1E759 /* Osc */,
 				40A491BF24D004AB00DF8705 /* IModule.h */,
-				40930F4E24D17A3600DDE286 /* ModuleFactory.h */,
 				40930F4C24D170D400DDE286 /* BlankModule.h */,
+				40930F4E24D17A3600DDE286 /* ModuleFactory.h */,
 				40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */,
 			);
 			name = Synth;
@@ -552,7 +556,6 @@
 				4FA5749C24BEFE5C00A1E759 /* Granular */,
 				4FA5749B24BEFE5400A1E759 /* Wavetable */,
 				4FA5749A24BEFE4E00A1E759 /* Analog */,
-				4FE513F224C1984900E2B6F1 /* OscComponent.h */,
 			);
 			name = Osc;
 			sourceTree = "<group>";
@@ -560,7 +563,9 @@
 		4FA5749724BEFDF100A1E759 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				4FE513F324C19B2200E2B6F1 /* FilterComponent.h */,
+				4FE513F324C19B2200E2B6F1 /* FilterComponent0.h */,
+				40930F5724D2D96500DDE286 /* FilterComponent1.h */,
+				40930F5824D2D9F500DDE286 /* Filter0.h */,
 			);
 			name = Filter;
 			sourceTree = "<group>";
@@ -582,7 +587,10 @@
 		4FA5749A24BEFE4E00A1E759 /* Analog */ = {
 			isa = PBXGroup;
 			children = (
+				4FE513F224C1984900E2B6F1 /* OscComponentA0.h */,
 				40930F4D24D1786400DDE286 /* AnalogOsc0.h */,
+				40930F5524D2CB1200DDE286 /* AnalogOsc1.h */,
+				40930F5624D2CBDF00DDE286 /* OscComponentA1.h */,
 			);
 			name = Analog;
 			sourceTree = "<group>";
@@ -815,7 +823,7 @@
 		9FCFE4F6F0F0C8F2F5796E28 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = Flipotronics;
 				TargetAttributes = {
 					068657E2720AF0DE35782575 = {
@@ -1271,7 +1279,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
@@ -1335,7 +1343,7 @@
 				CODE_SIGN_IDENTITY = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1559,7 +1567,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				DEAD_CODE_STRIPPING = YES;

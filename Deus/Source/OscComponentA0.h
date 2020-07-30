@@ -14,10 +14,10 @@
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class OscComponent :  public IComponent, public Slider::Listener {
+class OscComponentA0 :  public IComponent, public Slider::Listener {
 public:
     
-    OscComponent(){
+    OscComponentA0(){
         Param p;
         p.module = mOSCAnalog0;
         p.valF = 0.5;
@@ -61,7 +61,7 @@ public:
         params[4].type = uWaveType;
     }
     
-    ~OscComponent(){
+    ~OscComponentA0(){
         for(auto it = std::begin(children); it != std::end(children); ++it) {
             delete *it;
         }
@@ -105,7 +105,7 @@ public:
             ++pid;
         }
     }
-    
+
     void build(Node * node) override{
         std::cout << node->name << std::endl;
 

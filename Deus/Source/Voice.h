@@ -18,10 +18,10 @@ class Voice{
 public:
     
     IModule * inputModule;
+    IModule * osc0Module;
     IModule * osc1Module;
-    IModule * osc2Module;
+    IModule * filter0Module;
     IModule * filter1Module;
-    IModule * filter2Module;
     IModule * outpuModule;
     IModule * adsr0Module;
     IModule * adsr1Module;
@@ -49,6 +49,7 @@ public:
         midiChannel = channel;
         noteNumber = note;
         active = true;
+        osc0Module->noteOn(channel, note);
         osc1Module->noteOn(channel, note);
     }
     
@@ -57,6 +58,7 @@ public:
     }
     
     void noteOff(){
+        osc0Module->noteOff(midiChannel, noteNumber);
         osc1Module->noteOff(midiChannel, noteNumber);
         active = false;
     }
@@ -69,24 +71,42 @@ public:
         this->preset = preset;
         
         // TODO Build all
+        osc0Module = ModuleFactory::of()->get(preset.osc0Module);
         osc1Module = ModuleFactory::of()->get(preset.osc1Module);
-        osc2Module = ModuleFactory::of()->get(preset.osc2Module);
         
+        filter0Module = ModuleFactory::of()->get(preset.filter0Module);
+        filter1Module = ModuleFactory::of()->get(preset.filter1Module);
+        
+        osc0Module->init(sampleRate,samplesPerBlock );
         osc1Module->init(sampleRate,samplesPerBlock );
+        filter0Module->init(sampleRate,samplesPerBlock );
+        filter1Module->init(sampleRate,samplesPerBlock );
+        
+        for(int i=0;i< osc0Module->getParamCount();++i){
+            osc0Module->set(i,preset.params[mOSCAnalog0][i].valF);
+        }
+        osc0Module->setTuning(preset.tuning);
         
         for(int i=0;i< osc1Module->getParamCount();++i){
-            osc1Module->set(i,preset.params[mOSCAnalog0][i].valF);
+            osc1Module->set(i,preset.params[mOSCAnalog1][i].valF);
         }
-    
+        osc1Module->setTuning(preset.tuning);
+        
+        for(int i=0;i< filter0Module->getParamCount();++i){
+            filter0Module->set(i,preset.params[mFilter0][i].valF);
+        }
+        for(int i=0;i< filter1Module->getParamCount();++i){
+             filter1Module->set(i,preset.params[mFilter1][i].valF);
+        }
     }
     
     void update(E_Module module, int pid, float val){
         switch(module){
             case mOSCAnalog0:
-                osc1Module->set(pid, val);
+                osc0Module->set(pid, val);
                 break;
             case mOSCAnalog1:
-                
+                osc1Module->set(pid, val);
                 break;
             case mOSCWave0:
                 
@@ -101,10 +121,10 @@ public:
                 
                 break;
             case mFilter0:
-                
+                 filter0Module->set(pid, val);
                 break;
             case mFilter1:
-                
+                filter1Module->set(pid, val);
                 break;
             case mAdsr0:
                 
@@ -143,7 +163,10 @@ public:
                 
                 break;
             case mMacro:
-                
+                if(pid==16){
+                    osc0Module->setTuning(val);
+                    osc1Module->setTuning(val);
+                }
                 break;
             case mBlank:
                 
@@ -166,9 +189,15 @@ public:
         auto* channelDataL = buffer.getWritePointer (0);
         auto* channelDataR = buffer.getWritePointer (1);
         for (int sample = 0; sample < samplesPerBlock; ++sample) {
-            float value = osc1Module->getNext(true);
-            channelDataL[sample] += value;
-            channelDataR[sample] += value;
+            float vLeft = osc0Module->getNextL(0, true);
+            float vRight = osc1Module->getNextR(0, false);
+            
+            vLeft = filter0Module->getNextL(vLeft, true);
+            vRight = filter0Module->getNextL(vRight, true);
+            
+            float  mix = vLeft + vRight;
+            channelDataL[sample] += mix;
+            channelDataR[sample] += mix;
        }
     }
     

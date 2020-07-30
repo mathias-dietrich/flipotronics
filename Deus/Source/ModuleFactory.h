@@ -13,13 +13,18 @@
 #include "Enums.h"
 #include "IModule.h"
 #include "AnalogOsc0.h"
+#include "AnalogOsc1.h"
 #include "BlankModule.h"
+#include "Filter0.h"
 
 class ModuleFactory{
     protected:
        static ModuleFactory *instance;
        ModuleFactory() {
-            modules_map[mOSCAnalog0] = new AnalogOsc0();
+           modules_map[mOSCAnalog0] = new AnalogOsc0();
+           modules_map[mOSCAnalog1] = new AnalogOsc1();
+           modules_map[mFilter0] = new Filter0();
+           modules_map[mFilter1] = new Filter0();
            modules_map[mBlank] = new BlankModule();
        }
     

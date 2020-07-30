@@ -46,7 +46,10 @@ public:
         
     }
     
-    float getNext(bool move)override{
+    float getNextL(float input, bool move)override{
+        return 0;
+    }
+    float getNextR(float input, bool move)override{
         return 0;
     }
     

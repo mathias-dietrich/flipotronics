@@ -35,12 +35,10 @@ public:
     void configure() override{
         // Load a new Preset
         Preset preset;
-        
-        // Configure the UI
-        
-        
+
         // Configure the Processor
         processor.core->configure(preset);
+        
     }
     
     void timerCallback() override{
@@ -74,18 +72,21 @@ public:
                 p = 1.0f;
                 break;
             case 7: //
-                p = 1.2f;
+                p = 1.1f;
                 break;
             case 8: //
-                p = 1.4f;
+                p = 1.2f;
                 break;
             case 9: //
-                p = 1.6f;
+                p = 1.4f;
                 break;
             case 10: //
-                p = 1.8f;
+                p = 1.6f;
                 break;
             case 11: //
+                p = 1.8f;
+                break;
+            case 12: //
                 p = 2.0f;
                 break;
         }
@@ -147,7 +148,7 @@ public:
 
 private:
     E_Master masterSelLast = mEdit;
-    int lastZoom;
+    int lastZoom = 0;
     
     DeusAudioProcessor& processor;
     MasterComponent masterComponent;

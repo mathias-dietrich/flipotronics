@@ -1,24 +1,24 @@
 //
-//  FilterComponent.h
+//  FilterComponent1.h
 //  Deus
 //
-//  Created by Mathias Dietrich on 17.07.20.
+//  Created by Mathias Dietrich on 7/30/20.
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef FilterComponent_h
-#define FilterComponent_h
+#ifndef FilterComponent1_h
+#define FilterComponent1_h
 
 #include "IComponent.h"
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class FilterComponent :  public IComponent , public Slider::Listener {
+class FilterComponent1 :  public IComponent , public Slider::Listener {
 public:
     
-    FilterComponent(){
+    FilterComponent1(){
         Param p;
-        p.module = mFilter0;
+        p.module = mFilter1;
         p.valF = 0.5;
         p.type = uFloat;
         params[0] = params[1] = params[2] = params[3] = p;
@@ -54,7 +54,7 @@ public:
         params[3].type = uDb;
     }
     
-    ~FilterComponent(){
+    ~FilterComponent1(){
         for(auto it = std::begin(children); it != std::end(children); ++it) {
             delete *it;
         }
@@ -92,7 +92,7 @@ public:
         for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
             Poti *p =  (Poti*) *it;
             Node *node = p->node;
-            Param pr = Model::of()->getParam(mFilter0, node->paramId);
+            Param pr = Model::of()->getParam(mFilter1, node->paramId);
             setPoti( node, p, params[pid], pr.valF);
             p->setValue(pr.valF);
             ++pid;
@@ -125,7 +125,7 @@ public:
     
     void sliderValueChanged(Slider *  slider) override {
            int sid = slider->getName().getIntValue();
-           Core::of()->update(mFilter0, sid, slider->getValue());
+           Core::of()->update(mFilter1, sid, slider->getValue());
            setDials();
     }
     
@@ -155,4 +155,4 @@ public:
      private:
              std::map<int, Param> params;
 };
-#endif /* FilterComponent_h */
+#endif /* FilterComponent1_h */

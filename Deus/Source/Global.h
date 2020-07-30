@@ -33,8 +33,11 @@ public:
     // Volume
     float lastMasterVolume;
     
+    // Volume
+    float tuning = 440.0f;
+    
     // UI
-    int lastGuiZoom = 6;
+    int lastGuiZoom = 7; // 110%
     
 };
 

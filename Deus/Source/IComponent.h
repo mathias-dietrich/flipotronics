@@ -60,6 +60,9 @@ public:
         else if( param.type == uDb){
            p->setSkewFactor (6);
         }
+        else if( param.type == uTune){
+                  p->setTextValueSuffix(" Hz");
+        }
         else if( param.type == uHZ){
            p->setSkewFactor (0.3);
            p->setTextValueSuffix(" Hz");

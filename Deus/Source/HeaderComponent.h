@@ -124,11 +124,12 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         viewZoom.addItem ("80%", 4);
         viewZoom.addItem ("90%", 5);
         viewZoom.addItem ("100%", 6);
-        viewZoom.addItem ("120%", 7);
-        viewZoom.addItem ("140%", 8);
-        viewZoom.addItem ("160%", 9);
-        viewZoom.addItem ("180%", 10);
-        viewZoom.addItem ("200%", 11);
+        viewZoom.addItem ("110%", 7);
+        viewZoom.addItem ("120%", 8);
+        viewZoom.addItem ("140%", 9);
+        viewZoom.addItem ("160%", 10);
+        viewZoom.addItem ("180%", 11);
+        viewZoom.addItem ("200%", 12);
         viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
         viewZoom.setSelectedId(Model::of()->global.lastGuiZoom,  NotificationType::dontSendNotification);
         setDials();
@@ -251,16 +252,12 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
         r.setHeight(45);
         g.setColour(C_BRANDTITLE);
         Font f = fontLoader.getAntaro();
-        f.setHeight(40.0f);
-        f.setBold(true);
-        g.setFont(f);
-       // g.drawFittedText (PRODUCTNAME, r, Justification::topLeft, 1);
-         
-        f.setHeight(11.0f);
+   
+        f.setHeight(13.0f);
         f.setBold(false);
         f.setItalic(true);
         g.setFont(f);
-        g.drawFittedText (COMPANYNAME, r, Justification::bottomRight, 1);
+       // g.drawFittedText (COMPANYNAME, r, Justification::bottomLeft, 1);
         
         // Progname
         g.setColour (C_PROGNAME);

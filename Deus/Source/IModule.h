@@ -12,6 +12,7 @@
 #include "Enums.h"
 #include "Model.h"
 
+class Core;
 
 class IModule {
 public:
@@ -22,9 +23,17 @@ public:
     virtual void set(int pid, float val) = 0;
     virtual int getParamCount() = 0;
     virtual E_Module getType() = 0;
-    virtual float getNext(bool move) = 0;
+    virtual float getNextL(float inputL, bool move) = 0;
+    virtual float getNextR(float inputR, bool move) = 0;
     virtual void noteOn(int channel, int note) = 0;
     virtual void noteOff(int channel, int note) = 0;
+    
+    void setTuning(float tuning){
+        this->tuning = tuning;
+    }
+    
+    atomic<float> tuning;
+    
 };
 
 inline IModule::~IModule() { }

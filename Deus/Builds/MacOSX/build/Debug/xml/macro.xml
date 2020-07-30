@@ -17,6 +17,7 @@
         <e t="1" n="masterpoti" x="1040" y="0" w="50" h="70"  p="13"  m="20"  v="true"/>
         <e t="1" n="masterpoti" x="1120" y="0" w="50" h="70"  p="14"  m="20" v="true"/>
         <e t="1" n="masterpoti" x="1200" y="0" w="50" h="70"  p="15"  m="20" v="true"/>
+        <e t="1" n="poti" x="1290" y="-10" w="50" h="70"  p="16"  m="20" v="true"/>
     </e>
     
 </flipotronics>

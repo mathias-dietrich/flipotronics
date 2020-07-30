@@ -29,7 +29,7 @@ class MacroComponent:  public IComponent, public Slider::Listener{
        p.module = mMacro;
        p.valF = 0.5;
        p.type = uFloat;
-       params[0] = params[1] = params[2] = params[3] =params[4] =params[5] =params[6] =params[7] =params[8] =params[9] =params[10] =params[11] =params[12] =params[13] =params[14] =params[15] = p;
+       params[0] = params[1] = params[2] = params[3] =params[4] =params[5] =params[6] =params[7] =params[8] =params[9] =params[10] =params[11] =params[12] =params[13] =params[14] =params[15] = params[16] = p;
 
        params[0].pid = 0;
        params[1].pid = 1;
@@ -47,6 +47,7 @@ class MacroComponent:  public IComponent, public Slider::Listener{
        params[13].pid = 13;
        params[14].pid = 14;
        params[15].pid = 15;
+       params[16].pid = 16;
         
         params[0].minVal = 0;
         params[1].minVal = 0;
@@ -64,6 +65,7 @@ class MacroComponent:  public IComponent, public Slider::Listener{
         params[13].minVal = 0;
         params[14].minVal = 0;
         params[15].minVal = 0;
+        params[16].minVal = 435;
         
         params[0].maxVal = 1;
         params[1].maxVal = 1;
@@ -81,6 +83,7 @@ class MacroComponent:  public IComponent, public Slider::Listener{
         params[13].maxVal = 1;
         params[14].maxVal = 1;
         params[15].maxVal = 1;
+        params[16].maxVal = 445;
         
         params[0].stepVal = 0.1;
         params[1].stepVal = 0.1;
@@ -98,23 +101,27 @@ class MacroComponent:  public IComponent, public Slider::Listener{
         params[13].stepVal = 0.1;
         params[14].stepVal = 0.1;
         params[15].stepVal = 0.1;
+        params[16].stepVal = 0.1;
 
-       params[0].name = "0";
-       params[1].name = "1";
-       params[2].name = "2";
-       params[3].name = "3";
-       params[4].name = "4";
-       params[5].name = "5";
-       params[6].name = "6";
-       params[7].name = "7";
-       params[8].name = "8";
-       params[9].name = "9";
-       params[10].name = "10";
-       params[11].name = "11";
-       params[12].name = "12";
-       params[13].name = "13";
-       params[14].name = "14";
-       params[15].name = "15";
+       params[0].name = "Macro 0";
+       params[1].name = "Macro 1";
+       params[2].name = "Macro 2";
+       params[3].name = "Macro 3";
+       params[4].name = "Macro 4";
+       params[5].name = "Macro 5";
+       params[6].name = "Macro 6";
+       params[7].name = "Macro 7";
+       params[8].name = "Macro 8";
+       params[9].name = "Macro 9";
+       params[10].name = "Macro 10";
+       params[11].name = "Macro 11";
+       params[12].name = "Macro 12";
+       params[13].name = "Macro 13";
+       params[14].name = "Macro 14";
+       params[15].name = "Macro 15";
+       params[15].name = "Macro 16";
+       params[16].name = "Tuning";
+        params[16].type = uTune;
     }
     
     ~MacroComponent(){
@@ -129,32 +136,50 @@ class MacroComponent:  public IComponent, public Slider::Listener{
     void build(Node * node) override{
         for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
             Node *macro = *it;
+            int pid  = 0;
              for(auto it = std::begin(macro->children); it != std::end(macro->children); ++it){
-                  Node *n = *it;
-                 if(node->name.compare("masterpoti")==1){
-                   MasterPoti *wc = (MasterPoti *) WidgetFactory::of()->get(n->name);
-                   wc->node = n;
-                   addAndMakeVisible(wc);
-                   wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
-                   wc->setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 50, 15);
-                   wc->setNumDecimalPlacesToDisplay(2);
-                   wc->setName(toString(n->paramId));
-                   wc->setTitle("Macro");
-                   wc->addListener (this);
-                   wc->setRange(0,1,0.01f);
-                   widgets.push_back(wc);
+                Node *n = *it;
+                if(n->name.compare("masterpoti")==0){
+                    MasterPoti *wc = (MasterPoti *) WidgetFactory::of()->get(n->name);
+                    wc->node = n;
+                    addAndMakeVisible(wc);
+                    wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
+                    wc->setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 50, 15);
+                    wc->setNumDecimalPlacesToDisplay(2);
+                    wc->setName(toString(n->paramId));
+                    wc->setTitle(params[pid].name);
+                    wc->addListener (this);
+                    wc->setRange(params[pid].minVal, params[pid].maxVal, params[pid].stepVal);
+                    widgets.push_back(wc);
                 }
+                if(n->name.compare("poti")==0){
+                   Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);
+                    wc->node = n;
+                    addAndMakeVisible(wc);
+                    wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
+                    wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
+                    wc->setNumDecimalPlacesToDisplay(2);
+                    wc->setName(toString(n->paramId));
+                    wc->addListener (this);
+                    wc->setTitle(node->title);
+                    setPoti( n, wc, params[pid], Model::of()->preset.params[mFilter0][pid].valF);
+                    widgets.push_back(wc);
+                    wc->setTextValueSuffix(" Hz");
+                }
+                 ++pid;
              }
         }
         setDials();
     }
     
     void paint (Graphics& g) override {
-        // Rectangle<int> r = getLocalBounds();
-       //  auto width  = r.getWidth();
-        // auto height  = r.getHeight();
-         auto defaultColour = Colours::black;
-         g.fillAll (juce::Colours::findColourForName (node->bgColor, defaultColour));
+        Rectangle<int> r = getLocalBounds();
+        auto width  = r.getWidth();
+        auto height  = r.getHeight();
+        auto defaultColour = Colours::black;
+        g.fillAll (juce::Colours::findColourForName (node->bgColor, defaultColour));
+        g.setColour(C_MODULE_BG);
+        g.fillRect(width-160,0, 160,height );
     }
        
      void resized() override{
@@ -169,6 +194,9 @@ class MacroComponent:  public IComponent, public Slider::Listener{
     void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();
         Core::of()->update(mMacro, sid, slider->getValue());
+        if(sid==16){
+            Model::of()->global.tuning = slider->getValue();
+        }
         setDials();
     }
     
@@ -176,9 +204,9 @@ class MacroComponent:  public IComponent, public Slider::Listener{
          for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
              MasterPoti *p =  (MasterPoti*) *it;
              Node *node = p->node;
-             Param pr = Model::of()->getParam(node->module, node->paramId);
+             Param pr = Model::of()->getParam(mMacro, node->paramId);
              p->setValue(pr.valF);
-             p->setRange(pr.minVal, pr.maxVal, pr.stepVal);
+            
          }
      }
 
@@ -191,7 +219,7 @@ class MacroComponent:  public IComponent, public Slider::Listener{
     }
     
     int getParamCount() override{
-           return 16;
+           return 17;
     }
     
 private:

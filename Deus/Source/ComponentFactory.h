@@ -17,8 +17,10 @@
 #include "InputComponent.h"
 #include "KeyboardComponent.h"
 #include "PluginProcessor.h"
-#include "OscComponent.h"
-#include "FilterComponent.h"
+#include "OscComponentA0.h"
+#include "OscComponentA1.h"
+#include "FilterComponent0.h"
+#include "FilterComponent1.h"
 #include "AmpComponent.h"
 #include "ModHeaderComponent.h"
 #include "ModComponent.h"
@@ -69,14 +71,25 @@ public:
             return c;
         }
        
-        if(type == "osc"){
-            auto *c = new OscComponent();
+        if(type == "oscA0"){
+            auto *c = new OscComponentA0();
+            c->factory = this;
+            return c;
+        }
+        if(type == "oscA1"){
+            auto *c = new OscComponentA1();
             c->factory = this;
             return c;
         }
         
-        if(type == "filter"){
-           auto *c = new FilterComponent();
+        if(type == "filter0"){
+           auto *c = new FilterComponent0();
+           c->factory = this;
+           return c;
+        }
+        
+        if(type == "filter1"){
+           auto *c = new FilterComponent1();
            c->factory = this;
            return c;
         }

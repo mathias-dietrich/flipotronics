@@ -7,13 +7,11 @@ DeusAudioProcessorEditor::DeusAudioProcessorEditor (DeusAudioProcessor& p) : Aud
     masterComponent.init(UIWIDTH, UIHEIGHT);
     masterComponent.eventHandler = this;
     
-    
     uiloader.load(node, "master.xml");
     masterComponent.build(node);
     addAndMakeVisible(masterComponent);
     masterComponent.resized();
     
-    lastZoom = Model::of()->global.lastGuiZoom;
     startTimer(200);
     
     addKeyListener(this);
