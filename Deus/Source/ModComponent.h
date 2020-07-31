@@ -31,28 +31,28 @@ public:
     
     void paint (Graphics& g) override {
         Rectangle<float> r = convertRect(getLocalBounds());
-               auto width  = r.getWidth();
-               auto height  = r.getHeight();
-               
-               // Fill
-               auto defaultColour = Colours::green;
-               g.fillAll (juce::Colours::findColourForName (node->bgColor, defaultColour));
+       auto width  = r.getWidth();
+       auto height  = r.getHeight();
+       
+       // Fill
+       auto defaultColour = Colours::green;
+       g.fillAll (juce::Colours::findColourForName (node->bgColor, defaultColour));
+
+       g.fillAll (defaultColour);
+       
+       // Border
+       g.setColour(C_MODULE_BORDER);
+       g.drawRoundedRectangle(r, 13.0f, 5.0f);
+       g.fillRoundedRectangle(0,0,width, 10, 15.0f);
+       g.fillRect(0.0f,8.0f,width, 12.0f);
+       g.fillRoundedRectangle(0,height-5,width, 5, 15.0f);
+       
+       g.setColour(C_MODULE_BG);
+       g.fillRect(2.0f,17.0f,width-4, height - 22);
         
-               g.fillAll (defaultColour);
-               
-               // Border
-               g.setColour(C_MODULE_BORDER);
-               g.drawRoundedRectangle(r, 13.0f, 5.0f);
-               g.fillRoundedRectangle(0,0,width, 10, 15.0f);
-               g.fillRect(0.0f,8.0f,width, 12.0f);
-               g.fillRoundedRectangle(0,height-5,width, 5, 15.0f);
-               
-               g.setColour(C_MODULE_BG);
-               g.fillRect(2.0f,17.0f,width-4, height - 22);
-                
-               // Title
-               g.setColour(C_MODULE_TITLE);
-               g.drawText(node->title, 5,3,100,20,Justification::topLeft, false);
+       // Title
+       g.setColour(C_MODULE_TITLE);
+       g.drawText(node->title, 5,3,100,20,Justification::topLeft, false);
     }
     
     void setDials() override{
@@ -68,7 +68,7 @@ public:
         std::cout << node->name << std::endl;
         for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
               Node *n = *it;
-             if(node->name.compare("poti")==1){
+             if(n->name.compare("poti")==0){
                Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);
                wc->node = n;
                addAndMakeVisible(wc);
@@ -82,6 +82,7 @@ public:
                widgets.push_back(wc);
             }
         }
+        setDials();
     }
     
     void sliderValueChanged(Slider *  slider) override {

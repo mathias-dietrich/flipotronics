@@ -27,6 +27,18 @@ class Loader{
         preset.author = "Flipotronics";
         preset.desc = "Inital Preset";
         
+        preset.inputModule = mInput;
+        preset.osc0Module = mOSCAnalog0;
+        preset.osc1Module = mOSCAnalog1;
+        preset.filter0Module = mFilter0;
+        preset.filter1Module = mFilter1;
+        preset.adsr0Module  = mAdsr0;
+        preset.adsr1Module = mAdsr1;
+        preset.adsr2Module  = mAdsr2;
+        preset.lfo0Module  = mLFO0;
+        preset.lfo1Module   = mLFO1;
+        preset.lfo2Module  = mLFO2;
+        
 
         preset.params[mMacro][16].valF = 440.0f;
 

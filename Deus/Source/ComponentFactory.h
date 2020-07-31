@@ -30,6 +30,7 @@
 #include "SetupComponent.h"
 #include "DebugComponent.h"
 #include "PerformComponent.h"
+#include "LfoComponent.h"
 
 class DeusAudioProcessor;
 
@@ -108,6 +109,30 @@ public:
 
         if(type == "mod"){
             auto *c = new ModComponent();
+            c->factory = this;
+            return c;
+        }
+        if(type == "lfo0"){
+           auto *c = new LfoComponent();
+           c->offset = 0;
+           c->factory = this;
+           return c;
+         }
+        if(type == "lfo1"){
+            auto *c = new LfoComponent();
+            c->offset = 1;
+            c->factory = this;
+            return c;
+        }
+        if(type == "lfo2"){
+            auto *c = new LfoComponent();
+            c->offset = 2;
+            c->factory = this;
+            return c;
+        }
+        if(type == "lfo3"){
+            auto *c = new LfoComponent();
+            c->offset = 3;
             c->factory = this;
             return c;
         }

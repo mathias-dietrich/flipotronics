@@ -16,6 +16,7 @@
 #include "AnalogOsc1.h"
 #include "BlankModule.h"
 #include "Filter0.h"
+#include "Lfo0.h"
 
 class ModuleFactory{
     protected:
@@ -23,8 +24,12 @@ class ModuleFactory{
        ModuleFactory() {
            modules_map[mOSCAnalog0] = new AnalogOsc0();
            modules_map[mOSCAnalog1] = new AnalogOsc1();
+           
            modules_map[mFilter0] = new Filter0();
            modules_map[mFilter1] = new Filter0();
+           
+           modules_map[mLFO0] = new Lfo0();
+           
            modules_map[mBlank] = new BlankModule();
        }
     

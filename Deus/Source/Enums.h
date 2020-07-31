@@ -24,14 +24,15 @@ enum E_Module {
     mLFO0=11,
     mLFO1=12,
     mLFO2=13,
-    mAmp=14,
-    mInput=15,
-    mLFX0=16,
-    mLFX1=17,
-    mLFX2=18,
-    mLFX3=19,
-    mMacro=20,
-    mBlank=21,
+    mLFO3=14,
+    mAmp=15,
+    mInput=16,
+    mLFX0=17,
+    mLFX1=18,
+    mLFX2=19,
+    mLFX3=20,
+    mMacro=21,
+    mBlank=22,
     mMODULECOUNT
 };
 

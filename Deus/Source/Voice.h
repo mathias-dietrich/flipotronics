@@ -77,10 +77,15 @@ public:
         filter0Module = ModuleFactory::of()->get(preset.filter0Module);
         filter1Module = ModuleFactory::of()->get(preset.filter1Module);
         
+        lfo0Module = ModuleFactory::of()->get(preset.lfo0Module);
+        
         osc0Module->init(sampleRate,samplesPerBlock );
         osc1Module->init(sampleRate,samplesPerBlock );
+        
         filter0Module->init(sampleRate,samplesPerBlock );
         filter1Module->init(sampleRate,samplesPerBlock );
+        
+        lfo0Module->init(sampleRate,samplesPerBlock );
         
         for(int i=0;i< osc0Module->getParamCount();++i){
             osc0Module->set(i,preset.params[mOSCAnalog0][i].valF);
@@ -97,6 +102,10 @@ public:
         }
         for(int i=0;i< filter1Module->getParamCount();++i){
              filter1Module->set(i,preset.params[mFilter1][i].valF);
+        }
+        
+        for(int i=0;i< filter1Module->getParamCount();++i){
+             lfo0Module->set(i,preset.params[mLFO0][i].valF);
         }
     }
     
@@ -136,7 +145,7 @@ public:
                 
                 break;
             case mLFO0:
-                
+                lfo0Module->set(pid, val);
                 break;
             case mLFO1:
                 
@@ -199,6 +208,13 @@ public:
             vRight = filter0Module->getNextR    (vRight, true);
             
             float  mix = vLeft + vRight;
+            
+            // test LFO
+            float lfo = lfo0Module->getNextL(0, true);
+            if(lfo<0){
+                lfo *= -1.0f;
+            }
+            mix*=(1.0 - lfo);
             channelDataL[sample] += mix;
             channelDataR[sample] += mix;
        }
