@@ -18,15 +18,27 @@
 
 class AnalogOsc0 : public IModule{
 public:
-       
+    
+    AnalogOsc0(){
+        delete polyBLEP;
+    }
+    
     void init (int sampleRate, int samplesPerBlock) override{
         this->sampleRate = sampleRate;
         this->sr = sampleRate * OVERSAMPLING;
         this->samplesPerBlock = samplesPerBlock;
-
-        // Test
-        m_deltaTime = 1.0 / ((double )sampleRate);
-        m_phase = 0;
+        
+        oscWhite.setSampleRate(sampleRate);
+        oscWhite.m_uWaveform = COscillator::NOISE;
+        oscWhite.reset();
+        oscWhite.startOscillator();
+        
+        oscPink.setSampleRate(sampleRate);
+        oscPink.reset();
+        oscPink.m_uWaveform = COscillator::PNOISE;
+        oscPink.startOscillator();
+        
+        polyBLEP = new PolyBLEP(sampleRate, PolyBLEP::SINE,  440.0);
     }
     
     ParamSet getSet() override{
@@ -50,7 +62,7 @@ public:
                 volume = p;
              break;
             case 4:
-                wave = p;
+                wave = (E_WaveType)p;
             break;
         }
     }
@@ -69,38 +81,105 @@ public:
     
     void noteOn(int channel, int note) override{
         this->note = note;
-        m_frequency = MidiToFreq(note, tuning);
+        float m_frequency = MidiToFreq(note, tuning);
+        modFreq = 1.0;
+        modVol = 1.0;
+        
+        polyBLEP->setFrequency(m_frequency);
+        PolyBLEP::Waveform wf = mapWaveEnum(wave);
+        polyBLEP->setWaveform(wf);
+        polyBLEP->setPulseWidth(pulsewidth / 100.0f);
+    }
+    
+    float getSample(E_WaveType wt){
+        switch(wt){
+            case wSin:
+                return modVol * polyBLEP->get();
+                
+            case wSaw:
+                return modVol * polyBLEP->get();
+                
+            case wTriangle:
+                return modVol * polyBLEP->get();
+                
+            case wSquare:
+                return modVol * polyBLEP->get();
+                
+            case wShark:
+                 break;
+                
+            case wWhite:
+                return modVol * oscWhite.doOscillate();
+
+            case wPink:
+                return modVol * oscPink.doOscillate();;
+                
+            case wBrown:
+                 break;
+                
+            case wTable:
+                 break;
+        }
+        return 0;
+    }
+    
+    PolyBLEP::Waveform mapWaveEnum(E_WaveType type){
+        switch(type){
+            case wSin:
+                return PolyBLEP::COSINE;
+                
+            case wSaw:
+                return PolyBLEP::SAWTOOTH;
+                
+            case wTriangle:
+                return PolyBLEP::MODIFIED_TRIANGLE;
+                
+            case wSquare:
+                return PolyBLEP::MODIFIED_SQUARE;
+                
+            case wShark:
+                return PolyBLEP::MODIFIED_SQUARE;
+                
+            case wWhite:
+                return PolyBLEP::SAWTOOTH;
+                
+            case wPink:
+                return PolyBLEP::SAWTOOTH;
+                
+            case wBrown:
+                return PolyBLEP::SAWTOOTH;
+                
+            case wTable:
+                return PolyBLEP::SAWTOOTH;
+        }
+        return PolyBLEP::COSINE;
     }
     
     void noteOff(int channel, int note)override{
         
     }
     
-    float getNextL(float input, bool move)override{
-        if(move){
-            int fNote =  note + octave * 12 + semitone;
-            m_frequency =  MidiToFreq(fNote, tuning);
-            float fineTune = 1.0 + finetuning / 100.0f;
-            m_frequency *= fineTune;
-            m_frequency *= pitchMod;
-            float vol = DecibelToLinear(volume);
-            val =  vol * sin(2.0f * double_Pi * m_frequency * m_time + m_phase);
-            m_time += m_deltaTime;
-        }
+    float getNextL(float input, bool move) override{
+        float val =  getSample(wave);
+        
+        int midiNoteCalculated = note +  semitone + 12 * octave;
+        
+        // Freq
+        float freq =  MidiToFreq(midiNoteCalculated, tuning);
+
+        // fine Tune
+        freq = freq + freq *  finetuning * 0.01f;
+
+        polyBLEP->setFrequency(freq);
+        float pulseWidth = pulsewidth / 100.0f;
+        polyBLEP->setPulseWidth(pulseWidth);
+        polyBLEP->inc();
+        
         return val;
     }
+    
     float getNextR(float input, bool move)override{
-        if(move){
-            int fNote =  note + octave * 12 + semitone;
-            m_frequency =  MidiToFreq(fNote, tuning);
-            float fineTune = 1.0 + finetuning / 100.0f;
-            m_frequency *= fineTune;
-            m_frequency *= pitchMod;
-            float vol = DecibelToLinear(volume);
-            val =  vol * sin(2.0f * double_Pi * m_frequency * m_time + m_phase);
-            m_time += m_deltaTime;
-        }
-        return val;
+        return 0;
     }
     
    float pitchMod = 1.0f;
@@ -112,19 +191,22 @@ private:
     atomic<int> semitone;
     atomic<float> finetuning;
     atomic<float> volume;
-    atomic<int> wave;
+    atomic<E_WaveType> wave;
+    atomic<float> pulsewidth;
+    
+    atomic<float> modFreq;
+    atomic<float> modVol;
     
     int note;
     float val;
     
-    float m_phase;
-    float m_deltaTime;
-    float m_frequency = 440;
-    float m_time = 0.0;
-    
     int sampleRate;
     int sr;
     int samplesPerBlock;
+    
+    PolyBLEP * polyBLEP;
+    CQBLimitedOscillator oscWhite;
+    CQBLimitedOscillator oscPink;
 };
 
 #endif /* AnalogOsc0_h */

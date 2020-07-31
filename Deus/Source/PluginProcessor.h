@@ -64,18 +64,18 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     void handleNoteOn (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity)  {
-        core->startVoice( midiChannel,  midiNoteNumber,  velocity,0);
+        core.startVoice( midiChannel,  midiNoteNumber,  velocity,0);
     }
         
     void handleNoteOff (MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity)  {
-        core->endVoice( midiChannel,  midiNoteNumber);
+        core.endVoice( midiChannel,  midiNoteNumber);
     }
 
     void panic(){
-       core->killAllVoice();
+        core.killAllVoice();
     }
     
-    Core * core;
+    Core core;
 
 private:
     //==============================================================================

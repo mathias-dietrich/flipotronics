@@ -228,10 +228,10 @@ public:
             osc1Module.pitchMod = oscPitch;
             
             float vLeft = osc0Module.getNextL(0, true);
-            float vRight = osc0Module.getNextR(0, false);
+            vLeft += osc1Module.getNextL(0, true);
             
-            vLeft += osc1Module.getNextR(0, true);
-            vRight+= osc1Module.getNextR(0, false);
+            float vRight = vLeft;
+
             
             float modFilterCutoff =  matrix.targets[d_FILTER0_CUTOFF];
             filter0Module.modCutoff = modFilterCutoff;

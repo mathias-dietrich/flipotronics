@@ -37,7 +37,7 @@ public:
         Preset preset;
 
         // Configure the Processor
-        processor.core->configure(preset);
+        processor.core.configure(preset);
         
     }
     

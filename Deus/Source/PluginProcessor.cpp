@@ -27,7 +27,6 @@ DeusAudioProcessor::DeusAudioProcessor()
 #endif
 {
     instance = this;
-    core = new Core();
     Loader::of()->init();
     Model::of()->init();
     ImageFactory::of().init();
@@ -36,7 +35,6 @@ DeusAudioProcessor::DeusAudioProcessor()
 DeusAudioProcessor::~DeusAudioProcessor()
 {
     ImageFactory::of().close();
-    delete core;
 }
 
 
@@ -96,8 +94,8 @@ void DeusAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     
-    core->init(sampleRate,samplesPerBlock );
-    core->configure(Model::of()->preset);
+    core.init(sampleRate,samplesPerBlock );
+    core.configure(Model::of()->preset);
 }
 
 void DeusAudioProcessor::releaseResources()
@@ -134,7 +132,7 @@ void DeusAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& m
 {
     int totalNumInputChannels  = getTotalNumInputChannels();
     int totalNumOutputChannels = getTotalNumOutputChannels();
-    core->processBlock(buffer, midiMessages, totalNumInputChannels, totalNumOutputChannels);
+    core.processBlock(buffer, midiMessages, totalNumInputChannels, totalNumOutputChannels);
 }
 
 //==============================================================================

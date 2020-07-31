@@ -22,17 +22,10 @@ public:
     
     Core(){
         instance = this;
-        matrix = new Matrix();
-        
-        // Build Modulation Matrix
-        // MatrixSource , MatrixDest , paramMulti, paramAdd, MatrixTransform ,isEnabled=true
-        
-       // matrix.addEntry(matrix.createEntry(s_LFO1, d_OSC1_VOL, P_LFO1_VOL, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR));
-       // matrix.addEntry(matrix.createEntry(s_LFO1, d_FILTER1_CUTOFF, P_LFO1_FILTER, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR));
     }
     
     ~Core(){
-        delete matrix;
+
     }
     
     static Core * of() {
@@ -190,7 +183,6 @@ public:
     }
     
     Voice voices[MAXVOICE] ;
-    Matrix * matrix;
     float maxTimeMsec;
     
 private:
