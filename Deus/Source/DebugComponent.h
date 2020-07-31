@@ -36,10 +36,7 @@ public:
     }
     
     void paint (Graphics& g) override {
-
          Rectangle<int> r = getLocalBounds();
-        
-         auto defaultColour = Colours::black;
          g.fillAll (C_WHITE);
         
          // Debug speed of render

@@ -43,6 +43,42 @@
 		40930F5124D17B0900DDE286 /* ModuleFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */; };
 		40930F5224D17B0900DDE286 /* ModuleFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */; };
 		40930F5324D17B0900DDE286 /* ModuleFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */; };
+		40F6CB2B24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1624D449AF00C3E9FB /* MoogLadderFilter.cpp */; };
+		40F6CB2C24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1624D449AF00C3E9FB /* MoogLadderFilter.cpp */; };
+		40F6CB2D24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1624D449AF00C3E9FB /* MoogLadderFilter.cpp */; };
+		40F6CB2E24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1624D449AF00C3E9FB /* MoogLadderFilter.cpp */; };
+		40F6CB2F24D449AF00C3E9FB /* QBLimitedOscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1724D449AF00C3E9FB /* QBLimitedOscillator.cpp */; };
+		40F6CB3024D449AF00C3E9FB /* QBLimitedOscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1724D449AF00C3E9FB /* QBLimitedOscillator.cpp */; };
+		40F6CB3124D449AF00C3E9FB /* QBLimitedOscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1724D449AF00C3E9FB /* QBLimitedOscillator.cpp */; };
+		40F6CB3224D449AF00C3E9FB /* QBLimitedOscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1724D449AF00C3E9FB /* QBLimitedOscillator.cpp */; };
+		40F6CB3324D449AF00C3E9FB /* ModulationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1C24D449AF00C3E9FB /* ModulationMatrix.cpp */; };
+		40F6CB3424D449AF00C3E9FB /* ModulationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1C24D449AF00C3E9FB /* ModulationMatrix.cpp */; };
+		40F6CB3524D449AF00C3E9FB /* ModulationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1C24D449AF00C3E9FB /* ModulationMatrix.cpp */; };
+		40F6CB3624D449AF00C3E9FB /* ModulationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1C24D449AF00C3E9FB /* ModulationMatrix.cpp */; };
+		40F6CB3724D449AF00C3E9FB /* pluginobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1F24D449AF00C3E9FB /* pluginobjects.cpp */; };
+		40F6CB3824D449AF00C3E9FB /* pluginobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1F24D449AF00C3E9FB /* pluginobjects.cpp */; };
+		40F6CB3924D449AF00C3E9FB /* pluginobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1F24D449AF00C3E9FB /* pluginobjects.cpp */; };
+		40F6CB3A24D449AF00C3E9FB /* pluginobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1F24D449AF00C3E9FB /* pluginobjects.cpp */; };
+		40F6CB3B24D449AF00C3E9FB /* VAOnePoleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2024D449AF00C3E9FB /* VAOnePoleFilter.cpp */; };
+		40F6CB3C24D449AF00C3E9FB /* VAOnePoleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2024D449AF00C3E9FB /* VAOnePoleFilter.cpp */; };
+		40F6CB3D24D449AF00C3E9FB /* VAOnePoleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2024D449AF00C3E9FB /* VAOnePoleFilter.cpp */; };
+		40F6CB3E24D449AF00C3E9FB /* VAOnePoleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2024D449AF00C3E9FB /* VAOnePoleFilter.cpp */; };
+		40F6CB3F24D449AF00C3E9FB /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2124D449AF00C3E9FB /* Filter.cpp */; };
+		40F6CB4024D449AF00C3E9FB /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2124D449AF00C3E9FB /* Filter.cpp */; };
+		40F6CB4124D449AF00C3E9FB /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2124D449AF00C3E9FB /* Filter.cpp */; };
+		40F6CB4224D449AF00C3E9FB /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2124D449AF00C3E9FB /* Filter.cpp */; };
+		40F6CB4324D449AF00C3E9FB /* PolyBLEP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2824D449AF00C3E9FB /* PolyBLEP.cpp */; };
+		40F6CB4424D449AF00C3E9FB /* PolyBLEP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2824D449AF00C3E9FB /* PolyBLEP.cpp */; };
+		40F6CB4524D449AF00C3E9FB /* PolyBLEP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2824D449AF00C3E9FB /* PolyBLEP.cpp */; };
+		40F6CB4624D449AF00C3E9FB /* PolyBLEP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2824D449AF00C3E9FB /* PolyBLEP.cpp */; };
+		40F6CB4724D449AF00C3E9FB /* SEMFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2924D449AF00C3E9FB /* SEMFilter.cpp */; };
+		40F6CB4824D449AF00C3E9FB /* SEMFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2924D449AF00C3E9FB /* SEMFilter.cpp */; };
+		40F6CB4924D449AF00C3E9FB /* SEMFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2924D449AF00C3E9FB /* SEMFilter.cpp */; };
+		40F6CB4A24D449AF00C3E9FB /* SEMFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2924D449AF00C3E9FB /* SEMFilter.cpp */; };
+		40F6CB4B24D449AF00C3E9FB /* Oscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2A24D449AF00C3E9FB /* Oscillator.cpp */; };
+		40F6CB4C24D449AF00C3E9FB /* Oscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2A24D449AF00C3E9FB /* Oscillator.cpp */; };
+		40F6CB4D24D449AF00C3E9FB /* Oscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2A24D449AF00C3E9FB /* Oscillator.cpp */; };
+		40F6CB4E24D449AF00C3E9FB /* Oscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB2A24D449AF00C3E9FB /* Oscillator.cpp */; };
 		43D326F3BFE64F0C00592429 /* include_juce_opengl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD1A975FF072C0BD8BC8BE /* include_juce_opengl.mm */; };
 		44DD253C77A0BC4CF84AF86A /* include_juce_cryptography.mm in Sources */ = {isa = PBXBuildFile; fileRef = C1197E003D5840118167ED44 /* include_juce_cryptography.mm */; };
 		4ECE84D9FEE0E314590CAAE1 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1D41C0CADA50190E5B72E9 /* CoreAudio.framework */; };
@@ -176,6 +212,30 @@
 		40F6CB0F24D3F79800C3E9FB /* LfoComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LfoComponent.h; path = ../../Source/LfoComponent.h; sourceTree = "<group>"; };
 		40F6CB1024D4013E00C3E9FB /* Lfo0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lfo0.h; path = ../../Source/Lfo0.h; sourceTree = "<group>"; };
 		40F6CB1324D41B7E00C3E9FB /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix.h; path = ../../Source/Matrix.h; sourceTree = "<group>"; };
+		40F6CB1424D440B100C3E9FB /* Filter1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Filter1.h; path = ../../Source/Filter1.h; sourceTree = "<group>"; };
+		40F6CB1624D449AF00C3E9FB /* MoogLadderFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoogLadderFilter.cpp; sourceTree = "<group>"; };
+		40F6CB1724D449AF00C3E9FB /* QBLimitedOscillator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QBLimitedOscillator.cpp; sourceTree = "<group>"; };
+		40F6CB1824D449AF00C3E9FB /* PolyBLEPStk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyBLEPStk.h; sourceTree = "<group>"; };
+		40F6CB1924D449AF00C3E9FB /* SEMFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEMFilter.h; sourceTree = "<group>"; };
+		40F6CB1A24D449AF00C3E9FB /* VAOnePoleFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAOnePoleFilter.h; sourceTree = "<group>"; };
+		40F6CB1B24D449AF00C3E9FB /* lookuptables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lookuptables.h; sourceTree = "<group>"; };
+		40F6CB1C24D449AF00C3E9FB /* ModulationMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModulationMatrix.cpp; sourceTree = "<group>"; };
+		40F6CB1D24D449AF00C3E9FB /* QBLimitedOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBLimitedOscillator.h; sourceTree = "<group>"; };
+		40F6CB1E24D449AF00C3E9FB /* Oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Oscillator.h; sourceTree = "<group>"; };
+		40F6CB1F24D449AF00C3E9FB /* pluginobjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pluginobjects.cpp; sourceTree = "<group>"; };
+		40F6CB2024D449AF00C3E9FB /* VAOnePoleFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VAOnePoleFilter.cpp; sourceTree = "<group>"; };
+		40F6CB2124D449AF00C3E9FB /* Filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Filter.cpp; sourceTree = "<group>"; };
+		40F6CB2224D449AF00C3E9FB /* pluginconstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pluginconstants.h; sourceTree = "<group>"; };
+		40F6CB2324D449AF00C3E9FB /* synthfunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synthfunctions.h; sourceTree = "<group>"; };
+		40F6CB2424D449AF00C3E9FB /* PolyBLEP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyBLEP.h; sourceTree = "<group>"; };
+		40F6CB2524D449AF00C3E9FB /* MoogLadderFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogLadderFilter.h; sourceTree = "<group>"; };
+		40F6CB2624D449AF00C3E9FB /* ModulationMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModulationMatrix.h; sourceTree = "<group>"; };
+		40F6CB2724D449AF00C3E9FB /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		40F6CB2824D449AF00C3E9FB /* PolyBLEP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolyBLEP.cpp; sourceTree = "<group>"; };
+		40F6CB2924D449AF00C3E9FB /* SEMFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SEMFilter.cpp; sourceTree = "<group>"; };
+		40F6CB2A24D449AF00C3E9FB /* Oscillator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Oscillator.cpp; sourceTree = "<group>"; };
+		40F6CB5024D44B1100C3E9FB /* MultiModeLadderFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiModeLadderFilter.h; path = ../../Source/MultiModeLadderFilter.h; sourceTree = "<group>"; };
+		40F6CB5124D44B3C00C3E9FB /* Lowpass1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lowpass1.h; path = ../../Source/Lowpass1.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -415,6 +475,35 @@
 			name = Mod;
 			sourceTree = "<group>";
 		};
+		40F6CB1524D449AF00C3E9FB /* FilterExtern */ = {
+			isa = PBXGroup;
+			children = (
+				40F6CB1624D449AF00C3E9FB /* MoogLadderFilter.cpp */,
+				40F6CB1724D449AF00C3E9FB /* QBLimitedOscillator.cpp */,
+				40F6CB1824D449AF00C3E9FB /* PolyBLEPStk.h */,
+				40F6CB1924D449AF00C3E9FB /* SEMFilter.h */,
+				40F6CB1A24D449AF00C3E9FB /* VAOnePoleFilter.h */,
+				40F6CB1B24D449AF00C3E9FB /* lookuptables.h */,
+				40F6CB1C24D449AF00C3E9FB /* ModulationMatrix.cpp */,
+				40F6CB1D24D449AF00C3E9FB /* QBLimitedOscillator.h */,
+				40F6CB1E24D449AF00C3E9FB /* Oscillator.h */,
+				40F6CB1F24D449AF00C3E9FB /* pluginobjects.cpp */,
+				40F6CB2024D449AF00C3E9FB /* VAOnePoleFilter.cpp */,
+				40F6CB2124D449AF00C3E9FB /* Filter.cpp */,
+				40F6CB2224D449AF00C3E9FB /* pluginconstants.h */,
+				40F6CB2324D449AF00C3E9FB /* synthfunctions.h */,
+				40F6CB2424D449AF00C3E9FB /* PolyBLEP.h */,
+				40F6CB2524D449AF00C3E9FB /* MoogLadderFilter.h */,
+				40F6CB2624D449AF00C3E9FB /* ModulationMatrix.h */,
+				40F6CB2724D449AF00C3E9FB /* Filter.h */,
+				40F6CB2824D449AF00C3E9FB /* PolyBLEP.cpp */,
+				40F6CB2924D449AF00C3E9FB /* SEMFilter.cpp */,
+				40F6CB2A24D449AF00C3E9FB /* Oscillator.cpp */,
+			);
+			name = FilterExtern;
+			path = ../../Source/FilterExtern;
+			sourceTree = "<group>";
+		};
 		468AD278CB494C1BB3BFEDFC /* JUCE Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +592,7 @@
 		4FA5749124BEFD7800A1E759 /* Synth */ = {
 			isa = PBXGroup;
 			children = (
+				40F6CB1524D449AF00C3E9FB /* FilterExtern */,
 				409F0A3A24CC78530037A342 /* Mod */,
 				4FE513F424C19C6800E2B6F1 /* Amp */,
 				4FE513F124C1980500E2B6F1 /* Input */,
@@ -566,9 +656,12 @@
 		4FA5749724BEFDF100A1E759 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
+				40F6CB5024D44B1100C3E9FB /* MultiModeLadderFilter.h */,
 				4FE513F324C19B2200E2B6F1 /* FilterComponent0.h */,
 				40930F5724D2D96500DDE286 /* FilterComponent1.h */,
 				40930F5824D2D9F500DDE286 /* Filter0.h */,
+				40F6CB1424D440B100C3E9FB /* Filter1.h */,
+				40F6CB5124D44B3C00C3E9FB /* Lowpass1.h */,
 			);
 			name = Filter;
 			sourceTree = "<group>";
@@ -1009,10 +1102,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B4EBAB70481F4B0A93B2857 /* include_juce_audio_plugin_client_Standalone.cpp in Sources */,
+				40F6CB2D24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */,
 				40930F5224D17B0900DDE286 /* ModuleFactory.cpp in Sources */,
+				40F6CB4124D449AF00C3E9FB /* Filter.cpp in Sources */,
+				40F6CB4524D449AF00C3E9FB /* PolyBLEP.cpp in Sources */,
+				40F6CB4D24D449AF00C3E9FB /* Oscillator.cpp in Sources */,
 				4FA574AE24BF082600A1E759 /* Model.cpp in Sources */,
 				4F31986C24C08F3A007D694F /* WidgetFactory.cpp in Sources */,
 				4FA574B824BF0CF500A1E759 /* FontLoader.cpp in Sources */,
+				40F6CB3924D449AF00C3E9FB /* pluginobjects.cpp in Sources */,
+				40F6CB3D24D449AF00C3E9FB /* VAOnePoleFilter.cpp in Sources */,
+				40F6CB3524D449AF00C3E9FB /* ModulationMatrix.cpp in Sources */,
+				40F6CB3124D449AF00C3E9FB /* QBLimitedOscillator.cpp in Sources */,
+				40F6CB4924D449AF00C3E9FB /* SEMFilter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,10 +1123,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				063E8F44B8EC480EBD51C860 /* include_juce_audio_plugin_client_VST3.cpp in Sources */,
+				40F6CB2B24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */,
 				40930F5024D17B0900DDE286 /* ModuleFactory.cpp in Sources */,
+				40F6CB3F24D449AF00C3E9FB /* Filter.cpp in Sources */,
+				40F6CB4324D449AF00C3E9FB /* PolyBLEP.cpp in Sources */,
+				40F6CB4B24D449AF00C3E9FB /* Oscillator.cpp in Sources */,
 				4FA574AC24BF082600A1E759 /* Model.cpp in Sources */,
 				4F31986A24C08F3A007D694F /* WidgetFactory.cpp in Sources */,
 				4FA574B624BF0CF500A1E759 /* FontLoader.cpp in Sources */,
+				40F6CB3724D449AF00C3E9FB /* pluginobjects.cpp in Sources */,
+				40F6CB3B24D449AF00C3E9FB /* VAOnePoleFilter.cpp in Sources */,
+				40F6CB3324D449AF00C3E9FB /* ModulationMatrix.cpp in Sources */,
+				40F6CB2F24D449AF00C3E9FB /* QBLimitedOscillator.cpp in Sources */,
+				40F6CB4724D449AF00C3E9FB /* SEMFilter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1041,17 +1152,26 @@
 				D4E7E1CB997490A684C337CF /* include_juce_audio_formats.mm in Sources */,
 				3BB85731411DF4A945A9E8E0 /* include_juce_audio_plugin_client_utils.cpp in Sources */,
 				030DFD52AC8C390C8B9B9865 /* include_juce_audio_plugin_client_VST_utils.mm in Sources */,
+				40F6CB4A24D449AF00C3E9FB /* SEMFilter.cpp in Sources */,
 				4FA574AF24BF082600A1E759 /* Model.cpp in Sources */,
 				40930F4B24D16B9E00DDE286 /* Core.cpp in Sources */,
+				40F6CB3E24D449AF00C3E9FB /* VAOnePoleFilter.cpp in Sources */,
 				0D2EDA37DF7DA25B7173DD77 /* include_juce_audio_processors.mm in Sources */,
+				40F6CB4624D449AF00C3E9FB /* PolyBLEP.cpp in Sources */,
+				40F6CB3624D449AF00C3E9FB /* ModulationMatrix.cpp in Sources */,
 				0BA79B260B4B4ACA1968A6A8 /* include_juce_audio_utils.mm in Sources */,
 				066EC47EA7CEB06ABD6FC536 /* include_juce_core.mm in Sources */,
 				44DD253C77A0BC4CF84AF86A /* include_juce_cryptography.mm in Sources */,
 				559E19CA1BEF4740389C9BF1 /* include_juce_data_structures.mm in Sources */,
 				38AA7D35AA483E7D6FDF23E9 /* include_juce_dsp.mm in Sources */,
+				40F6CB3224D449AF00C3E9FB /* QBLimitedOscillator.cpp in Sources */,
+				40F6CB3A24D449AF00C3E9FB /* pluginobjects.cpp in Sources */,
 				F23FA5D13C4ECAA2C9D19AD6 /* include_juce_events.mm in Sources */,
 				4F31986D24C08F3A007D694F /* WidgetFactory.cpp in Sources */,
 				95E758713E8ECE7C8690B5DC /* include_juce_graphics.mm in Sources */,
+				40F6CB4E24D449AF00C3E9FB /* Oscillator.cpp in Sources */,
+				40F6CB2E24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */,
+				40F6CB4224D449AF00C3E9FB /* Filter.cpp in Sources */,
 				AE04C7A5CC72BA665FA5BED5 /* include_juce_gui_basics.mm in Sources */,
 				C1917CC109388E2441FCEDFD /* include_juce_gui_extra.mm in Sources */,
 				43D326F3BFE64F0C00592429 /* include_juce_opengl.mm in Sources */,
@@ -1064,11 +1184,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F31986B24C08F3A007D694F /* WidgetFactory.cpp in Sources */,
+				40F6CB4024D449AF00C3E9FB /* Filter.cpp in Sources */,
+				40F6CB3824D449AF00C3E9FB /* pluginobjects.cpp in Sources */,
+				40F6CB4824D449AF00C3E9FB /* SEMFilter.cpp in Sources */,
 				40930F5124D17B0900DDE286 /* ModuleFactory.cpp in Sources */,
 				4FA574AD24BF082600A1E759 /* Model.cpp in Sources */,
+				40F6CB3424D449AF00C3E9FB /* ModulationMatrix.cpp in Sources */,
 				4FA574B724BF0CF500A1E759 /* FontLoader.cpp in Sources */,
 				F741C035D972DB2116723028 /* include_juce_audio_plugin_client_AU_1.mm in Sources */,
+				40F6CB3C24D449AF00C3E9FB /* VAOnePoleFilter.cpp in Sources */,
+				40F6CB4424D449AF00C3E9FB /* PolyBLEP.cpp in Sources */,
+				40F6CB4C24D449AF00C3E9FB /* Oscillator.cpp in Sources */,
+				40F6CB2C24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */,
 				EE998DBBAE6AC25E5E974F96 /* include_juce_audio_plugin_client_AU_2.mm in Sources */,
+				40F6CB3024D449AF00C3E9FB /* QBLimitedOscillator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

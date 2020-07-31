@@ -15,21 +15,27 @@
 #include "ModuleFactory.h"
 #include "Matrix.h"
 
+#include "Filter0.h"
+#include "Filter1.h"
+
+#include "Lfo0.h"
 class Core;
 
 class Voice{
 public:
     
     IModule * inputModule;
-    IModule * osc0Module;
-    IModule * osc1Module;
-    IModule * filter0Module;
-    IModule * filter1Module;
+    AnalogOsc0 osc0Module;
+    AnalogOsc1 osc1Module;
+    Filter0 filter0Module;
+    Filter1 filter1Module;
+    
     IModule * outpuModule;
     IModule * adsr0Module;
     IModule * adsr1Module;
     IModule * adsr2Module;
-    IModule * lfo0Module;
+    
+    Lfo0 lfo0Module;
     IModule * lfo1Module;
     IModule * lfo2Module;
     
@@ -52,8 +58,10 @@ public:
         midiChannel = channel;
         noteNumber = note;
         active = true;
-        osc0Module->noteOn(channel, note);
-        osc1Module->noteOn(channel, note);
+        osc0Module.noteOn(channel, note);
+        osc1Module.noteOn(channel, note);
+        filter0Module.noteOn(channel, note);
+        filter1Module.noteOn(channel, note);
     }
     
     void noteRetrigger(){
@@ -61,8 +69,10 @@ public:
     }
     
     void noteOff(){
-        osc0Module->noteOff(midiChannel, noteNumber);
-        osc1Module->noteOff(midiChannel, noteNumber);
+        osc0Module.noteOff(midiChannel, noteNumber);
+        osc1Module.noteOff(midiChannel, noteNumber);
+        filter0Module.noteOff(midiChannel, noteNumber);
+        filter1Module.noteOff(midiChannel, noteNumber);
         active = false;
     }
     
@@ -72,53 +82,50 @@ public:
     
     void configure(Preset preset){
         this->preset = preset;
+
+        osc0Module.init(sampleRate,samplesPerBlock );
+        osc1Module.init(sampleRate,samplesPerBlock );
         
-        // TODO Build all
-        osc0Module = ModuleFactory::of()->get(preset.osc0Module);
-        osc1Module = ModuleFactory::of()->get(preset.osc1Module);
+        filter0Module.init(sampleRate,samplesPerBlock );
+        filter1Module.init(sampleRate,samplesPerBlock );
         
-        filter0Module = ModuleFactory::of()->get(preset.filter0Module);
-        filter1Module = ModuleFactory::of()->get(preset.filter1Module);
+        lfo0Module.init(sampleRate,samplesPerBlock );
         
-        lfo0Module = ModuleFactory::of()->get(preset.lfo0Module);
-        
-        osc0Module->init(sampleRate,samplesPerBlock );
-        osc1Module->init(sampleRate,samplesPerBlock );
-        
-        filter0Module->init(sampleRate,samplesPerBlock );
-        filter1Module->init(sampleRate,samplesPerBlock );
-        
-        lfo0Module->init(sampleRate,samplesPerBlock );
-        
-        for(int i=0;i< osc0Module->getParamCount();++i){
-            osc0Module->set(i,preset.params[mOSCAnalog0][i].valF);
+        for(int i=0;i< osc0Module.getParamCount();++i){
+            osc0Module.set(i,preset.params[mOSCAnalog0][i].valF);
         }
-        osc0Module->setTuning(preset.tuning);
+        osc0Module.setTuning(preset.tuning);
         
-        for(int i=0;i< osc1Module->getParamCount();++i){
-            osc1Module->set(i,preset.params[mOSCAnalog1][i].valF);
+        for(int i=0;i< osc1Module.getParamCount();++i){
+            osc1Module.set(i,preset.params[mOSCAnalog1][i].valF);
         }
-        osc1Module->setTuning(preset.tuning);
+        osc1Module.setTuning(preset.tuning);
         
-        for(int i=0;i< filter0Module->getParamCount();++i){
-            filter0Module->set(i,preset.params[mFilter0][i].valF);
+        for(int i=0;i< filter0Module.getParamCount();++i){
+            filter0Module.set(i,preset.params[mFilter0][i].valF);
         }
-        for(int i=0;i< filter1Module->getParamCount();++i){
-             filter1Module->set(i,preset.params[mFilter1][i].valF);
+        for(int i=0;i< filter1Module.getParamCount();++i){
+            filter1Module.set(i,preset.params[mFilter1][i].valF);
         }
         
-        for(int i=0;i< filter1Module->getParamCount();++i){
-             lfo0Module->set(i,preset.params[mLFO0][i].valF);
+        for(int i=0;i< filter1Module.getParamCount();++i){
+            lfo0Module.set(i,preset.params[mLFO0][i].valF);
         }
+        
+        // Configure Matrix
+        matrix.clear();
+        matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_VOL, mLFO0, 2, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_PITCH, mLFO0, 3, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        matrix.addEntry(matrix.createEntry(s_LFO0, d_FILTER0_CUTOFF, mLFO0, 4, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
     }
     
     void update(E_Module module, int pid, float val){
         switch(module){
             case mOSCAnalog0:
-                osc0Module->set(pid, val);
+                osc0Module.set(pid, val);
                 break;
             case mOSCAnalog1:
-                osc1Module->set(pid, val);
+                osc1Module.set(pid, val);
                 break;
             case mOSCWave0:
                 
@@ -132,12 +139,15 @@ public:
             case mOSCSample1:
                 
                 break;
+                
             case mFilter0:
-                 filter0Module->set(pid, val);
+                filter0Module.set(pid, val);
                 break;
+                
             case mFilter1:
-                filter1Module->set(pid, val);
+                filter1Module.set(pid, val);
                 break;
+                
             case mAdsr0:
                 
                 break;
@@ -148,13 +158,18 @@ public:
                 
                 break;
             case mLFO0:
-                lfo0Module->set(pid, val);
+                lfo0Module.set(pid, val);
                 break;
+                
             case mLFO1:
                 
                 break;
             case mLFO2:
                 
+                break;
+                
+            case mLFO3:
+                    
                 break;
             case mAmp:
                 
@@ -176,8 +191,8 @@ public:
                 break;
             case mMacro:
                 if(pid==16){
-                    osc0Module->setTuning(val);
-                    osc1Module->setTuning(val);
+                    osc0Module.setTuning(val);
+                    osc1Module.setTuning(val);
                 }
                 break;
             case mBlank:
@@ -188,7 +203,7 @@ public:
                 break;
         }
         
-        std::cout << "Voice " << vid << " update " << module << " " << pid << " " << val << std::endl;
+       // std::cout << "Voice " << vid << " update " << module << " " << pid << " " << val << std::endl;
     }
     
     void init (double sampleRate, int samplesPerBlock){
@@ -201,38 +216,49 @@ public:
         auto* channelDataL = buffer.getWritePointer (0);
         auto* channelDataR = buffer.getWritePointer (1);
         for (int sample = 0; sample < samplesPerBlock; ++sample) {
-            float vLeft = osc0Module->getNextL(0, true);
-            float vRight = osc0Module->getNextR(0, false);
             
-            vLeft += osc1Module->getNextR(0, true);
-            vRight+= osc1Module->getNextR(0, false);
+            float oscPitch = 0.5 + matrix.targets[d_OSC0_PITCH];
+            osc0Module.pitchMod = oscPitch;
+            osc1Module.pitchMod = oscPitch;
             
-            vLeft = filter0Module->getNextL(vLeft, true);
-            vRight = filter0Module->getNextR    (vRight, true);
+            float vLeft = osc0Module.getNextL(0, true);
+            float vRight = osc0Module.getNextR(0, false);
+            
+            vLeft += osc1Module.getNextR(0, true);
+            vRight+= osc1Module.getNextR(0, false);
+            
+            float modFilterCutoff =  matrix.targets[d_FILTER0_CUTOFF];
+            filter0Module.modCutoff = modFilterCutoff;
+            vLeft = filter0Module.getNextL(vLeft, true);
+            vRight = filter0Module.getNextR(vRight, true);
             
             float  mix = vLeft + vRight;
             
             // test LFO
-            //float lfo = lfo0Module->getNextL(0, true);
+            //float oscVol = 1.0 - lfo0Module->getNextL(0, true);
             
             // Feed Matrix
-            matrix->sources[s_LFO0] = lfo0Module->getNextL(0, true);
+            matrix.sources[s_LFO0] = lfo0Module.getNextL(0, true);
 
              // Calc Matrix
-            matrix->calc();
+            matrix.calc();
             
-            float oscVol = matrix->targets[d_OSC0_VOL];
+            float oscVol = matrix.targets[d_OSC0_VOL];
+            
             
             if(oscVol<0){
                 oscVol *= -1.0f;
             }
-            mix*=  oscVol;
+            mix *= oscVol;
+            
+            // guards
+        
             channelDataL[sample] += mix;
             channelDataR[sample] += mix;
        }
     }
 
-    Matrix * matrix;
+    Matrix matrix;
 
 
 private:

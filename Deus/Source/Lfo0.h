@@ -40,9 +40,6 @@ public:
             case 1:
                 freq = p;
              break;
-            case 2:
-                volume = p;
-             break;
         }
     }
     
@@ -69,8 +66,7 @@ public:
     
     float getNextL(float input, bool move)override{
         if(move){
-            float vol = DecibelToLinear(volume);
-            val =  vol * sin(2.0f * double_Pi * freq * m_time + m_phase);
+            val =  sin(2.0f * double_Pi * freq * m_time + m_phase);
             m_time += m_deltaTime;
         }
         return val;
@@ -78,8 +74,7 @@ public:
     
     float getNextR(float input, bool move)override{
         if(move){
-           float vol = DecibelToLinear(volume);
-           val =  vol * sin(2.0f * double_Pi * freq * m_time + m_phase);
+           val =  sin(2.0f * double_Pi * freq * m_time + m_phase);
            m_time += m_deltaTime;
        }
        return val;
@@ -90,7 +85,6 @@ private:
     //Live Params
     atomic<int> wave;
     atomic<float> freq;
-    atomic<float> volume;
     
     float m_phase;
     float m_deltaTime;

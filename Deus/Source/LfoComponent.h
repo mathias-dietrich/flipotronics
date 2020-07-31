@@ -149,8 +149,6 @@ public:
     
     int offset;
     
-    
-        
     private:
         std::map<int, Param> params;
     
@@ -168,6 +166,7 @@ public:
                  case 3:
                     return mLFO3;
             }
+            return mLFO0;
         }
 };
 

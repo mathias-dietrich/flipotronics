@@ -1,19 +1,19 @@
 //
-//  Filter0.h
+//  Filter1.h
 //  Deus
 //
-//  Created by Mathias Dietrich on 7/30/20.
+//  Created by Mathias Dietrich on 7/31/20.
 //  Copyright © 2020 Flipotronics. All rights reserved.
 //
 
-#ifndef Filter0_h
-#define Filter0_h
+#ifndef Filter1_h
+#define Filter1_h
 
 #include "IModule.h"
 #include "Model.h"
 #include "MultiModeLadderFilter.h"
 
-class Filter0 : public IModule{
+class Filter1 : public IModule{
 public:
        
     void init (int sampleRate, int samplesPerBlock) override{
@@ -23,7 +23,6 @@ public:
         
         filterL.setSampleRate(sampleRate);
         filterR.setSampleRate(sampleRate);
-        modCutoff = 1.0f;
     }
     
     ParamSet getSet() override{
@@ -41,18 +40,16 @@ public:
             break;
             case 1:
                 resonance = p;
-                filterL.setResonance(resonance / 100.0f);
-                filterR.setResonance(resonance / 100.0f);
-            break;
+                filterL.setResonance(resonance/ 100.0f);
+                filterR.setResonance(resonance/ 100.0f);
+             break;
             case 2:
                 type = p;
                  filterL.setFilterType(type);
                  filterR.setFilterType(type);
-            break;
+             break;
             case 3:
                 drive = DecibelToLinear(p);
-                filterL.setDrive(drive);
-                filterR.setDrive(drive);
              break;
         }
     }
@@ -62,7 +59,7 @@ public:
     }
     
     E_Module getType() override{
-        return mFilter0;
+        return mFilter1;
     }
     
     void reset(){
@@ -71,9 +68,9 @@ public:
     
     void noteOn(int channel, int note) override{
         filterL.reset();
-        filterL.setBoost(true);
-        filterR.reset();
-        filterR.setBoost(true);
+       filterL.setBoost(true);
+       filterR.reset();
+       filterR.setBoost(true);
     }
     
     void noteOff(int channel, int note)override{
@@ -81,18 +78,12 @@ public:
     }
     
     float getNextL(float input, bool move)override{
-        filterL.modCutoff = modCutoff;
-        filterL.setCutoff(cutoff);
-        return filterL.process(input);
+        return filterL.process(input * drive);
     }
     
     float getNextR(float input, bool move)override{
-        filterR.modCutoff = modCutoff;
-        filterL.setCutoff(cutoff);
-        return filterR.process(input);
+        return filterR.process(input * drive);
     }
-    
-    float modCutoff = 1.0f;
     
 private:
     
@@ -112,6 +103,4 @@ private:
     MultiModeLadderFilter filterL;
     MultiModeLadderFilter filterR;
 };
-
-
-#endif /* Filter0_h */
+#endif /* Filter1_h */

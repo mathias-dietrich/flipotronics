@@ -71,12 +71,16 @@ public:
         std::fill(channelDataR, channelDataR + samplesPerBlock, 0);
         
         // Render Voices
-       for(int i=0; i < MAXVOICE;++i){
+        for(int i=0; i < MAXVOICE;++i){
           if(voices[i].active){
               voices[i].render(clock, buffer);
           }
         }
         
+         // Render FX
+        
+        
+        // Move Clock
         clock += samplesPerBlock;
         
         // Measure time taken
@@ -87,7 +91,7 @@ public:
     
     void startVoice(int channel,int note, float velocity, int group){
         int vid = findNewVoice(note, channel);
-        voices[vid].matrix = matrix;
+        //voices[vid].matrix = matrix;
         voices[vid].velocity = velocity;
         if(voices[vid].active){
            voices[vid].noteRetrigger();
@@ -169,10 +173,6 @@ public:
     }
     
     void configure(Preset preset){
-        
-        // Configure Matrix
-        matrix->clear();
-        matrix->addEntry(matrix->createEntry(s_LFO0, d_OSC0_VOL, mLFO0, 2, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
         
         // Configure FX
         

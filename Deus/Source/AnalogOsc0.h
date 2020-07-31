@@ -12,6 +12,10 @@
 #include "IModule.h"
 #include "Model.h"
 
+#include "FilterExtern/Oscillator.h"
+#include "FilterExtern/QBLimitedOscillator.h"
+#include "FilterExtern/PolyBLEP.h"
+
 class AnalogOsc0 : public IModule{
 public:
        
@@ -65,7 +69,7 @@ public:
     
     void noteOn(int channel, int note) override{
         this->note = note;
-        m_frequency = MidiToFreq(note, 440.0);
+        m_frequency = MidiToFreq(note, tuning);
     }
     
     void noteOff(int channel, int note)override{
@@ -78,6 +82,7 @@ public:
             m_frequency =  MidiToFreq(fNote, tuning);
             float fineTune = 1.0 + finetuning / 100.0f;
             m_frequency *= fineTune;
+            m_frequency *= pitchMod;
             float vol = DecibelToLinear(volume);
             val =  vol * sin(2.0f * double_Pi * m_frequency * m_time + m_phase);
             m_time += m_deltaTime;
@@ -86,16 +91,19 @@ public:
     }
     float getNextR(float input, bool move)override{
         if(move){
-               int fNote =  note + octave * 12 + semitone;
-               m_frequency =  MidiToFreq(fNote, tuning);
-               float fineTune = 1.0 + finetuning / 100.0f;
-               m_frequency *= fineTune;
-               float vol = DecibelToLinear(volume);
-               val =  vol * sin(2.0f * double_Pi * m_frequency * m_time + m_phase);
-               m_time += m_deltaTime;
-           }
-           return val;
+            int fNote =  note + octave * 12 + semitone;
+            m_frequency =  MidiToFreq(fNote, tuning);
+            float fineTune = 1.0 + finetuning / 100.0f;
+            m_frequency *= fineTune;
+            m_frequency *= pitchMod;
+            float vol = DecibelToLinear(volume);
+            val =  vol * sin(2.0f * double_Pi * m_frequency * m_time + m_phase);
+            m_time += m_deltaTime;
+        }
+        return val;
     }
+    
+   float pitchMod = 1.0f;
     
 private:
     
