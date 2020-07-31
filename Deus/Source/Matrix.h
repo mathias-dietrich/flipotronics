@@ -8,6 +8,7 @@
 
 #ifndef Matrix_h
 #define Matrix_h
+
 #define  P_FIXTURN 1025
 
 enum MatrixTransform{
@@ -61,14 +62,26 @@ struct MatrixEntry{
     
     bool isUseOneMinus;
     
-    
-    
     // Curve
     float curve;
 };
 
 class Matrix{
 public:
+    
+    Matrix(){
+
+    }
+    
+    int getParamCount(){
+        return 3;
+    }
+    
+    std::map<int,atomic<float>> p;
+    
+    void set(int pid, float val) {
+         p[pid] = val;
+     }
     
     MatrixEntry entries[s_SOURCESCOUNT][d_TARGETSCOUNT];
     
@@ -151,7 +164,7 @@ public:
                        }
                        float multi = 1.0;
                        if(entry.paramMulti > -1){
-                           multi = Model::of()->preset.params[entry.modMulti][entry.paramMulti].valF;
+                           multi = p[entry.paramMulti];
                        }
                        if(entry.paramAdd == P_FIXTURN){
                           t *=  1.0f - input *  multi;
@@ -159,7 +172,7 @@ public:
                        }
                        float add = 0;
                        if(entry.paramAdd > -1){
-                           add = Model::of()->preset.params[entry.modAdd][entry.paramAdd].valF;
+                           add = p[entry.paramAdd];
                        }
                        t *= input * multi;
                        t += add;

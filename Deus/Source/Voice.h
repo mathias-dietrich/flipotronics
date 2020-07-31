@@ -114,13 +114,19 @@ public:
         
         // Configure Matrix
         matrix.clear();
-        matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_VOL, mLFO0, 2, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
-        matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_PITCH, mLFO0, 3, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
-        matrix.addEntry(matrix.createEntry(s_LFO0, d_FILTER0_CUTOFF, mLFO0, 4, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_VOL, mLFO0, 0, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_PITCH, mLFO0, 1, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        matrix.addEntry(matrix.createEntry(s_LFO0, d_FILTER0_CUTOFF, mLFO0, 2, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        
+        for(int i=0;i< matrix.getParamCount();++i){
+            matrix.set(i,preset.params[mMatrix][i].valF);
+        }
     }
     
     void update(E_Module module, int pid, float val){
         switch(module){
+            case mMatrix:
+                matrix.set(pid, val);
             case mOSCAnalog0:
                 osc0Module.set(pid, val);
                 break;

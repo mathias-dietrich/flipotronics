@@ -28,27 +28,42 @@ public:
             p.module = getIndex();
             p.valF = 0.5;
             p.type = uFloat;
-            params[0] = params[1] = params[2] = p;
+            params[0] = params[1] = params[2] =  params[3]  = params[4] = p;
 
+            
+            params[2].module = mMatrix;
+            params[3].module = mMatrix;
+            params[4].module = mMatrix;
+            
             params[0].pid = 0;
             params[1].pid = 1;
-            params[2].pid = 2;
+            params[2].pid = 0;
+            params[3].pid = 1;
+            params[4].pid = 2;
 
             params[0].minVal = 0;
             params[1].minVal = 0.1;
             params[2].minVal = 0;
+            params[3].minVal = 0;
+            params[4].minVal = 0;
 
             params[0].maxVal = 5;
             params[1].maxVal = 5;
             params[2].maxVal = 1;
+            params[3].maxVal = 1;
+            params[4].maxVal = 1;
 
             params[0].stepVal = 1;
             params[1].stepVal = 0.01;
             params[2].stepVal = 0.01;
+            params[3].stepVal = 0.01;
+            params[4].stepVal = 0.01;
 
             params[0].name = "Wave";
             params[1].name = "Freq";
             params[2].name = "Vol Osc0";
+            params[2].name = "Freq Osc0";
+            params[2].name = "Cutoff Filter0";
             
             params[1].type = uHZ;
         }
@@ -74,10 +89,10 @@ public:
                    wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
                    wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
                    wc->setNumDecimalPlacesToDisplay(2);
-                   wc->setName(toString(n->paramId));
+                   wc->setName(toString(pid));
                    wc->addListener (this);
                    wc->setTitle(n->title);
-                   setPoti( n, wc, params[pid], Model::of()->preset.params[getIndex()][pid].valF);
+                   setPoti( n, wc, params[pid], Model::of()->preset.params[params[pid].module][pid].valF);
                    widgets.push_back(wc);
                 }
                 ++pid;
@@ -122,16 +137,17 @@ public:
         
         void sliderValueChanged(Slider *  slider) override {
             int sid = slider->getName().getIntValue();
-            Core::of()->update(getIndex(), sid, slider->getValue());
+            Core::of()->update(params[sid].module, params[sid].pid, slider->getValue());
             setDials();
         }
         
          void setDials() override{
+             int pid = 0;
              for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
                  Poti *p =  (Poti*) *it;
-                 Node *node = p->node;
-                 Param pr = Model::of()->getParam(getIndex(), node->paramId);
+                 Param pr = Model::of()->getParam(params[pid].module, params[pid].pid);
                  p->setValue(pr.valF);
+                 ++pid;
              }
          }
 
