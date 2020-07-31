@@ -12,6 +12,7 @@
 #include "Preset.h"
 #include "Model.h"
 #include "Voice.h"
+#include "Matrix.h"
 
 class Core{
 protected:
@@ -21,6 +22,17 @@ public:
     
     Core(){
         instance = this;
+        matrix = new Matrix();
+        
+        // Build Modulation Matrix
+        // MatrixSource , MatrixDest , paramMulti, paramAdd, MatrixTransform ,isEnabled=true
+        
+       // matrix.addEntry(matrix.createEntry(s_LFO1, d_OSC1_VOL, P_LFO1_VOL, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR));
+       // matrix.addEntry(matrix.createEntry(s_LFO1, d_FILTER1_CUTOFF, P_LFO1_FILTER, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR));
+    }
+    
+    ~Core(){
+        delete matrix;
     }
     
     static Core * of() {
@@ -75,6 +87,7 @@ public:
     
     void startVoice(int channel,int note, float velocity, int group){
         int vid = findNewVoice(note, channel);
+        voices[vid].matrix = matrix;
         voices[vid].velocity = velocity;
         if(voices[vid].active){
            voices[vid].noteRetrigger();
@@ -141,10 +154,11 @@ public:
         return posFoundVoice;
     }
     
-    void init (double sampleRate, int samplesPerBlock){
+    void init(double sampleRate, int samplesPerBlock){
         this->sampleRate = sampleRate;
         this->samplesPerBlock = samplesPerBlock;
         this->blocksPerSeccond = sampleRate / samplesPerBlock;
+         maxTimeMsec = 1000 * samplesPerBlock / sampleRate;
         
         // Voices
        for (int i=0; i<MAXVOICE; ++i) {
@@ -155,6 +169,14 @@ public:
     }
     
     void configure(Preset preset){
+        
+        // Configure Matrix
+        matrix->clear();
+        matrix->addEntry(matrix->createEntry(s_LFO0, d_OSC0_VOL, mLFO0, 2, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        
+        // Configure FX
+        
+        // Configure Voices
          for (int i=0; i<MAXVOICE; ++i) {
              voices[i].configure(preset);
          }
@@ -168,6 +190,8 @@ public:
     }
     
     Voice voices[MAXVOICE] ;
+    Matrix * matrix;
+    float maxTimeMsec;
     
 private:
     int sampleRate;

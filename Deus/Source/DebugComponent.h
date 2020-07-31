@@ -15,11 +15,11 @@
 
 class UILoader;
 
-class DebugComponent :  public IComponent{
+class DebugComponent :  public IComponent, public Timer{
     
 public:
     DebugComponent(){
-       
+        startTimer(200);
     }
     
     ~DebugComponent(){
@@ -31,11 +31,41 @@ public:
         }
     }
     
+    void timerCallback() override{
+        repaint();
+    }
+    
     void paint (Graphics& g) override {
 
+         Rectangle<int> r = getLocalBounds();
+        
          auto defaultColour = Colours::black;
-         g.fillAll (juce::Colours::findColourForName (node->bgColor, defaultColour));
-         g.fillAll(C_PINK);
+         g.fillAll (C_WHITE);
+        
+         // Debug speed of render
+         g.setFont (15.0f);
+
+         // Time taken in the Render Loop
+         float taken = Model::of()->timeTaken * 0.000001f;
+         if(taken > Core::of()->maxTimeMsec){
+          g.setColour (Colours::red);
+         }else{
+          g.setColour (C_GREENTEXT);
+         }
+         float cpu = taken / Core::of()->maxTimeMsec * 100.0f;
+         g.drawFittedText ("CPU: " +  String(cpu,2) + "%  Taken: " + String(taken,3) + " msec  Max: "
+                           + String(Core::of()->maxTimeMsec,3) + " msec", r, Justification::topLeft, 1);
+
+         // Volumes
+         g.setColour (C_GREENTEXT);
+         g.setFont (15.0f);
+
+       //  r.setY(20);
+        // g.drawFittedText ("Peak: " + String(Model::of().sumPeakL), r, Justification::topLeft, 1);
+
+        // r.setY(40);
+        // g.drawFittedText ("RMS: " + String(Model::of().sumRMSL,2), r, Justification::topLeft, 1);
+
     }
     
     void setDials() override{

@@ -1,10 +1,6 @@
 /*
   ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
+Atom Synth, flipotoronics.com - Author: Mathias Dietrich
   ==============================================================================
 */
 
@@ -84,5 +80,4 @@ public:
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeusAudioProcessor)
-   
 };

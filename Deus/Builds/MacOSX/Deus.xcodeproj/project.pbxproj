@@ -175,6 +175,7 @@
 		40A491C024D00FA100DF8705 /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Core.h; path = ../../Source/Core.h; sourceTree = "<group>"; };
 		40F6CB0F24D3F79800C3E9FB /* LfoComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LfoComponent.h; path = ../../Source/LfoComponent.h; sourceTree = "<group>"; };
 		40F6CB1024D4013E00C3E9FB /* Lfo0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lfo0.h; path = ../../Source/Lfo0.h; sourceTree = "<group>"; };
+		40F6CB1324D41B7E00C3E9FB /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix.h; path = ../../Source/Matrix.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -725,6 +726,7 @@
 				40930F4624D14DBD00DDE286 /* Voice.h */,
 				40930F4724D16B9E00DDE286 /* Core.cpp */,
 				40A491C024D00FA100DF8705 /* Core.h */,
+				40F6CB1324D41B7E00C3E9FB /* Matrix.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";

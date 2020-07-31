@@ -13,6 +13,9 @@
 #include "IComponent.h"
 #include "IModule.h"
 #include "ModuleFactory.h"
+#include "Matrix.h"
+
+class Core;
 
 class Voice{
 public:
@@ -210,22 +213,34 @@ public:
             float  mix = vLeft + vRight;
             
             // test LFO
-            float lfo = lfo0Module->getNextL(0, true);
-            if(lfo<0){
-                lfo *= -1.0f;
+            //float lfo = lfo0Module->getNextL(0, true);
+            
+            // Feed Matrix
+            matrix->sources[s_LFO0] = lfo0Module->getNextL(0, true);
+
+             // Calc Matrix
+            matrix->calc();
+            
+            float oscVol = matrix->targets[d_OSC0_VOL];
+            
+            if(oscVol<0){
+                oscVol *= -1.0f;
             }
-            mix*=(1.0 - lfo);
+            mix*=  oscVol;
             channelDataL[sample] += mix;
             channelDataR[sample] += mix;
        }
     }
-    
+
+    Matrix * matrix;
+
+
 private:
     
     int sampleRate;
     int sr;
     int samplesPerBlock;
     Preset preset;
-
+    
 };
 #endif /* Voice_h */

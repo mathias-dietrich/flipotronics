@@ -36,11 +36,11 @@ public:
 
             params[0].minVal = 0;
             params[1].minVal = 0.1;
-            params[2].minVal = -96;
+            params[2].minVal = 0;
 
             params[0].maxVal = 5;
             params[1].maxVal = 5;
-            params[2].maxVal = 0;
+            params[2].maxVal = 1;
 
             params[0].stepVal = 1;
             params[1].stepVal = 0.01;
@@ -48,10 +48,9 @@ public:
 
             params[0].name = "Wave";
             params[1].name = "Freq";
-            params[2].name = "Vol";
+            params[2].name = "Vol Osc0";
             
             params[1].type = uHZ;
-            params[2].type = uDb;
         }
         
         ~LfoComponent(){

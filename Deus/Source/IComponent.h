@@ -164,8 +164,6 @@ public:
     virtual int getParamCount(){
            return 0;
     }
-    
-    Core * core;
 };
 
 #endif /* IComponent_h */

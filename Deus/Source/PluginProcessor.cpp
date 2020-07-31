@@ -12,6 +12,7 @@
 #include "PluginEditor.h"
 #include "Loader.h"
 #include "Model.h"
+
 //==============================================================================
 DeusAudioProcessor::DeusAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
