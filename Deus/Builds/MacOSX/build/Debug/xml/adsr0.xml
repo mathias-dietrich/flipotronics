@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flipotronics>
-    <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="0" v="true" title="Delay" />
-    <e t="1" n="poti" x="83" y="22" w="60" h="80"  p="1" v="true" title="Attack" />
-    <e t="1" n="poti" x="163" y="22" w="60" h="80"  p="2" v="true" title="Decay" />
-    <e t="1" n="poti" x="243" y="22" w="60" h="80"  p="3" v="true" title="Sustain" />
-    <e t="1" n="poti" x="323" y="22" w="60" h="80"  p="4" v="true" title="Release" />
+    <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="0" m="8" min="0" max="1" s="0.01" v="true" title="Delay" />
+    <e t="1" n="poti" x="83" y="22" w="60" h="80"  p="1" m="8" min="0" max="1" s="0.01" v="true" title="Attack" />
+    <e t="1" n="poti" x="163" y="22" w="60" h="80"  p="2" m="8" min="0" max="1" s="0.01" v="true" title="Decay" />
+    <e t="1" n="poti" x="243" y="22" w="60" h="80"  p="3" m="8" min="0" max="1" s="0.01" v="true" title="Sustain" />
+    <e t="1" n="poti" x="323" y="22" w="60" h="80"  p="4" m="8" min="0" max="1" s="0.01" v="true" title="Release" />
     
-    <e t="1" n="poti" x="83" y="112" w="60" h="80"  p="5" v="true" title="AttCurve" />
-    <e t="1" n="poti" x="163" y="112" w="60" h="80"  p="6" v="true" title="DecCurve" />
-    <e t="1" n="poti" x="243" y="112" w="60" h="80"  p="7" v="true" title="SusCurve" />
-    <e t="1" n="poti" x="323" y="112" w="60" h="80"  p="8" v="true" title="RelCurve" />
+    <e t="1" n="poti" x="83" y="112" w="60" h="80"  p="5" m="8" min="-100" max="100" s="0.01" u="13" v="true" title="AttCurve" />
+    <e t="1" n="poti" x="163" y="112" w="60" h="80"  p="6" m="8" min="-100" max="100" s="0.01" u="13" v="true" title="DecCurve" />
+    <e t="1" n="poti" x="243" y="112" w="60" h="80"  p="7" m="8" min="-100" max="100" s="0.01" u="13" v="true" title="SusCurve" />
+    <e t="1" n="poti" x="323" y="112" w="60" h="80"  p="8" m="8" min="-100" max="100" s="0.01" u="13" v="true" title="RelCurve" />
 </flipotronics>
 

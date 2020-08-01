@@ -5,4 +5,5 @@
      <e t="1" n="poti" x="160" y="22" w="60" h="80"  p="2" v="true"  m="1"  min="-1" max="1" s="0.01" title="Fine" />
      <e t="1" n="poti" x="240" y="22" w="60" h="80"  p="3" v="true"  m="1" min="-96" max="6" s="0.01" u="8" title="Volume" />
      <e t="1" n="poti" x="320" y="22" w="60" h="80"  p="4" v="true"  m="1" min="0" max="9" s="1" u="10"  title="Wave" />
+     <e t="1" n="poti" x="0" y="112" w="60" h="80"  p="5" v="true"  m="0"  min="0" max="100" s="1"  title="PulzeWidth" />
 </flipotronics>

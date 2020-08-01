@@ -20,6 +20,10 @@ class AnalogOsc0 : public IModule{
 public:
     
     AnalogOsc0(){
+        pulsewidth = 100;
+    }
+    
+    ~AnalogOsc0(){
         delete polyBLEP;
     }
     
@@ -64,6 +68,10 @@ public:
             case 4:
                 wave = (E_WaveType)p;
             break;
+            case 5:
+                pulsewidth =  pulsewidth = 100.0f / (p+1);
+            break;
+                
         }
     }
     

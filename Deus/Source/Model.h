@@ -53,6 +53,11 @@ class Model{
     
     int64 timeTaken;
     
+    float sumRMSL;
+    float sumRMSR;
+    float sumPeakL;
+    float sumPeakR;
+    
 private:
 
 };

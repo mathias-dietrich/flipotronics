@@ -237,6 +237,8 @@
 		40F6CB5024D44B1100C3E9FB /* MultiModeLadderFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiModeLadderFilter.h; path = ../../Source/MultiModeLadderFilter.h; sourceTree = "<group>"; };
 		40F6CB5124D44B3C00C3E9FB /* Lowpass1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lowpass1.h; path = ../../Source/Lowpass1.h; sourceTree = "<group>"; };
 		40F6CB5224D5956400C3E9FB /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../../Source/Node.h; sourceTree = "<group>"; };
+		40F6CB5324D59EA000C3E9FB /* AdsrComponent0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AdsrComponent0.h; path = ../../Source/AdsrComponent0.h; sourceTree = "<group>"; };
+		40F6CB5424D5AB8500C3E9FB /* Detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Detector.h; path = ../../Source/Detector.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -680,6 +682,7 @@
 		4FA5749924BEFE0000A1E759 /* ADSR */ = {
 			isa = PBXGroup;
 			children = (
+				40F6CB5324D59EA000C3E9FB /* AdsrComponent0.h */,
 			);
 			name = ADSR;
 			sourceTree = "<group>";
@@ -736,6 +739,7 @@
 				4FE513EF24C1888000E2B6F1 /* KeyboardComponent.h */,
 				40506BDA24CDEA0400ED5568 /* ModSelector.h */,
 				40A491BD24CEBF3B00DF8705 /* KeysListener.h */,
+				40F6CB5424D5AB8500C3E9FB /* Detector.h */,
 			);
 			name = UI;
 			sourceTree = "<group>";

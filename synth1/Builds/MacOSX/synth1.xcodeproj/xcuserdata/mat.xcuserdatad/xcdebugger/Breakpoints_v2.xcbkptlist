@@ -23,16 +23,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "913552E0-07D4-42BE-B197-9E78B20F65B4"
-            shouldBeEnabled = "Yes"
+            uuid = "856DF93E-B63B-44BE-9084-186AF1AB5607"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/Voice.h"
+            filePath = "../../Source/Detector.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "467"
-            endingLineNumber = "467"
-            landmarkName = "render(clock, buffer, matrix)"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "setAttack(ms)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

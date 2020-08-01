@@ -20,7 +20,11 @@ class AnalogOsc1 : public IModule{
 public:
     
     AnalogOsc1(){
-        delete polyBLEP;
+       pulsewidth = 100;
+    }
+
+    ~AnalogOsc1(){
+       delete polyBLEP;
     }
     
     void init (int sampleRate, int samplesPerBlock) override{
@@ -67,6 +71,9 @@ public:
              break;
             case 4:
                 wave = (E_WaveType)p;
+            break;
+            case 5:
+                pulsewidth = 100.0f / (p+1);
             break;
         }
     }

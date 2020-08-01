@@ -31,6 +31,7 @@
 #include "DebugComponent.h"
 #include "PerformComponent.h"
 #include "LfoComponent.h"
+#include "AdsrComponent0.h"
 
 class DeusAudioProcessor;
 
@@ -163,6 +164,11 @@ public:
         }
         if(type == "perform"){
            auto *c = new PerformComponent();
+           c->factory = this;
+           return c;
+        }
+        if(type == "adsr0"){
+           auto *c = new AdsrComponent0();
            c->factory = this;
            return c;
         }

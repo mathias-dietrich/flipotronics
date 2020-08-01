@@ -13,6 +13,7 @@
 #include "Model.h"
 #include "Voice.h"
 #include "Matrix.h"
+#include "Detector.h"
 
 class Core{
 protected:
@@ -71,10 +72,17 @@ public:
         }
         
          // Render FX
+         for(int i=0; i < samplesPerBlock;++i){
+             channelDataL[i] *= masterVolume;
+             channelDataR[i] *= masterVolume;
+         }
         
         
         // Move Clock
         clock += samplesPerBlock;
+        
+        // Detector
+        detector.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels);
         
         // Measure time taken
         auto end = std::chrono::high_resolution_clock::now();
@@ -163,6 +171,10 @@ public:
            voices[i].init( sampleRate, samplesPerBlock);
            voices[i].active = false;
        }
+        
+        detector.init(sampleRate, samplesPerBlock);
+        detector.setAttack(20);
+        detector.setRelease(200);
     }
     
     void configure(Preset preset){
@@ -177,6 +189,14 @@ public:
     
     void update(E_Module module, int pid, float val){
         Model::of()->preset.params[module][pid].valF = val;
+        if(module == mGlobal){
+            switch(pid){
+                case 0:
+                    masterVolume = DecibelToLinear(val);
+                    break;
+            }
+            return;
+        }
         for (int i=0; i<MAXVOICE; ++i) {
             voices[i].update(module, pid, val);
         }
@@ -190,5 +210,7 @@ private:
     int samplesPerBlock;
     int blocksPerSeccond;
     int64 clock;
+    float masterVolume = 1.0;
+    Detector detector;
 };
 #endif /* Core_h */

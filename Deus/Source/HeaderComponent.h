@@ -19,7 +19,7 @@
 #include "MasterPoti.h"
 #include "EventHandler.h"
 
-class HeaderComponent:  public IComponent, public Button::Listener{
+class HeaderComponent:  public IComponent, public Button::Listener, public Timer{
    public:
    
     HeaderComponent () {
@@ -27,7 +27,7 @@ class HeaderComponent:  public IComponent, public Button::Listener{
         potiMasterVol.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
         potiMasterVol.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 100, 20);
         potiMasterVol.addListener (this);
-        potiMasterVol.setRange(0-96, 18, 0.01);
+        potiMasterVol.setRange(-96, 6, 0.01);
         potiMasterVol.setSkewFactor (6);
 
         addAndMakeVisible(potiMasterVol);
@@ -133,6 +133,8 @@ class HeaderComponent:  public IComponent, public Button::Listener{
         viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
         viewZoom.setSelectedId(Model::of()->global.lastGuiZoom,  NotificationType::dontSendNotification);
         setDials();
+        
+        startTimer(200);
     }
    
     ~HeaderComponent () {
@@ -144,6 +146,9 @@ class HeaderComponent:  public IComponent, public Button::Listener{
         eventHandler->resizeUi(viewZoom.getSelectedId());
     }
 
+    void timerCallback() override{
+        outputMeter.repaint();
+    }
     
     void buttonClicked (Button* button)  override {
 
@@ -313,7 +318,8 @@ class HeaderComponent:  public IComponent, public Button::Listener{
     }
     
      void sliderValueChanged(Slider *  slider) override {
-       // Model::of().par[P_MASTERVOL] = slider->getValue();
+         Core::of()->update(mGlobal, 0, slider->getValue());
+         setDials();
      }
 
     ComboBox viewZoom;

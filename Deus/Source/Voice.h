@@ -125,8 +125,11 @@ public:
     
     void update(E_Module module, int pid, float val){
         switch(module){
+            case mGlobal:
+                 break;
             case mMatrix:
                 matrix.set(pid, val);
+                 break;
             case mOSCAnalog0:
                 osc0Module.set(pid, val);
                 break;
@@ -255,7 +258,7 @@ public:
             if(oscVol<0){
                 oscVol *= -1.0f;
             }
-            mix *= oscVol;
+            mix *= oscVol * 0.25f; // headroom
             
             // guards
         
