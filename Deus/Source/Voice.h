@@ -232,9 +232,9 @@ public:
             
             float vRight = vLeft;
 
-            
             float modFilterCutoff =  matrix.targets[d_FILTER0_CUTOFF];
             filter0Module.modCutoff = modFilterCutoff;
+            
             vLeft = filter0Module.getNextL(vLeft, true);
             vRight = filter0Module.getNextR(vRight, true);
             

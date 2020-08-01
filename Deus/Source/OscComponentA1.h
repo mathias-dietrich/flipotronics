@@ -13,51 +13,11 @@
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class OscComponentA1 :  public IComponent, public Slider::Listener {
+class OscComponentA1 :  public IComponent {
 public:
     
     OscComponentA1(){
-        Param p;
-        p.module = mOSCAnalog1;
-        p.valF = 0.5;
-        p.type = uFloat;
-        params[0] = params[1] = params[2] = params[3] =params[4] = p;
-        
-        params[0].name = "Oct";
-        params[1].name = "Semi";
-        params[2].name = "Fine";
-        params[3].name = "Vol";
-        params[4].name = "Wave";
-
-        params[0].pid = 0;
-        params[1].pid = 1;
-        params[2].pid = 2;
-        params[3].pid = 3;
-        params[4].pid = 4;
-
-        params[0].minVal = -3;
-        params[1].minVal = -7;
-        params[2].minVal = -1;
-        params[3].minVal = -96;
-        params[4].minVal = 0;
-
-        params[0].maxVal = 3;
-        params[1].maxVal = 7;
-        params[2].maxVal = 1;
-        params[3].maxVal = 6;
-        params[4].maxVal = 5;
-
-        params[0].stepVal = 1;
-        params[1].stepVal = 1;
-        params[2].stepVal = 0.01;
-        params[3].stepVal = 0.01;
-        params[4].stepVal = 1;
-        
-        params[0].type = uInt;
-        params[1].type = uInt;
-        params[2].type = uInt;
-        params[3].type = uDb;
-        params[4].type = uWaveType;
+      
     }
     
     ~OscComponentA1(){
@@ -99,12 +59,13 @@ public:
             Poti *p =  (Poti*) *it;
             Node *node = p->node;
             Param pr = Model::of()->getParam(mOSCAnalog1, node->paramId);
-            setPoti( node, p, params[pid], pr.valF);
+            setPoti(node, p, pr.valF);
             p->setValue(pr.valF);
             ++pid;
         }
     }
     
+    /*
     void build(Node * node) override{
         std::cout << node->name << std::endl;
 
@@ -122,13 +83,14 @@ public:
                 wc->addListener (this);
                 wc->setTitle(node->title);
 
-                setPoti( n, wc, params[pid], Model::of()->preset.params[mOSCAnalog1][pid].valF);
+                setPoti( n, wc, Model::of()->preset.params[mOSCAnalog1][pid].valF);
                 widgets.push_back(wc);
                 ++pid;
             }
         }
         setDials() ;
     }
+     */
     
     void sliderValueChanged(Slider *  slider) override {
         int sid = slider->getName().getIntValue();
@@ -145,21 +107,9 @@ public:
             p->setVisible(node->isVisible);
         }
     }
-    
-    std::map<int, Param> getParams() override{
-        return params;
-    }
-    
-    void setParams( std::map<int, Param> params) override{
-        this->params = params;
-    }
-    
-    int getParamCount() override{
-        return 5;
-    }
-        
+
     private:
-        std::map<int, Param> params;
+
 };
 
 #endif /* OscComponentA1_h */

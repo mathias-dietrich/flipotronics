@@ -14,7 +14,7 @@
 
 #include "PitchWheel.h"
 
-class KeyboardComponent : public IComponent, public MidiKeyboardStateListener,  public Button::Listener, public Slider::Listener{
+class KeyboardComponent : public IComponent, public MidiKeyboardStateListener,  public Button::Listener{
 public:
     
      KeyboardComponent() : keyboardComponent (keyboardState, MidiKeyboardComponent::horizontalKeyboard){
@@ -186,17 +186,8 @@ public:
     
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent keyboardComponent;
-    
-    std::map<int, Param> getParams() override{
-        return params;
-    }
-    
-    void setParams( std::map<int, Param> params) override {
-        this->params = params;
-    }
-        
+
 private:
-    std::map<int, Param> params;
     PitchWheel pitchWheel;
     PitchWheel modWheel;
     PitchWheel expWheel;

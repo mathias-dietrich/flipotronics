@@ -19,7 +19,7 @@
 #include "MasterPoti.h"
 #include "EventHandler.h"
 
-class HeaderComponent:  public IComponent, public Slider::Listener, public Button::Listener{
+class HeaderComponent:  public IComponent, public Button::Listener{
    public:
    
     HeaderComponent () {
@@ -143,10 +143,7 @@ class HeaderComponent:  public IComponent, public Slider::Listener, public Butto
     {
         eventHandler->resizeUi(viewZoom.getSelectedId());
     }
-    
-    void build(Node * node) override{
-           
-    }
+
     
     void buttonClicked (Button* button)  override {
 
@@ -343,17 +340,9 @@ private:
     Label progAuthor;
     
     Process * processor;
-    
-    std::map<int, Param> getParams() override{
-        return params;
-    }
-    
-    void setParams( std::map<int, Param> params) override{
-        this->params = params;
-    }
-        
+ 
     private:
-        std::map<int, Param> params;
+
 };
 
 #endif /* HeaderComponent_h */

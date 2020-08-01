@@ -29,14 +29,7 @@ public:
     }
     
     ~EditComponent(){
-        /*
-       for(auto it = std::begin(children); it != std::end(children); ++it) {
-         delete *it;
-       }
-        for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
-          delete *it;
-        }
-         */
+
     }
     
     void paint (Graphics& g) override {
@@ -60,7 +53,7 @@ public:
             }
      }
 
-    void build(Node * node) override{
+    void build(Node * node) {
         for(auto it = std::begin( node->children); it != std::end( node->children); ++it) {
             Node *node = *it;
             std::cout << node->name << std::endl;
@@ -92,17 +85,9 @@ public:
        repaint();
     }
     UILoader uiloader;
-    
-    std::map<int, Param> getParams()override{
-        return params;
-    }
-    
-    void setParams( std::map<int, Param> params)override{
-        this->params = params;
-    }
-        
+   
     private:
-            std::map<int, Param> params;
+
 };
 
 #endif /* EditComponent_h */

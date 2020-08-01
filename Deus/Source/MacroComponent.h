@@ -20,108 +20,12 @@
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class MacroComponent:  public IComponent, public Slider::Listener{
+class MacroComponent:  public IComponent{
 
    public:
     
     MacroComponent(){
-       Param p;
-       p.module = mMacro;
-       p.valF = 0.5;
-       p.type = uFloat;
-       params[0] = params[1] = params[2] = params[3] =params[4] =params[5] =params[6] =params[7] =params[8] =params[9] =params[10] =params[11] =params[12] =params[13] =params[14] =params[15] = params[16] = p;
-
-       params[0].pid = 0;
-       params[1].pid = 1;
-       params[2].pid = 2;
-       params[3].pid = 3;
-       params[4].pid = 4;
-       params[5].pid = 5;
-       params[6].pid = 6;
-       params[7].pid = 7;
-       params[8].pid = 8;
-       params[9].pid = 9;
-       params[10].pid = 10;
-       params[11].pid = 11;
-       params[12].pid = 12;
-       params[13].pid = 13;
-       params[14].pid = 14;
-       params[15].pid = 15;
-       params[16].pid = 16;
-        
-        params[0].minVal = 0;
-        params[1].minVal = 0;
-        params[2].minVal = 0;
-        params[3].minVal = 0;
-        params[4].minVal = 0;
-        params[5].minVal = 0;
-        params[6].minVal = 0;
-        params[7].minVal = 0;
-        params[8].minVal = 0;
-        params[9].minVal = 0;
-        params[10].minVal = 0;
-        params[11].minVal = 0;
-        params[12].minVal = 0;
-        params[13].minVal = 0;
-        params[14].minVal = 0;
-        params[15].minVal = 0;
-        params[16].minVal = 435;
-        
-        params[0].maxVal = 1;
-        params[1].maxVal = 1;
-        params[2].maxVal = 1;
-        params[3].maxVal = 1;
-        params[4].maxVal = 1;
-        params[5].maxVal = 1;
-        params[6].maxVal = 1;
-        params[7].maxVal = 1;
-        params[8].maxVal = 1;
-        params[9].maxVal = 1;
-        params[10].maxVal = 1;
-        params[11].maxVal = 1;
-        params[12].maxVal = 1;
-        params[13].maxVal = 1;
-        params[14].maxVal = 1;
-        params[15].maxVal = 1;
-        params[16].maxVal = 445;
-        
-        params[0].stepVal = 0.1;
-        params[1].stepVal = 0.1;
-        params[2].stepVal = 0.1;
-        params[3].stepVal = 0.1;
-        params[4].stepVal = 0.1;
-        params[5].stepVal = 0.1;
-        params[6].stepVal = 0.1;
-        params[7].stepVal = 0.1;
-        params[8].stepVal = 0.1;
-        params[9].stepVal = 0.1;
-        params[10].stepVal = 0.1;
-        params[11].stepVal = 0.1;
-        params[12].stepVal = 0.1;
-        params[13].stepVal = 0.1;
-        params[14].stepVal = 0.1;
-        params[15].stepVal = 0.1;
-        params[16].stepVal = 0.1;
-
-       params[0].name = "Macro 0";
-       params[1].name = "Macro 1";
-       params[2].name = "Macro 2";
-       params[3].name = "Macro 3";
-       params[4].name = "Macro 4";
-       params[5].name = "Macro 5";
-       params[6].name = "Macro 6";
-       params[7].name = "Macro 7";
-       params[8].name = "Macro 8";
-       params[9].name = "Macro 9";
-       params[10].name = "Macro 10";
-       params[11].name = "Macro 11";
-       params[12].name = "Macro 12";
-       params[13].name = "Macro 13";
-       params[14].name = "Macro 14";
-       params[15].name = "Macro 15";
-       params[15].name = "Macro 16";
-       params[16].name = "Tuning";
-        params[16].type = uTune;
+      
     }
     
     ~MacroComponent(){
@@ -162,7 +66,7 @@ class MacroComponent:  public IComponent, public Slider::Listener{
                     wc->setName(toString(n->paramId));
                     wc->addListener (this);
                     wc->setTitle(node->title);
-                    setPoti( n, wc, params[pid], Model::of()->preset.params[mFilter0][pid].valF);
+                    setPoti( n, wc,  Model::of()->preset.params[mFilter0][pid].valF);
                     widgets.push_back(wc);
                     wc->setTextValueSuffix(" Hz");
                 }
@@ -206,21 +110,9 @@ class MacroComponent:  public IComponent, public Slider::Listener{
             
          }
      }
-
-    std::map<int, Param> getParams() override{
-        return params;
-    }
-    
-    void setParams( std::map<int, Param> params) override{
-        this->params = params;
-    }
-    
-    int getParamCount() override{
-           return 17;
-    }
     
 private:
-        std::map<int, Param> params;
+
 };
 
 

@@ -89,17 +89,8 @@ public:
             p->setVisible(node->isVisible);
         }
     }
-    
-    std::map<int, Param> getParams()override{
-        return params;
-    }
-    
-    void setParams( std::map<int, Param> params)override{
-        this->params = params;
-    }
-        
+
     private:
-            std::map<int, Param> params;
 
 };
 #endif /* ModHeaderComponent_h */

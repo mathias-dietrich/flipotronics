@@ -19,53 +19,11 @@
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class LfoComponent : public IComponent, public Slider::Listener{
+class LfoComponent : public IComponent{
 
 public:
-
         LfoComponent(){
-            Param p;
-            p.module = getIndex();
-            p.valF = 0.5;
-            p.type = uFloat;
-            params[0] = params[1] = params[2] =  params[3]  = params[4] = p;
 
-            
-            params[2].module = mMatrix;
-            params[3].module = mMatrix;
-            params[4].module = mMatrix;
-            
-            params[0].pid = 0;
-            params[1].pid = 1;
-            params[2].pid = 0;
-            params[3].pid = 1;
-            params[4].pid = 2;
-
-            params[0].minVal = 0;
-            params[1].minVal = 0.1;
-            params[2].minVal = 0;
-            params[3].minVal = 0;
-            params[4].minVal = 0;
-
-            params[0].maxVal = 5;
-            params[1].maxVal = 5;
-            params[2].maxVal = 1;
-            params[3].maxVal = 1;
-            params[4].maxVal = 1;
-
-            params[0].stepVal = 1;
-            params[1].stepVal = 0.01;
-            params[2].stepVal = 0.01;
-            params[3].stepVal = 0.01;
-            params[4].stepVal = 0.01;
-
-            params[0].name = "Wave";
-            params[1].name = "Freq";
-            params[2].name = "Vol Osc0";
-            params[2].name = "Freq Osc0";
-            params[2].name = "Cutoff Filter0";
-            
-            params[1].type = uHZ;
         }
         
         ~LfoComponent(){
@@ -77,28 +35,6 @@ public:
             }
         }
         
-        void build(Node * node) override{
-            std::cout << node->name << std::endl;
-            int pid = 0;
-            for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
-                  Node *n = *it;
-                 if(n->name.compare("poti")==0){
-                   Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);
-                   wc->node = n;
-                   addAndMakeVisible(wc);
-                   wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
-                   wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
-                   wc->setNumDecimalPlacesToDisplay(2);
-                   wc->setName(toString(pid));
-                   wc->addListener (this);
-                   wc->setTitle(n->title);
-                   setPoti( n, wc, params[pid], Model::of()->preset.params[params[pid].module][pid].valF);
-                   widgets.push_back(wc);
-                }
-                ++pid;
-            }
-            setDials();
-        }
         
         void paint (Graphics& g) override {
             Rectangle<float> r = convertRect(getLocalBounds());
@@ -137,6 +73,8 @@ public:
         
         void sliderValueChanged(Slider *  slider) override {
             int sid = slider->getName().getIntValue();
+            std::cout << params[sid].module << std::endl;
+            std::cout << params[sid].pid << std::endl;
             Core::of()->update(params[sid].module, params[sid].pid, slider->getValue());
             setDials();
         }
@@ -150,23 +88,10 @@ public:
                  ++pid;
              }
          }
-
-        std::map<int, Param> getParams() override{
-            return params;
-        }
-        
-        void setParams( std::map<int, Param> params) override{
-            this->params = params;
-        }
-        
-        int getParamCount() override{
-               return 3;
-        }
     
     int offset;
     
     private:
-        std::map<int, Param> params;
     
         E_Module getIndex(){
             switch(offset){

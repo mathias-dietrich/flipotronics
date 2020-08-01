@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flipotronics>
     <e t="0" n="macro" x="60" y="0"  w="1400" h="70" bg="black" bgi="" v="true">
-        <e t="1" n="masterpoti" x="10" y="0"  w="50" h="70" p="0" m="20" v="true"/>
-        <e t="1" n="masterpoti" x="90" y="0" w="50" h="70"  p="1"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="170" y="0" w="50" h="70"  p="2"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="250" y="0" w="50" h="70"  p="3"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="320" y="0" w="50" h="70"  p="4"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="400" y="0" w="50" h="70"  p="5"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="480" y="0" w="50" h="70"  p="6"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="560" y="0" w="50" h="70"  p="7"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="640" y="0"  w="50" h="70" p="8"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="720" y="0" w="50" h="70"  p="9"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="800" y="0" w="50" h="70"  p="10"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="880" y="0" w="50" h="70"  p="11"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="960" y="0" w="50" h="70"  p="12"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="1040" y="0" w="50" h="70"  p="13"  m="20"  v="true"/>
-        <e t="1" n="masterpoti" x="1120" y="0" w="50" h="70"  p="14"  m="20" v="true"/>
-        <e t="1" n="masterpoti" x="1200" y="0" w="50" h="70"  p="15"  m="20" v="true"/>
-        <e t="1" n="poti" x="1290" y="-10" w="50" h="70"  p="16"  m="20" v="true"/>
+        <e t="1" n="masterpoti" x="10" y="0"  w="50" h="70" p="0" m="21"  min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="90" y="0" w="50" h="70"  p="1"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="170" y="0" w="50" h="70"  p="2"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="250" y="0" w="50" h="70"  p="3"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="320" y="0" w="50" h="70"  p="4"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="400" y="0" w="50" h="70"  p="5"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="480" y="0" w="50" h="70"  p="6"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="560" y="0" w="50" h="70"  p="7"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="640" y="0"  w="50" h="70" p="8"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="720" y="0" w="50" h="70"  p="9"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="800" y="0" w="50" h="70"  p="10"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="880" y="0" w="50" h="70"  p="11"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="960" y="0" w="50" h="70"  p="12"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="1040" y="0" w="50" h="70"  p="13"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="1120" y="0" w="50" h="70"  p="14"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="masterpoti" x="1200" y="0" w="50" h="70"  p="15"  m="21" min="0" max="1" s="0.01" v="true"/>
+        <e t="1" n="poti" x="1290" y="-10" w="50" h="70"  p="16"  m="21" min="436" max="444" s="0.01" v="true"/>
     </e>
     
 </flipotronics>

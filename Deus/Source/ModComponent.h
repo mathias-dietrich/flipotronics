@@ -13,7 +13,7 @@
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class ModComponent :  public IComponent, public Slider::Listener {
+class ModComponent :  public IComponent {
 public:
     
     ModComponent(){
@@ -100,17 +100,8 @@ public:
             p->setVisible(node->isVisible);
         }
     }
-    
-    std::map<int, Param> getParams()override{
-        return params;
-    }
-    
-    void setParams( std::map<int, Param> params)override{
-        this->params = params;
-    }
-        
+   
     private:
-            std::map<int, Param> params;
 
 };
 #endif /* ModComponent_h */

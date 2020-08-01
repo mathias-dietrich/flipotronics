@@ -55,7 +55,19 @@ public:
                 n->title = child->getStringAttribute("title");
             }
             if(child->hasAttribute("xml")){
-                n->xmlFile= child->getStringAttribute("xml");
+                n->xmlFile = child->getStringAttribute("xml");
+            }
+            if(child->hasAttribute("min")){
+                n->minValue = child->getDoubleAttribute("min");
+            }
+            if(child->hasAttribute("max")){
+                n->maxValue = child->getDoubleAttribute("max");
+            }
+            if(child->hasAttribute("s")){
+                n->step = child->getDoubleAttribute("s");
+            }
+            if(child->hasAttribute("u")){
+                n->unitType = (E_UnitType)child->getIntAttribute("u");
             }
             node->children.push_back(n);
             parse(n, child);

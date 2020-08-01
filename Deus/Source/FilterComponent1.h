@@ -13,45 +13,11 @@
 #include "WidgetFactory.h"
 #include "IFactory.h"
 
-class FilterComponent1 :  public IComponent , public Slider::Listener {
+class FilterComponent1 :  public IComponent {
 public:
     
     FilterComponent1(){
-        Param p;
-        p.module = mFilter1;
-        p.valF = 0.5;
-        p.type = uFloat;
-        params[0] = params[1] = params[2] = params[3] = p;
-        
-        params[0].name = "Cutoff";
-        params[1].name = "Resonance";
-        params[2].name = "Type";
-        params[3].name = "Drive";
-        
-        params[0].pid = 0;
-        params[1].pid = 1;
-        params[2].pid = 2;
-        params[3].pid = 3;
-
-        params[0].minVal = 20;
-        params[1].minVal = 0;
-        params[2].minVal = 0;
-        params[3].minVal = -96;
-        
-        params[0].maxVal = 7000;
-        params[1].maxVal = 100;
-        params[2].maxVal = 9;
-        params[3].maxVal = 18;
-
-        params[0].stepVal = 1;
-        params[1].stepVal = 1;
-        params[2].stepVal = 1;
-        params[3].stepVal = 0.01;
-        
-        params[0].type = uHZ;
-        params[1].type = uProcent;
-        params[2].type = uFilterType;
-        params[3].type = uDb;
+       
     }
     
     ~FilterComponent1(){
@@ -93,12 +59,13 @@ public:
             Poti *p =  (Poti*) *it;
             Node *node = p->node;
             Param pr = Model::of()->getParam(mFilter1, node->paramId);
-            setPoti( node, p, params[pid], pr.valF);
+            setPoti( node, p, pr.valF);
             p->setValue(pr.valF);
             ++pid;
         }
     }
     
+    /*
     void build(Node * node) override{
        std::cout << node->name << std::endl;
         int pid = 0;
@@ -115,13 +82,14 @@ public:
               wc->addListener (this);
               wc->setRange(0,1,0.01f);
               wc->setTitle(node->title);
-              setPoti( n, wc, params[pid], Model::of()->preset.params[mFilter0][pid].valF);
+              setPoti(n, wc, Model::of()->preset.params[mFilter0][pid].valF);
               widgets.push_back(wc);
                ++pid;
            }
        }
         setDials();
     }
+     */
     
     void sliderValueChanged(Slider *  slider) override {
            int sid = slider->getName().getIntValue();
@@ -140,19 +108,7 @@ public:
     }
     String title = "";
     
-     std::map<int, Param> getParams() override{
-         return params;
-     }
-     
-     void setParams( std::map<int, Param> params) override{
-         this->params = params;
-     }
-    
-    int getParamCount() override{
-        return 4;
-    }
-         
      private:
-             std::map<int, Param> params;
+
 };
 #endif /* FilterComponent1_h */

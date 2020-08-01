@@ -19,4 +19,5 @@
 #include "Preset.h"
 #include "Playlist.h"
 #include "Func.h"
+#include "Node.h"
 #endif /* Inc_h */

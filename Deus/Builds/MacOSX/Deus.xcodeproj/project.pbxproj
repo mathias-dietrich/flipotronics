@@ -236,6 +236,7 @@
 		40F6CB2A24D449AF00C3E9FB /* Oscillator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Oscillator.cpp; sourceTree = "<group>"; };
 		40F6CB5024D44B1100C3E9FB /* MultiModeLadderFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiModeLadderFilter.h; path = ../../Source/MultiModeLadderFilter.h; sourceTree = "<group>"; };
 		40F6CB5124D44B3C00C3E9FB /* Lowpass1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lowpass1.h; path = ../../Source/Lowpass1.h; sourceTree = "<group>"; };
+		40F6CB5224D5956400C3E9FB /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../../Source/Node.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -627,6 +628,7 @@
 		4FA5749524BEFDD400A1E759 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				40F6CB5224D5956400C3E9FB /* Node.h */,
 				4FA574A824BF059200A1E759 /* IWidget.h */,
 				4FA574A124BF01F100A1E759 /* WidgetFactory.h */,
 				4F31986924C08F3A007D694F /* WidgetFactory.cpp */,

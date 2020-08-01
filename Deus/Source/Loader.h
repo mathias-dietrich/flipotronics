@@ -39,7 +39,6 @@ class Loader{
         preset.lfo1Module   = mLFO1;
         preset.lfo2Module  = mLFO2;
         
-
         preset.params[mMacro][16].valF = 440.0f;
 
         Model::of()->preset = preset;

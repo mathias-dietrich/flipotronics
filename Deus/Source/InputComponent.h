@@ -9,7 +9,7 @@
 #ifndef InputComponent_h
 #define InputComponent_h
 
-class InputComponent: public IComponent,  public Slider::Listener  {
+class InputComponent: public IComponent {
 public:
     
     InputComponent(){
@@ -91,16 +91,9 @@ public:
             p->setVisible(node->isVisible);
         }
     }
-    std::map<int, Param> getParams()override{
-        return params;
-    }
-    
-    void setParams( std::map<int, Param> params)override{
-        this->params = params;
-    }
         
     private:
-            std::map<int, Param> params;
+
 };
 
 #endif /* InputComponent_h */

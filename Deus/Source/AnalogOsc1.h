@@ -63,7 +63,7 @@ public:
                 finetuning = p;
              break;
             case 3:
-                volume = p;
+                volume = DecibelToLinear(p);
              break;
             case 4:
                 wave = (E_WaveType)p;
@@ -127,25 +127,25 @@ public:
     float getSample(E_WaveType wt){
         switch(wt){
             case wSin:
-                return modVol * polyBLEP->get();
+                return volume * modVol * polyBLEP->get();
                 
             case wSaw:
-                return modVol * polyBLEP->get();
+                return volume * modVol * polyBLEP->get();
                 
             case wTriangle:
-                return modVol * polyBLEP->get();
+                return volume * modVol * polyBLEP->get();
                 
             case wSquare:
-                return modVol * polyBLEP->get();
+                return volume * modVol * polyBLEP->get();
                 
             case wShark:
                  break;
                 
             case wWhite:
-                return modVol * oscWhite.doOscillate();
+                return volume * modVol * oscWhite.doOscillate();
 
             case wPink:
-                return modVol * oscPink.doOscillate();;
+                return volume * modVol * oscPink.doOscillate();;
                 
             case wBrown:
                  break;

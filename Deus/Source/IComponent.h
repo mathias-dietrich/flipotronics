@@ -16,10 +16,11 @@
 #include "Model.h"
 #include "EventHandler.h"
 #include "IFactory.h"
+#include "WidgetFactory.h"
 
 class Core;
 
-class IComponent  :  public Component{
+class IComponent :  public Component,  public Slider::Listener{
 
 public:
     
@@ -31,8 +32,9 @@ public:
         
     }
     
-    virtual std::map<int, Param> getParams() = 0;
-    virtual void setParams( std::map<int, Param> params) = 0;
+    virtual void sliderValueChanged(Slider *  slider) override {
+   
+    }
     
     void init(float sampleRate, int samplesPerBlock){
         this->samplesPerBlock = samplesPerBlock;
@@ -41,48 +43,48 @@ public:
         this->blocksPerSecond = sampleRate / samplesPerBlock;
     }
 
-    void setPoti(Node * node, Poti * p, Param param, float val){
-        p->setRange(param.minVal,param.maxVal,param.stepVal);
+    virtual void setPoti(Node * node, Poti * p, float val){
+        E_UnitType type = node->unitType;
+        p->setRange(node->minValue,node->maxValue,node->step);
         p->setTitle(node->title);
-        // boxes[i].setText(params[pid].name);
-        if( param.type == uWaveType){
+        if(type == uWaveType){
            p->setTextValueSuffix(" " + getWaveType(E_WaveType(int(val))));
-        }else if( param.type == uFilterType){
+        }else if(type == uFilterType){
               p->setTextValueSuffix(" " + getFilterTypeString(MultiModeLadderFilterTypes(int(val))));
         }
-        else if( param.type == uPhase){
+        else if(type == uPhase){
            p->setTextValueSuffix(" degrees");
         }
-        else if( param.type == uTimeMsec){
+        else if(type == uTimeMsec){
            p->setTextValueSuffix(" msec");
            p->setSkewFactor(0.5);
         }
-        else if( param.type == uDb){
+        else if(type == uDb){
            p->setSkewFactor (6);
         }
-        else if( param.type == uTune){
+        else if(type == uTune){
                   p->setTextValueSuffix(" Hz");
         }
-        else if( param.type == uHZ){
+        else if(type == uHZ){
            p->setSkewFactor (0.3);
            p->setTextValueSuffix(" Hz");
         }
-        else if(param.type == uBool){
+        else if(type == uBool){
            bool test = val;
            String text = test ? " on" : " off" ;
            p->setTextValueSuffix(text);
         }
-        else if( param.type == uCurve){
+        else if(type == uCurve){
            p->setSkewFactor(1);
            p->setTextValueSuffix(" %");
         }
-        else if( param.type == uMidiNote){
+        else if(type == uMidiNote){
           p->setTextValueSuffix(" " + midiNote(val));
         }
-        else if( param.type == uDevision){
+        else if(type == uDevision){
           p->setTextValueSuffix(" " + devision(val));
         }
-        else if( param.type == uArpMode){
+        else if(type == uArpMode){
            p->setSkewFactor(1);
            if(val==0){
                 p->setTextValueSuffix(" SEQ");
@@ -92,7 +94,7 @@ public:
                p->setTextValueSuffix(" CHORD");
            }
         }
-        else if( param.type == uChordMode){
+        else if(type == uChordMode){
            switch(((int)val)){
                case 0:
                 p->setTextValueSuffix(" Singe ");
@@ -146,8 +148,58 @@ public:
         Rectangle<float> r = {0,0,(float)width,(float)height};
         return r;
     }
+    
+   virtual void build(Node * node) {
+        std::cout << node->name << std::endl;
+        int pid = 0;
+        for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
+            Node *n = *it;
+                
+            Param p;
+            p.name = n->title;
+            p.minVal = n->minValue;
+            p.maxVal = n->maxValue;
+            p.stepVal = n->step;
+            p.type = n->unitType;
+            p.pid = n->paramId;
+            p.module = n->module;
+            params[pid] = p;
+                
+            if(n->name.compare("poti")==0){
+                Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);
+                wc->node = n;
+                addAndMakeVisible(wc);
+                wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
+                wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
+                wc->setNumDecimalPlacesToDisplay(2);
+                wc->setName(toString(pid));
+                wc->addListener (this);
+                wc->setTitle(n->title);
+                setPoti(n, wc, Model::of()->preset.params[n->module][n->paramId].valF);
+                widgets.push_back(wc);
+            }
+            if(n->name.compare("masterpoti")==0){
+                MasterPoti *wc = (MasterPoti *) WidgetFactory::of()->get(n->name);
+                wc->node = n;
+                addAndMakeVisible(wc);
+                wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
+                wc->setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, false, 50, 15);
+                wc->setNumDecimalPlacesToDisplay(2);
+                wc->setName(toString(pid));
+                wc->setTitle(n->title);
+                wc->addListener (this);
+                wc->setRange(n->minValue, n->maxValue, n->step);
+                wc->setValue(Model::of()->preset.params[n->module][n->paramId].valF);
+                widgets.push_back(wc);
+            }
+                
+            ++pid;
+        }
+        setDials();
+    }
+    
     virtual void setDials()=0;
-    virtual void build(Node * node)=0;
+    
     
     EventHandler * eventHandler;
 
@@ -160,10 +212,7 @@ public:
     int blocksPerSecond;
     std::vector<IComponent *> children;
     std::vector<Widget *> widgets;
-    
-    virtual int getParamCount(){
-           return 0;
-    }
+    std::map<int, Param> params;
 };
 
 #endif /* IComponent_h */
