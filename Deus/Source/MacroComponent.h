@@ -43,6 +43,19 @@ class MacroComponent:  public IComponent{
             int pid  = 0;
              for(auto it = std::begin(macro->children); it != std::end(macro->children); ++it){
                 Node *n = *it;
+                 
+                 Param p;
+                 p.name = n->title;
+                 p.minVal = n->minValue;
+                 p.maxVal = n->maxValue;
+                 p.stepVal = n->step;
+                 p.type = n->unitType;
+                 p.pid = n->paramId;
+                 p.module = n->module;
+                 p.valF =  Model::of()->preset.params[p.module][pid].valF; // Might allready exist
+                 params[pid] = p;
+                 Model::of()->preset.params[p.module][pid] = p;
+                 
                 if(n->name.compare("masterpoti")==0){
                     MasterPoti *wc = (MasterPoti *) WidgetFactory::of()->get(n->name);
                     wc->node = n;

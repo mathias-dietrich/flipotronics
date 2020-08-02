@@ -10,7 +10,6 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "Loader.h"
 #include "Model.h"
 
 //==============================================================================
@@ -27,8 +26,10 @@ DeusAudioProcessor::DeusAudioProcessor()
 #endif
 {
     instance = this;
-    Loader::of()->init();
     Model::of()->init();
+    
+    // load default Preset
+ 
     ImageFactory::of().init();
 }
 

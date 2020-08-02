@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flipotronics>
-    <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="1" v="true" title="Vol" />
+    <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="1"  m="26" v="true" title="Vol" />
 </flipotronics>
 

@@ -238,6 +238,7 @@
 		40F6CB5424D5AB8500C3E9FB /* Detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Detector.h; path = ../../Source/Detector.h; sourceTree = "<group>"; };
 		40F6CB5524D6C0CD00C3E9FB /* DelayComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DelayComponent.h; path = ../../Source/DelayComponent.h; sourceTree = "<group>"; };
 		40F6CB5624D6C22700C3E9FB /* DelayFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DelayFX.h; path = ../../Source/DelayFX.h; sourceTree = "<group>"; };
+		40F6CB5724D6CAEB00C3E9FB /* FileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FileManager.h; path = ../../Source/FileManager.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -254,7 +255,6 @@
 		4FA5747F24BEF9DE00A1E759 /* xml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = xml; path = build/Debug/xml; sourceTree = "<group>"; };
 		4FA5748024BEF9DE00A1E759 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = build/Debug/images; sourceTree = "<group>"; };
 		4FA5748124BEF9DE00A1E759 /* tun */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tun; path = build/Debug/tun; sourceTree = "<group>"; };
-		4FA5748324BEFA3F00A1E759 /* Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Loader.h; path = ../../Source/Loader.h; sourceTree = "<group>"; };
 		4FA5748624BEFBD000A1E759 /* Preset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Preset.h; path = ../../Source/Preset.h; sourceTree = "<group>"; };
 		4FA5748724BEFBE600A1E759 /* Performance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Performance.h; path = ../../Source/Performance.h; sourceTree = "<group>"; };
 		4FA5748824BEFBFE00A1E759 /* Bank.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Bank.h; path = ../../Source/Bank.h; sourceTree = "<group>"; };
@@ -532,7 +532,11 @@
 		4FA5748224BEFA1400A1E759 /* Loader */ = {
 			isa = PBXGroup;
 			children = (
-				4FA5748324BEFA3F00A1E759 /* Loader.h */,
+				40F6CB5724D6CAEB00C3E9FB /* FileManager.h */,
+				4FA574A924BF05FE00A1E759 /* ImageFactory.h */,
+				4FA574B524BF0CF500A1E759 /* FontLoader.h */,
+				4FA574B424BF0CF500A1E759 /* FontLoader.cpp */,
+				4F31986524C071B1007D694F /* UILoader.h */,
 			);
 			name = Loader;
 			sourceTree = "<group>";
@@ -559,10 +563,6 @@
 			isa = PBXGroup;
 			children = (
 				4FA574A024BEFF9D00A1E759 /* Func.h */,
-				4FA574A924BF05FE00A1E759 /* ImageFactory.h */,
-				4FA574B424BF0CF500A1E759 /* FontLoader.cpp */,
-				4FA574B524BF0CF500A1E759 /* FontLoader.h */,
-				4F31986524C071B1007D694F /* UILoader.h */,
 			);
 			name = Util;
 			sourceTree = "<group>";

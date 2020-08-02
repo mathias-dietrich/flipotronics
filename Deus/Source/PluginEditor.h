@@ -18,6 +18,7 @@
 #include "EventHandler.h"
 #include "UILoader.h"
 #include "KeysListener.h"
+#include "FileManager.h"
 
 //==============================================================================
 /**
@@ -132,8 +133,9 @@ public:
                      uiloader.load(node, "debug.xml");
                 break;
              }
-              masterComponent.build(node);
-             masterComponent.resized();
+            masterComponent.build(node);
+            masterComponent.resized();
+             
         }
     }
     
@@ -156,4 +158,5 @@ private:
     Node * node = new Node();
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeusAudioProcessorEditor)
     KeysListener listener;
+    FileManager fileManager;
 };

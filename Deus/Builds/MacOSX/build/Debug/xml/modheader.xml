@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flipotronics>
-    <e t="1" n="modview" x="0" y="18" w="60" h="120"  p="1" v="true" title="ADSR 1" />
-    <e t="1" n="modview" x="60" y="18" w="60" h="120"  p="1" v="true" title="ADSR 2" />
-    <e t="1" n="modview" x="120" y="18" w="60" h="120"  p="1" v="true" title="ADSR 3" />
-    <e t="1" n="modview" x="180" y="18" w="60" h="120"  p="1" v="true" title="ADSR 4" />
+    <e t="1" n="modview" x="0" y="18" w="60" h="120"  p="1"  m="26"  v="true" title="ADSR 1" />
+    <e t="1" n="modview" x="60" y="18" w="60" h="120"  p="1"  m="26"  v="true" title="ADSR 2" />
+    <e t="1" n="modview" x="120" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 3" />
+    <e t="1" n="modview" x="180" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 4" />
     
-    <e t="1" n="modview" x="240" y="18" w="60" h="120"  p="1" v="true" title="LFO 1" />
-    <e t="1" n="modview" x="300" y="18" w="60" h="120"  p="1" v="true" title="LFO 2" />
-    <e t="1" n="modview" x="360" y="18" w="60" h="120"  p="1" v="true" title="LFO 3" />
-    <e t="1" n="modview" x="420" y="18" w="60" h="120"  p="1" v="true" title="LFO 4" />
+    <e t="1" n="modview" x="240" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 1" />
+    <e t="1" n="modview" x="300" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 2" />
+    <e t="1" n="modview" x="360" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 3" />
+    <e t="1" n="modview" x="420" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 4" />
     
-    <e t="1" n="modview" x="480" y="18" w="60" h="120"  p="1" v="true" title="ADSR 1" />
-    <e t="1" n="modview" x="540" y="18" w="60" h="120"  p="1" v="true" title="ADSR 2" />
-    <e t="1" n="modview" x="600" y="18" w="60" h="120"  p="1" v="true" title="ADSR 3" />
-    <e t="1" n="modview" x="660" y="18" w="60" h="120"  p="1" v="true" title="ADSR 4" />
+    <e t="1" n="modview" x="480" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 1" />
+    <e t="1" n="modview" x="540" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 2" />
+    <e t="1" n="modview" x="600" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 3" />
+    <e t="1" n="modview" x="660" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 4" />
 
-    <e t="1" n="modview" x="720" y="18" w="60" h="120"  p="1" v="true" title="LFO 1" />
-    <e t="1" n="modview" x="780" y="18" w="60" h="120"  p="1" v="true" title="LFO 2" />
-    <e t="1" n="modview" x="840" y="18" w="60" h="120"  p="1" v="true" title="LFO 3" />
-    <e t="1" n="modview" x="900" y="18" w="60" h="120"  p="1" v="true" title="LFO 4" />
+    <e t="1" n="modview" x="720" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 1" />
+    <e t="1" n="modview" x="780" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 2" />
+    <e t="1" n="modview" x="840" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 3" />
+    <e t="1" n="modview" x="900" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 4" />
 
-    <e t="1" n="modview" x="960" y="18" w="60" h="120"  p="1" v="true" title="ADSR 1" />
-    <e t="1" n="modview" x="1020" y="18" w="60" h="120"  p="1" v="true" title="ADSR 2" />
-    <e t="1" n="modview" x="1080" y="18" w="60" h="120"  p="1" v="true" title="ADSR 3" />
-    <e t="1" n="modview" x="1140" y="18" w="60" h="120"  p="1" v="true" title="ADSR 4" />
+    <e t="1" n="modview" x="960" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 1" />
+    <e t="1" n="modview" x="1020" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 2" />
+    <e t="1" n="modview" x="1080" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 3" />
+    <e t="1" n="modview" x="1140" y="18" w="60" h="120"  p="1"  m="26" v="true" title="ADSR 4" />
 
-    <e t="1" n="modview" x="1200" y="18" w="60" h="120"  p="1" v="true" title="LFO 1" />
-    <e t="1" n="modview" x="1260" y="18" w="60" h="120"  p="1" v="true" title="LFO 2" />
-    <e t="1" n="modview" x="1320" y="18" w="60" h="120"  p="1" v="true" title="LFO 3" />
-    <e t="1" n="modview" x="1380" y="18" w="60" h="120"  p="1" v="true" title="LFO 4" />
+    <e t="1" n="modview" x="1200" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 1" />
+    <e t="1" n="modview" x="1260" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 2" />
+    <e t="1" n="modview" x="1320" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 3" />
+    <e t="1" n="modview" x="1380" y="18" w="60" h="120"  p="1"  m="26" v="true" title="LFO 4" />
           
 
 </flipotronics>

@@ -65,32 +65,6 @@ public:
         }
     }
     
-    /*
-    void build(Node * node) override{
-       std::cout << node->name << std::endl;
-        int pid = 0;
-       for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
-             Node *n = *it;
-            if(n->name.compare("poti")==0){
-              Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);
-              wc->node = n;
-              addAndMakeVisible(wc);
-              wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
-              wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
-              wc->setNumDecimalPlacesToDisplay(2);
-              wc->setName(toString(n->paramId));
-              wc->addListener (this);
-              wc->setRange(0,1,0.01f);
-              wc->setTitle(node->title);
-              setPoti(n, wc, Model::of()->preset.params[mFilter0][pid].valF);
-              widgets.push_back(wc);
-               ++pid;
-           }
-       }
-        setDials();
-    }
-     */
-    
     void sliderValueChanged(Slider *  slider) override {
            int sid = slider->getName().getIntValue();
            Core::of()->update(mFilter1, sid, slider->getValue());

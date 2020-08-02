@@ -163,7 +163,14 @@ public:
             p.type = n->unitType;
             p.pid = n->paramId;
             p.module = n->module;
+            p.valF =  Model::of()->preset.params[p.module][pid].valF; // Might allready exist
             params[pid] = p;
+            if(p.module == mOSCAnalog0){
+                
+            }
+            if(p.module != mUnknown){
+                Model::of()->preset.params[p.module][pid] = p;
+            }
                 
             if(n->name.compare("poti")==0){
                 Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);

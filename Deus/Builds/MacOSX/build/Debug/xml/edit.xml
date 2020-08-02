@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flipotronics>
-    <e t="0" n="input" x="0" y="0"  w="150" h="308" bg="black" bgi="" v="true" title="Input"  xml="input.xml" />
-    <e t="0" n="oscA0" x="150" y="0"  w="400" h="308" bg="black" bgi="" v="true" title="Osc1 1" xml="oscA0.xml" />
-    <e t="0" n="oscA1" x="550" y="0"  w="400" h="308" bg="black" bgi="" v="true" title="Osc1 2"  xml="oscA1.xml" />
-    <e t="0" n="filter0" x="950" y="0"  w="158" h="308" bg="black" bgi="" v="true" title="Filter 1" xml="filter0.xml" />
-    <e t="0" n="filter1" x="1108" y="0"  w="160" h="308" bg="black" bgi="" v="true" title="Filter 2"  xml="filter1.xml" />
-    <e t="0" n="amp" x="1268" y="0"  w="174" h="308" bg="black" bgi="" v="true" title="Amp" xml="amp.xml" />
+    <e t="0" n="input" x="0" y="0"  w="150" h="308" bg="black" bgi=""  m="26" v="true" title="Input"  xml="input.xml" />
+    <e t="0" n="oscA0" x="150" y="0"  w="400" h="308" bg="black" bgi=""  m="26" v="true" title="Osc1 1" xml="oscA0.xml" />
+    <e t="0" n="oscA1" x="550" y="0"  w="400" h="308" bg="black" bgi=""  m="26" v="true" title="Osc1 2"  xml="oscA1.xml" />
+    <e t="0" n="filter0" x="950" y="0"  w="158" h="308" bg="black" bgi=""  m="26" v="true" title="Filter 1" xml="filter0.xml" />
+    <e t="0" n="filter1" x="1108" y="0"  w="160" h="308" bg="black" bgi=""  m="26" v="true" title="Filter 2"  xml="filter1.xml" />
+    <e t="0" n="amp" x="1268" y="0"  w="174" h="308" bg="black" bgi=""  m="26" v="true" title="Amp" xml="amp.xml" />
     
-    <e t="0" n="modheader" x="0" y="310"  w="1440" h="140" bg="black" bgi="" v="true" title="Modulation Sources"  xml="modheader.xml" />
+    <e t="0" n="modheader" x="0" y="310"  w="1440" h="140" bg="black" bgi=""  m="26" v="true" title="Modulation Sources"  xml="modheader.xml" />
     
-    <e t="0" n="modselector" x="0" y="438"  w="1440" h="20" bg="orange" bgi="" v="true" xml="modswitch.xml" />
+    <e t="0" n="modselector" x="0" y="438"  w="1440" h="20" bg="orange" bgi=""  m="26" v="true" xml="modswitch.xml" />
      
-    <e t="0" n="adsr0" x="0" y="458"  w="480" h="220" bg="orange" bgi="" v="true" title="ADSR" xml="adsr0.xml" />
-    <e t="0" n="lfo0" x="480" y="458"  w="480" h="220" bg="white" bgi="" v="true" title="LFO" xml="lfo0.xml" />
-    <e t="0" n="delay" x="960" y="458"  w="480" h="220" bg="orange" bgi="" v="true" title="FUNC" xml="delay.xml" />
+    <e t="0" n="adsr0" x="0" y="458"  w="480" h="220" bg="orange" bgi=""  m="26" v="true" title="ADSR" xml="adsr0.xml" />
+    <e t="0" n="lfo0" x="480" y="458"  w="480" h="220" bg="white" bgi=""  m="26" v="true" title="LFO" xml="lfo0.xml" />
+    <e t="0" n="delay" x="960" y="458"  w="480" h="220" bg="orange" bgi=""  m="26" v="true" title="FUNC" xml="delay.xml" />
 </flipotronics>

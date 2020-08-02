@@ -34,6 +34,7 @@ public:
         for(int i=0; i < el->getNumChildElements() ;++i){
             auto child = el->getChildElement(i);
            Node *n = new Node();
+            n->module = mUnknown;
             n->type = child->getIntAttribute("t");
             n->name = child->getStringAttribute("n");
             n->x = child->getIntAttribute("x");

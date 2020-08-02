@@ -18,6 +18,7 @@
 #include "MasterSwitch.h"
 #include "MasterPoti.h"
 #include "EventHandler.h"
+#include "FileManager.h"
 
 class HeaderComponent:  public IComponent, public Button::Listener, public Timer{
    public:
@@ -162,6 +163,9 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
 
         // Save
         if(button->getRadioGroupId()==106) {
+            
+                fileManager.save();
+            
            // BankLoader::of().save();
            // Model::of().set();
            // Model::of().compareMode = false;
@@ -361,6 +365,7 @@ private:
     Process * processor;
  
     private:
+    FileManager fileManager;
 
 };
 

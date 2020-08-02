@@ -15,6 +15,7 @@
 #include "Matrix.h"
 #include "Detector.h"
 #include "DelayFX.h"
+#include "FileManager.h"
 
 class Core{
 protected:

@@ -35,7 +35,7 @@ inline String toString(double d) {
 }
 
 inline int intFromString(String s) {
-    return s.getIntValue();
+   return s.getIntValue();
 }
 
 inline Rectangle<float> convertRect(Rectangle<int> r){

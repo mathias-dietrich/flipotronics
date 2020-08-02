@@ -7,10 +7,18 @@ DeusAudioProcessorEditor::DeusAudioProcessorEditor (DeusAudioProcessor& p) : Aud
     masterComponent.init(UIWIDTH, UIHEIGHT);
     masterComponent.eventHandler = this;
     
+    // build Model
+    fileManager.load();
+    
+    // load UI
     uiloader.load(node, "master.xml");
     masterComponent.build(node);
     addAndMakeVisible(masterComponent);
+    
+   
     masterComponent.resized();
+    
+    
     
     startTimer(200);
     

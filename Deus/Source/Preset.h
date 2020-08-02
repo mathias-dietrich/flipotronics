@@ -16,9 +16,10 @@
 class Preset{
 public:
     
-    String name;
-    String author;
-    String desc;
+    String name = "";
+    String author = "";
+    String desc = "";
+    String tags = "";
     
     float tuning = 440.0f;
     
