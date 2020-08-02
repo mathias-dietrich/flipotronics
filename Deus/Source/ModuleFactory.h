@@ -18,6 +18,7 @@
 #include "Filter0.h"
 #include "Lfo0.h"
 #include "DelayFX.h"
+#include "Adsr.h"
 
 class ModuleFactory{
     protected:
@@ -33,6 +34,8 @@ class ModuleFactory{
            
            modules_map[mBlank] = new BlankModule();
            modules_map[mDelay] = new DelayFX();
+           
+            modules_map[mAdsr0] = new Adsr();
            
        }
     

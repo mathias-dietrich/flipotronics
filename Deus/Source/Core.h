@@ -17,7 +17,7 @@
 #include "DelayFX.h"
 #include "FileManager.h"
 
-class Core{
+class Core {
 protected:
       static Core *instance;
     
@@ -74,9 +74,7 @@ public:
               voices[i].render(clock, buffer);
           }
         }
-        
-         // Render FX
-        
+
         // Render FX
         delayfx.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels);
         
@@ -84,7 +82,6 @@ public:
              channelDataL[i] *= masterVolume;
              channelDataR[i] *= masterVolume;
          }
-        
         
         // Move Clock
         clock += samplesPerBlock;
@@ -211,6 +208,13 @@ public:
                 break;
             }
             return;
+        }
+        if(module == mMacro){
+            switch(pid){
+                case 16: // tuning
+                Model::of()->preset.tuning = val;
+                break;
+            }
         }
         if(module == mDelay){
             delayfx.set( pid, val);

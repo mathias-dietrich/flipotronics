@@ -26,12 +26,6 @@ public:
         modCutoff = 1.0f;
     }
     
-    ParamSet getSet() override{
-       ParamSet set;
-       set.moduleId = mFilter0;
-       return set;
-    }
-    
     void set(int pid, float p) override{
         switch(pid){
             case 0:

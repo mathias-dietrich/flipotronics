@@ -239,6 +239,8 @@
 		40F6CB5524D6C0CD00C3E9FB /* DelayComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DelayComponent.h; path = ../../Source/DelayComponent.h; sourceTree = "<group>"; };
 		40F6CB5624D6C22700C3E9FB /* DelayFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DelayFX.h; path = ../../Source/DelayFX.h; sourceTree = "<group>"; };
 		40F6CB5724D6CAEB00C3E9FB /* FileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FileManager.h; path = ../../Source/FileManager.h; sourceTree = "<group>"; };
+		40F6CB5824D7461800C3E9FB /* Adsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Adsr.h; path = ../../Source/Adsr.h; sourceTree = "<group>"; };
+		40F6CB5924D746CF00C3E9FB /* Curve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Curve.h; path = ../../Source/Curve.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -679,6 +681,8 @@
 			isa = PBXGroup;
 			children = (
 				40F6CB5324D59EA000C3E9FB /* AdsrComponent0.h */,
+				40F6CB5824D7461800C3E9FB /* Adsr.h */,
+				40F6CB5924D746CF00C3E9FB /* Curve.h */,
 			);
 			name = ADSR;
 			sourceTree = "<group>";

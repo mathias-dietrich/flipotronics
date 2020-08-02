@@ -24,12 +24,6 @@ public:
         bufPos = 0;
     }
     
-    ParamSet getSet() override{
-       ParamSet set;
-       set.moduleId = mFilter0;
-       return set;
-    }
-    
     int getPos(int pos){
         if(pos < 0){
             return pos + DELBUFSIZE;

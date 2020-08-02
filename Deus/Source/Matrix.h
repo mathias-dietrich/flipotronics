@@ -27,6 +27,7 @@ enum MatrixTransform{
 
 enum MatrixSource{
     s_NONE = 0,
+    s_ADSR0,
     s_LFO0,
     s_LFO1,
     s_LFO2,

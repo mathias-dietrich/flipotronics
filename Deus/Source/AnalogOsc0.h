@@ -45,12 +45,6 @@ public:
         polyBLEP = new PolyBLEP(sampleRate, PolyBLEP::SINE,  440.0);
     }
     
-    ParamSet getSet() override{
-       ParamSet set;
-       set.moduleId = mOSCAnalog0;
-       return set;
-    }
-    
     void set(int pid, float p) override{
         switch(pid){
             case 0:

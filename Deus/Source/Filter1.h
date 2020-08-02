@@ -25,12 +25,6 @@ public:
         filterR.setSampleRate(sampleRate);
     }
     
-    ParamSet getSet() override{
-       ParamSet set;
-       set.moduleId = mFilter0;
-       return set;
-    }
-    
     void set(int pid, float p) override{
         switch(pid){
             case 0:

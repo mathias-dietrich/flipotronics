@@ -14,13 +14,7 @@
 
 class BlankModule:  public IModule{
 public:
-
-    ParamSet getSet() override{
-          ParamSet set;
-          set.moduleId = mBlank;
-          return set;
-    }
-       
+ 
    void set(int pid, float p) override{
        
    }

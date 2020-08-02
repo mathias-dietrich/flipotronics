@@ -141,7 +141,6 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
         
         setDials();
         
-        
         startTimer(200);
     }
    
@@ -312,7 +311,6 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
         potiMasterVol.setBounds(width-160,6,40,40);
         outputMeter.setBounds(width-120,0,40,50);
         
-        
         switch0.setBounds(150,1,50,48);
         switch1.setBounds(205,1,50,48);
         switch2.setBounds(260,1,50,48);
@@ -334,7 +332,7 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
     }
     
      void sliderValueChanged(Slider *  slider) override {
-         Core::of()->update(mGlobal, 0, slider->getValue());
+         Core::of()->update(mGlobal, 0, slider->getValue());  //volume
          setDials();
      }
 

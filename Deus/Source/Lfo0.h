@@ -25,13 +25,7 @@ public:
         m_deltaTime = 1.0 / ((double )sampleRate);
         m_phase = 0;
     }
-    
-    ParamSet getSet() override{
-       ParamSet set;
-       set.moduleId = mLFO0;
-       return set;
-    }
-    
+
     void set(int pid, float p) override{
         switch(pid){
             case 0:
