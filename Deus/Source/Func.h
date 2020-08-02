@@ -211,6 +211,9 @@ inline String getWaveType(E_WaveType type){
             
         case wTable:
             return "Table";
+            
+        default:
+            return "Sin";
     }
 }
    

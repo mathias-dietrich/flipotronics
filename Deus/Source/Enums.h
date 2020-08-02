@@ -35,6 +35,7 @@ enum E_Module {
     mBlank=22,
     mMatrix=23,
     mGlobal=24,
+    mDelay=25,
     mMODULECOUNT
 };
 

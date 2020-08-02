@@ -13,5 +13,5 @@
      
     <e t="0" n="adsr0" x="0" y="458"  w="480" h="220" bg="orange" bgi="" v="true" title="ADSR" xml="adsr0.xml" />
     <e t="0" n="lfo0" x="480" y="458"  w="480" h="220" bg="white" bgi="" v="true" title="LFO" xml="lfo0.xml" />
-    <e t="0" n="mod" x="960" y="458"  w="480" h="220" bg="orange" bgi="" v="true" title="FUNC" xml="mod.xml" />
+    <e t="0" n="delay" x="960" y="458"  w="480" h="220" bg="orange" bgi="" v="true" title="FUNC" xml="delay.xml" />
 </flipotronics>

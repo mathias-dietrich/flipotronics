@@ -132,7 +132,14 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
         viewZoom.addItem ("200%", 12);
         viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
         viewZoom.setSelectedId(Model::of()->global.lastGuiZoom,  NotificationType::dontSendNotification);
+        
+        addAndMakeVisible(noOfVoices);
+        for(int i=1;i<33;i++){
+            noOfVoices.addItem (String(i), i);
+        }
+        
         setDials();
+        
         
         startTimer(200);
     }
@@ -144,6 +151,7 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
     void styleMenuChangedViewZoom()
     {
         eventHandler->resizeUi(viewZoom.getSelectedId());
+        Core::of()->update(mGlobal, 1, noOfVoices.getSelectedId());
     }
 
     void timerCallback() override{
@@ -293,9 +301,13 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
         auto width  = r.getWidth();
        // auto height  = r.getHeight();
         
-        viewZoom.setBounds (width-75, 3, 70, 20);
+        viewZoom.setBounds (width-75, 3, 70, 16);
+        noOfVoices.setBounds (width-75, 25, 70, 16);
+        noOfVoices.setText("32");
+        
         potiMasterVol.setBounds(width-160,6,40,40);
         outputMeter.setBounds(width-120,0,40,50);
+        
         
         switch0.setBounds(150,1,50,48);
         switch1.setBounds(205,1,50,48);
@@ -323,6 +335,7 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
      }
 
     ComboBox viewZoom;
+    ComboBox noOfVoices;
 
     
 private:

@@ -39,9 +39,6 @@
 		3BB85731411DF4A945A9E8E0 /* include_juce_audio_plugin_client_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE5158FB3EDBFF13ABA51E29 /* include_juce_audio_plugin_client_utils.cpp */; };
 		40589A23E17BFA2A9A988F43 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E46F9AF53A214044A93F2D11 /* Carbon.framework */; };
 		40930F4B24D16B9E00DDE286 /* Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40930F4724D16B9E00DDE286 /* Core.cpp */; };
-		40930F5024D17B0900DDE286 /* ModuleFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */; };
-		40930F5124D17B0900DDE286 /* ModuleFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */; };
-		40930F5224D17B0900DDE286 /* ModuleFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */; };
 		40930F5324D17B0900DDE286 /* ModuleFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */; };
 		40F6CB2B24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1624D449AF00C3E9FB /* MoogLadderFilter.cpp */; };
 		40F6CB2C24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F6CB1624D449AF00C3E9FB /* MoogLadderFilter.cpp */; };
@@ -239,6 +236,8 @@
 		40F6CB5224D5956400C3E9FB /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../../Source/Node.h; sourceTree = "<group>"; };
 		40F6CB5324D59EA000C3E9FB /* AdsrComponent0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AdsrComponent0.h; path = ../../Source/AdsrComponent0.h; sourceTree = "<group>"; };
 		40F6CB5424D5AB8500C3E9FB /* Detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Detector.h; path = ../../Source/Detector.h; sourceTree = "<group>"; };
+		40F6CB5524D6C0CD00C3E9FB /* DelayComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DelayComponent.h; path = ../../Source/DelayComponent.h; sourceTree = "<group>"; };
+		40F6CB5624D6C22700C3E9FB /* DelayFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DelayFX.h; path = ../../Source/DelayFX.h; sourceTree = "<group>"; };
 		44B6C94F9EF8975F38CB47E4 /* juce_osc */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_osc; path = "~/JUCE/modules/juce_osc"; sourceTree = "<absolute>"; };
 		45913DDACCFC2BF97260EE0A /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		46B577CB841FAF37EDB384EB /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
@@ -547,7 +546,6 @@
 				4FA5748724BEFBE600A1E759 /* Performance.h */,
 				4021727624CEB79A00535ACE /* Playlist.h */,
 				4FA5748924BEFC3D00A1E759 /* Defines.h */,
-				4FA5748A24BEFC5100A1E759 /* Enums.h */,
 				4FA5748C24BEFCCC00A1E759 /* Colors.h */,
 				4FA574AA24BF06F500A1E759 /* Param.h */,
 				4FA5749F24BEFF4900A1E759 /* Model.h */,
@@ -605,8 +603,6 @@
 				4FA5749624BEFDE700A1E759 /* Osc */,
 				40A491BF24D004AB00DF8705 /* IModule.h */,
 				40930F4C24D170D400DDE286 /* BlankModule.h */,
-				40930F4E24D17A3600DDE286 /* ModuleFactory.h */,
-				40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */,
 			);
 			name = Synth;
 			sourceTree = "<group>";
@@ -722,6 +718,8 @@
 		4FA5749E24BEFE7600A1E759 /* Delay */ = {
 			isa = PBXGroup;
 			children = (
+				40F6CB5524D6C0CD00C3E9FB /* DelayComponent.h */,
+				40F6CB5624D6C22700C3E9FB /* DelayFX.h */,
 			);
 			name = Delay;
 			sourceTree = "<group>";
@@ -733,7 +731,6 @@
 				4FA574A624BF045A00A1E759 /* MasterComponent.h */,
 				4FA574B224BF0BFD00A1E759 /* HeaderComponent.h */,
 				4F31986724C0726E007D694F /* IFactory.h */,
-				4F31986624C07232007D694F /* ComponentFactory.h */,
 				4F31986824C08C2A007D694F /* MacroComponent.h */,
 				4FE513ED24C179E200E2B6F1 /* EditComponent.h */,
 				4FE513EF24C1888000E2B6F1 /* KeyboardComponent.h */,
@@ -822,6 +819,10 @@
 				9AF5C9C872E07758CD419AFA /* PluginProcessor.h */,
 				A4B688CA146BACF50B28F4CB /* PluginEditor.cpp */,
 				159E15C564A0D7E5170E5AFF /* PluginEditor.h */,
+				4FA5748A24BEFC5100A1E759 /* Enums.h */,
+				4F31986624C07232007D694F /* ComponentFactory.h */,
+				40930F4E24D17A3600DDE286 /* ModuleFactory.h */,
+				40930F4F24D17B0900DDE286 /* ModuleFactory.cpp */,
 				40930F4624D14DBD00DDE286 /* Voice.h */,
 				40930F4724D16B9E00DDE286 /* Core.cpp */,
 				40A491C024D00FA100DF8705 /* Core.h */,
@@ -1109,7 +1110,6 @@
 			files = (
 				5B4EBAB70481F4B0A93B2857 /* include_juce_audio_plugin_client_Standalone.cpp in Sources */,
 				40F6CB2D24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */,
-				40930F5224D17B0900DDE286 /* ModuleFactory.cpp in Sources */,
 				40F6CB4124D449AF00C3E9FB /* Filter.cpp in Sources */,
 				40F6CB4524D449AF00C3E9FB /* PolyBLEP.cpp in Sources */,
 				40F6CB4D24D449AF00C3E9FB /* Oscillator.cpp in Sources */,
@@ -1130,7 +1130,6 @@
 			files = (
 				063E8F44B8EC480EBD51C860 /* include_juce_audio_plugin_client_VST3.cpp in Sources */,
 				40F6CB2B24D449AF00C3E9FB /* MoogLadderFilter.cpp in Sources */,
-				40930F5024D17B0900DDE286 /* ModuleFactory.cpp in Sources */,
 				40F6CB3F24D449AF00C3E9FB /* Filter.cpp in Sources */,
 				40F6CB4324D449AF00C3E9FB /* PolyBLEP.cpp in Sources */,
 				40F6CB4B24D449AF00C3E9FB /* Oscillator.cpp in Sources */,
@@ -1193,7 +1192,6 @@
 				40F6CB4024D449AF00C3E9FB /* Filter.cpp in Sources */,
 				40F6CB3824D449AF00C3E9FB /* pluginobjects.cpp in Sources */,
 				40F6CB4824D449AF00C3E9FB /* SEMFilter.cpp in Sources */,
-				40930F5124D17B0900DDE286 /* ModuleFactory.cpp in Sources */,
 				4FA574AD24BF082600A1E759 /* Model.cpp in Sources */,
 				40F6CB3424D449AF00C3E9FB /* ModulationMatrix.cpp in Sources */,
 				4FA574B724BF0CF500A1E759 /* FontLoader.cpp in Sources */,

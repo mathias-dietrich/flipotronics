@@ -14,6 +14,7 @@
 #include "Voice.h"
 #include "Matrix.h"
 #include "Detector.h"
+#include "DelayFX.h"
 
 class Core{
 protected:
@@ -23,6 +24,8 @@ public:
     
     Core(){
         instance = this;
+        masterVolume = 1.0;
+        noOfVoices = 32;
     }
     
     ~Core(){
@@ -72,6 +75,10 @@ public:
         }
         
          // Render FX
+        
+        // Render FX
+        delayfx.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels);
+        
          for(int i=0; i < samplesPerBlock;++i){
              channelDataL[i] *= masterVolume;
              channelDataR[i] *= masterVolume;
@@ -132,8 +139,6 @@ public:
     
     // Voicepool - find next voice to uae
     int findNewVoice(int midiNoteNumber,int midiChannel){
-
-        // Existing Voice?
         for(int i=0; i < MAXVOICE;i++){
            if(midiNoteNumber==voices[i].noteNumber && midiChannel==voices[i].midiChannel){
                return i;
@@ -163,15 +168,17 @@ public:
         this->sampleRate = sampleRate;
         this->samplesPerBlock = samplesPerBlock;
         this->blocksPerSeccond = sampleRate / samplesPerBlock;
-         maxTimeMsec = 1000 * samplesPerBlock / sampleRate;
-        
+        maxTimeMsec = 1000 * samplesPerBlock / sampleRate;
+
         // Voices
-       for (int i=0; i<MAXVOICE; ++i) {
+        for (int i=0; i<MAXVOICE; ++i) {
            voices[i].vid = i;
            voices[i].init( sampleRate, samplesPerBlock);
            voices[i].active = false;
-       }
-        
+        }
+
+        delayfx.init(sampleRate,samplesPerBlock );
+
         detector.init(sampleRate, samplesPerBlock);
         detector.setAttack(20);
         detector.setRelease(200);
@@ -180,6 +187,9 @@ public:
     void configure(Preset preset){
         
         // Configure FX
+        for (int i=0; i<delayfx.getParamCount(); ++i) {
+            delayfx.set(i, preset.params[mDelay][i].valF);
+        }
         
         // Configure Voices
          for (int i=0; i<MAXVOICE; ++i) {
@@ -193,9 +203,16 @@ public:
             switch(pid){
                 case 0:
                     masterVolume = DecibelToLinear(val);
-                    break;
+                break;
+                    
+                case 1:
+                    noOfVoices = DecibelToLinear(val);
+                break;
             }
             return;
+        }
+        if(module == mDelay){
+            delayfx.set( pid, val);
         }
         for (int i=0; i<MAXVOICE; ++i) {
             voices[i].update(module, pid, val);
@@ -210,7 +227,9 @@ private:
     int samplesPerBlock;
     int blocksPerSeccond;
     int64 clock;
-    float masterVolume = 1.0;
+    atomic<float> masterVolume;
+    atomic<int>  noOfVoices;
     Detector detector;
+    DelayFX delayfx;
 };
 #endif /* Core_h */
