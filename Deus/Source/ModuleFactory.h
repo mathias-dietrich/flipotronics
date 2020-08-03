@@ -19,6 +19,7 @@
 #include "Lfo0.h"
 #include "DelayFX.h"
 #include "Adsr.h"
+#include "Amp.h"
 
 class ModuleFactory{
     protected:
@@ -36,7 +37,7 @@ class ModuleFactory{
            modules_map[mDelay] = new DelayFX();
            
             modules_map[mAdsr0] = new Adsr();
-           
+            modules_map[mAmp] = new Amp();
        }
     
     public:

@@ -79,6 +79,8 @@ public:
                             case 2:
                                 float v = sub[y].getFloatValue();
                                 Model::of()->preset.params[module][pid].valF = v;
+                                Model::of()->preset.params[module][pid].pid = pid;
+                                Model::of()->preset.params[module][pid].module = module;
                                 break;
                         }
                     }

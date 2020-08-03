@@ -74,8 +74,8 @@ class MacroComponent:  public IComponent{
                     wc->node = n;
                     addAndMakeVisible(wc);
                     wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
-                    wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
-                    wc->setNumDecimalPlacesToDisplay(2);
+                    wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 20);
+                    wc->setNumDecimalPlacesToDisplay(1);
                     wc->setName(toString(n->paramId));
                     wc->addListener (this);
                     wc->setTitle(node->title);

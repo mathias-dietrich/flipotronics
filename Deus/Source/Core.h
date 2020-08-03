@@ -16,6 +16,7 @@
 #include "Detector.h"
 #include "DelayFX.h"
 #include "FileManager.h"
+#include "Amp.h"
 
 class Core {
 protected:
@@ -79,8 +80,8 @@ public:
         delayfx.handle(buffer,  totalNumInputChannels,  totalNumOutputChannels);
         
          for(int i=0; i < samplesPerBlock;++i){
-             channelDataL[i] *= masterVolume;
-             channelDataR[i] *= masterVolume;
+             channelDataL[i] = masterVolume * amp.getNextL(channelDataL[i], false);
+             channelDataR[i] = masterVolume * amp.getNextR(channelDataR[i], false);
          }
         
         // Move Clock
@@ -201,11 +202,11 @@ public:
             switch(pid){
                 case 0:
                     masterVolume = DecibelToLinear(val);
-                break;
+                return;
                     
                 case 1:
                     noOfVoices = val;
-                break;
+                return;
             }
             return;
         }
@@ -213,12 +214,18 @@ public:
             switch(pid){
                 case 16: // tuning
                 Model::of()->preset.tuning = val;
-                break;
+                return;
             }
         }
         if(module == mDelay){
             delayfx.set( pid, val);
+            return;
         }
+        if(module == mAmp){
+            amp.set(pid, val);
+            return;
+        }
+        
         for (int i=0; i<MAXVOICE; ++i) {
             voices[i].update(module, pid, val);
         }
@@ -236,5 +243,6 @@ private:
     atomic<int>  noOfVoices;
     Detector detector;
     DelayFX delayfx;
+    Amp amp;
 };
 #endif /* Core_h */
