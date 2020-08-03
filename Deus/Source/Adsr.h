@@ -56,7 +56,6 @@ class Adsr : public IModule {
     void release(){
         releaseTimeStart = timeLapse;
         state = ADSR_RELEASE;
-        //if(uid>0)std::cout << "ADSR_RELEASE" << uid << std::endl;
     }
     
     void tick(int tickSamples){

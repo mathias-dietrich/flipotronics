@@ -9,10 +9,17 @@
 #ifndef Global_h
 #define Global_h
 
+
+class Model;
+
 class Global {
     
 public:
     
+    Global(){
+
+    }
+
     // Build
     int version = 1;
     int build = 1;

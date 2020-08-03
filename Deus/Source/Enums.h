@@ -8,6 +8,12 @@
 
 #ifndef Enums_h
 #define Enums_h
+enum E_Global {
+    
+    gMasterVolume = 0,
+    gNoOfVoices = 1,
+    gGGLOBALCOUNT
+};
 
 enum E_Module {
     mOSCAnalog0=0,

@@ -204,7 +204,7 @@ public:
                 break;
                     
                 case 1:
-                    noOfVoices = DecibelToLinear(val);
+                    noOfVoices = val;
                 break;
             }
             return;

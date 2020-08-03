@@ -65,7 +65,6 @@ public:
     }
     
     void build(Node * node) override{
-        std::cout << node->name << std::endl;
         for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
               Node *n = *it;
              if(n->name.compare("poti")==0){

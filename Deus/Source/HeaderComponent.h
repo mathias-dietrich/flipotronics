@@ -132,15 +132,16 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
         viewZoom.addItem ("180%", 11);
         viewZoom.addItem ("200%", 12);
         viewZoom.onChange = [this] { styleMenuChangedViewZoom(); };
-        viewZoom.setSelectedId(Model::of()->global.lastGuiZoom,  NotificationType::dontSendNotification);
-        
+
         addAndMakeVisible(noOfVoices);
+        
         for(int i=1;i<33;i++){
             noOfVoices.addItem (String(i), i);
         }
+        noOfVoices.onChange = [this] { styleMenuChangedNoOfVoices();};
         
         setDials();
-        
+
         startTimer(200);
     }
    
@@ -148,10 +149,13 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
       
     }
     
+    void styleMenuChangedNoOfVoices(){
+        Core::of()->update(mGlobal, gNoOfVoices, noOfVoices.getSelectedId());
+    }
+    
     void styleMenuChangedViewZoom()
     {
         eventHandler->resizeUi(viewZoom.getSelectedId());
-        Core::of()->update(mGlobal, 1, noOfVoices.getSelectedId());
     }
 
     void timerCallback() override{
@@ -162,12 +166,7 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
 
         // Save
         if(button->getRadioGroupId()==106) {
-            
-                fileManager.save();
-            
-           // BankLoader::of().save();
-           // Model::of().set();
-           // Model::of().compareMode = false;
+            fileManager.save();
         }
         
         /*
@@ -296,7 +295,9 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
         if(processor){
           //  btnArp.setToggleState(processor->isArpOn, NotificationType::dontSendNotification);
         }
+        potiMasterVol.setValue(Model::of()->preset.params[mGlobal][gMasterVolume].valF);
         viewZoom.setSelectedId(Model::of()->global.lastGuiZoom,  NotificationType::dontSendNotification);
+        noOfVoices.setSelectedId(Model::of()->preset.params[mGlobal][gNoOfVoices].valF,  NotificationType::dontSendNotification);
     }
     
     void resized() override{
@@ -306,7 +307,6 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
         
         viewZoom.setBounds (width-75, 3, 70, 16);
         noOfVoices.setBounds (width-75, 25, 70, 16);
-        noOfVoices.setText("32");
         
         potiMasterVol.setBounds(width-160,6,40,40);
         outputMeter.setBounds(width-120,0,40,50);
@@ -332,13 +332,12 @@ class HeaderComponent:  public IComponent, public Button::Listener, public Timer
     }
     
      void sliderValueChanged(Slider *  slider) override {
-         Core::of()->update(mGlobal, 0, slider->getValue());  //volume
+         Core::of()->update(mGlobal, gMasterVolume, slider->getValue());  //volume
          setDials();
      }
 
     ComboBox viewZoom;
     ComboBox noOfVoices;
-
     
 private:
     FontLoader fontLoader;

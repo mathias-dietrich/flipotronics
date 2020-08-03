@@ -57,23 +57,22 @@ public:
     }
     
     void build(Node * node) override{
-        std::cout << node->name << std::endl;
-             for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
-                   Node *n = *it;
-                  if(node->name.compare("poti")==1){
-                    Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);
-                    wc->node = n;
-                    addAndMakeVisible(wc);
-                    wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
-                    wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
-                    wc->setNumDecimalPlacesToDisplay(2);
-                    wc->setName(toString(n->paramId));
-                    wc->addListener (this);
-                    wc->setRange(0,1,0.01f);
-                    wc->setTitle(node->title);
-                    widgets.push_back(wc);
-                 }
+         for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
+               Node *n = *it;
+              if(node->name.compare("poti")==1){
+                Poti *wc = (Poti *) WidgetFactory::of()->get(n->name);
+                wc->node = n;
+                addAndMakeVisible(wc);
+                wc->setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag );
+                wc->setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, false, 100, 20);
+                wc->setNumDecimalPlacesToDisplay(2);
+                wc->setName(toString(n->paramId));
+                wc->addListener (this);
+                wc->setRange(0,1,0.01f);
+                wc->setTitle(node->title);
+                widgets.push_back(wc);
              }
+         }
     }
     
     void sliderValueChanged(Slider *  slider) override {

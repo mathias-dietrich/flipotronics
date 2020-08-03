@@ -56,8 +56,7 @@ public:
     void build(Node * node) override{
         for(auto it = std::begin( node->children); it != std::end( node->children); ++it) {
             Node *node = *it;
-            std::cout << node->name << std::endl;
-          
+
             if(node->type == 0){ //Component
                 std::cout << node->name << std::endl;
                 current = factory->get(node->name);

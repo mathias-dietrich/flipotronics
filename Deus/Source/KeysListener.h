@@ -14,7 +14,6 @@ class KeysListener{
 public:
     
     bool keyPressed (const KeyPress &key, Component *originatingComponent){
-        std::cout << key.getKeyCode() << std::endl;
         switch(key.getKeyCode()){
             case 61: // zoom in
             {

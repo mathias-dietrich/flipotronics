@@ -73,8 +73,6 @@ public:
         
         void sliderValueChanged(Slider *  slider) override {
             int sid = slider->getName().getIntValue();
-            std::cout << params[sid].module << std::endl;
-            std::cout << params[sid].pid << std::endl;
             Core::of()->update(params[sid].module, params[sid].pid, slider->getValue());
             setDials();
         }

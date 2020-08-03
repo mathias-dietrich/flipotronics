@@ -59,7 +59,6 @@ public:
             std::cout << node->name << std::endl;
           
             if(node->type == 0){ //Component
-                std::cout << node->name << std::endl;
                 current = factory->get(node->name);
                 current->node = node;
                 current->factory = factory;

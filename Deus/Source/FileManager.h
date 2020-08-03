@@ -23,8 +23,6 @@ public:
         
         StringArray tokens;
         tokens.addTokens (fileText, "\n", "\"");
-        std::cout << tokens.size() << std::endl;
-        
         for (int i=0; i<tokens.size(); i++){
             switch(i){
                 case 0:
@@ -90,6 +88,19 @@ public:
     }
     
     void save(){
+        Model::of()->preset.params[mGlobal][gMasterVolume].pid = 0;
+        Model::of()->preset.params[mGlobal][gMasterVolume].minVal = -96;
+        Model::of()->preset.params[mGlobal][gMasterVolume].maxVal = 6;
+        Model::of()->preset.params[mGlobal][gMasterVolume].type = uDb;
+        Model::of()->preset.params[mGlobal][gMasterVolume].stepVal = 0.01f;
+        Model::of()->preset.params[mGlobal][gMasterVolume].module = mGlobal;
+        
+        Model::of()->preset.params[mGlobal][gNoOfVoices].pid = 1;
+        Model::of()->preset.params[mGlobal][gNoOfVoices].minVal = 1;
+        Model::of()->preset.params[mGlobal][gNoOfVoices].maxVal = 32;
+        Model::of()->preset.params[mGlobal][gNoOfVoices].stepVal = 1.0f;
+        Model::of()->preset.params[mGlobal][gNoOfVoices].module = mGlobal;
+        
         File rp = File::getCurrentWorkingDirectory().getChildFile (path);
         File resourceFile (rp);
         
@@ -115,6 +126,10 @@ public:
         std::map<E_Module,std::map<int, Param>>::iterator    it = p.begin();
         while (it != p.end()){
             auto mod = it->first;
+            std::cout << mod << std::endl;
+            if(mGlobal == mod){
+                
+            }
             map<int, Param> par = p[mod];
             std::map<int, Param>::iterator iti = par.begin();
             while (iti != par.end()) {

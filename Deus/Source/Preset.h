@@ -22,6 +22,7 @@ public:
     String tags = "";
     
     float tuning = 440.0f;
+
     
     std::map<E_Module,std::map<int, Param> > params;
     

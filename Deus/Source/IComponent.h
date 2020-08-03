@@ -150,7 +150,6 @@ public:
     }
     
    virtual void build(Node * node) {
-        std::cout << node->name << std::endl;
         int pid = 0;
         for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
             Node *n = *it;
