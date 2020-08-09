@@ -60,6 +60,8 @@ public:
           // setPoti(node, p);
           // p->setValue(Model::of().par[node->paramId],dontSendNotification);
        }
+        
+      
     }
     
     void build(Node * node) override{
@@ -77,6 +79,8 @@ public:
     }
     
     void buttonClicked(Button *  button) override {
+        Model::of()->editSel = (MatrixSource) button->getName().getIntValue();
+       
         setDials();
     }
     

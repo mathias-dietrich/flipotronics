@@ -255,6 +255,9 @@
 		4F31986824C08C2A007D694F /* MacroComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MacroComponent.h; path = ../../Source/MacroComponent.h; sourceTree = "<group>"; };
 		4F31986924C08F3A007D694F /* WidgetFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = WidgetFactory.cpp; path = ../../Source/WidgetFactory.cpp; sourceTree = "<group>"; };
 		4F3C175C24BF44AC001DF4DD /* EventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = ../../Source/EventHandler.h; sourceTree = "<group>"; };
+		4F60BF4624DFD00200E98AB4 /* Scale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Scale.h; path = ../../Source/Scale.h; sourceTree = "<group>"; };
+		4F60BF4724DFDC4C00E98AB4 /* ModSourceComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModSourceComponent.h; path = ../../Source/ModSourceComponent.h; sourceTree = "<group>"; };
+		4F60BF4824DFE09D00E98AB4 /* KeySourceComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeySourceComponent.h; path = ../../Source/KeySourceComponent.h; sourceTree = "<group>"; };
 		4FA5747F24BEF9DE00A1E759 /* xml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = xml; path = build/Debug/xml; sourceTree = "<group>"; };
 		4FA5748024BEF9DE00A1E759 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = build/Debug/images; sourceTree = "<group>"; };
 		4FA5748124BEF9DE00A1E759 /* tun */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tun; path = build/Debug/tun; sourceTree = "<group>"; };
@@ -558,6 +561,7 @@
 				4FA5749F24BEFF4900A1E759 /* Model.h */,
 				4FA574AB24BF082600A1E759 /* Model.cpp */,
 				4021727724CEB80F00535ACE /* Global.h */,
+				4F60BF4624DFD00200E98AB4 /* Scale.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -742,6 +746,8 @@
 				40506BDA24CDEA0400ED5568 /* ModSelector.h */,
 				40A491BD24CEBF3B00DF8705 /* KeysListener.h */,
 				40F6CB5424D5AB8500C3E9FB /* Detector.h */,
+				4F60BF4724DFDC4C00E98AB4 /* ModSourceComponent.h */,
+				4F60BF4824DFE09D00E98AB4 /* KeySourceComponent.h */,
 			);
 			name = UI;
 			sourceTree = "<group>";

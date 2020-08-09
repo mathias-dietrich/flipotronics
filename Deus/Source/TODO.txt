@@ -1,9 +1,8 @@
 TODO
 
-Filter
+top source -> routing
 
-2nd Osci
-
+bottom sourcr -> select singe source for edit
 
 2nd Filter
 

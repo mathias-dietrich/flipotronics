@@ -33,6 +33,8 @@
 #include "LfoComponent.h"
 #include "AdsrComponent0.h"
 #include "DelayComponent.h"
+#include "ModSourceComponent.h";
+#include "KeySourceComponent.h";
 
 class DeusAudioProcessor;
 
@@ -178,6 +180,17 @@ public:
            c->factory = this;
            return c;
         }
+        if(type == "modsource"){
+           auto *c = new ModSourceComponent();
+           c->factory = this;
+           return c;
+        }
+        if(type == "keysource"){
+          auto *c = new KeySourceComponent();
+          c->factory = this;
+          return c;
+       }
+
         return new HeaderComponent();
     }
 };

@@ -8,6 +8,57 @@
 
 #ifndef Enums_h
 #define Enums_h
+
+enum MatrixSource{
+    s_NONE = 0,
+    s_VELOCITY,
+    s_AFTERTOUCH,
+    s_MODWHEEL,
+    s_KEYBOARD,
+    s_EXPRESSION,
+    s_ADSR0,
+    s_ADSR1,
+    s_ADSR2,
+    s_LFO0,
+    s_LFO1,
+    s_LFO2,
+    s_LFO3,
+    s_FUNC0,
+    s_FUNC1,
+    s_FUNC2,
+    s_RND0,
+    s_RND1,
+    s_RND2,
+    s_COMB0,
+    s_COMB1,
+    s_COMB2,
+    MACRO0,
+    MACRO1,
+    MACRO2,
+    MACRO3,
+    MACRO4,
+    MACRO5,
+    MACRO6,
+    MACRO7,
+    MACRO8,
+    MACRO9,
+    MACRO10,
+    MACRO11,
+    MACRO12,
+    MACRO13,
+    MACRO14,
+    MACRO15,
+    s_SOURCESCOUNT
+};
+
+enum MatrixDest{
+    d_NONE = 0,
+    d_OSC0_PITCH,
+    d_OSC0_VOL,
+    d_FILTER0_CUTOFF,
+    d_TARGETSCOUNT
+};
+
 enum E_Global {
     
     gMasterVolume = 0,

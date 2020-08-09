@@ -25,23 +25,9 @@ enum MatrixTransform{
     t_MAX_TRANSFORM
 };
 
-enum MatrixSource{
-    s_NONE = 0,
-    s_ADSR0,
-    s_LFO0,
-    s_LFO1,
-    s_LFO2,
-    s_LFO3,
-    s_SOURCESCOUNT
-};
 
-enum MatrixDest{
-    d_NONE = 0,
-    d_OSC0_PITCH,
-    d_OSC0_VOL,
-    d_FILTER0_CUTOFF,
-    d_TARGETSCOUNT
-};
+
+
 
 struct MatrixEntry{
     // --- index of source

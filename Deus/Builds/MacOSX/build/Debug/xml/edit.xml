@@ -9,9 +9,9 @@
     
     <e t="0" n="modheader" x="0" y="310"  w="1440" h="140" bg="black" bgi=""  m="26" v="true" title="Modulation Sources"  xml="modheader.xml" />
     
-    <e t="0" n="modselector" x="0" y="438"  w="1440" h="20" bg="orange" bgi=""  m="26" v="true" xml="modswitch.xml" />
+    <!-- <e t="0" n="modselector" x="0" y="438"  w="1440" h="20" bg="orange" bgi=""  m="26" v="true" xml="modswitch.xml" />-->
      
-    <e t="0" n="adsr0" x="0" y="458"  w="480" h="220" bg="orange" bgi=""  m="26" v="true" title="ADSR" xml="adsr0.xml" />
-    <e t="0" n="lfo0" x="480" y="458"  w="480" h="220" bg="white" bgi=""  m="26" v="true" title="LFO" xml="lfo0.xml" />
-    <e t="0" n="delay" x="960" y="458"  w="480" h="220" bg="orange" bgi=""  m="26" v="true" title="FUNC" xml="delay.xml" />
+    <e t="0" n="modsource" x="0" y="438"  w="1440" h="240" bg="black" bgi=""  v="true"  xml="keysource.xml" />
+   <!-- <e t="0" n="lfo0" x="480" y="458"  w="480" h="220" bg="white" bgi=""  m="26" v="true" title="LFO" xml="lfo0.xml" />
+    <e t="0" n="delay" x="960" y="458"  w="480" h="220" bg="orange" bgi=""  m="26" v="true" title="FUNC" xml="delay.xml" />-->
 </flipotronics>

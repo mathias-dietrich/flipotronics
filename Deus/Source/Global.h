@@ -43,7 +43,7 @@ public:
     // Volume
 
     // UI
-    int lastGuiZoom = 7; // 110%
+    int lastGuiZoom = 6; // 6 for small Mac, 7 for pro
     
 };
 

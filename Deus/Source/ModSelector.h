@@ -31,7 +31,7 @@ class ModSelector:  public IComponent, public Button::Listener{
     void build(Node * node) override{
        for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
              Node *n = *it;
-            if(node->name.compare("modswitch")==1){
+            if(n->name.compare("modswitch")==0){
               ModView *wc = (ModView *) WidgetFactory::of()->get(n->name);
               wc->node = n;
               addAndMakeVisible(wc);
@@ -59,7 +59,7 @@ class ModSelector:  public IComponent, public Button::Listener{
          }
      }
     
-    void buttonClicked(Button *  slider) override {
+    void buttonClicked(Button *  btn) override {
       //  int sid = slider->getName().getIntValue();
        // Model::of().par[sid] = slider->getValue();
         setDials();

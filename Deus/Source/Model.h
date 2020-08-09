@@ -14,6 +14,7 @@
 #include "Defines.h"
 #include "Global.h"
 #include "Preset.h"
+#include "Scale.h"
 
 using namespace std;
 
@@ -41,6 +42,8 @@ class Model{
 
     Preset preset;
     E_Master masterSel = mEdit;
+    MatrixSource editSel = s_ADSR0;
+    
     Global global;
     
     Param getParam(E_Module module, int paramId){

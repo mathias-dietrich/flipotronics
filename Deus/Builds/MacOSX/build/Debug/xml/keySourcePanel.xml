@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flipotronics>
+   <e t="1" n="poti" x="3" y="22" w="60" h="80"  p="0" m="11"  min="0" max="7" s="1" v="true" title="Todo" />
+    <e t="1" n="poti" x="83" y="22" w="60" h="80"  p="1" m="11"  min="0.1" max="15" s="0.01" v="true" title="impact" />
+</flipotronics>

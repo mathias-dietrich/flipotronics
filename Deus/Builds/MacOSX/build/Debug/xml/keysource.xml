@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flipotronics>
+     <e t="0" n="keysource" title="KBD" x="0" y="0"  w="1440" h="240" bg="black" bgi=""  v="true"  xml="keysourcePanel.xml" />
+</flipotronics>
+
