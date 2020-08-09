@@ -12,7 +12,7 @@
 #include <JuceHeader.h>
 #include "IWidget.h"
 
-class ModView : public TextButton,  public Widget, public Button::Listener  {
+class ModView : public TextButton,  public Widget{
     
 public:
     ModView(){
@@ -42,12 +42,8 @@ public:
          
     }
     
-    void buttonClicked (Button *) override{
-           
-    }
-    
     void setDials() override{
-        
+      
     }
     
     void resized() override{
@@ -55,5 +51,6 @@ public:
     }
     
 private:
+      
 };
 #endif /* ModView_h */

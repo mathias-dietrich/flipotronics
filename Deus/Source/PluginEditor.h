@@ -103,7 +103,7 @@ public:
     }
     
      void update()override {
-         if(Model::of()->masterSel != masterSelLast){
+        // if(Model::of()->masterSel != masterSelLast){
              
              masterSelLast = Model::of()->masterSel;
              masterComponent.clearUi();
@@ -135,8 +135,7 @@ public:
              }
             masterComponent.build(node);
             masterComponent.resized();
-             
-        }
+       // }
     }
     
      bool keyPressed (const KeyPress &key, Component *originatingComponent) override{

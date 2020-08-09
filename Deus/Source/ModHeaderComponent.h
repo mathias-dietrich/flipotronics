@@ -67,7 +67,7 @@ public:
     void build(Node * node) override{
         for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
               Node *n = *it;
-             if(node->name.compare("modview")==1){
+             if(n->name.compare("modview")==0){
                ModView *wc = (ModView *) WidgetFactory::of()->get(n->name);
                wc->node = n;
                addAndMakeVisible(wc);
@@ -80,8 +80,8 @@ public:
     
     void buttonClicked(Button *  button) override {
         Model::of()->editSel = (MatrixSource) button->getName().getIntValue();
-       
-        setDials();
+        eventHandler->update();
+        
     }
     
     void resized() override{

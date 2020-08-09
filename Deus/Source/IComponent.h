@@ -150,6 +150,8 @@ public:
     }
     
    virtual void build(Node * node) {
+      // removeAllChildren();
+      // children.clear();
         int pid = 0;
         for(auto it = std::begin(node->children); it != std::end(node->children); ++it){
             Node *n = *it;
