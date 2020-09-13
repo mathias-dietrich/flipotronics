@@ -24,6 +24,7 @@ class AdsrComponent0 : public IComponent{
 public:
         AdsrComponent0(){
 
+            std::cout << "buildinf adsro" << std::endl;
         }
         
         ~AdsrComponent0(){

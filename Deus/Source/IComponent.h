@@ -124,6 +124,7 @@ public:
         else{
            p->setTextValueSuffix("");
         }
+        p->setValue(val);
     }
 
     

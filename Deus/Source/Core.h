@@ -197,7 +197,11 @@ public:
     }
     
     void update(E_Module module, int pid, float val){
+        
+        // Store in Model
         Model::of()->preset.params[module][pid].valF = val;
+        
+        // send to engine
         if(module == mGlobal){
             switch(pid){
                 case 0:
@@ -225,7 +229,7 @@ public:
             amp.set(pid, val);
             return;
         }
-        
+  
         for (int i=0; i<MAXVOICE; ++i) {
             voices[i].update(module, pid, val);
         }

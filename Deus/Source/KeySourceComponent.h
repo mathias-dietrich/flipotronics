@@ -52,10 +52,11 @@ class KeySourceComponent:  public IComponent{
          
          void setDials() override{
             for(auto it = std::begin(widgets); it != std::end(widgets); ++it) {
-               // Poti *p =  (Poti*) *it;
-               // Node *node = p->node;
-              //  setPoti(node, p);
-               // p->setValue(Model::of().par[node->paramId],dontSendNotification);
+                Poti *p =  (Poti*) *it;
+                Node *node = p->node;
+                module = node->module;
+                setPoti(node, p,  Model::of()->preset.params[module][node->paramId].valF);
+                
             }
          }
          
@@ -74,14 +75,15 @@ class KeySourceComponent:  public IComponent{
                     wc->setRange(0,1,0.01f);
                     wc->setTitle(node->title);
                     widgets.push_back(wc);
+                     
                  }
              }
              setDials();
          }
          
          void sliderValueChanged(Slider *  slider) override {
-            // int sid = slider->getName().getIntValue();
-            // Model::of()->par[sid] = slider->getValue();
+             int sid = slider->getName().getIntValue();
+             Core::of()->update(module, sid, slider->getValue());
              setDials();
          }
          
@@ -96,6 +98,7 @@ class KeySourceComponent:  public IComponent{
          }
     
      MatrixSource editSel = s_NONE;
+     E_Module module;
 
     };
 

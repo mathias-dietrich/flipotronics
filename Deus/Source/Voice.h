@@ -122,10 +122,10 @@ public:
         
         // Configure Matrix
         matrix.clear();
-        matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_VOL, mLFO0, 0, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
-        matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_PITCH, mLFO0, 1, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
-        matrix.addEntry(matrix.createEntry(s_LFO0, d_FILTER0_CUTOFF, mLFO0, 2, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
-        //matrix.addEntry(matrix.createEntry(s_ADSR0, d_OSC0_VOL, mLFO0, 2, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        //matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_VOL, mLFO0, 0, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        //matrix.addEntry(matrix.createEntry(s_LFO0, d_OSC0_PITCH, mLFO0, 1, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+       // matrix.addEntry(matrix.createEntry(s_LFO0, d_FILTER0_CUTOFF, mLFO0, 2, mLFO0, P_FIXTURN, t_BIPOLAR_TO_UNIPOLAR, true,true));
+        matrix.addEntry(matrix.createEntry(s_ADSR0, d_OSC0_VOL, mAdsr0, -1, mAdsr0, 0, t_NONE, false,true));
         
         for(int i=0;i< matrix.getParamCount();++i){
             matrix.set(i,preset.params[mMatrix][i].valF);
@@ -265,21 +265,25 @@ public:
             float  mix = vLeft + vRight;
             
             // test LFO
-            //float oscVol = 1.0 - lfo0Module->getNextL(0, true);
+           // float oscVol = 1.0 - lfo0Module.getNextL(0, true);
             
             // Feed Matrix
             matrix.sources[s_LFO0] = lfo0Module.getNextL(0, true);
+            matrix.sources[s_ADSR0] = adsr0Module.getNextL(0, true);
 
              // Calc Matrix
             matrix.calc();
             
             float oscVol = matrix.targets[d_OSC0_VOL];
+           // float oscVol = adsr0Module.getNextL(0, true);
             
             if(oscVol<0){
                 oscVol *= -1.0f;
             }
             
-            float a = adsr0Module.getNextL(0, true);
+            // TODO
+            float a = 1.0; //  
+            
             mix *= a * oscVol * 0.25f; // headroom
             
             channelDataL[sample] += mix;
