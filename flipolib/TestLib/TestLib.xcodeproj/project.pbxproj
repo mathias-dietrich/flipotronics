@@ -12,6 +12,7 @@
 		4FB0745425EE2EFD00FFD404 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB0745325EE2EFD00FFD404 /* CoreAudio.framework */; };
 		4FB0745725EE2F1500FFD404 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB0745625EE2F1500FFD404 /* CoreMIDI.framework */; };
 		4FB0745A25EE2F3F00FFD404 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB0745925EE2F3F00FFD404 /* CoreFoundation.framework */; };
+		4FB0745E25EE39B400FFD404 /* VoiceMaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0745C25EE39B400FFD404 /* VoiceMaster.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,8 @@
 		4FB0745325EE2EFD00FFD404 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		4FB0745625EE2F1500FFD404 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		4FB0745925EE2F3F00FFD404 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		4FB0745C25EE39B400FFD404 /* VoiceMaster.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VoiceMaster.cpp; sourceTree = "<group>"; };
+		4FB0745D25EE39B400FFD404 /* VoiceMaster.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VoiceMaster.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +82,8 @@
 		4FB073EB25EE219C00FFD404 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				4FB0745C25EE39B400FFD404 /* VoiceMaster.cpp */,
+				4FB0745D25EE39B400FFD404 /* VoiceMaster.hpp */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FB0745E25EE39B400FFD404 /* VoiceMaster.cpp in Sources */,
 				4FB073E425EE218900FFD404 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

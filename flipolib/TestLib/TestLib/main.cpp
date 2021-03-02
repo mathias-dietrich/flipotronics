@@ -14,6 +14,12 @@
 #include <CoreFoundation/CFRunLoop.h>
 #include <stdio.h>
 
+
+#include "VoiceMaster.hpp"
+
+
+VoiceMaster voiceMaster;
+
 MIDIPortRef     gOutPort = NULL;
 MIDIEndpointRef gDest = NULL;
 int             gChannel = 0;
@@ -50,13 +56,19 @@ static void MyReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRe
                     int channel = d0 - 143;
                     int note = d1;
                     int velocity = d2;
-                    printf( "NoteOn %i %i %i\n", channel, note, velocity);
+                    
+                    if(channel>64){
+                        // Aftertouch ?
+                        //voiceMaster.aftertouch( channel - 64,  d1);
+                    }else{
+                        voiceMaster.noteOn( channel,  note,  velocity);
+                    }
                 }
                 if(d0 < 144){
                     int channel = d0 - 127;
                     int note = d1;
                     int velocity = d2;
-                    printf( "NoteOff %i %i %i\n", channel, note, velocity);
+                    voiceMaster.noteOff( channel,  note,  velocity);
                 }
         
                 
