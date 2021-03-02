@@ -53,12 +53,14 @@ public:
     
     // 32767.0f
     
-    void render(AudioBufferList *ioData, int inNumberFrames) {
+    void render(float * l, float * r, int noOfSamples)  {
         if(active){
-           
-            SInt16 *left = (SInt16 *)ioData->mBuffers[0].mData;
-            for (UInt32 frame = 0; frame < inNumberFrames; ++frame) {
-                left[frame] += (SInt16)(sine_table[(int)delta] * 12767.0f * 0.1f) ;
+
+            for (int i = 0; i < noOfSamples; ++i) {
+                
+                float v = sine_table[(int)delta];
+                l[i] += v;
+                r[i] += v;
                 delta += step;
                 if (delta >= SAMPLE_RATE) {
                     delta -= SAMPLE_RATE;

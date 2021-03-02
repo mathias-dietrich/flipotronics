@@ -53,7 +53,6 @@ class VoiceMaster : Renderer{
     
 public:
 
-    
     VoiceMaster(int noOfVoicesTotal, int noOfZones){
         this->noOfVoicesTotal = noOfVoicesTotal;
         this->noOfZones = noOfZones;
@@ -69,26 +68,25 @@ public:
         hal->setup();
     }
     
-    void render( AudioBufferList *ioData, int inNumberFrames){
+    void render(float * l,float * r, int noOfSamples){
         
         // Clear
-        memset(ioData->mBuffers[0].mData, 0, ioData->mBuffers[1].mDataByteSize);
-        
-        voices[0].render(ioData,  inNumberFrames);
-        voices[1].render(ioData,  inNumberFrames);
-        voices[2].render(ioData,  inNumberFrames);
-        voices[3].render(ioData,  inNumberFrames);
-        voices[4].render(ioData,  inNumberFrames);
-        voices[5].render(ioData,  inNumberFrames);
-        voices[6].render(ioData,  inNumberFrames);
-        voices[7].render(ioData,  inNumberFrames);
-        voices[8].render(ioData,  inNumberFrames);
-        voices[9].render(ioData,  inNumberFrames);
-        voices[10].render(ioData,  inNumberFrames);
-        voices[11].render(ioData,  inNumberFrames);
-        
-        SInt16 *left = (SInt16 *)ioData->mBuffers[0].mData;
-        memcpy(ioData->mBuffers[1].mData, left, ioData->mBuffers[1].mDataByteSize);
+        memset(l, 0.0, noOfSamples * 4);
+        memset(r, 0.0, noOfSamples * 4);
+
+        // Render Voices
+        voices[0].render(l,r,  noOfSamples);
+        voices[1].render(l,r,   noOfSamples);
+        voices[2].render(l,r,   noOfSamples);
+        voices[3].render(l,r,    noOfSamples);
+        voices[4].render(l,r,    noOfSamples);
+        voices[5].render(l,r,    noOfSamples);
+        voices[6].render(l,r,    noOfSamples);
+        voices[7].render(l,r,    noOfSamples);
+        voices[8].render(l,r,   noOfSamples);
+        voices[9].render(l,r,    noOfSamples);
+        voices[10].render(l,r,    noOfSamples);
+        voices[11].render(l,r,    noOfSamples);
     }
     
     void noteOn(int channel, int note, int velocity);

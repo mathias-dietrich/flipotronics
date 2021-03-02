@@ -16,11 +16,13 @@
 
 static Renderer * renderer;
 
+
 class Hal {
     
 public:
     AudioUnit toneUnit;
 
+    
      static OSStatus Render(
              void *inRefCon,
              AudioUnitRenderActionFlags *ioActionFlags,
@@ -28,7 +30,19 @@ public:
              UInt32 inBusNumber,
              UInt32 inNumberFrames,
              AudioBufferList *ioData) {
-         renderer->render(ioData, inNumberFrames);
+        
+         float l[2048];
+        float r[2048];
+        renderer->render(l, r, inNumberFrames);
+         SInt16 *left = (SInt16 *)ioData->mBuffers[0].mData;
+         SInt16 *right = (SInt16 *)ioData->mBuffers[1].mData;
+         for(int i=0; i < inNumberFrames; ++i){
+             left[i] = l[i] * 32767.0f * 0.3f;
+             right[i] = r[i] * 32767.0f * 0.1f;
+        }
+       // memcpy(ioData->mBuffers[0].mData, l, ioData->mBuffers[0].mDataByteSize);
+       // memcpy(ioData->mBuffers[1].mData, r, ioData->mBuffers[1].mDataByteSize);
+         
          return noErr;
      }
     void setup(){
