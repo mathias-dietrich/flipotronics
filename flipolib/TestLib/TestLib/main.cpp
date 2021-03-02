@@ -3,6 +3,9 @@
 //  TestLib
 //
 //  Created by Mathias Dietrich on 02.03.21.
+
+// Use >MidiKeys to Test on MAC  https://flit.github.io/projects/midikeys/
+// Use CoreMidi and CoreFoundation Framework
 //
 
 #include <iostream>
@@ -16,24 +19,57 @@ MIDIEndpointRef gDest = NULL;
 int             gChannel = 0;
 
 
+static int parse(Byte b){
+    
+    int value = b;
+
+    return value;
+}
+
 static void MyReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)
 {
     if (gOutPort != NULL && gDest != NULL) {
         MIDIPacket *packet = (MIDIPacket *)pktlist->packet; // remove const (!)
         for (unsigned int j = 0; j < pktlist->numPackets; ++j) {
             for (int i = 0; i < packet->length; ++i) {
-//              printf("%02X ", packet->data[i]);
-
+               // printf("%02X ", packet->data[i]);
+                
+                int d0 = parse(packet->data[i]);
+                int d1 = parse(packet->data[i+1]);
+                int d2 = parse(packet->data[i+2]);
+                      
+               /*
+                printf( "length %i \n", packet->length);
+                printf( "1 Status %i \n", d0);
+                printf( "2 Status %i \n", d1);
+                printf( "3 Status %i \n", d2);
+                */
+                i+=3;
+        
+                if(d0 > 143){
+                    int channel = d0 - 143;
+                    int note = d1;
+                    int velocity = d2;
+                    printf( "NoteOn %i %i %i\n", channel, note, velocity);
+                }
+                if(d0 < 144){
+                    int channel = d0 - 127;
+                    int note = d1;
+                    int velocity = d2;
+                    printf( "NoteOff %i %i %i\n", channel, note, velocity);
+                }
+        
+                
                 // rechannelize status bytes
-                if (packet->data[i] >= 0x80 && packet->data[i] < 0xF0)
-                    packet->data[i] = (packet->data[i] & 0xF0) | gChannel;
+               // if (packet->data[i] >= 0x80 && packet->data[i] < 0xF0)
+                   // packet->data[i] = (packet->data[i] & 0xF0) | gChannel;
             }
 
-//          printf("\n");
-            packet = MIDIPacketNext(packet);
+          //printf("\n");
+            //packet = MIDIPacketNext(packet);
         }
 
-        MIDISend(gOutPort, gDest, pktlist);
+        //MIDISend(gOutPort, gDest, pktlist);
     }
 }
 
