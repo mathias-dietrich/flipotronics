@@ -18,7 +18,7 @@
 #include "VoiceMaster.hpp"
 
 
-VoiceMaster voiceMaster;
+VoiceMaster * voiceMaster;
 
 MIDIPortRef     gOutPort = NULL;
 MIDIEndpointRef gDest = NULL;
@@ -61,14 +61,14 @@ static void MyReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRe
                         // Aftertouch ?
                         //voiceMaster.aftertouch( channel - 64,  d1);
                     }else{
-                        voiceMaster.noteOn( channel,  note,  velocity);
+                        voiceMaster->noteOn( channel,  note,  velocity);
                     }
                 }
                 if(d0 < 144){
                     int channel = d0 - 127;
                     int note = d1;
                     int velocity = d2;
-                    voiceMaster.noteOff( channel,  note,  velocity);
+                    voiceMaster->noteOff( channel,  note,  velocity);
                 }
         
                 
@@ -89,6 +89,9 @@ static void MyReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRe
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Starting Tests\n";
+    
+    voiceMaster = new VoiceMaster(8, 1);
+    voiceMaster->configure(0, 1, 8);
     
     
     // create client and ports
@@ -145,9 +148,15 @@ int main(int argc, const char * argv[]) {
            printf("No MIDI destinations present\n");
        }
 
-       CFRunLoopRun();
+        string str;
+     
+       cout << "x to exit: \n";
+       getline(cin, str);
+      // CFRunLoopRun();
        // run until aborted with control-C
 
+    voiceMaster->close();
+    
        return 0;
 
 

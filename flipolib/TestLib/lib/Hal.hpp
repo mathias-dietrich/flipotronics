@@ -10,40 +10,27 @@
 
 #include <stdio.h>
 #include <AudioUnit/AudioUnit.h>
+#include "Renderer.h"
 
-#define SAMPLE_RATE 48000
-#define TONE_FREQUENCY 440
-#define M_TAU 2.0 * M_PI
+#define SAMPLE_RATE 44100
 
-class SimpleOsc {
+static Renderer * renderer;
+
+class Hal {
     
 public:
     AudioUnit toneUnit;
-    
-    static OSStatus Render(
-            void *inRefCon,
-            AudioUnitRenderActionFlags *ioActionFlags,
-            const AudioTimeStamp *inTimeStamp,
-            UInt32 inBusNumber,
-            UInt32 inNumberFrames,
-            AudioBufferList *ioData) {
-        
-        static float theta;
 
-        SInt16 *left = (SInt16 *)ioData->mBuffers[0].mData;
-        for (UInt32 frame = 0; frame < inNumberFrames; ++frame) {
-            left[frame] = (SInt16)(sin(theta) * 32767.0f);
-            theta += M_TAU * TONE_FREQUENCY / SAMPLE_RATE;
-            if (theta > M_TAU) {
-                theta -= M_TAU;
-            }
-        }
-
-        // Copy left channel to right channel
-        memcpy(ioData->mBuffers[1].mData, left, ioData->mBuffers[1].mDataByteSize);
-
-        return noErr;
-    }
+     static OSStatus Render(
+             void *inRefCon,
+             AudioUnitRenderActionFlags *ioActionFlags,
+             const AudioTimeStamp *inTimeStamp,
+             UInt32 inBusNumber,
+             UInt32 inNumberFrames,
+             AudioBufferList *ioData) {
+         renderer->render(ioData, inNumberFrames);
+         return noErr;
+     }
     void setup(){
         OSErr err;
 
@@ -71,7 +58,7 @@ public:
                 | kAudioFormatFlagIsSignedInteger
                 | kAudioFormatFlagIsPacked
                 | kAudioFormatFlagIsNonInterleaved,
-            .mSampleRate = 48000,
+            .mSampleRate = SAMPLE_RATE,
             .mBitsPerChannel = 16,
             .mChannelsPerFrame = 2,
             .mFramesPerPacket = 1,

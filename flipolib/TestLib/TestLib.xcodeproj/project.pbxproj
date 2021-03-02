@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F2BF6F425EE77EF00B72181 /* Voice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F2BF6F225EE77EF00B72181 /* Voice.cpp */; };
+		4F2BF6F925EE77FE00B72181 /* Hal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F2BF6F725EE77FE00B72181 /* Hal.cpp */; };
 		4FB073E425EE218900FFD404 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FB073E325EE218900FFD404 /* main.cpp */; };
 		4FB0745225EE2EF000FFD404 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB0745125EE2EF000FFD404 /* AudioUnit.framework */; };
 		4FB0745425EE2EFD00FFD404 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB0745325EE2EFD00FFD404 /* CoreAudio.framework */; };
@@ -28,6 +30,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4F2BF6F225EE77EF00B72181 /* Voice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Voice.cpp; sourceTree = "<group>"; };
+		4F2BF6F325EE77EF00B72181 /* Voice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Voice.hpp; sourceTree = "<group>"; };
+		4F2BF6F625EE77F600B72181 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		4F2BF6F725EE77FE00B72181 /* Hal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hal.cpp; path = lib/Hal.cpp; sourceTree = SOURCE_ROOT; };
+		4F2BF6F825EE77FE00B72181 /* Hal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Hal.hpp; path = lib/Hal.hpp; sourceTree = SOURCE_ROOT; };
 		4FB073E025EE218900FFD404 /* TestLib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestLib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB073E325EE218900FFD404 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4FB0745125EE2EF000FFD404 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
@@ -74,6 +81,8 @@
 		4FB073E225EE218900FFD404 /* TestLib */ = {
 			isa = PBXGroup;
 			children = (
+				4F2BF6F725EE77FE00B72181 /* Hal.cpp */,
+				4F2BF6F825EE77FE00B72181 /* Hal.hpp */,
 				4FB073E325EE218900FFD404 /* main.cpp */,
 			);
 			path = TestLib;
@@ -82,6 +91,9 @@
 		4FB073EB25EE219C00FFD404 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				4F2BF6F625EE77F600B72181 /* Renderer.h */,
+				4F2BF6F225EE77EF00B72181 /* Voice.cpp */,
+				4F2BF6F325EE77EF00B72181 /* Voice.hpp */,
 				4FB0745C25EE39B400FFD404 /* VoiceMaster.cpp */,
 				4FB0745D25EE39B400FFD404 /* VoiceMaster.hpp */,
 			);
@@ -156,7 +168,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FB0745E25EE39B400FFD404 /* VoiceMaster.cpp in Sources */,
+				4F2BF6F925EE77FE00B72181 /* Hal.cpp in Sources */,
 				4FB073E425EE218900FFD404 /* main.cpp in Sources */,
+				4F2BF6F425EE77EF00B72181 /* Voice.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

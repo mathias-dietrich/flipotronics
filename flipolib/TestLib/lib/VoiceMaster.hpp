@@ -11,7 +11,18 @@
 #include <stdio.h>
 #include <ostream>
 #include  <iostream>
-#include "SimpleOsc.hpp"
+
+#include "Hal.hpp"
+#include "Renderer.h"
+
+#define SAMPLE_RATE 44100
+#define M_TAU 2.0 * M_PI
+
+#define MAXVOICES 12
+#define MAXZONES 1
+
+#include "Voice.hpp"
+
 
 using namespace std;
 
@@ -36,15 +47,50 @@ enum Algo{
     IGNORE
 };
 
-class VoiceMaster{
+class VoiceMaster : Renderer{
+    
+    Voice  voices[MAXVOICES];
     
 public:
+
     
-    VoiceMaster(){
+    VoiceMaster(int noOfVoicesTotal, int noOfZones){
+        this->noOfVoicesTotal = noOfVoicesTotal;
+        this->noOfZones = noOfZones;
         
-        simpleOsc = new SimpleOsc();
-        simpleOsc->setup();
+        int nextId = 0;
+        for(int y=0;y < MAXVOICES;++y){
+            voices[y].id = nextId;
+            ++nextId;
+        }
+        
+        hal = new Hal();
+        renderer = this;
+        hal->setup();
     }
+    
+    void render( AudioBufferList *ioData, int inNumberFrames){
+        
+        // Clear
+        memset(ioData->mBuffers[0].mData, 0, ioData->mBuffers[1].mDataByteSize);
+        
+        voices[0].render(ioData,  inNumberFrames);
+        voices[1].render(ioData,  inNumberFrames);
+        voices[2].render(ioData,  inNumberFrames);
+        voices[3].render(ioData,  inNumberFrames);
+        voices[4].render(ioData,  inNumberFrames);
+        voices[5].render(ioData,  inNumberFrames);
+        voices[6].render(ioData,  inNumberFrames);
+        voices[7].render(ioData,  inNumberFrames);
+        voices[8].render(ioData,  inNumberFrames);
+        voices[9].render(ioData,  inNumberFrames);
+        voices[10].render(ioData,  inNumberFrames);
+        voices[11].render(ioData,  inNumberFrames);
+        
+        SInt16 *left = (SInt16 *)ioData->mBuffers[0].mData;
+        memcpy(ioData->mBuffers[1].mData, left, ioData->mBuffers[1].mDataByteSize);
+    }
+    
     void noteOn(int channel, int note, int velocity);
     void noteOff(int channel, int note, int velocity);
     void aftertouch(int channel, int pressure);
@@ -57,6 +103,8 @@ public:
     void controller(int channel, int cc, int val);
     
     void configure(int zone, int channel, int noOfVoices);
+    void reset();
+    void setTuning(float  tuning);
 
     //77Settings (per Channel or all)
     int noOfVoicesTotal;
@@ -67,7 +115,32 @@ public:
     int PitchWheelMax;
     enum PlayMode playMode; //
     
-    SimpleOsc *simpleOsc = 0;
+    Hal *hal = 0;
+    
+    void close(){
+        hal->close();
+        delete hal;
+    }
+    
+private:
+    
+    int  findVoice(int channel, int midiNote){
+            for(int y=0;y < MAXVOICES;y++){
+                if(voices[y].channel == channel && voices[y].midiNote ==  midiNote && voices[y].active){
+                    std::cout << "reuse" << std::endl;
+                    return y;
+                }
+            }
+
+            for(int y=0;y < MAXVOICES;y++){
+                if(!voices[y].active){
+                    cout << "next voice" << endl;
+                    return y;
+                }
+            }
+        std:cout << "default 0" << endl;
+        return 0;// make better
+    }
 };
 
 #endif /* VoiceMaster_hpp */
