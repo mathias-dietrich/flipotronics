@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4FB073E425EE218900FFD404 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FB073E325EE218900FFD404 /* main.cpp */; };
+		4FB0745225EE2EF000FFD404 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB0745125EE2EF000FFD404 /* AudioUnit.framework */; };
+		4FB0745425EE2EFD00FFD404 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB0745325EE2EFD00FFD404 /* CoreAudio.framework */; };
+		4FB0745725EE2F1500FFD404 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB0745625EE2F1500FFD404 /* CoreMIDI.framework */; };
+		4FB0745A25EE2F3F00FFD404 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB0745925EE2F3F00FFD404 /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +29,10 @@
 /* Begin PBXFileReference section */
 		4FB073E025EE218900FFD404 /* TestLib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestLib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB073E325EE218900FFD404 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		4FB0745125EE2EF000FFD404 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		4FB0745325EE2EFD00FFD404 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		4FB0745625EE2F1500FFD404 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		4FB0745925EE2F3F00FFD404 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +40,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FB0745A25EE2F3F00FFD404 /* CoreFoundation.framework in Frameworks */,
+				4FB0745725EE2F1500FFD404 /* CoreMIDI.framework in Frameworks */,
+				4FB0745425EE2EFD00FFD404 /* CoreAudio.framework in Frameworks */,
+				4FB0745225EE2EF000FFD404 /* AudioUnit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +56,7 @@
 				4FB073EB25EE219C00FFD404 /* lib */,
 				4FB073E225EE218900FFD404 /* TestLib */,
 				4FB073E125EE218900FFD404 /* Products */,
+				4FB073FC25EE28B700FFD404 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +81,17 @@
 			children = (
 			);
 			path = lib;
+			sourceTree = "<group>";
+		};
+		4FB073FC25EE28B700FFD404 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4FB0745925EE2F3F00FFD404 /* CoreFoundation.framework */,
+				4FB0745625EE2F1500FFD404 /* CoreMIDI.framework */,
+				4FB0745325EE2EFD00FFD404 /* CoreAudio.framework */,
+				4FB0745125EE2EF000FFD404 /* AudioUnit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +201,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					__MACOSX_CORE__,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -184,10 +209,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "../lib/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -237,9 +265,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "../lib/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -250,7 +281,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R2WLDRKRB6;
 				ENABLE_HARDENED_RUNTIME = YES;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				LD_DYLIB_INSTALL_NAME = libportmidi.dylib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/portmidi/217_2/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				sdf = "";
 			};
 			name = Debug;
 		};
@@ -260,7 +301,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R2WLDRKRB6;
 				ENABLE_HARDENED_RUNTIME = YES;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = __MACOSX_CORE__;
+				LD_DYLIB_INSTALL_NAME = libportmidi.dylib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/portmidi/217_2/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				sdf = "";
 			};
 			name = Release;
 		};
