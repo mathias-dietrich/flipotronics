@@ -8,9 +8,11 @@
 #ifndef Renderer_h
 #define Renderer_h
 
+#include "Def.h"
+
 class Renderer{
 public:
-    virtual void render(float *l, float *r, int noOfSamples) = 0;
+    virtual void render(SAMPLE *l, SAMPLE *r, int noOfSamples) = 0;
 };
 
 #endif /* Renderer_h */

@@ -8,31 +8,40 @@
 #ifndef Voice_hpp
 #define Voice_hpp
 
-#define SAMPLE_RATE 44100
-
 #include <stdio.h>
-#include "Renderer.h"
 #include <ostream>
-#include  <iostream>
-#include <AudioUnit/AudioUnit.h>
+#include <iostream>
 
-# define M_PI           3.14159265358979323846
-# define M_PI_2           3.14159265358979323846 * 2.0
+#include "Def.h"
+#include "Renderer.h"
+
 class Voice : Renderer{
 public:
+    bool active = false;
+    bool isOn;
+    
     int id;
     int channel = 0;
-    bool active = false;
     int zone;
-
-    bool isOn;
-    float theta;
+    int midiNote;
+    
     float freq;
     float step;
     float delta;
-    int midiNote;
     float sine_table[SAMPLE_RATE];
     float tuning = 440.0;
+    
+    void pitchBend(int val){
+        // TODO
+    }
+    
+    void modWheel(int val){
+        // TODO
+    }
+    
+    void controller(int cc, int val){
+        // TODO
+    }
     
     void init(){
         float m_deltaTime = 1.0 / (float)SAMPLE_RATE;
@@ -43,6 +52,7 @@ public:
             m_time += m_deltaTime;
         }
     }
+    
     void setNote(int midiNote){
         this->midiNote = midiNote;
         freq = tuning * pow(2.0, (midiNote - 69)/12.0);
@@ -51,13 +61,9 @@ public:
         delta = 0;
     }
     
-    // 32767.0f
-    
-    void render(float * l, float * r, int noOfSamples)  {
+    void render(SAMPLE * l, SAMPLE * r, int noOfSamples)  {
         if(active){
-
             for (int i = 0; i < noOfSamples; ++i) {
-                
                 float v = sine_table[(int)delta];
                 l[i] += v;
                 r[i] += v;

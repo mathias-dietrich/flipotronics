@@ -9,43 +9,59 @@
 #define SimpleOsc_hpp
 
 #include <stdio.h>
+#include <iostream>
+#include <cstdlib>
+#include <chrono>
+
 #include <AudioUnit/AudioUnit.h>
+
+
+#include "Def.h"
 #include "Renderer.h"
 
-#define SAMPLE_RATE 44100
+using std::chrono::high_resolution_clock;
+using std::chrono::duration_cast;
+using std::chrono::duration;
+using std::chrono::milliseconds;
 
 static Renderer * renderer;
 
+static float l[2048]; // or stack?
+static float r[2048];
+static long  ms_renderTime;
 
+using namespace std;
 class Hal {
-    
+
 public:
     AudioUnit toneUnit;
-
     
-     static OSStatus Render(
-             void *inRefCon,
-             AudioUnitRenderActionFlags *ioActionFlags,
-             const AudioTimeStamp *inTimeStamp,
-             UInt32 inBusNumber,
-             UInt32 inNumberFrames,
-             AudioBufferList *ioData) {
-        
-         float l[2048];
-        float r[2048];
-        renderer->render(l, r, inNumberFrames);
+    static OSStatus Render(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp,
+             UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData) {
+        auto t1 = high_resolution_clock::now();
+
+         renderer->render(l, r, inNumberFrames);
          SInt16 *left = (SInt16 *)ioData->mBuffers[0].mData;
          SInt16 *right = (SInt16 *)ioData->mBuffers[1].mData;
          for(int i=0; i < inNumberFrames; ++i){
-             left[i] = l[i] * 32767.0f * 0.3f;
-             right[i] = r[i] * 32767.0f * 0.1f;
+             left[i] = l[i] * 32767.0f * 0.125f;
+             right[i] = r[i] * 32767.0f * 0.1256f;
         }
-       // memcpy(ioData->mBuffers[0].mData, l, ioData->mBuffers[0].mDataByteSize);
-       // memcpy(ioData->mBuffers[1].mData, r, ioData->mBuffers[1].mDataByteSize);
-         
-         return noErr;
-     }
+        auto t2 = high_resolution_clock::now();
+
+        /* Getting number of milliseconds as an integer. */
+        auto newTime = duration_cast<milliseconds>(t2 - t1).count();
+        ms_renderTime = (ms_renderTime + newTime) / 2;
+        
+        float tAvailableMsec = 1000.0 * (float)inNumberFrames / (float)SAMPLE_RATE;
+        if(ms_renderTime > tAvailableMsec){
+            std::cout << "Timeout in Render" << std::endl;
+        }
+        return noErr;
+    }
+    
     void setup(){
+        printf("Starting Audio setup\n");
         OSErr err;
 
         AudioComponentDescription acd = {
@@ -57,7 +73,6 @@ public:
         AudioComponent output = AudioComponentFindNext(NULL, &acd);
         if (!output) printf("Can't find default output\n");
 
-       
         err = AudioComponentInstanceNew(output, &toneUnit);
         if (err) fprintf(stderr, "Error creating unit: %d\n", err);
 
@@ -89,6 +104,9 @@ public:
 
         err = AudioOutputUnitStart(toneUnit);
         if (err) printf("Error starting unit: %d\n", err);
+        
+        printf("Audio setup comlete\n");
+        printf("======================================================\n");
     }
     
     void close(){

@@ -12,17 +12,10 @@
 #include <ostream>
 #include  <iostream>
 
+#include "Def.h"
 #include "Hal.hpp"
 #include "Renderer.h"
-
-#define SAMPLE_RATE 44100
-#define M_TAU 2.0 * M_PI
-
-#define MAXVOICES 12
-#define MAXZONES 1
-
 #include "Voice.hpp"
-
 
 using namespace std;
 
@@ -48,11 +41,10 @@ enum Algo{
 };
 
 class VoiceMaster : Renderer{
-    
+   
+public:
     Voice  voices[MAXVOICES];
     
-public:
-
     VoiceMaster(int noOfVoicesTotal, int noOfZones){
         this->noOfVoicesTotal = noOfVoicesTotal;
         this->noOfZones = noOfZones;
@@ -63,12 +55,15 @@ public:
             ++nextId;
         }
         
-        hal = new Hal();
         renderer = this;
-        hal->setup();
+        hal.setup();
     }
     
-    void render(float * l,float * r, int noOfSamples){
+    void printTime(){
+        cout << "Render Time " << ms_renderTime << endl;
+    }
+    
+    void render(SAMPLE * l, SAMPLE * r, int noOfSamples){
         
         // Clear
         memset(l, 0.0, noOfSamples * 4);
@@ -103,21 +98,20 @@ public:
     void configure(int zone, int channel, int noOfVoices);
     void reset();
     void setTuning(float  tuning);
-
-    //77Settings (per Channel or all)
-    int noOfVoicesTotal;
-    int noOfZones;
+    
     enum VoiceMode voiceMode; //
     enum Algo algo;
+    
+    int noOfVoicesTotal;
+    int noOfZones;
     int PitchWheelMin;
     int PitchWheelMax;
     enum PlayMode playMode; //
     
-    Hal *hal = 0;
+    Hal hal;
     
     void close(){
-        hal->close();
-        delete hal;
+        hal.close();
     }
     
 private:

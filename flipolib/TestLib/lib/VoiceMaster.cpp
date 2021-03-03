@@ -33,26 +33,50 @@ void VoiceMaster::noteOff(int channel, int note, int velocity){
 
 void VoiceMaster::aftertouch(int channel, int pressure){
     std::cout << "Note Aftertouch channel: " << channel << " pressure: " << pressure  << endl;
-    
 }
 
 void VoiceMaster::allNotesOff(int channel){
-    
+    for(int i=0;i > MAXVOICES; ++i){
+        if(voices[i].channel == channel){
+            voices[i].isOn = false;
+        }
+    }
 }
-void VoiceMaster::clearVoice(int id){
-    
+
+void VoiceMaster::clearVoice(int vid){
+    voices[vid].isOn = false;
+    voices[vid].active = false;
 }
+
 void VoiceMaster::clearAllVoices(){
-    
+    for(int i=0;i > MAXVOICES; ++i){
+        voices[i].isOn = false;
+        voices[i].active = false;
+    }
 }
+
 void VoiceMaster::pitchBend(int channel, int val){
-    
+    for(int i=0;i > MAXVOICES; ++i){
+        if(voices[i].channel == channel){
+            voices[i].pitchBend(val);
+        }
+    }
 }
+
 void VoiceMaster::modWheel(int channel, int val){
-    
+    for(int i=0;i > MAXVOICES; ++i){
+        if(voices[i].channel == channel){
+            voices[i].modWheel(val);
+        }
+    }
 }
+
 void VoiceMaster::controller(int channel, int cc, int val){
-    
+    for(int i=0;i > MAXVOICES; ++i){
+        if(voices[i].channel == channel){
+            voices[i].controller(cc,val);
+        }
+    }
 }
 
 void VoiceMaster::reset(){
@@ -62,7 +86,6 @@ void VoiceMaster::reset(){
 }
 
 void VoiceMaster::configure(int zone, int channel, int noOfVoices){
-    
     for(int i=0;i < noOfVoices;++i){
         voices[i].init();
         voices[i].channel = channel;
