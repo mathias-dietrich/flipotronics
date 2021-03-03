@@ -17,8 +17,6 @@
 #include "Renderer.h"
 #include "Voice.hpp"
 
-using namespace std;
-
 enum VoiceMode{
     POLY,
     MONO,
@@ -60,7 +58,7 @@ public:
     }
     
     void printTime(){
-        cout << "Render Time " << ms_renderTime << endl;
+        std::cout << "Render Time " << ms_renderTime << std::endl;
     }
     
     void render(SAMPLE * l, SAMPLE * r, int noOfSamples){
@@ -126,11 +124,11 @@ private:
 
             for(int y=0;y < MAXVOICES;y++){
                 if(!voices[y].active){
-                    cout << "next voice" << endl;
+                    std::cout << "next voice" << std::endl;
                     return y;
                 }
             }
-        std:cout << "default 0" << endl;
+        std::cout << "default 0" << std::endl;
         return 0;// make better
     }
 };

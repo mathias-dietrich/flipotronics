@@ -30,7 +30,6 @@ static float l[2048]; // or stack?
 static float r[2048];
 static long  ms_renderTime;
 
-using namespace std;
 class Hal {
 
 public:

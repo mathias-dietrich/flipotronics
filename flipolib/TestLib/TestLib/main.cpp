@@ -6,13 +6,24 @@
 
 // Use >MidiKeys to Test on MAC  https://flit.github.io/projects/midikeys/
 // Use CoreMidi and CoreFoundation Framework
-//
+// https://stackoverflow.com/questions/26275019/how-to-read-and-send-udp-packets-on-mac-os-x
+// https://stackoverflow.com/questions/61300206/using-sockets-in-xcode-cpp
+
+// echo "hi" | nc -cu 192.168.0.73 9000
+// nc -u -l 192.168.0.73 9000
+// socat - UDP:192.168.0.73:9000
+
 #include <stdio.h>
 #include <iostream>
 #include <cstdlib>
 
 #include <CoreMIDI/MIDIServices.h>
 #include <CoreFoundation/CFRunLoop.h>
+
+#include <sys/types.h>
+#include <ifaddrs.h>
+#include <netinet/in.h>
+#include <string.h>
 
 #include <arpa/inet.h>
 #include <sys/select.h>
@@ -22,6 +33,14 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <thread>
+
+#include <pcap.h>
+#include <errno.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netinet/if_ether.h>
+#include <netinet/ip.h>
 
 #include "VoiceMaster.hpp"
 #include "TinyOsc.h"
@@ -33,10 +52,6 @@ int             gChannel = 0;
 
 static volatile bool keepRunning = true;
 
-// handle Ctrl+C
-static void sigintHandler(int x) {
-  keepRunning = false;
-}
 
 static int parse(Byte b){
     int value = b;
@@ -77,6 +92,8 @@ static void MyReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRe
         //MIDISend(gOutPort, gDest, pktlist);
     }
 }
+
+
 
 void createMidiDevices(){
     printf("Starting Midi setup\n");
@@ -139,45 +156,108 @@ void createMidiDevices(){
 
 void startOsc(){
     printf("Starting OSC setup\n");
-    char buffer[2048]; // declare a 2Kb buffer to read packet data into
-    const int fd = socket(AF_INET, SOCK_DGRAM, 0);
-    fcntl(fd, F_SETFL, O_NONBLOCK); // set the socket to non-blocking
+    char buffer[1400]; // declare a 2Kb buffer to read packet data into
+    int fd;
+
+    // Creating socket file descriptor
+       if ( (fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
+           perror("socket creation failed");
+           return;
+       }
+    
+   // fcntl(fd, F_SETFL, O_NONBLOCK); // set the socket to non-blocking
     struct sockaddr_in sin;
+    memset(&sin, 0, sizeof(sin));
+    
     sin.sin_family = AF_INET;
     sin.sin_port = htons(9000);
     sin.sin_addr.s_addr = INADDR_ANY;
+    //sin.sin_addr.s_addr = inet_addr("192.168.0.73");
+    
     bind(fd, (struct sockaddr *) &sin, sizeof(struct sockaddr_in));
     printf("listening on port 9000 UDP\n");
     printf("OSC setup comlete\n");
     printf("===========================\n");
+    
+    // Swend tes
+    char *hello = "Hello from client";
+    sendto(fd, (const char *)hello, strlen(hello),
+        0, (const struct sockaddr *) &sin,
+            sizeof(sin));
+    printf("Hello message sent.\n");
+    
     while(keepRunning){
         fd_set readSet;
-           FD_ZERO(&readSet);
-           FD_SET(fd, &readSet);
-           struct timeval timeout = {1, 0}; // select times out after 1 second
-           if (select(fd+1, &readSet, NULL, NULL, &timeout) > 0) {
-             struct sockaddr sa; // can be safely cast to sockaddr_in
-             socklen_t sa_len = sizeof(struct sockaddr_in);
-             int len = 0;
-             while ((len = (int) recvfrom(fd, buffer, sizeof(buffer), 0, &sa, &sa_len)) > 0) {
-               if (tosc_isBundle(buffer)) {
-                 tosc_bundle bundle;
-                 tosc_parseBundle(&bundle, buffer, len);
-                 const uint64_t timetag = tosc_getTimetag(&bundle);
-                 tosc_message osc;
-                 while (tosc_getNextMessage(&bundle, &osc)) {
-                   tosc_printMessage(&osc);
-                 }
-               } else {
-                 tosc_message osc;
-                 tosc_parseMessage(&osc, buffer, len);
-                 tosc_printMessage(&osc);
-               }
-             }
+        FD_ZERO(&readSet);
+        FD_SET(fd, &readSet);
+        struct timeval timeout = {1, 0}; // select times out after 1 second
+        
+        ssize_t size = recv(fd, buffer, sizeof(buffer), MSG_PEEK | MSG_TRUNC);
+        if(size > 0){
+            std::cout << "DATA " << std::endl;
+        }
+        
+        if (select(fd+1, &readSet, NULL, NULL, &timeout) > 0) {
+            std::cout << "OSC has message " << std::endl;
+            struct sockaddr sa; // can be safely cast to sockaddr_in
+            socklen_t sa_len = sizeof(struct sockaddr_in);
+            int len = 0;
+            
+            while ((len = (int) recvfrom(fd, buffer, sizeof(buffer), 0, &sa, &sa_len)) > 0) {
+                if (tosc_isBundle(buffer)) {
+                    tosc_bundle bundle;
+                    tosc_parseBundle(&bundle, buffer, len);
+                    //const uint64_t timetag = tosc_getTimetag(&bundle);
+                    tosc_message osc;
+                    while (tosc_getNextMessage(&bundle, &osc)) {
+                        tosc_printMessage(&osc);
+                    }
+                }else {
+                    tosc_message osc;
+                    tosc_parseMessage(&osc, buffer, len);
+                    tosc_printMessage(&osc);
+                }
+            }
         }
     }
     // close the UDP socket
     close(fd);
+}
+
+void printIP(){
+    struct ifaddrs * ifAddrStruct=NULL;
+       struct ifaddrs * ifa=NULL;
+       void * tmpAddrPtr=NULL;
+
+       getifaddrs(&ifAddrStruct);
+
+       for (ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next) {
+           if (!ifa->ifa_addr) {
+               continue;
+           }
+           if (ifa->ifa_addr->sa_family == AF_INET) { // check it is IP4
+               // is a valid IP4 Address
+               tmpAddrPtr=&((struct sockaddr_in *)ifa->ifa_addr)->sin_addr;
+               char addressBuffer[INET_ADDRSTRLEN];
+               inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
+               if (std::string(ifa->ifa_name).compare("en0") == 0){
+                   printf("Listening on %s:9000 UDP for OSC messages on inteface %s\n", addressBuffer, ifa->ifa_name);
+               }
+               
+           } else if (ifa->ifa_addr->sa_family == AF_INET6) { // check it is IP6
+               // is a valid IP6 Address
+               tmpAddrPtr=&((struct sockaddr_in6 *)ifa->ifa_addr)->sin6_addr;
+               char addressBuffer[INET6_ADDRSTRLEN];
+               inet_ntop(AF_INET6, tmpAddrPtr, addressBuffer, INET6_ADDRSTRLEN);
+               //printf("%s IP Address %s\n", ifa->ifa_name, addressBuffer);
+           }
+       }
+       if (ifAddrStruct!=NULL) freeifaddrs(ifAddrStruct);
+}
+
+void info(){
+    std::cout << "SampleRate: " << SAMPLE_RATE << " MaxVoices: " << MAXVOICES  << " MaxZones: " << MAXZONES << std::endl;
+    printIP();
 }
 
 int main(int argc, const char * argv[]) {
@@ -191,15 +271,18 @@ int main(int argc, const char * argv[]) {
     createMidiDevices();
     
     // Start OSC
-    thread t1(startOsc);
+   // thread t1(testUdp);
+    std::thread t1(startOsc);
     sleep(1);
     
     // Menu
-    string help = "t:RenderTime - x:Exit - i:Info - h:Help \n";
-    cout << help;
-    string str;
+    info();
+    
+    std::string help = "t:RenderTime - x:Exit - i:Info - h:Help \n";
+    std::cout << help;
+    std::string str;
     while(keepRunning){
-        getline(cin, str);
+        getline(std::cin, str);
         if(str == "x"){
             keepRunning = false;
         }
@@ -207,10 +290,10 @@ int main(int argc, const char * argv[]) {
             voiceMaster->printTime();
         }
         if(str == "h"){
-            cout << help;
+            std::cout << help;
         }
         if(str == "i"){
-            cout << "SampleRate: " << SAMPLE_RATE << " MaxVoices: " << MAXVOICES  << " MaxZones: " << MAXZONES << endl;
+            info();
         }
     }
     

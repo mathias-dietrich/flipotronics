@@ -296,11 +296,14 @@ void tosc_printOscBuffer(char *buffer, const int len) {
 }
 
 void tosc_printMessage(tosc_message *osc) {
-  printf("[%i bytes] %s %s",
+    printf("[%i bytes] %s %s",
       osc->len, // the number of bytes in the OSC message
       tosc_getAddress(osc), // the OSC address string, e.g. "/button1"
       tosc_getFormat(osc)); // the OSC format string, e.g. "f"
-
+    if(osc->format == 0){
+        return;
+    }
+    
   for (int i = 0; osc->format[i] != '\0'; i++) {
     switch (osc->format[i]) {
       case 'b': {

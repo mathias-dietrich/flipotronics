@@ -14,7 +14,7 @@ void VoiceMaster::setTuning(float  tuning){
 }
 
 void VoiceMaster::noteOn(int channel, int note, int velocity){
-    std::cout << "Note On channel: " << channel << " note: " << note << " velocity:" << velocity << endl ;
+    std::cout << "Note On channel: " << channel << " note: " << note << " velocity:" << velocity << std::endl ;
     int  vid = findVoice( channel, note);
     std::cout << "using Voice " << vid << std::endl;
     voices[vid].setNote(note);
@@ -24,7 +24,7 @@ void VoiceMaster::noteOn(int channel, int note, int velocity){
 }
 
 void VoiceMaster::noteOff(int channel, int note, int velocity){
-    std::cout << "Note Off channel: " << channel << " note: " << note << " velocity: " << velocity << endl;
+    std::cout << "Note Off channel: " << channel << " note: " << note << " velocity: " << velocity << std::endl;
     int  vid = findVoice( channel, note);
     std::cout << "stopping Voice " << vid << std::endl;
     voices[vid].isOn = false;
@@ -32,7 +32,7 @@ void VoiceMaster::noteOff(int channel, int note, int velocity){
 }
 
 void VoiceMaster::aftertouch(int channel, int pressure){
-    std::cout << "Note Aftertouch channel: " << channel << " pressure: " << pressure  << endl;
+    std::cout << "Note Aftertouch channel: " << channel << " pressure: " << pressure  << std::endl;
 }
 
 void VoiceMaster::allNotesOff(int channel){

@@ -40,6 +40,7 @@
 		4F9E2A7E25EEB03A00B11A90 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		4F9E2A8125EF683D00B11A90 /* TinyOsc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TinyOsc.h; sourceTree = "<group>"; };
 		4F9E2A8225EF686200B11A90 /* TinyOsc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = TinyOsc.c; sourceTree = "<group>"; };
+		4F9E2A8525EF7F5500B11A90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FB073E025EE218900FFD404 /* TestLib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestLib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB073E325EE218900FFD404 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4FB0745125EE2EF000FFD404 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
@@ -68,6 +69,7 @@
 		4FB073D725EE218900FFD404 = {
 			isa = PBXGroup;
 			children = (
+				4F9E2A8525EF7F5500B11A90 /* Info.plist */,
 				4F9E2A7E25EEB03A00B11A90 /* README.txt */,
 				4FB073EB25EE219C00FFD404 /* lib */,
 				4FB073E225EE218900FFD404 /* TestLib */,
@@ -309,17 +311,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0.0.0.;
 				DEVELOPMENT_TEAM = R2WLDRKRB6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = libportmidi.dylib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/portmidi/217_2/lib,
 				);
+				MARKETING_VERSION = 1.0.0;
+				NEW_SETTING = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.etiamo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				sdf = "";
 			};
@@ -329,14 +336,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0.0.0.;
 				DEVELOPMENT_TEAM = R2WLDRKRB6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = __MACOSX_CORE__;
+				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = libportmidi.dylib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/portmidi/217_2/lib,
 				);
+				MARKETING_VERSION = 1.0.0;
+				NEW_SETTING = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.etiamo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				sdf = "";
 			};
