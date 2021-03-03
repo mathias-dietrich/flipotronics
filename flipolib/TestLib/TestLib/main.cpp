@@ -93,8 +93,6 @@ static void MyReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRe
     }
 }
 
-
-
 void createMidiDevices(){
     printf("Starting Midi setup\n");
     MIDIClientRef client = NULL;
@@ -216,6 +214,30 @@ void startOsc(){
                     tosc_message osc;
                     tosc_parseMessage(&osc, buffer, len);
                     tosc_printMessage(&osc);
+                    auto s = osc.buffer;
+                    if(s==0){
+                        continue;
+                    }
+                    std::string msg(osc.buffer, len);
+                   // std::cout << msg << std::endl;
+                    std::string VOL = "/1/fader5";
+                    int pos;
+                    if (pos = (msg.rfind(VOL, 0) == 0)) {
+                        // Volume message
+                        if(msg[10] == 'z'){
+                            continue;
+                        }
+                        osc.marker -= 4;
+                        float vol = tosc_getNextFloat(&osc);
+                        /*
+                         std::string sub = msg.substr(10);
+                         std::cout << "========" << std::endl;
+                         std::cout << msg << std::endl;
+                         std::cout << sub << std::endl;
+                         // std::cout << vol << std::endl;
+                         */
+                        voiceMaster->controller(0, 7, vol * 127);
+                    }
                 }
             }
         }

@@ -17,6 +17,8 @@
 
 class Voice : Renderer{
 public:
+    float volume = 1.0;
+    
     bool active = false;
     bool isOn;
     
@@ -40,7 +42,14 @@ public:
     }
     
     void controller(int cc, int val){
-        // TODO
+        switch(cc){
+            case 7:
+                volume = float(val) / 127.0;
+                break;
+                
+            default:
+                break;
+        }
     }
     
     void init(){
@@ -64,7 +73,7 @@ public:
     void render(SAMPLE * l, SAMPLE * r, int noOfSamples)  {
         if(active){
             for (int i = 0; i < noOfSamples; ++i) {
-                float v = sine_table[(int)delta];
+                float v = sine_table[(int)delta] * volume;
                 l[i] += v;
                 r[i] += v;
                 delta += step;

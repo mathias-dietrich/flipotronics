@@ -64,7 +64,7 @@ void VoiceMaster::pitchBend(int channel, int val){
 }
 
 void VoiceMaster::modWheel(int channel, int val){
-    for(int i=0;i > MAXVOICES; ++i){
+    for(int i=0;i < MAXVOICES; ++i){
         if(voices[i].channel == channel){
             voices[i].modWheel(val);
         }
@@ -72,15 +72,24 @@ void VoiceMaster::modWheel(int channel, int val){
 }
 
 void VoiceMaster::controller(int channel, int cc, int val){
-    for(int i=0;i > MAXVOICES; ++i){
-        if(voices[i].channel == channel){
+   // All channels
+    if(channel==0){
+        for(int i=0;i < MAXVOICES; ++i){
+            voices[i].controller(cc,val);
+        }
+        return;
+    }
+    
+    // Specific Channel
+    for(int i=0;i < MAXVOICES; ++i){
+        if(voices[i].channel == channel ){
             voices[i].controller(cc,val);
         }
     }
 }
 
 void VoiceMaster::reset(){
-    for(int y=0;y > MAXVOICES;++y){
+    for(int y=0;y < MAXVOICES;++y){
         voices[y].active = false;
     }
 }
