@@ -56,7 +56,12 @@ void VoiceMaster::clearAllVoices(){
 }
 
 void VoiceMaster::pitchBend(int channel, int val){
-    for(int i=0;i > MAXVOICES; ++i){
+    if(channel==0){
+        for(int i=0;i < MAXVOICES; ++i){
+            voices[i].pitchBend(val);
+        }
+    }
+    for(int i=0;i < MAXVOICES; ++i){
         if(voices[i].channel == channel){
             voices[i].pitchBend(val);
         }

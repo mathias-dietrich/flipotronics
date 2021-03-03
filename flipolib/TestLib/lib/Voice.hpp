@@ -19,6 +19,8 @@ class Voice : Renderer{
 public:
     float volume = 1.0;
     
+    float pitchbender = 1.0;
+    
     bool active = false;
     bool isOn;
     
@@ -32,9 +34,26 @@ public:
     float delta;
     float sine_table[SAMPLE_RATE];
     float tuning = 440.0;
+    float maxBend = 1.0;
+    float minBend = 1.0;
     
     void pitchBend(int val){
-        // TODO
+        if(midiNote ==0) return;
+        if(val > 64){
+            pitchbender = 1;
+        }
+        if(val > 64){
+            float b = (val - 64) / 64.0;
+            pitchbender = 1.0 + b *  float(maxBend) / 12.0  ;
+        }
+        if(val < 64){
+            float b = (64 - val) / 64.0;
+            pitchbender = 1.0 -  b *  float(minBend) / 12.0;
+        }
+
+        freq = tuning * pow(2.0, (midiNote - 69)/12.0) * pitchbender;
+        std::cout << " freq " << freq << std::endl;
+        step = freq;
     }
     
     void modWheel(int val){
@@ -64,7 +83,7 @@ public:
     
     void setNote(int midiNote){
         this->midiNote = midiNote;
-        freq = tuning * pow(2.0, (midiNote - 69)/12.0);
+        freq = tuning * pow(2.0, (midiNote - 69)/12.0) * pitchbender;
         std::cout << " freq " << freq << std::endl;
         step = freq;
         delta = 0;

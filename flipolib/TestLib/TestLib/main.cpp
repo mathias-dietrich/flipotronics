@@ -219,10 +219,9 @@ void startOsc(){
                         continue;
                     }
                     std::string msg(osc.buffer, len);
-                   // std::cout << msg << std::endl;
+                    std::cout << msg << std::endl;
                     std::string VOL = "/1/fader5";
-                    int pos;
-                    if (pos = (msg.rfind(VOL, 0) == 0)) {
+                    if (msg.rfind(VOL, 0) == 0) {
                         // Volume message
                         if(msg[10] == 'z'){
                             continue;
@@ -237,6 +236,16 @@ void startOsc(){
                          // std::cout << vol << std::endl;
                          */
                         voiceMaster->controller(0, 7, vol * 127);
+                    }
+                    VOL = "/1/fader1";
+                    if (msg.rfind(VOL, 0) == 0) {
+                        // Pitch Bend message
+                        if(msg[10] == 'z'){
+                            continue;
+                        }
+                        osc.marker -= 4;
+                        float pitch = tosc_getNextFloat(&osc);
+                        voiceMaster->pitchBend(0, 127 - pitch * 127);
                     }
                 }
             }
