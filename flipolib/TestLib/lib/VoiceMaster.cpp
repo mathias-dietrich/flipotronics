@@ -69,6 +69,11 @@ void VoiceMaster::pitchBend(int channel, int val){
 }
 
 void VoiceMaster::modWheel(int channel, int val){
+    if(channel==0){
+        for(int i=0;i < MAXVOICES; ++i){
+            voices[i].modWheel(val);
+        }
+    }
     for(int i=0;i < MAXVOICES; ++i){
         if(voices[i].channel == channel){
             voices[i].modWheel(val);

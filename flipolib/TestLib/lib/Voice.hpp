@@ -57,7 +57,7 @@ public:
     }
     
     void modWheel(int val){
-        // TODO
+        std::cout << " mod " << val << std::endl;
     }
     
     void controller(int cc, int val){

@@ -247,6 +247,16 @@ void startOsc(){
                         float pitch = tosc_getNextFloat(&osc);
                         voiceMaster->pitchBend(0, 127 - pitch * 127);
                     }
+                    VOL = "/1/fader2";
+                    if (msg.rfind(VOL, 0) == 0) {
+                        // Pitch Bend message
+                        if(msg[10] == 'z'){
+                            continue;
+                        }
+                        osc.marker -= 4;
+                        float mod = tosc_getNextFloat(&osc);
+                        voiceMaster->modWheel(0, 127 - mod * 127);
+                    }
                 }
             }
         }
