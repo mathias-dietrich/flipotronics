@@ -63,7 +63,6 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
         tbxCcValue.intValue = Int32(data[rowsel].value!)
         tbxComment.stringValue = data[rowsel].comment!
         slider.intValue = Int32(data[rowsel].value!)
-        
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -87,7 +86,6 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
                 return cellView
         }
     }
-    
     
     @IBAction func slider(sender: AnyObject) {
         tbxCcValue.intValue = slider.intValue;
@@ -142,7 +140,6 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
         dialog.allowedFileTypes        = ["txt", "fly"];
         if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {
             let result = dialog.url // Pathname of the file
-
             if (result != nil) {
                 let path: String = result!.path
                 do {
@@ -177,7 +174,20 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     }
     
     @IBAction func btnSave(sender: NSButton) {
-        print("btnSave")
+        var msg = "";
+        msg += tbxPatchName.stringValue + " \n"
+        msg += tbxAuthor.stringValue + " \n"
+        msg += tbxTags.stringValue + " \n"
+        for line in data{
+            let m = String(line.cc!) + ":" + String(line.value!) + ":" + line.comment!
+            msg += m + " \n"
+        }
+        let filename = NSURL.fileURL(withPath: tbxFileName.stringValue)
+        do {
+            try msg.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+        }catch let error as NSError {
+            print("An error took place: \(error)")
+        }
     }
     
     @IBAction func btnAdd(sender: NSButton) {
