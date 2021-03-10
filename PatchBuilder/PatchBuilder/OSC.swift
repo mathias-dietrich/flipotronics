@@ -13,6 +13,7 @@ import NIO
 @available(macOS 10.14, *)
 class ClientConnection {
 
+   
     let  nwConnection: NWConnection
     let queue = DispatchQueue(label: "Client connection Q")
 
@@ -99,9 +100,16 @@ class OSC: OSCClientDelegate & OSCPacketDestination {
     var port: NWEndpoint.Port!
     var client : OSCClient!
     
+    var clientUdp :UDPClient!
+    
     func setup(host:String, port :Int){
+        clientUdp = UDPClient(port:9000)
+        clientUdp.startListening()
+        
+
         client = OSCClient()
         client.interface = "en0"
+       // client.interface = "llw0";
         client.host = host
         client.port = UInt16(port)
         client.useTCP = false
@@ -112,6 +120,7 @@ class OSC: OSCClientDelegate & OSCPacketDestination {
         catch let error {
                print("Cannot open socket to \(host):\(port): \(error)")
         }
+
     }
     
     func take(message: OSCMessage) {

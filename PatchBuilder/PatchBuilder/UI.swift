@@ -29,17 +29,27 @@ class UI: NSView {
     
     @IBAction func slider(sender: AnyObject) {
         tbxCcValue.intValue = slider.intValue;
+        if (cbxSendFader.intValue == 1){
+            send()
+        }
+       
     }
     
     // buttons
     required init?(coder: NSCoder) {
         super.init(coder:coder)
+        midi.setup()
     }
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
         // Drawing code here.
+    }
+    
+    func send(){
+        osc.send(prefix:tbxOscPrefix.stringValue, cc: Int(tbxCcControl.intValue), value: Int(tbxCcValue.intValue))
+        midi.send(cc: Int(tbxCcControl.intValue), value: Int(tbxCcValue.intValue))
     }
     
     @IBAction func btnLoad(sender: NSButton) {
@@ -55,8 +65,7 @@ class UI: NSView {
     }
     
     @IBAction func btnSend(sender: NSButton) {
-        osc.send(prefix:tbxOscPrefix.stringValue, cc: Int(tbxCcControl.intValue), value: Int(tbxCcValue.intValue))
-        midi.send(cc: Int(tbxCcControl.intValue), value: Int(tbxCcValue.intValue))
+        send()
     }
     
     @IBAction func btnSendAll(sender: NSButton) {
@@ -72,7 +81,13 @@ class UI: NSView {
     }
     
     @IBAction func btnSetup(sender: NSButton) {
-        osc.setup(host: tbxOscTargetHost.stringValue, port:Int(tbxOscTargetPort.intValue))
+        DispatchQueue.global(qos: .background).async {
+            print("This is run on the background queue")
+
+            self.osc.setup(host: self.tbxOscTargetHost.stringValue, port:Int(self.tbxOscTargetPort.intValue))
+        }
+    
+       
         print("btnSetup")
     }
     

@@ -16,6 +16,7 @@
 		4FC0245C25F7A5DF003E0FE0 /* OSCKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4FC0245B25F7A5DF003E0FE0 /* OSCKit */; };
 		4FC0246C25F7B54C003E0FE0 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC0246B25F7B54C003E0FE0 /* NetworkExtension.framework */; };
 		4FC0247025F7CE2B003E0FE0 /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = 4FC0246F25F7CE2B003E0FE0 /* NIO */; };
+		4FC0248125F8E5C2003E0FE0 /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0248025F8E5C1003E0FE0 /* UDPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		4FC0245425F79843003E0FE0 /* OSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSC.swift; sourceTree = "<group>"; };
 		4FC0245725F7984D003E0FE0 /* Midi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Midi.swift; sourceTree = "<group>"; };
 		4FC0246B25F7B54C003E0FE0 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		4FC0248025F8E5C1003E0FE0 /* UDPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				4FC0245125F794CF003E0FE0 /* UI.swift */,
 				4FC0245425F79843003E0FE0 /* OSC.swift */,
 				4FC0245725F7984D003E0FE0 /* Midi.swift */,
+				4FC0248025F8E5C1003E0FE0 /* UDPClient.swift */,
 			);
 			path = PatchBuilder;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FC0248125F8E5C2003E0FE0 /* UDPClient.swift in Sources */,
 				4FC0245825F7984D003E0FE0 /* Midi.swift in Sources */,
 				4FC0245525F79843003E0FE0 /* OSC.swift in Sources */,
 				4FC0244325F76627003E0FE0 /* AppDelegate.swift in Sources */,
