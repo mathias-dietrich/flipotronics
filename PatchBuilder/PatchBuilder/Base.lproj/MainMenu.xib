@@ -855,7 +855,7 @@
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YlZ-SR-ybr">
                         <rect key="frame" x="184" y="561" width="142" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="100" placeholderString="Value 0 - 127" drawsBackground="YES" id="mWn-ZC-2ON">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="64" placeholderString="Value 0 - 127" drawsBackground="YES" id="mWn-ZC-2ON">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1114,9 +1114,12 @@
                         </buttonCell>
                     </button>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wkh-nr-kPu">
-                        <rect key="frame" x="18" y="536" width="988" height="19"/>
+                        <rect key="frame" x="18" y="536" width="931" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="oNe-Ft-V3A"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="127" doubleValue="64" tickMarkPosition="above" sliderType="linear" id="oNe-Ft-V3A"/>
+                        <connections>
+                            <action selector="sliderWithSender:" target="EiT-Mj-1SZ" id="HRl-nW-YhR"/>
+                        </connections>
                     </slider>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSp-GW-kYS">
                         <rect key="frame" x="608" y="554" width="80" height="32"/>
@@ -1129,8 +1132,20 @@
                             <action selector="btnDeleteWithSender:" target="EiT-Mj-1SZ" id="1fx-zo-B1h"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SzY-pZ-0dY">
+                        <rect key="frame" x="953" y="537" width="53" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Send" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yXd-HB-yAj">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
                 <connections>
+                    <outlet property="cbxSendFader" destination="SzY-pZ-0dY" id="dgP-u7-8aU"/>
+                    <outlet property="cbxSendMidi" destination="KXc-6Q-Rs2" id="BEu-5u-0VS"/>
+                    <outlet property="cbxSendOsc" destination="b30-T4-WqY" id="olg-gX-Efd"/>
+                    <outlet property="slider" destination="wkh-nr-kPu" id="7zk-Ms-BX7"/>
                     <outlet property="tbxCcControl" destination="43q-Nd-OFk" id="EfN-es-7vI"/>
                     <outlet property="tbxCcValue" destination="YlZ-SR-ybr" id="mWn-Le-wKz"/>
                     <outlet property="tbxComment" destination="OAu-yU-2rw" id="PWP-zh-F01"/>

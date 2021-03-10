@@ -21,6 +21,15 @@ class UI: NSView {
     @IBOutlet var tbxCcControl: NSTextField!
     @IBOutlet var tbxCcValue: NSTextField!
     @IBOutlet var tbxComment: NSTextField!
+    @IBOutlet var slider: NSSlider!
+    
+    @IBOutlet var cbxSendMidi: NSButton!
+    @IBOutlet var cbxSendFader: NSButton!
+    @IBOutlet var cbxSendOsc: NSButton!
+    
+    @IBAction func slider(sender: AnyObject) {
+        tbxCcValue.intValue = slider.intValue;
+    }
     
     // buttons
     required init?(coder: NSCoder) {

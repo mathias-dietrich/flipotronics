@@ -94,7 +94,6 @@ class ClientConnection {
 }
 
 class OSC: OSCClientDelegate & OSCPacketDestination {
-    
     var connection: ClientConnection!
     var host: NWEndpoint.Host!
     var port: NWEndpoint.Port!
@@ -108,11 +107,11 @@ class OSC: OSCClientDelegate & OSCPacketDestination {
         client.useTCP = false
         client.delegate = self
         do {
-            try client.connect();
-               } catch let error {
-                   print("Cannot open socket to \(host):\(port): \(error)")
-               }
-       
+        try client.connect();
+           }
+        catch let error {
+               print("Cannot open socket to \(host):\(port): \(error)")
+        }
     }
     
     func take(message: OSCMessage) {
@@ -148,38 +147,11 @@ class OSC: OSCClientDelegate & OSCPacketDestination {
          }
      }
     
-    
     func send(prefix: String, cc: Int,  value : Int){
-        
-        /*
-        self.host = NWEndpoint.Host("192.168.0.73")
-        self.port = NWEndpoint.Port(rawValue: 9000)!
-        let nwConnection = NWConnection(host: self.host, port: self.port, using: .udp)
-        connection = ClientConnection(nwConnection: nwConnection)
-        print("Client started \(host) \(port)")
-        connection.didStopCallback = didStopCallback(error:)
-       // connection.start()
-
-        connection.send(data: ("/flypi/7/100".data(using: .ascii))!)
-        */
-
-       // let message = OSCMessage(with: "/flypi/7/100")
-        
-        let message = OSCMessage(with: prefix + "/7", arguments: [Float(value)])
-        
-  
-        
+        let message = OSCMessage(with: prefix + "/" + String(cc), arguments: [Float(value)])
         client.send(packet: message)
         let s = message.packetData().debugDescription
         print ("osc send " + s )
-
-
     }
-    
-  
-
-  
-
-    
 }
 
