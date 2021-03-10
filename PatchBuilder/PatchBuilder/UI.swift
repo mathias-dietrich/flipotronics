@@ -42,19 +42,34 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     }
 
     var data :[controlline] = []
-
     
+    func start(){
+        table.delegate = self
+        table.dataSource = self
+        
+        
+        let h = tbxOscTargetHost.stringValue
+        let p = Int(self.tbxOscTargetPort.intValue)
+        self.osc.setup(host:h, port:p)
+    }
+
     func numberOfRows(in tableView: NSTableView) -> Int {
             return data.count
    }
     
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        return nil
+    func tableViewSelectionDidChange(_ notification: Notification){
+       var  rowsel = table.selectedRow;
+        tbxCcControl.intValue = Int32(data[rowsel].cc!)
+        tbxCcValue.intValue = Int32(data[rowsel].value!)
+        tbxComment.stringValue = data[rowsel].comment!
+        slider.intValue = Int32(data[rowsel].value!)
+        
     }
-    
-    func tableView(tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let line = data[row]
-     
+
+        print("loading view " + String(row))
         if tableColumn?.identifier == NSUserInterfaceItemIdentifier(rawValue: "cc") {
             let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "cc")
                 guard let cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
@@ -76,9 +91,19 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     
     @IBAction func slider(sender: AnyObject) {
         tbxCcValue.intValue = slider.intValue;
+        var count = 0
+        for line in data{
+            if(line.cc! == tbxCcControl.intValue){
+                data[count].value = Int(tbxCcValue.intValue) ;
+                break
+            }
+            count += 1
+        }
+       
         if (cbxSendFader.intValue == 1){
             send()
         }
+        table.reloadData()
     }
     
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
@@ -106,9 +131,6 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     }
     
     @IBAction func btnLoad(sender: NSButton) {
-        table.delegate = self
-        table.dataSource = self
-        
         print("btnLoad")
         let dialog = NSOpenPanel();
         dialog.directoryURL = URL(string: tbxPatchFolder.stringValue);
@@ -159,7 +181,22 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     }
     
     @IBAction func btnAdd(sender: NSButton) {
-        print("btnAdd")
+        var count = 0
+        for line in data{
+            if(line.cc! == tbxCcControl.intValue){
+                data[count].value = Int(tbxCcValue.intValue)
+                data[count].comment = tbxComment.stringValue
+                table.reloadData()
+                return;
+            }
+            count = count + 1
+        }
+        var line  = controlline()
+        line.cc = Int(tbxCcControl.intValue)
+        line.value = Int(tbxCcValue.intValue)
+        line.comment = tbxComment.stringValue
+        data.append(line)
+        table.reloadData()
     }
     
     @IBAction func btnSend(sender: NSButton) {
@@ -181,9 +218,11 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     }
     
     @IBAction func btnSetup(sender: NSButton) {
+        let h = tbxOscTargetHost.stringValue
+        let p = Int(self.tbxOscTargetPort.intValue)
         DispatchQueue.global(qos: .background).async {
             print("This is run on the background queue")
-            self.osc.setup(host: self.tbxOscTargetHost.stringValue, port:Int(self.tbxOscTargetPort.intValue))
+            self.osc.setup(host:h, port:p)
         }
         print("btnSetup")
     }

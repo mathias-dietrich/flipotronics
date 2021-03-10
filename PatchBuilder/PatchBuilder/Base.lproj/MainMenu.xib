@@ -19,6 +19,11 @@
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+        <viewController id="c8c-SJ-RpW" customClass="Controller" customModule="PatchBuilder" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="EiT-Mj-1SZ" id="DTi-kM-m6l"/>
+            </connections>
+        </viewController>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
                 <menuItem title="PatchBuilder" id="1Xt-HY-uBw">

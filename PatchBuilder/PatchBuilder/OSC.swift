@@ -20,6 +20,11 @@ class ClientConnection {
     init(nwConnection: NWConnection) {
         self.nwConnection = nwConnection
     }
+    
+    func awakeFromNib (){
+        
+        
+    }
 
     var didStopCallback: ((Error?) -> Void)? = nil
 
