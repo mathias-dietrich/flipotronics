@@ -12,14 +12,17 @@ import AudioToolbox
 
 class Midi {
     
+    var handler : MidiHandler!
+    
     var destinationNames : [String]!
     // establish a MIDI client and output port, and send a note on/off pair.
-    var midiClient:MIDIClientRef = 0
+    
     var outPort:MIDIPortRef = 0
     var inPort:MIDIPortRef = 0
     var dest:MIDIEndpointRef = 0
     var destName = ""
     
+    var midiClient = MIDIClientRef()
     var midiClientListen = MIDIClientRef()
     
     func notifyCallback(message:UnsafePointer<MIDINotification>,refCon:UnsafeMutablePointer<Void>)
@@ -77,19 +80,11 @@ class Midi {
                     //print("Midi in ")
                     let packet = packetList.packet
                     if(packet.data.0 == 176){
-                        var cc = packet.data.1
-                        var val = packet.data.2
-                        print("CC" + String(cc) + " Val: " + String(val) + "")
-                    }
-                    if packet.length == 3 && packet.data.0 == 144 {
-                        /* Note-On */
-                        let note = packet.data.1
-                        let velocity = packet.data.2
-                        if velocity > 0 {
-                            DispatchQueue.main.async(execute: {
-                                // use note
-                            })
+                        
+                        if(self.handler != nil){
+                            self.handler.update(p0: packet.data.0,p1: packet.data.1, p2: packet.data.2);
                         }
+                        
                     }
                 }
             })

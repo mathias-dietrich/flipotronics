@@ -8,9 +8,38 @@
 
 import Cocoa
 
-class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
+protocol MidiHandler{
+    func update(p0: UInt8, p1: UInt8, p2: UInt8 )
+}
+
+class UI: NSView, NSTableViewDelegate, NSTableViewDataSource, MidiHandler {
+    
+    func update(p0: UInt8, p1: UInt8, p2: UInt8) {
+        if(p0 == 176){
+            let cc = p1
+            let val = p2
+            print("CC" + String(cc) + " Val: " + String(val) + "")
+            
+            var count = 0
+            for line in data{
+                if(line.cc! == cc){
+                    data[count].value = Int(val) ;
+                    break
+                }
+                count += 1
+            }
+            DispatchQueue.main.async {
+                self.table.reloadData()
+                if(cc == self.tbxCcControl.intValue){
+                    self.slider.intValue = Int32(val)
+                }
+            }
+        }
+    }
+    
 
     let  midi =  Midi()
+   
     let osc =  OSC()
     
     // fields
@@ -48,6 +77,7 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     var data :[controlline] = []
     
     func start(){
+        midi.handler = self
         table.delegate = self
         table.dataSource = self
         
@@ -71,7 +101,6 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
         tbxCcControl.intValue = Int32(data[rowsel].cc!)
         tbxCcValue.intValue = Int32(data[rowsel].value!)
         tbxComment.stringValue = data[rowsel].comment!
-        tbxURL.stringValue = data[rowsel].url!
         slider.intValue = Int32(data[rowsel].value!)
     }
 
