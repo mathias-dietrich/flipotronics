@@ -23,6 +23,7 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     @IBOutlet var tbxTags: NSTextField!
     @IBOutlet var tbxPatchFolder: NSTextField!
     @IBOutlet var tbxFileName: NSTextField!
+    @IBOutlet var tbxURL: NSTextField!
     
     @IBOutlet var tbxCcControl: NSTextField!
     @IBOutlet var tbxCcValue: NSTextField!
@@ -32,6 +33,8 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     @IBOutlet var cbxSendMidi: NSButton!
     @IBOutlet var cbxSendFader: NSButton!
     @IBOutlet var cbxSendOsc: NSButton!
+    @IBOutlet var cbxListenOsc: NSButton!
+    @IBOutlet var cbxListenMidi: NSButton!
     
     @IBOutlet var table: NSTableView!
     
@@ -39,6 +42,7 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
         var cc: Int?
         var value: Int?
         var comment: String?
+        var url: String?
     }
 
     var data :[controlline] = []
@@ -47,10 +51,15 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
         table.delegate = self
         table.dataSource = self
         
-        
         let h = tbxOscTargetHost.stringValue
         let p = Int(self.tbxOscTargetPort.intValue)
         self.osc.setup(host:h, port:p)
+    }
+    
+    func sort(){
+        data.sort {
+            $0.cc! < $1.cc!
+        }
     }
 
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -62,6 +71,7 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
         tbxCcControl.intValue = Int32(data[rowsel].cc!)
         tbxCcValue.intValue = Int32(data[rowsel].value!)
         tbxComment.stringValue = data[rowsel].comment!
+        tbxURL.stringValue = data[rowsel].url!
         slider.intValue = Int32(data[rowsel].value!)
     }
 
@@ -149,7 +159,8 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
                     tbxPatchName.stringValue = String(lines[0])
                     tbxAuthor.stringValue = String(lines[1])
                     tbxTags.stringValue = String(lines[2])
-                    var i = 3;
+                    tbxURL.stringValue = String(lines[3])
+                    var i = 4;
                     data.removeAll()
                     while(i < lines.count){
                         let l = String(lines[i])
@@ -161,6 +172,7 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
                         data.append(line)
                         i += 1
                     }
+                    sort()
                     table.reloadData()
                    }
                 catch _ as NSError {
@@ -178,6 +190,7 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
         msg += tbxPatchName.stringValue + " \n"
         msg += tbxAuthor.stringValue + " \n"
         msg += tbxTags.stringValue + " \n"
+        msg += tbxURL.stringValue + " \n"
         for line in data{
             let m = String(line.cc!) + ":" + String(line.value!) + ":" + line.comment!
             msg += m + " \n"
@@ -205,7 +218,9 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
         line.cc = Int(tbxCcControl.intValue)
         line.value = Int(tbxCcValue.intValue)
         line.comment = tbxComment.stringValue
+        line.url = tbxURL.stringValue
         data.append(line)
+        sort()
         table.reloadData()
     }
     
@@ -221,10 +236,16 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource {
     
     @IBAction func btnDelete(sender: NSButton) {
         print("btnDelete")
-    }
-    
-    @IBAction func btnNew(sender: NSButton) {
-        print("btnNew")
+        let ccId = tbxCcControl.intValue
+        var count = 0
+        for line in data{
+            if(line.cc! == ccId){
+                data.remove(at: count)
+                table.reloadData()
+                return
+            }
+            count += 1
+        }
     }
     
     @IBAction func btnSetup(sender: NSButton) {
