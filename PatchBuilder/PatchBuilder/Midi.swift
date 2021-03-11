@@ -22,20 +22,89 @@ class Midi {
     
     var midiClientListen = MIDIClientRef()
     
+    func notifyCallback(message:UnsafePointer<MIDINotification>,refCon:UnsafeMutablePointer<Void>)
+    {
+        print("MIDI Notify")
+    }
+
+    func eventCallback(pktlist:UnsafePointer<MIDIPacketList>, refCon:UnsafeMutablePointer<Void>, connRefCon:UnsafeMutablePointer<Void>)
+    {
+        print("MIDI Read")
+    }
+    
     func myNotifyCallback(message:UnsafePointer<MIDINotification>) -> Void {
             print("callback")
     }
+    
+    func MyMIDIReadProc (_ pktList: UnsafePointer<MIDIPacketList>,
+                            readProcRefCon: UnsafeMutableRawPointer?,
+                            srcConnRefCon: UnsafeMutableRawPointer?) -> Void{
+            let packetList:MIDIPacketList = pktList.pointee
+            let srcRef:MIDIEndpointRef = srcConnRefCon!.load(as: MIDIEndpointRef.self)
+            var packet:MIDIPacket = packetList.packet
+            for _ in 1...packetList.numPackets
+            {
+                let bytes = Mirror(reflecting: packet.data).children
+                var dumpStr = ""
+                var i = packet.length
+                for (_, attr) in bytes.enumerated()
+                {
+                    dumpStr += String(format:"$%02X ", attr.value as! UInt8)
+                    i -= 1
+                    if (i <= 0){
+                        break
+                    }
+                }
+                print(dumpStr)
+                packet = MIDIPacketNext(&packet).pointee
+
+            }
+        }
+
     
     func setup(){
         destinationNames = midiDestinationNames()
         
         MIDIClientCreate("Swift3 Test Client" as CFString, nil, nil, &midiClient)
+        MIDIClientCreate("patchbuilder" as CFString, nil, nil, &midiClientListen)
         MIDIOutputPortCreate(midiClient, "Swift3 Test OutPort" as CFString, &outPort)
+       // MIDIInputPortCreate(midiClientListen, "patchbuilder" as CFString, MyMIDIReadProc, nil, &inPort)
         
-    
+        MIDIInputPortCreateWithBlock(midiClient, "PatchBuilder" as CFString, &inPort, {
+                (unsafePacketList: UnsafePointer<MIDIPacketList>, pointer: UnsafeMutableRawPointer?) in
+                let packetList = unsafePacketList.pointee
+                if packetList.numPackets == 1 {
+                    //print("Midi in ")
+                    let packet = packetList.packet
+                    if(packet.data.0 == 176){
+                        var cc = packet.data.1
+                        var val = packet.data.2
+                        print("CC" + String(cc) + " Val: " + String(val) + "")
+                    }
+                    if packet.length == 3 && packet.data.0 == 144 {
+                        /* Note-On */
+                        let note = packet.data.1
+                        let velocity = packet.data.2
+                        if velocity > 0 {
+                            DispatchQueue.main.async(execute: {
+                                // use note
+                            })
+                        }
+                    }
+                }
+            })
+        
+        let sourceCount = MIDIGetNumberOfSources()
+        var count = 0
+        while count < sourceCount{
+            let src:MIDIEndpointRef = MIDIGetSource(count)
+            MIDIPortConnectSource(inPort, src, nil)
+            count += 1
+        }
+        /*
        // let clientName = "com.flipotronics.patch" as CFString
         let clientName = destinationNames[0] as CFString
-        let err = MIDIClientCreateWithBlock(clientName, &midiClientListen) { (notificationPtr: UnsafePointer<MIDINotification>) in
+        _ = MIDIClientCreateWithBlock(clientName, &midiClientListen) { (notificationPtr: UnsafePointer<MIDINotification>) in
             let notification = notificationPtr.pointee
             switch notification.messageID {
                 case .msgSetupChanged: // Can ignore, really
@@ -70,6 +139,7 @@ class Midi {
                     break
             }
         }
+ */
 
         let destNum = 2
         destName = destinationNames[destNum]
