@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F03527E25FA7B8800F56F1D /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = 4F03527D25FA7B8800F56F1D /* Socket */; };
 		4FC0244325F76627003E0FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0244225F76627003E0FE0 /* AppDelegate.swift */; };
 		4FC0244525F7662A003E0FE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0244425F7662A003E0FE0 /* Assets.xcassets */; };
 		4FC0244825F7662A003E0FE0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0244625F7662A003E0FE0 /* MainMenu.xib */; };
@@ -42,6 +43,7 @@
 				4FC0247025F7CE2B003E0FE0 /* NIO in Frameworks */,
 				4FC0245C25F7A5DF003E0FE0 /* OSCKit in Frameworks */,
 				4FC0246C25F7B54C003E0FE0 /* NetworkExtension.framework in Frameworks */,
+				4F03527E25FA7B8800F56F1D /* Socket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +110,7 @@
 			packageProductDependencies = (
 				4FC0245B25F7A5DF003E0FE0 /* OSCKit */,
 				4FC0246F25F7CE2B003E0FE0 /* NIO */,
+				4F03527D25FA7B8800F56F1D /* Socket */,
 			);
 			productName = PatchBuilder;
 			productReference = 4FC0243F25F76627003E0FE0 /* PatchBuilder.app */;
@@ -139,6 +142,7 @@
 			packageReferences = (
 				4FC0245A25F7A5DF003E0FE0 /* XCRemoteSwiftPackageReference "OSCKit" */,
 				4FC0246E25F7CE2B003E0FE0 /* XCRemoteSwiftPackageReference "swift-nio" */,
+				4F03527C25FA7B8800F56F1D /* XCRemoteSwiftPackageReference "BlueSocket" */,
 			);
 			productRefGroup = 4FC0244025F76627003E0FE0 /* Products */;
 			projectDirPath = "";
@@ -374,6 +378,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4F03527C25FA7B8800F56F1D /* XCRemoteSwiftPackageReference "BlueSocket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/BlueSocket";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.200;
+			};
+		};
 		4FC0245A25F7A5DF003E0FE0 /* XCRemoteSwiftPackageReference "OSCKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SammySmallman/OSCKit";
@@ -393,6 +405,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4F03527D25FA7B8800F56F1D /* Socket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F03527C25FA7B8800F56F1D /* XCRemoteSwiftPackageReference "BlueSocket" */;
+			productName = Socket;
+		};
 		4FC0245B25F7A5DF003E0FE0 /* OSCKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4FC0245A25F7A5DF003E0FE0 /* XCRemoteSwiftPackageReference "OSCKit" */;
