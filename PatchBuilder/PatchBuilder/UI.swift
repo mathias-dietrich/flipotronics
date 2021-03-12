@@ -13,6 +13,72 @@ protocol MidiHandler{
 }
 
 class UI: NSView, NSTableViewDelegate, NSTableViewDataSource, MidiHandler {
+
+    let  midi =  Midi()
+    let osc =  OSC()
+    
+    // fields
+    @IBOutlet var tbxOscPrefix: NSTextField!
+    @IBOutlet var tbxOscTargetHost: NSTextField!
+    @IBOutlet var tbxOscTargetPort: NSTextField!
+    @IBOutlet var tbxPatchName: NSTextField!
+    @IBOutlet var tbxAuthor: NSTextField!
+    @IBOutlet var tbxTags: NSTextField!
+    @IBOutlet var tbxPatchFolder: NSTextField!
+    @IBOutlet var tbxFileName: NSTextField!
+    @IBOutlet var tbxURL: NSTextField!
+    @IBOutlet var tbxCcControl: NSTextField!
+    @IBOutlet var tbxCcValue: NSTextField!
+    @IBOutlet var tbxComment: NSTextField!
+    
+    @IBOutlet var slider: NSSlider!
+    @IBOutlet var sliderMod: NSSlider!
+    @IBOutlet var sliderPitch: NSSlider!
+    
+    @IBOutlet var cbxSendMidi: NSButton!
+    @IBOutlet var cbxSendFader: NSButton!
+    @IBOutlet var cbxSendOsc: NSButton!
+    @IBOutlet var cbxListenOsc: NSButton!
+    @IBOutlet var cbxListenMidi: NSButton!
+    
+    @IBOutlet var table: NSTableView!
+    
+    struct controlline {
+        var cc: Int?
+        var value: Int?
+        var comment: String?
+        var url: String?
+    }
+
+    var data :[controlline] = []
+    
+    required init?(coder: NSCoder) {
+        super.init(coder:coder)
+        
+    }
+    
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+    }
+    
+    func start(){
+        
+        midi.handler = self
+        midi.setup()
+        
+        table.delegate = self
+        table.dataSource = self
+        
+        let h = tbxOscTargetHost.stringValue
+        let p = Int(self.tbxOscTargetPort.intValue)
+        self.osc.setup(host:h, port:p)
+    }
+    
+    func sort(){
+        data.sort {
+            $0.cc! < $1.cc!
+        }
+    }
     
     func update(p0: UInt8, p1: UInt8, p2: UInt8) {
         if(p0 == 176){
@@ -37,67 +103,23 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource, MidiHandler {
         }
     }
     
-
-    let  midi =  Midi()
-   
-    let osc =  OSC()
-    
-    // fields
-    @IBOutlet var tbxOscPrefix: NSTextField!
-    @IBOutlet var tbxOscTargetHost: NSTextField!
-    @IBOutlet var tbxOscTargetPort: NSTextField!
-    
-    @IBOutlet var tbxPatchName: NSTextField!
-    @IBOutlet var tbxAuthor: NSTextField!
-    @IBOutlet var tbxTags: NSTextField!
-    @IBOutlet var tbxPatchFolder: NSTextField!
-    @IBOutlet var tbxFileName: NSTextField!
-    @IBOutlet var tbxURL: NSTextField!
-    
-    @IBOutlet var tbxCcControl: NSTextField!
-    @IBOutlet var tbxCcValue: NSTextField!
-    @IBOutlet var tbxComment: NSTextField!
-    @IBOutlet var slider: NSSlider!
-    
-    @IBOutlet var cbxSendMidi: NSButton!
-    @IBOutlet var cbxSendFader: NSButton!
-    @IBOutlet var cbxSendOsc: NSButton!
-    @IBOutlet var cbxListenOsc: NSButton!
-    @IBOutlet var cbxListenMidi: NSButton!
-    
-    @IBOutlet var table: NSTableView!
-    
-    struct controlline {
-        var cc: Int?
-        var value: Int?
-        var comment: String?
-        var url: String?
-    }
-
-    var data :[controlline] = []
-    
-    func start(){
-        midi.handler = self
-        table.delegate = self
-        table.dataSource = self
-        
-        let h = tbxOscTargetHost.stringValue
-        let p = Int(self.tbxOscTargetPort.intValue)
-        self.osc.setup(host:h, port:p)
+    func send(){
+        osc.send(prefix:tbxOscPrefix.stringValue, cc: Int(tbxCcControl.intValue), value: Int(tbxCcValue.intValue))
+        midi.send(cc: Int(tbxCcControl.intValue), value: Int(tbxCcValue.intValue))
     }
     
-    func sort(){
-        data.sort {
-            $0.cc! < $1.cc!
-        }
+    func send(cc:Int, value:Int){
+        osc.send(prefix:tbxOscPrefix.stringValue, cc: cc, value: value)
+        midi.send(cc: cc, value: value)
     }
 
+    // Table ===============================================================
     func numberOfRows(in tableView: NSTableView) -> Int {
             return data.count
-   }
+    }
     
     func tableViewSelectionDidChange(_ notification: Notification){
-       var  rowsel = table.selectedRow;
+        let  rowsel = table.selectedRow;
         tbxCcControl.intValue = Int32(data[rowsel].cc!)
         tbxCcValue.intValue = Int32(data[rowsel].value!)
         tbxComment.stringValue = data[rowsel].comment!
@@ -126,6 +148,11 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource, MidiHandler {
         }
     }
     
+    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+        return data.count
+    }
+    
+    // Slider Handler ================================================================================================
     @IBAction func slider(sender: AnyObject) {
         tbxCcValue.intValue = slider.intValue;
         var count = 0
@@ -143,30 +170,23 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource, MidiHandler {
         table.reloadData()
     }
     
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return data.count
-    }
-
-    // buttons
-    required init?(coder: NSCoder) {
-        super.init(coder:coder)
-        midi.setup()
+    @IBAction func sliderMod(sender: AnyObject) {
+        let val = sliderMod.intValue;
     }
     
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
+    @IBAction func sliderPitch(sender: AnyObject) {
+        let event = NSApplication.shared.currentEvent
+        let val = sliderPitch.intValue;
+        if event?.type == NSEvent.EventType.leftMouseUp {
+            let seconds = 0.1
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                self.sliderPitch.intValue = 8192
+            }
+            midi.send(cmd:Int(0xE0), cc: Int(val/256), value: Int(val % 256))
+        }
     }
     
-    func send(){
-        osc.send(prefix:tbxOscPrefix.stringValue, cc: Int(tbxCcControl.intValue), value: Int(tbxCcValue.intValue))
-        midi.send(cc: Int(tbxCcControl.intValue), value: Int(tbxCcValue.intValue))
-    }
-    
-    func send(cc:Int, value:Int){
-        osc.send(prefix:tbxOscPrefix.stringValue, cc: cc, value: value)
-        midi.send(cc: cc, value: value)
-    }
-    
+    // Button Handler ================================================================================================
     @IBAction func btnLoad(sender: NSButton) {
         print("btnLoad")
         let dialog = NSOpenPanel();
@@ -205,8 +225,7 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource, MidiHandler {
                     table.reloadData()
                    }
                 catch _ as NSError {
-           
-                   }
+                }
             }
         } else {
             // User clicked on "Cancel"
@@ -220,7 +239,7 @@ class UI: NSView, NSTableViewDelegate, NSTableViewDataSource, MidiHandler {
         msg += tbxAuthor.stringValue + " \n"
         msg += tbxTags.stringValue + " \n"
         msg += tbxURL.stringValue + " \n"
-        for line in data{
+        for line in data {
             let m = String(line.cc!) + ":" + String(line.value!) + ":" + line.comment!
             msg += m + " \n"
         }

@@ -1153,12 +1153,18 @@
                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Qi-6h-Abc">
                         <rect key="frame" x="18" y="17" width="19" height="472"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" alignment="left" maxValue="16384" doubleValue="8192" tickMarkPosition="right" sliderType="linear" id="Vmk-Mc-2qZ"/>
+                        <sliderCell key="cell" continuous="YES" alignment="left" maxValue="16384" doubleValue="8192" tickMarkPosition="right" sliderType="linear" id="Vmk-Mc-2qZ"/>
+                        <connections>
+                            <action selector="sliderPitchWithSender:" target="EiT-Mj-1SZ" id="gfE-tF-Zf7"/>
+                        </connections>
                     </slider>
                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Egf-d6-N0a">
                         <rect key="frame" x="89" y="14" width="19" height="472"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" alignment="left" maxValue="127" tickMarkPosition="right" sliderType="linear" id="ycr-z4-K8R"/>
+                        <sliderCell key="cell" continuous="YES" alignment="left" maxValue="127" tickMarkPosition="right" sliderType="linear" id="ycr-z4-K8R"/>
+                        <connections>
+                            <action selector="sliderModWithSender:" target="EiT-Mj-1SZ" id="ioV-Qk-SnD"/>
+                        </connections>
                     </slider>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KXc-6Q-Rs2">
                         <rect key="frame" x="916" y="757" width="83" height="18"/>
@@ -1238,6 +1244,8 @@
                     <outlet property="cbxSendMidi" destination="KXc-6Q-Rs2" id="BEu-5u-0VS"/>
                     <outlet property="cbxSendOsc" destination="b30-T4-WqY" id="olg-gX-Efd"/>
                     <outlet property="slider" destination="wkh-nr-kPu" id="7zk-Ms-BX7"/>
+                    <outlet property="sliderMod" destination="Egf-d6-N0a" id="W8P-Zn-m5Z"/>
+                    <outlet property="sliderPitch" destination="9Qi-6h-Abc" id="BeG-yB-Uta"/>
                     <outlet property="table" destination="2nT-k7-AiO" id="W1b-HQ-dJn"/>
                     <outlet property="tbxAuthor" destination="8ae-Ke-ZqT" id="xgN-oa-VEg"/>
                     <outlet property="tbxCcControl" destination="43q-Nd-OFk" id="EfN-es-7vI"/>

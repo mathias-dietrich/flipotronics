@@ -9,21 +9,15 @@ import Foundation
 import OSCKit
 import Network
 import NIO
+import Socket
 
 @available(macOS 10.14, *)
 class ClientConnection {
-
-   
     let  nwConnection: NWConnection
     let queue = DispatchQueue(label: "Client connection Q")
 
     init(nwConnection: NWConnection) {
         self.nwConnection = nwConnection
-    }
-    
-    func awakeFromNib (){
-        
-        
     }
 
     var didStopCallback: ((Error?) -> Void)? = nil
@@ -56,8 +50,10 @@ class ClientConnection {
             }
             if isComplete {
                 self.connectionDidEnd()
+                print("connection did end")
             } else if let error = error {
                 self.connectionDidFail(error: error)
+                print("connection error " + error.debugDescription)
             } else {
                 self.setupReceive()
             }
@@ -104,19 +100,38 @@ class OSC: OSCClientDelegate & OSCPacketDestination {
     var host: NWEndpoint.Host!
     var port: NWEndpoint.Port!
     var client : OSCClient!
+
+   // var clientUdp :UDPClient!
     
-    var clientUdp :UDPClient!
+    var socket : Socket!
     
     func setup(host:String, port :Int){
-        clientUdp = UDPClient(port:9000)
-        clientUdp.startListening()
+ 
+        do{
+       socket =  try Socket.create(family: .inet, type: .datagram, proto: .udp)
+            socket.readBufferSize = 32768
+            
+            try socket.listen(on: 9000)
+            try socket.acceptConnection()
+            var readData = Data(capacity: 32768)
+     
+            let bytesRead = try socket.read(into: &readData)
+            print(bytesRead)
+            print(bytesRead)
+            
+        }catch let myError {
+            print("UDP Error: \(myError)")
+        }
+       // clientUdp = UDPClient(port:9000)
+       // clientUdp.startListening()
         
-
+        
+        
         client = OSCClient()
         client.interface = "en0"
        // client.interface = "llw0";
         client.host = host
-        client.port = UInt16(port)
+        client.port = UInt16(port+1)
         client.useTCP = false
         client.delegate = self
         do {

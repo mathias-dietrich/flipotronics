@@ -168,8 +168,7 @@ class Midi {
         return capturedName
     }
 
-    
-    func send(cc:Int, value: Int){
+    func send(cmd: Int, cc:Int, value: Int){
         let destinationNames = midiDestinationNames()
 
         // check if we have any available MIDI destinations.
@@ -178,7 +177,7 @@ class Midi {
             var midiPacket:MIDIPacket = MIDIPacket()
             midiPacket.timeStamp = 0
             midiPacket.length = 3
-            midiPacket.data.0 = 176 // Note On event channel 1
+            midiPacket.data.0 = UInt8(cmd) // Note On event channel 1
             midiPacket.data.1 = UInt8(cc)
             midiPacket.data.2 = UInt8(value)
 
@@ -194,5 +193,9 @@ class Midi {
             MIDISend(outPort, dest, &packetList)
              */
         }
+    }
+    
+    func send(cc:Int, value: Int){
+        send(cmd:176, cc:cc, value: value)
     }
 }
